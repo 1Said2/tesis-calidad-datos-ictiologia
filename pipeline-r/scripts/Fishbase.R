@@ -1,5 +1,5 @@
 # ================================================================
-# CORRECCIÓN TAXONÓMICA - Colección Ictiológica MECN-DP INABIO
+# CORRECCIÓN TAXONÓMICA - Colección Ictiológica MECN-DP - INABIO
 #
 # Corrección de errores objetivos (rangos, ortografía, jerarquía).
 # No realiza reclasificaciones taxonómicas de especies.

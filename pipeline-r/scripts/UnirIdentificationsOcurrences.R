@@ -1,6 +1,6 @@
 # ================================================================
-# EXTRACCION DE identifications.csv AL CORE
-# Coleccion Ictiologica MECN-DP - INABIO
+# INTEGRACIÓN DE IDENTIFICATIONS.CSV AL CORE
+# Colección Ictiológica MECN-DP - INABIO
 #
 # Integración de identifications.csv: lectura exclusiva de atributos
 # faltantes en el core (sin alterar el pipeline de limpieza principal).
@@ -165,7 +165,7 @@ if (length(sin_destino)) {
 }
 stopifnot(length(sin_destino) == 0)
 # 23 + 45 = 68 sobre 63 nombres: hay cinco filas (4271, 4388, 4437, 4452, 4453)
-# que resuelven su redeterminacion Y ademas van al oficio por el cualificador.
+# que resuelven su redeterminación y además van al oficio por el cualificador.
 solo_prev <- setdiff(i_prev, which(!is.na(motivo)))
 ambos     <- intersect(i_prev, which(!is.na(motivo)))
 solo_ofi  <- setdiff(which(nombre_difiere & !is.na(motivo)), i_prev)

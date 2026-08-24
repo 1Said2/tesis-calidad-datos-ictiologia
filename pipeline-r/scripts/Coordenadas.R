@@ -1,5 +1,5 @@
 # ================================================================
-# LIMPIEZA DE COORDENADAS - Colección Ictiológica MECN-DP INABIO
+# LIMPIEZA DE COORDENADAS - Colección Ictiológica MECN-DP - INABIO
 
 # Funciones principales:
 # 1. Recuperación de coordenadas desde campo verbatim (DMS, UTM truncadas, erratas de signo).
