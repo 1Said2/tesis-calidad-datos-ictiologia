@@ -26,10 +26,11 @@ pipeline-r/cache_validacion_nombres.rds
 pipeline-r/datos/00_referencia/gadm/
 
 # ===================================
-# CSVs intermedios (generados por el pipeline, ~36 MB)
+# CSVs intermedios y reportes (generados por el pipeline)
 # Se reproducen ejecutando los scripts en orden
 # ===================================
 pipeline-r/datos/02_intermedios/
+pipeline-r/reportes_y_revisiones/
 
 # ===================================
 # DwCA generado por build_dwca_gbif.py (output, no fuente)
@@ -47,3 +48,4 @@ pipeline-r/datos/01_crudos/*_temp.*
 # ===================================
 Thumbs.db
 .DS_Store
+.Rproj.user
