@@ -213,7 +213,6 @@ Para La Concordia existe explicación histórica (cambió de provincia en 2007).
 **Preguntas.**
 1. ¿Pacto pertenece a Quito o a San Miguel de los Bancos? El registro que la asigna a San Miguel de los Bancos, ¿es un error o una zona limítrofe?
 2. ¿Confirman que Puerto Bolívar y Salinas son homónimos y no errores?
-(Nota: Taracoa y Tarapoa no son un conflicto de jerarquía: las 66 filas bajo Cuyabeno son Tarapoa —24 lo dicen en su propia locality— y el centroide está a 61 km del Taracoa de Orellana).
 
 ---
 
@@ -229,8 +228,8 @@ Para La Concordia existe explicación histórica (cambió de provincia en 2007).
 | `Yasuní`, `Intag`, `Añangu`, `Río Macarena`, `Timpoka`, `Playa Ancha`, `Indiyalla`, `Simbocal`, `Durango` | Localidades o áreas, no cantones | 1 a 8 cada uno |
 | `Parroquia Pacto` | Lleva el nivel escrito dentro del valor | 1 |
 | `Bahía de Caráquez` | Cabecera cantonal (de Sucre), no parroquia/cantón | 3 |
-| `Marchena`, `Fernandina` | Islas, no parroquias. Deberían ir en `island` | 2, 2 |
-| `ACUS Los Monos` | Área de conservación, no parroquia | 2 |
+| `Marchena`, `Fernandina` | Islas, no parroquias. Deberían ir en `island` (declaradas en `municipality`) | 2, 2 |
+| `ACUS Los Monos` | Área de conservación, no parroquia (declarada en `municipality`) | 2 |
 | `San Jacinto de Buena Fé` | Repite la tilde de Buena Fé | 1 |
 | `Orellana` | Nombre de provincia repetido en el nivel de cantón | 196 |
 
@@ -321,7 +320,7 @@ Además, `Distrito Torres Causana` lleva el nivel escrito dentro del valor, igua
 
 ### C7. Códigos de estación dentro de `locality`
 
-**El problema.** Hay 97 registros con códigos como `ICT-1`…`ICT-9`, `ICT-001`, `ICT-004`, `IC-01`, `WAM-306`…`WAM-359`, `CAMP 1` dentro de la localidad, mientras que `fieldNumber`, `eventID` y `recordNumber` están vacíos en las 6.427 filas. 
+**El problema.** Hay registros con códigos como `ICT-1`…`ICT-9`, `ICT-001`, `ICT-004`, `IC-01`, `WAM-306`…`WAM-359`, `CAMP 1`, `P.B.` (catálogos 530 y 531, escritos además con espaciado incoherente entre sí: `P.B. 1.2` y `P.B.2.2`), `ICT-06-GLI-OR`, `PC23` y `PC24`, y `18 M` (que es la localidad completa de 37 registros y no un fragmento) dentro de la localidad, mientras que `fieldNumber`, `eventID` y `recordNumber` están vacíos en las 6.427 filas. 
 
 **Preguntas.**
 1. ¿`ICT-1`, `ICT-01` e `ICT-001` son la misma estación?
@@ -346,7 +345,7 @@ Además, `Distrito Torres Causana` lleva el nivel escrito dentro del valor, igua
 - **Río Colimbo (3142–3143) vs Río Columbo (1653–1655):** Misma provincia, cantón y parroquia. Son 3 contra 2, sin mayoría clara.
 - **pozo primare (6, cat. 290–295) vs Pozo Pimare (5, cat. 326–329, 394, 407):** Mismo pozo, Bloque 31, PN Yasuní.
 - **Punta km 13+501 (cat. 5641) vs Punta km 13+500 (13 filas):** Todas en Chiruisla.
-- **Cinco topónimos irresolubles desde el archivo:** Río Mashpi Grande y Chicho (3394, 3397), Masphien (2403), laguna redondo cocha (2950–2952), Río átun playa cocha (3730–3732), Salinas.006 (583).
+- **Cinco topónimos irresolubles desde el archivo:** Río Mashpi Grande y Chicho (3394, 3397), Masphien (2403), laguna redondo cocha (2950–2952), Río átun playa cocha (3730–3732), Salinas.006 (583). La capitalización ya la resuelve el propio archivo: existen cuatro filas con Laguna Redondo Cocha correctamente escrita y tres con Sector Redondococha. La consulta se reduce a decidir si el topónimo va junto, separado o con guion.
 - **Siglas como localidad:** `Pod` (cat. 59) y `ECY` (5600, 5650), localidades de tres letras sin resolver.
 - **Catálogo 1555:** Declara `Río Aguarico … Pisorie` en Carchi / Tulcán / Tobar Donoso, pero eso está a más de 300 km del resto del lote Pisorie.
 - **Catálogo 310:** Localidad dice `2.5 m. Norte Río Nashiño`. ¿Son 2,5 m o 2,5 km?
@@ -444,7 +443,7 @@ Siguen abiertos solo los catálogos 4212/4213 (`3°55'64''S`) y el caso múltipl
 | Rango en lugar de punto | 4222–4227, 6 filas | `78.28°W / 01.27°N / 00.01°S` son tres valores: una longitud y **dos latitudes** |
 | Easting válido, northing fuera de rango | 3875–3879, 5 filas | Northing irrecuperable de forma automática |
 
-Aparte, el catálogo 4187 dice `01°40'45.55 / 71°59'53.448''`. La longitud 71° no existe en Ecuador, pero comparte la latitud hasta el centésimo de segundo con el 4201 (01°40'45.551'' / 91°59'53.448'', isla Darwin). Es la misma sustitución de dígito (7 por 9) que el catálogo 4195, confirmando que es 91°.
+El catálogo 4187 declara `01°40'45.55 / 71°54'53''`. La latitud coincide con la del 4201 (`01°40'45.551''`) hasta el centésimo de segundo, pero la longitud no comparte ni los minutos (54 frente a 59) ni los segundos (53 frente a 53.448). La hipótesis de sustitución de dígito se sostiene únicamente para el grado (71 frente a 91). El registro quedó clasificado como irrecuperable.
 
 **Preguntas.**
 1. Para 4033 y 4035: ¿confirman que el `17` y el `18` iniciales son la zona UTM? Si sí, esas dos se recuperan sin supuestos.
@@ -472,9 +471,9 @@ Aparte, el catálogo 4187 dice `01°40'45.55 / 71°59'53.448''`. La longitud 71�
 
 ---
 
-### D9. Cuatrocientos setenta y un registros con coordenada y sin datum declarado
+### D9. Cuatrocientos setenta registros con coordenada y sin datum declarado
 
-**El problema.** Declaré `WGS84` únicamente en las 1.013 filas donde la conversión UTM lo determina por definición. En el resto —coordenadas que solo se leyeron o a las que se corrigió el signo— el datum de origen es desconocido y **decidí no suponerlo**. GBIF lo marca como `GEODETIC_DATUM_ASSUMED_WGS84` en 471 filas.
+**El problema.** Declaré `WGS84` únicamente en las 1.013 filas donde la conversión UTM lo determina por definición. En el resto —coordenadas que solo se leyeron o a las que se corrigió el signo— el datum de origen es desconocido y **decidí no suponerlo**. GBIF lo marca como `GEODETIC_DATUM_ASSUMED_WGS84` en 470 filas. El validador de GBIF confirma esta cifra con la incidencia `GEODETIC_DATUM_ASSUMED_WGS84` = 471, que incluye un registro adicional del bloque transfronterizo.
 
 **Pregunta.** ¿Qué datum usaba la colección históricamente? Si fue PSAD56 en los registros antiguos, la diferencia con WGS84 puede llegar a varios cientos de metros y sí importa.
 
@@ -498,7 +497,7 @@ Aparte, el catálogo 4187 dice `01°40'45.55 / 71°59'53.448''`. La longitud 71�
 
 ### D12. Localidad "Varios Sitios" con falsa precisión
 
-**El problema.** Hay 7 filas con `locality = "Varios Sitios"` que, paradójicamente, declaran un punto único con una incertidumbre de apenas 100 metros. El propio texto ("varios sitios") contradice esa alta precisión de coordenada.
+**El problema.** Siete registros con `locality = "Varios Sitios"` declaran una incertidumbre de 100 m. Esa cifra no proviene del origen: es el piso tecnológico que el bloque 13b aplica a las colectas anteriores al año 2000. La precisión declarada en el origen de los siete es `decimal_6d`, que corresponde a 10 m. La pregunta al curador no es por qué declararon 100 m, sino qué radio real cubre un lote descrito como "Varios Sitios". Cuatro de los siete caen además fuera del polígono terrestre de Galápagos.
 
 **Pregunta.** ¿Qué coordenada se digitó allí? ¿Se incrementa el radio de incertidumbre para reflejar la realidad del lote?
 
@@ -563,6 +562,12 @@ En muchos registros aparecen concatenados con personas reales, por ejemplo `QCAZ
 | `I. Narankas` | `Israel Narankas` | — |
 | `J. Córdova` | ¿Jorge o José? | — |
 | `M. Sánchez` | ¿M. E. o M. G.? | — |
+| `N. Narankas` | (mayoritario de tres Narankas) | 264 |
+| `P. Chuim` | frente a `L. Chuim` | 22 |
+| `S. Paredes` | — | 3 |
+| `E. Grijalva` | — | 1 |
+| `D. Sánchez` | — | 2 |
+| `H. Casco` / `P. Casco` | — | 5 / 7 |
 
 **Preguntas.**
 1. ¿Puedo unificar cada par al nombre completo?
@@ -621,20 +626,21 @@ Las tres primeras suman 207 registros, no es un caso marginal.
 
 ## BLOQUE F — Taxonomía
 
-### F1. Ocho registros cuya familia pertenece a un orden distinto al del género
+### F1. Nueve registros repartidos en dos banderas cuya familia pertenece a un orden distinto al del género
 
 **El problema.** La familia declarada no solo es minoritaria dentro del género: pertenece a un orden completamente distinto. No son casos discutibles taxonómicamente.
 
-| catalogNumber | scientificName | Familia declarada | Familia que corresponde al género |
-|---|---|---|---|
-| 5322 | `Ilisha` | Cichlidae | Pristigasteridae |
-| 777 | `Sternarchorhynchus curvirostris` | Astroblepidae | Apteronotidae |
-| 1157 | `Peckoltia` | Hypopomidae | Loricariidae |
-| 3582 | `Sternopygus macrurus` | Callichthyidae | Sternopygidae |
-| 3650 | `Sternopygus macrurus` | Callichthyidae | Sternopygidae |
-| 4337 | `Anisotremus` | Rivulidae | Haemulidae |
-| 4185 | `Paranthias colonus` | Serrasalmidae | Serranidae |
-| 4186 | `Serranus psittacinus` | Serrasalmidae | Serranidae |
+| Catálogo | Nombre | Familia declarada | flag_family_orden_discrepante | flag_orden_minoritario_en_familia |
+|---|---|---|---|---|
+| 5322 | `Ilisha` | Cichlidae | Sí | Sí |
+| 777 | `Sternarchorhynchus curvirostris` | Astroblepidae | Sí | Sí |
+| 1157 | `Peckoltia` | Hypopomidae | Sí | Sí |
+| 3582 | `Sternopygus macrurus` | Callichthyidae | Sí | Sí |
+| 3650 | `Sternopygus macrurus` | Callichthyidae | Sí | Sí |
+| 4337 | `Anisotremus` | Rivulidae | Sí | Sí |
+| 4185 | `Paranthias colonus` | Serrasalmidae | No | Sí |
+| 4186 | `Serranus psittacinus` | Serrasalmidae | No | Sí |
+| 4201 | `Holacanthus passer` | Pomacentridae | No | Sí |
 
 **Pregunta.** ¿Corrijo la familia desde el backbone de FishBase, igual que hice con las familias vacías, o prefieren revisarlas?
 
@@ -660,11 +666,11 @@ Las tres primeras suman 207 registros, no es un caso marginal.
 
 ---
 
-### F3. Veintiún registros donde el nombre atomizado contradice el nombre completo
+### F3. Veintiséis registros donde el nombre atomizado contradice el nombre completo
 
 **El problema.** Darwin Core guarda el nombre dos veces: completo en `scientificName` y desglosado en `genus` + `specificEpithet`. En estas filas las dos versiones no dicen lo mismo. **No los corregí**: elegir cuál manda es una decisión taxonómica.
 
-**Siete donde discrepa el género** (marcadas con `flag_genus_no_coincide_con_nombre`):
+**Doce donde discrepa el género** (marcadas con `flag_genus_no_coincide_con_nombre`):
 
 | catalogNumber | `scientificName` | `genus` declarado |
 |---|---|---|
@@ -673,6 +679,11 @@ Las tres primeras suman 207 registros, no es un caso marginal.
 | 2008 | Astyanax villwocki | Tetragonopterus |
 | 2208, 2234, 2339 | Anablepsoides urophthalmus | Rivulus |
 | 2358 | Curimata vittata | Steindachnerina |
+| 1801 | Anablepsoides | Rivulus |
+| 2004 | Anablepsoides | Rivulus |
+| 1808 | Knodus | Bryconamericus |
+| 1823 | Jupiaba | Astyanax |
+| 1843 | Astyanax | Hemigrammus |
 
 **Doce donde discrepa el epíteto (y 3 en ambas)** (marcadas con `flag_epiteto_no_coincide_con_nombre`):
 
@@ -703,11 +714,10 @@ Varios pares son sinónimos conocidos (`Rivulus`/`Anablepsoides`), lo que sugier
 
 | Como aparece | catalogNumber | Observación |
 |---|---|---|
-| `Saxatilia lucius` | 5891 | Conviven las dos grafías en el mismo archivo |
-| `Saxatalia lucius` | 6045 | |
+| `Saxatilia lucius` | 5891 | Resuelto: Saxatalia → Saxatilia unificado por mayoría interna (1 fila) |
 | `Cynoponthicus coniceps` | 5177 | ¿`Cynoponticus`? |
 
-**Pregunta.** ¿Cuál es la grafía correcta de cada uno?
+**Pregunta.** Para el catálogo 5177: ¿Cuál es la grafía correcta?
 
 ---
 
@@ -743,7 +753,7 @@ Varios pares son sinónimos conocidos (`Rivulus`/`Anablepsoides`), lo que sugier
 
 ### F7. Cinco determinaciones con cualificador que no encajan en ningún rango
 
-**El problema.** Su `scientificName` lleva un cualificador de incertidumbre, así que no es ni un binomio limpio ni un nombre de género, y quedaron sin `taxonRank`.
+**El problema.** Su `scientificName` lleva un cualificador de incertidumbre, así que no es ni un binomio limpio ni un nombre de género, y quedaron sin `taxonRank`. Son cinco determinaciones con cualificador (5146, 6395, 6396, 4323, 4325). El campo `taxonRank` queda vacío en doce filas: estas cinco más las siete de la duda F5, que no tienen determinación alguna.
 
 | catalogNumber | `scientificName` |
 |---|---|
@@ -791,24 +801,11 @@ Algunos son sinonimias razonables (`Rivulus`/`Anablepsoides`); otros cruzan gén
 
 ---
 
-### F10. Ciento tres registros que el backbone de GBIF no reconoce con esa grafía
+### F10. Géneros no resueltos en el backbone
 
-**El problema.** El validador de GBIF marca 74 registros como `TAXON_MATCH_FUZZY` (empareja por aproximación, no exactamente) y 29 como `TAXON_MATCH_HIGHERRANK` (solo reconoce el género, no la especie). Son distintos de F4: allí el género es dudoso; aquí **el género es válido y lo que no encaja es el epíteto**, así que la validación con rfishbase no los detectó.
+**El problema.** Quince géneros no resuelven en FishBase y afectan a 64 registros. Cinco de ellos concentran 52: `Lipopterichthys` (16, Loricariidae), `Cochliodon` (13, Loricariidae), `Piabucina` (11, Lebiasinidae), `Peckoltichthys` (6, Loricariidae) y `Saxatilia` (6, Cichlidae). La consulta es si son sinónimos con combinación vigente distinta o géneros válidos ausentes del backbone.
 
-| Como aparece | catalogNumber (muestra) | Observación de GBIF |
-|---|---|---|
-| `Trichomycterus taczonowskii` | 1839796 | Emparejamiento aproximado. ¿`taczanowskii`? |
-| `Imparfinis longicauda` | 1839988 | Emparejamiento aproximado |
-| `Farlowella oxyrhyncha` | 1840158 | Emparejamiento aproximado |
-| `Sorubumichthys planiceps` | 1839912 | El género tampoco resolvió en FishBase |
-| `Cynoponthicus coniceps` | 1840250 | ¿`Cynoponticus`? Ya está en F4 |
-| `Eretmobrycon dahli` | 8 registros | GBIF solo reconoce hasta género |
-
-**Por qué importa.** Un emparejamiento aproximado significa que GBIF asigna el registro a un taxón que él eligió por similitud. Si la grafía correcta es otra, el registro queda publicado bajo un nombre que nadie decidió.
-
-**Preguntas.**
-1. ¿Pueden revisar las grafías de estos epítetos contra la literatura de referencia?
-2. Para `Eretmobrycon dahli` (8 registros): ¿es una combinación válida o corresponde a otro género?
+**Pregunta.** ¿Son sinónimos con combinación vigente distinta o géneros válidos ausentes del backbone?
 
 ---
 
@@ -896,11 +893,11 @@ Al comparar contra el core crudo, y tras descartar los falsos positivos por espa
 
 ## BLOQUE H — Lotes con anomalías acumuladas
 
-### H1. Cuarenta registros en una sola coordenada de Guayaquil
+### H1. Treinta y cinco registros en una sola coordenada de Guayaquil
 
-**El problema.** Cuarenta filas caen dentro de un metro del mismo punto (`-2.091522 / -79.392815`, Guayaquil): 36 declaran Sucumbíos, 2 Orellana, 1 Bolívar, 1 Esmeraldas. 38 de las 40 no tienen `locality` ni `county`. El rango de catálogo abarca del 5185 al 5658, por lo que no es un lote contiguo. La coordenada viene del origen: no la produjo ninguna conversión nuestra.
+**El problema.** Treinta y cinco filas caen dentro de un metro del mismo punto (`-2.091522 / -79.392815`, Guayaquil): la mayoría declara Sucumbíos. 33 de las 35 no tienen `locality` ni `county`. El rango de catálogo abarca del 5185 al 5658, por lo que no es un lote contiguo. La coordenada viene del origen: no la produjo ninguna conversión nuestra.
 
-Esto indica que no es un error de digitación individual, sino una coordenada inyectada masivamente.
+Esto indica que no es un error de digitación individual, sino una coordenada inyectada masivamente. Las 35 están clasificadas como discordantes y con `georeferenceVerificationStatus = requires verification`.
 
 **Pregunta.** ¿De dónde salió esa coordenada? ¿Es un punto por defecto del sistema o una referencia institucional mal asignada?
 
@@ -1070,6 +1067,55 @@ Quedan varios casos dudosos o problemáticos:
 
 **L9. Reglas autorreferenciales.** Tres reglas de plausibilidad usan la propia colección como población de referencia (altitud fuera del rango, único registro en la vertiente, año atípico para el colector). Con 1.218 coordenadas distintas para 6.177 registros, la colección no es una muestra representativa: se declara explícitamente para evitar malas interpretaciones de "outliers" como errores absolutos.
 
+
+
+---
+
+## BLOQUE N — Nuevas Dudas (Ronda 4)
+
+### Bloque toponímico — sin mayoría que decida
+
+| Caso | Cifras |
+|---|---|
+| Chobacocha / Chubacocha / Chabacocha | 1 fila cada una, mismo colector, mismo lote de Pastaza |
+| Chuyayaku (2) / Chayayaku (1) | mismo colector que Chobacocha |
+| Anacocha (1) frente a Pañacocha (62) | nuevo |
+| Piñacocha (1) frente a Pañacocha (62) | nuevo |
+| Sábalo (5) / Zábalo (14) / Río Sabalos (11) | los Sábalo son de Touzet 1985, los Zábalo de 2024 |
+| Río Pishira (14) / Río Pichira (8) | misma parroquia (Limoncocha) |
+| Indiyana (6) / Indillana (10) / Indiyalla (4) | tres campos distintos; el Indiyana es de 1993 y declara Napo, coherente con Indillana antes de crearse Orellana |
+| Río Tarapuy (75) / Río Tanipuy (1) | misma coordenada, misma fecha, mismo colector: es el mismo sitio |
+| Munchimkim (24) / Muchinkin Chico (24) | empate exacto |
+| Campamento T. Pisorie Setsacco (2) / Campamento 1 (21) | fechas consecutivas, misma coordenada; la T. no es un número |
+| Huiririma Cucha (7) / Huiririma Sacha (2) | misma coordenada; en kichwa cucha es laguna y sacha selva |
+| a Saguangal (8) / al Saguangal (1) | misma carretera |
+| Seis pares de género gramatical | Bermeja/Bermejo, Kenkim/Kenkin, Monsoya/Mansoya, Chague/Changue, Chumunde/Chumende, Malimpia/Malimpio |
+| Sufijo kichwa yacu / yacua / yawa | Morete Yacua(30)/Yacu(27), Carlos Yacua(22)/Yawa(22), Chulla chaqui Yacua(18)/Chullachaquiyawa(18). Es una convención, no cuatro erratas |
+| Cuatro grafías de Lagarto-cocha | Lagarto-cocha(26), Lagarto-Cocha(10), Lagarto Cocha(10), Lagartococha(4) |
+| Chorera (1) | ¿Chorrera? |
+| Distrito: Torres Causana dentro de locality | 7 celdas, mismo caso que Parroquia Pacto |
+
+### Bloque taxonómico
+
+| Caso | Cifras |
+|---|---|
+| Holotipo 3944 | Sus tres hermanas de Quebrada Sune (3762–3764), con el mismo verbatim numérico y la letra N explícita, resuelven en +0.091267; el 3944 sale en −0.091267. 20 km. ¿Se corrige la latitud de un tipo nomenclatural? |
+| Chaetostoma marginatum / marginatus | empate 1-1 |
+| Cochliodon oculeus (2) / oculus (4) | y Cochliodon no resuelve en el backbone |
+| 48 nombres con más de una familia | 575 filas, 74 en la minoría. Peores: Moenkhausia oligolepis 69/1, Hoplias malabaricus 59/1, Distocyclus conirostris 20/1, Pimelodella lateristriga con tres familias |
+| flag_family_discrepa_backbone: 1.729 filas (27 %) | Characidae frente a Acestrorhamphidae/Stevardiidae. ¿La dimensión Taxón usa la familia del origen o la del backbone? |
+| Cinco registros de Scorpaeniformes | 31, 2452, 4188, 5702, 5703: el origen es más específico que el clado informal de FishBase |
+| Cynoponthicus coniceps (5177) y Orthropristis chalceus (5367) | siguen sin resolver |
+
+### Bloque de lote y de determinaciones
+
+| Caso | Cifras |
+|---|---|
+| Catálogos 6228–6424 | 197 filas contiguas, Fernando Sánchez, Pastaza, 2024-25, con los ejes transpuestos en el 100 % del lote. ¿Defecto de la plantilla de carga del portal? |
+| Catálogos 3766 / 3767 | Intercambio recíproco entre Trichomycterus y Brachyhypopomus en identifications.csv |
+| Catálogo 3765 | identifications dice Microglanis, el core dice Xyliphius melanopterus. Arrastre de las tres filas anteriores |
+| Catálogos 2336 y 3775 | Misma fecha, dos nombres, discordancia real. Con el 3765 son tres casos que necesitan al curador, no dos |
+
 ---
 
 ## ANEXO — Verificado y descartado (no son errores)
@@ -1077,10 +1123,8 @@ Quedan varios casos dudosos o problemáticos:
 Para que quede constancia documental ante futuras revisiones, los siguientes casos fueron comprobados en el proceso de limpieza y confirmados como datos correctos:
 
 - **Pacayaku (Pastaza) vs Pacayacu (Sucumbíos):** Son dos parroquias reales y distintas.
-- **Piñacocha (Pastaza, Río Rutuno) vs Pañacocha (Sucumbíos):** Lugares distintos.
 - **Río Mindo vs Río Pindo:** Ambos existen.
-- **Mira vs Mera:** Son dos cantones distintos.
-- **Synodontidae vs Cynodontidae, Anodus vs Knodus, Conodon vs Cynodon:** Son pares taxonómicos reales, no erratas entre sí.
-- **Cantones homónimos de su provincia (387 filas):** Totalmente legítimos (ej. cantón Pastaza en provincia de Pastaza).
+- **Pares ortográficos verificados (Mira/Mera, Tarapoa/Taracoa, Anodus/Knodus, Conodon/Cynodon, Synodontidae/Cynodontidae):** El script los excluye por lista explícita por ser pares reales y no erratas (falsos positivos).
+- **Cantones homónimos de su provincia:** Verificado y cerrado: 583 filas en Pastaza, Orellana, Esmeraldas, Sucumbíos y Loja, todas legítimas.
 - **Las 33 celdas de `scientificNameAuthorship` con ".,":** Es formato ICZN correcto.
 - **Las 144 celdas de `recordedBy` de 200 caracteres exactos:** Es la expansión completa del nombre, no hay truncamiento de campo de base de datos.
