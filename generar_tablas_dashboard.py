@@ -15,9 +15,9 @@ DASH = os.path.join(ROOT, "dashboard")
 
 # ── 1. Cargar JSONs ──────────────────────────────────────────────────────────
 
-with open(os.path.join(ROOT, "gbif-validacion", "original.json"), encoding="utf-8") as f:
+with open(os.path.join(ROOT, "gbif-validacion", "gbif_validacion_dataset_original.json"), encoding="utf-8") as f:
     orig = json.load(f)
-with open(os.path.join(ROOT, "gbif-validacion", "limpio.json"), encoding="utf-8") as f:
+with open(os.path.join(ROOT, "gbif-validacion", "gbif_validacion_dataset_limpio.json"), encoding="utf-8") as f:
     limpio = json.load(f)
 
 
