@@ -1,0 +1,48 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Ecosistema Power BI - capas Aplicacion y Tecnologia" id="powerbi2">
+    <mxGraphModel dx="1200" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="540" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="usuarios" value="Investigadores / Biologos&#10;del INABIO" style="shape=mxgraph.archimate3.application;appType=actor;archiType=square;whiteSpace=wrap;html=1;fillColor=#FFFF99;strokeColor=#CCCC00;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="980" y="180" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="desktop" value="Power BI Desktop" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="service" value="Power BI Service" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="320" y="180" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mobile" value="Power BI Mobile" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="660" y="60" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="webapp" value="Navegador Web&#10;(consumo)" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="660" y="300" width="200" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- TECNOLOGIA -->
+        <mxCell id="datasource" value="Fuente de datos&#10;(Modelo dimensional /&#10;Symbiota BNDB)" style="shape=mxgraph.archimate3.application;appType=sysSw;archiType=square;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway" value="Power BI Gateway" style="shape=mxgraph.archimate3.application;appType=node;archiType=square;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="320" y="380" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="premium" value="Capacidad Premium" style="shape=mxgraph.archimate3.application;appType=serv;archiType=rounded;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="320" y="40" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" value="publica .pbix" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;dashed=1;dashPattern=1 4;" edge="1" parent="1" source="desktop" target="service"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" value="se apoya en" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="service" target="premium"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" value="conecta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;dashed=1;dashPattern=1 4;" edge="1" parent="1" source="datasource" target="gateway"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" value="sincroniza" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="gateway" target="service"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" value="consumido desde" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;" edge="1" parent="1" source="service" target="mobile"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" value="consumido desde" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;" edge="1" parent="1" source="service" target="webapp"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" value="asignado a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=none;startArrow=oval;startFill=1;" edge="1" parent="1" source="mobile" target="usuarios"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" value="asignado a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=none;startArrow=oval;startFill=1;" edge="1" parent="1" source="webapp" target="usuarios"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

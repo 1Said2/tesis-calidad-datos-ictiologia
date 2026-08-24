@@ -1,0 +1,49 @@
+# ===================================
+# R / RStudio
+# ===================================
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# ===================================
+# renv (solo viaja renv.lock)
+# ===================================
+pipeline-r/renv/library/
+pipeline-r/renv/staging/
+pipeline-r/renv/python/
+pipeline-r/renv/sandbox/
+
+# ===================================
+# Caches generados en runtime
+# ===================================
+pipeline-r/cache_geo/
+pipeline-r/cache_validacion_nombres.rds
+
+# ===================================
+# Datos de referencia descargados (GADM ~30 MB, se descargan al ejecutar Coordenadas.R)
+# ===================================
+pipeline-r/datos/00_referencia/gadm/
+
+# ===================================
+# CSVs intermedios (generados por el pipeline, ~36 MB)
+# Se reproducen ejecutando los scripts en orden
+# ===================================
+pipeline-r/datos/02_intermedios/
+
+# ===================================
+# DwCA generado por build_dwca_gbif.py (output, no fuente)
+# ===================================
+pipeline-r/datos/01_crudos/dataset_dwca.zip
+pipeline-r/datos/01_crudos/*_temp.*
+
+# ===================================
+# Power BI (binario, fuera del repo por ahora)
+# ===================================
+*.pbix
+
+# ===================================
+# OS
+# ===================================
+Thumbs.db
+.DS_Store

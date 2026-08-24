@@ -1,0 +1,4375 @@
+[
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Jonathan Valdiviezo | Daysi Gualavisi | Juan Luis Valdiviezo",
+          "JJonathan Valdiviezo | Daysi Gualavisi | Juan Luis Valdiviezo",
+          "JoJonathan Valdiviezo | Daysi Gualavisi | Juan Luis Valdiviezo",
+          "Jonathan Valdiviezo | Daysi Gualavisi | Juan Luis Valdiviezora"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Valdiviezo | Daysi Gualavisi | Juan Luis Valdiviezo"
+      }
+    ],
+    "description": "Editar celdas en masa en columna identifiedBy"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "2023-04-25"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      },
+      {
+        "from": [
+          "Eloiza, Torres"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Eloiza Torres"
+      },
+      {
+        "from": [
+          "Ibon, Tobes"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ibon Tobes"
+      },
+      {
+        "from": [
+          "Mauro, Nirchio"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Mauro Nirchio"
+      },
+      {
+        "from": [
+          "Omar, Sánchez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Omar Sánchez"
+      },
+      {
+        "from": [
+          "Patricio, Quizhpe"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Patricio Quizhpe"
+      },
+      {
+        "from": [
+          "Paul, Tufiño"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Paul Tufiño"
+      },
+      {
+        "from": [
+          "Windsor, Aguirre"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Windsor Aguirre"
+      },
+      {
+        "from": [
+          "Kevin Chugá | Santiago Nùéz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kevin Chugá | Santiago Núñez"
+      }
+    ],
+    "description": "Editar celdas en masa en columna identifiedBy"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Lida, Guarderas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Lida Guarderas"
+      },
+      {
+        "from": [
+          "Paúl, Tufiño",
+          "Paul, Tufiño"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Paúl Tufiño"
+      },
+      {
+        "from": [
+          "Fernando, Sánchez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fernando Sánchez"
+      },
+      {
+        "from": [
+          "Windsor, Aguirre"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Windsor Aguirre"
+      },
+      {
+        "from": [
+          "Fredy, Nugra"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fredy Nugra"
+      },
+      {
+        "from": [
+          "R., Crawford"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "R. Crawford"
+      },
+      {
+        "from": [
+          "Gabriela, Echevarría"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Gabriela Echevarría"
+      },
+      {
+        "from": [
+          "Max, Hidalgo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Max Hidalgo"
+      },
+      {
+        "from": [
+          "Evelin, Calvache"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Evelin Calvache"
+      },
+      {
+        "from": [
+          "Germán, Narankas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Germán Narankas"
+      },
+      {
+        "from": [
+          "Eloiza, Torres"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Eloiza Torres"
+      },
+      {
+        "from": [
+          "Armando, Ortega"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Armando Ortega"
+      },
+      {
+        "from": [
+          "P.A., Buckup"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "P.A. Buckup"
+      },
+      {
+        "from": [
+          "desconocido"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna recordedBy"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "stateProvince",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Santo Domingo de los Tsachilas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Santo Domingo de los Tsáchilas"
+      },
+      {
+        "from": [
+          "GUAYAS"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Guayas"
+      },
+      {
+        "from": [
+          "Sin Datos"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna stateProvince"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "county",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Tonchigue"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Tonchigüe"
+      },
+      {
+        "from": [
+          "desconocido"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna county"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "municipality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "desconocido",
+          "NA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna municipality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "basisOfRecord",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Espécimen preservado",
+          "Espécimen conservado",
+          "Especimen conservado",
+          "Espécimpen reservado"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "PreservedSpecimen"
+      }
+    ],
+    "description": "Editar celdas en masa en columna basisOfRecord"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "geodeticDatum",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "WGS85",
+          "WGS86",
+          "WGS87",
+          "WGS88",
+          "WGS89",
+          "WGS90",
+          "WGS91",
+          "WGS92"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "WGS84"
+      }
+    ],
+    "description": "Editar celdas en masa en columna geodeticDatum"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "A., Argueta"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "A. Argueta"
+      },
+      {
+        "from": [
+          "Andrea, Ubina; Dany Vera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Andrea Ubina | Dany Vera"
+      },
+      {
+        "from": [
+          "Armando, Ortega; Juan Francisco Rivadeneira | B. Negover | B. Amon"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Armando Ortega | Juan Francisco Rivadeneira | B. Negover | B. Amon"
+      },
+      {
+        "from": [
+          "Armando, Ortega; Juan Francisco Rivadeneira | N. Brimóz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Armando Ortega | Juan Francisco Rivadeneira | N. Brimóz"
+      },
+      {
+        "from": [
+          "B., Herrera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "B. Herrera"
+      },
+      {
+        "from": [
+          "Belen, Carrillo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Belen Carrillo"
+      },
+      {
+        "from": [
+          "C., Durán"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "C. Durán"
+      },
+      {
+        "from": [
+          "C., Vela"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "C. Vela"
+      },
+      {
+        "from": [
+          "Carolina Michelle Carrillo Moreno; Jefferson Salazar | María Patricia Alarcón"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Carolina Michelle Carrillo Moreno | Jefferson Salazar | María Patricia Alarcón"
+      },
+      {
+        "from": [
+          "Carolina Michelle Carrillo Moreno; María Patricia Alarcón"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Carolina Michelle Carrillo Moreno | María Patricia Alarcón"
+      },
+      {
+        "from": [
+          "Claudio, Oliveira; Manuel Calderón"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Claudio Oliveira | Manuel Calderón"
+      },
+      {
+        "from": [
+          "D., Bastidas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "D. Bastidas"
+      },
+      {
+        "from": [
+          "D., Tirira"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "D. Tirira"
+      },
+      {
+        "from": [
+          "Dahiana, Arcilla; Rodrigo Adrián Jaramillo López"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Dahiana Arcilla | Rodrigo Adrián Jaramillo López"
+      },
+      {
+        "from": [
+          "Dahiana, Arcilla; Rodrigo Adrián Jaramillo López | Juan Carlos Quevedo Machado | Guillermo Orti"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Dahiana Arcilla | Rodrigo Adrián Jaramillo López | Juan Carlos Quevedo Machado | Guillermo Orti"
+      },
+      {
+        "from": [
+          "Dahiana, Arcilla; Rodrigo Adrián Jaramillo López | Rosa Gabriela Beltrán López"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Dahiana Arcilla | Rodrigo Adrián Jaramillo López | Rosa Gabriela Beltrán López"
+      },
+      {
+        "from": [
+          "Daysi Gualavisi Cajas; Fernando Sánchez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Daysi Gualavisi Cajas | Fernando Sánchez"
+      },
+      {
+        "from": [
+          "Daysi Gualavisi Cajas; Fernando Sánchez | Jonathan Valdiviezo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Daysi Gualavisi Cajas | Fernando Sánchez | Jonathan Valdiviezo"
+      },
+      {
+        "from": [
+          "Daysi Gualavisi Cajas; Mauricio Herrera | Maria Alarcón"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Daysi Gualavisi Cajas | Mauricio Herrera | Maria Alarcón"
+      },
+      {
+        "from": [
+          "Dylan, Boily; Francis Boily"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Dylan Boily | Francis Boily"
+      },
+      {
+        "from": [
+          "E., Asanza"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "E. Asanza"
+      },
+      {
+        "from": [
+          "E., Calvache; Gabriela González"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "E. Calvache | Gabriela González"
+      },
+      {
+        "from": [
+          "E., Carrera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "E. Carrera"
+      },
+      {
+        "from": [
+          "Eduardo Pugachi; Jonathan Santiago Valdiviezo Rivera | Carolina Michelle Carrillo Moreno"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Eduardo Pugachi | Jonathan Santiago Valdiviezo Rivera | Carolina Michelle Carrillo Moreno"
+      },
+      {
+        "from": [
+          "Ernesto, Rodriguez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ernesto Rodriguez"
+      },
+      {
+        "from": [
+          "Esteban, Terneus"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Esteban Terneus"
+      },
+      {
+        "from": [
+          "Evelin, Calvache; Gabriela González"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Evelin Calvache | Gabriela González"
+      },
+      {
+        "from": [
+          "F., Man-Ging"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "F. Man-Ging"
+      },
+      {
+        "from": [
+          "F., Navas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "F. Navas"
+      },
+      {
+        "from": [
+          "Fermando, Romero"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fermando Romero"
+      },
+      {
+        "from": [
+          "Fernando Anaguano Yancha; G. Narankas | I. Narankas | J. Kajekai | L. Chuim | N. Palomino"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fernando Anaguano Yancha | G. Narankas | I. Narankas | J. Kajekai | L. Chuim | N. Palomino"
+      },
+      {
+        "from": [
+          "Fernando Anaguano Yancha; G. Rubio | N. Narankas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fernando Anaguano Yancha | G. Rubio | N. Narankas"
+      },
+      {
+        "from": [
+          "Fernando Anaguano Yancha; G. Rubio | N. Narankas | M. Ampam"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fernando Anaguano Yancha | G. Rubio | N. Narankas | M. Ampam"
+      },
+      {
+        "from": [
+          "Fernando Anaguano Yancha; N. Narankas | M. Ampak | I. Narankas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fernando Anaguano Yancha | N. Narankas | M. Ampak | I. Narankas"
+      },
+      {
+        "from": [
+          "Fernando Anaguano Yancha; N. Narankas | M. Ampam"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fernando Anaguano Yancha | N. Narankas | M. Ampam"
+      },
+      {
+        "from": [
+          "Fernando Anaguano Yancha; N. Narankas | M. Ampam | L. Chuim"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fernando Anaguano Yancha | N. Narankas | M. Ampam | L. Chuim"
+      },
+      {
+        "from": [
+          "Fernando Anaguano Yancha; N. Narankas | M. Ampam | L. Chuim | P. Chuim"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fernando Anaguano Yancha | N. Narankas | M. Ampam | L. Chuim | P. Chuim"
+      },
+      {
+        "from": [
+          "Fernando Anaguano Yancha; N. Narankas | M. Ampam | L. Chuim | P.Chuim"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Fernando Anaguano Yancha | N. Narankas | M. Ampam | L. Chuim | P. Chuim"
+      },
+      {
+        "from": [
+          "Francis, Boyle"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Francis Boyle"
+      },
+      {
+        "from": [
+          "Francisco, Provenzano"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Francisco Provenzano Rizzi"
+      },
+      {
+        "from": [
+          "Francisco, Provenzano; Jonathan Santiago Valdiviezo Rivera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Francisco Provenzano Rizzi | Jonathan Santiago Valdiviezo Rivera"
+      },
+      {
+        "from": [
+          "Francisco, Provenzano; Karla Barragan"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Francisco Provenzano Rizzi | Karla Barragan"
+      },
+      {
+        "from": [
+          "G., García"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "G. García"
+      },
+      {
+        "from": [
+          "Gabriela González; Verónica Román | Kelly Swing"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kelly Swing | Verónica Román | Gabriela González"
+      },
+      {
+        "from": [
+          "Gabriela, Echevarría; Fernando Sánchez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Gabriela Echevarría | Fernando Sánchez"
+      },
+      {
+        "from": [
+          "Gabriela, Echevarría; Fernando Sánchez | Daysi Gualavisi"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Gabriela Echevarría | Fernando Sánchez | Daysi Gualavisi"
+      },
+      {
+        "from": [
+          "Germán, Narankas; Miguel Ampa | Israel Narankas | Dani Tunki | Liseth Chuim"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Germán Narankas | Miguel Ampa | Israel Narankas | Dani Tunki | Liseth Chuim"
+      },
+      {
+        "from": [
+          "Ibon, Tobes"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ibon Tobes"
+      },
+      {
+        "from": [
+          "J., Espinoza"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "J. Espinoza"
+      },
+      {
+        "from": [
+          "J., Loor"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "J. Loor"
+      },
+      {
+        "from": [
+          "J., M. Torres"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "J. M. Torres"
+      },
+      {
+        "from": [
+          "J., M. Touzet"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "J. M. Touzet"
+      },
+      {
+        "from": [
+          "J., Matheus"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "J. Matheus"
+      },
+      {
+        "from": [
+          "J., P. Reyes"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "J. P. Reyes"
+      },
+      {
+        "from": [
+          "J., Ulloa"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "J. Ulloa"
+      },
+      {
+        "from": [
+          "J., Yepez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "J. Yepez"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Andres Cocha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Andres Cocha"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Carolina Michelle Carrillo Moreno"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Carolina Michelle Carrillo Moreno"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Carolina Michelle Carrillo Moreno | Diógenes Cerda"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Carolina Michelle Carrillo Moreno | Diógenes Cerda"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Cecilia Puertas Donoso | Mauricio Herrera Madrid"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Cecilia Puertas Donoso | Mauricio Herrera Madrid"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Dany Vera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Dany Vera"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Daysi Carina Gualavisi Cajas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Daysi Carina Gualavisi Cajas"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Ernesto Rodríguez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Ernesto Rodríguez"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Esteban Rivera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Esteban Rivera"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Hernando Manuel Roman Jimenez | Juan Luis Valdiviezo Rivera | Santiago Vega"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Hernando Manuel Roman Jimenez | Juan Luis Valdiviezo Rivera | Santiago Vega"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Hernando Manuel Roman Jimenez | Martha Buenaño Carriel"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Hernando Manuel Roman Jimenez | Martha Buenaño Carriel"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Hernando Manuel Roman Jimenez | Mauricio Herrera Madrid"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Hernando Manuel Roman Jimenez | Mauricio Herrera Madrid"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Hernando Manuel Roman Jiménez | Santiago Villamarin Cortéz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Hernando Manuel Roman Jiménez | Santiago Villamarin Cortéz"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Juan Luis Valdiviezo Rivera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Juan Luis Valdiviezo Rivera"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Leoncio Ajón Grefa | Carolina Michelle Carrillo Moreno"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Leoncio Ajón Grefa | Carolina Michelle Carrillo Moreno"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Mauricio Gabriel Herrera Madrid | Daysi Carina Gualavisi Cajas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Mauricio Gabriel Herrera Madrid | Daysi Carina Gualavisi Cajas"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Mauricio Herrera Madrid | Daysi Gualavisi Cajas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Mauricio Herrera Madrid | Daysi Gualavisi Cajas"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Pablo Arguello | Daysi Gualavisi | Evelyn Calvache | Paul Regalado | Juan Valdiviezo | Reinaldo Gualinga | Martin Cuji | Willian Gualinga"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Pablo Arguello | Daysi Gualavisi | Evelyn Calvache | Paul Regalado | Juan Valdiviezo | Reinaldo Gualinga | Martin Cuji | Willian Gualinga"
+      },
+      {
+        "from": [
+          "Jonathan Santiago Valdiviezo Rivera; Santiago Villamarin Cortéz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Santiago Villamarin Cortéz"
+      },
+      {
+        "from": [
+          "Jorge Brito; Mauricio Gabriel Herrera Madrid | Jonathan Santiago Valdiviezo Rivera | Carolina Michelle Carrillo Moreno"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jorge Brito | Mauricio Gabriel Herrera Madrid | Jonathan Santiago Valdiviezo Rivera | Carolina Michelle Carrillo Moreno"
+      },
+      {
+        "from": [
+          "Jorge, Brito"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jorge Brito"
+      },
+      {
+        "from": [
+          "Jorge, Brito; German Tonecoto"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jorge Brito | German Tonecoto"
+      },
+      {
+        "from": [
+          "Jorge, Brito; Mario Yánez Muñoz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jorge Brito | Mario Yánez Muñoz"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; A. Chiriboga"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | A. Chiriboga"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; Armando Ortega"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | Armando Ortega"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; Francisco Villa | Armando Ortega"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | Francisco Villa | Armando Ortega"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; H. Papa"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | H. Papa"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; Hernando Manuel Roman Jiménez | Santiago Villamarin Cortéz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | Hernando Manuel Roman Jiménez | Santiago Villamarin Cortéz"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; J. Vasquez | S. Cáceres"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | J. Vasquez | S. Cáceres"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; Juan Francisco Rivadeneira | A. Chiriboga"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | Juan Francisco Rivadeneira | A. Chiriboga"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; M. Narvaéz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | M. Narvaéz"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; Mauricio Herrera Madrid"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | Mauricio Herrera Madrid"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; Mauricio Herrera Madrid | M. Narvaéz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | Mauricio Herrera Madrid | M. Narvaéz"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; Mauricio Herrera Madrid | Santiago Villamarin Cortéz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | Mauricio Herrera Madrid | Santiago Villamarin Cortéz"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; Paúl Meza-Ramos | Santiago Villamarin Cortéz | Hernando Manuel Roman Jiménez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | Paúl Meza-Ramos | Santiago Villamarin Cortéz | Hernando Manuel Roman Jiménez"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; R. Morejon | M. Bustamante | B. Ríos"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | R. Morejon | M. Bustamante | B. Ríos"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; R. Ruiz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | R. Ruiz"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; R. Ruiz | Geovanni"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | R. Ruiz | Geovanni"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; R. Ruiz | J. Críollo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | R. Ruiz | J. Críollo"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; S. Cáceres"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | S. Cáceres"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; S. Cáceres | J. Muyulena | J. Napa | S. Valenzuela"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | S. Cáceres | J. Muyulena | J. Napa | S. Valenzuela"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; S. Cáceres | Mauricio Herrera Madrid"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | S. Cáceres | Mauricio Herrera Madrid"
+      },
+      {
+        "from": [
+          "Juan Francisco Rivadeneira; Santiago Villamarin Cortéz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | Santiago Villamarin Cortéz"
+      },
+      {
+        "from": [
+          "K., Swing; G. Collier | Juan Francisco Rivadeneira"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "K. Swing | G. Collier | Juan Francisco Rivadeneira"
+      },
+      {
+        "from": [
+          "K., Swing; Juan Francisco Rivadeneira | A. Chiriboga"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "K. Swing | Juan Francisco Rivadeneira | A. Chiriboga"
+      },
+      {
+        "from": [
+          "Kelly Swing; Verónica Román | Gabriela González"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kelly Swing | Verónica Román | Gabriela González"
+      },
+      {
+        "from": [
+          "Kevin, Chugá; Santiago Núñez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Kevin Chugá | Santiago Núñez"
+      },
+      {
+        "from": [
+          "Klever, Chavez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Klever Chavez"
+      },
+      {
+        "from": [
+          "M.O; T.N | A.E"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "M.O | T.N | A.E"
+      },
+      {
+        "from": [
+          "MO, TN, AE"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "MO | TN | AE"
+      },
+      {
+        "from": [
+          "MO; T.N | A.E"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "MO | T.N | A.E"
+      },
+      {
+        "from": [
+          "Margarita Yareli López; Omar Domínguez Domínguez | Francisco Martínez Servín"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Margarita Yareli López | Omar Domínguez Domínguez | Francisco Martínez Servín"
+      },
+      {
+        "from": [
+          "Margarita Yareli López; Omar Domínguez Domínguez | Francisco Martínez Servín | R.A.P."
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Margarita Yareli López | Omar Domínguez Domínguez | Francisco Martínez Servín | R.A.P."
+      },
+      {
+        "from": [
+          "Margarita Yareli López; Omar Domínguez Domínguez | Victor Julio Piñeros Jiménez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Margarita Yareli López | Omar Domínguez Domínguez | Victor Julio Piñeros Jiménez"
+      },
+      {
+        "from": [
+          "Margarita Yareli López; Omar Domínguez | Francisco Martínez Servín | E.P."
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Margarita Yareli López | Omar Domínguez | Francisco Martínez Servín | E.P."
+      },
+      {
+        "from": [
+          "Mauricio Gabriel Herrera Madrid; Jorge Brito"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Mauricio Gabriel Herrera Madrid | Jorge Brito"
+      },
+      {
+        "from": [
+          "Mauro, Nirchio"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Mauro Nirchio"
+      },
+      {
+        "from": [
+          "Max, Hidalgo; Juan Francisco Rivadeneira"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Max Hidalgo | Juan Francisco Rivadeneira"
+      },
+      {
+        "from": [
+          "N., Bonifaz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "N. Bonifaz"
+      },
+      {
+        "from": [
+          "N., Gallo; Armando Ortega | Fernando Villa"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "N. Gallo | Armando Ortega | Fernando Villa"
+      },
+      {
+        "from": [
+          "Omar, Sánchez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Omar Sánchez"
+      },
+      {
+        "from": [
+          "P.A., Buckup; J. Maldonado- Ocampo | Juan Francisco Rivadeneira | Antonio Torres"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "P.A. Buckup | J. Maldonado- Ocampo | Juan Francisco Rivadeneira | Antonio Torres"
+      },
+      {
+        "from": [
+          "Pablo, Arguello"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Pablo Arguello"
+      },
+      {
+        "from": [
+          "Pablo, Arguello; Evelin Calvache"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Pablo Arguello | Evelin Calvache"
+      },
+      {
+        "from": [
+          "Patricio, Quizhpe"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Patricio Quizhpe"
+      },
+      {
+        "from": [
+          "Pedro Jiménez Prado; Mario Yánez Muñoz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Pedro Jiménez Prado | Mario Yánez Muñoz"
+      },
+      {
+        "from": [
+          "QCAZ; A. Galarza"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | A. Galarza"
+      },
+      {
+        "from": [
+          "QCAZ; A. Galarza | Consuelo Hernandez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | A. Galarza | Consuelo Hernandez"
+      },
+      {
+        "from": [
+          "QCAZ; C. Puertas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | C. Puertas"
+      },
+      {
+        "from": [
+          "QCAZ; C. Vasquez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | C. Vasquez"
+      },
+      {
+        "from": [
+          "QCAZ; Catalina Molina"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Catalina Molina"
+      },
+      {
+        "from": [
+          "QCAZ; Catalina Molina | Franklin Mano"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Catalina Molina | Franklin Mano"
+      },
+      {
+        "from": [
+          "QCAZ; Consuelo Hernandez | S. Paredes"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Consuelo Hernandez | S. Paredes"
+      },
+      {
+        "from": [
+          "QCAZ; D. Sánchez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | D. Sánchez"
+      },
+      {
+        "from": [
+          "QCAZ; E. Grijalva"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | E. Grijalva"
+      },
+      {
+        "from": [
+          "QCAZ; Edwin Carrilo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Edwin Carrilo"
+      },
+      {
+        "from": [
+          "QCAZ; F. Ayala | M. Wilkinson | D Gower"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | F. Ayala | M. Wilkinson | D Gower"
+      },
+      {
+        "from": [
+          "QCAZ; F. Muller"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | F. Muller"
+      },
+      {
+        "from": [
+          "QCAZ; F. Ulloa | A. Córdova | S. Peñaherrera | A. Guiterez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | F. Ulloa | A. Córdova | S. Peñaherrera | A. Guiterez"
+      },
+      {
+        "from": [
+          "QCAZ; Fausto Ulloa"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Fausto Ulloa"
+      },
+      {
+        "from": [
+          "QCAZ; Fausto Ulloa | Sara Gutierrez | M. Peñaherera | Agusto Cordova"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Fausto Ulloa | Sara Gutierrez | M. Peñaherera | Agusto Cordova"
+      },
+      {
+        "from": [
+          "QCAZ; Franklin Pasquel"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Franklin Pasquel"
+      },
+      {
+        "from": [
+          "QCAZ; G. Mosquera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | G. Mosquera"
+      },
+      {
+        "from": [
+          "QCAZ; J. Córdova"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | J. Córdova"
+      },
+      {
+        "from": [
+          "QCAZ; J. Puentes"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | J. Puentes"
+      },
+      {
+        "from": [
+          "QCAZ; Jannet Gomez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Jannet Gomez"
+      },
+      {
+        "from": [
+          "QCAZ; Jorge Campaña"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Jorge Campaña"
+      },
+      {
+        "from": [
+          "QCAZ; Jorge Campaña | M. Ponce"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Jorge Campaña | M. Ponce"
+      },
+      {
+        "from": [
+          "QCAZ; Jorge Campaña | S. Paredes"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Jorge Campaña | S. Paredes"
+      },
+      {
+        "from": [
+          "QCAZ; Jorge Córdova"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Jorge Córdova"
+      },
+      {
+        "from": [
+          "QCAZ; José Córdova"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | José Córdova"
+      },
+      {
+        "from": [
+          "QCAZ; L. Coloma | R. Ramirez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | L. Coloma | R. Ramirez"
+      },
+      {
+        "from": [
+          "QCAZ; Luis Coloma | Jenny Naranjo | Raúl Ramirez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Luis Coloma | Jenny Naranjo | Raúl Ramirez"
+      },
+      {
+        "from": [
+          "QCAZ; M. Cardenas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | M. Cardenas"
+      },
+      {
+        "from": [
+          "QCAZ; M. Gaybor"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | M. Gaybor"
+      },
+      {
+        "from": [
+          "QCAZ; M. Grijalva | José Córdova"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | M. Grijalva | José Córdova"
+      },
+      {
+        "from": [
+          "QCAZ; M. H. López"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | M. H. López"
+      },
+      {
+        "from": [
+          "QCAZ; M. Larrega"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | M. Larrega"
+      },
+      {
+        "from": [
+          "QCAZ; M. Sánchez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | M. Sánchez"
+      },
+      {
+        "from": [
+          "QCAZ; M.E. Sanchez | Rafael Narváez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | M.E. Sanchez | Rafael Narváez"
+      },
+      {
+        "from": [
+          "QCAZ; M.E. Sánchez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | M.E. Sánchez"
+      },
+      {
+        "from": [
+          "QCAZ; M.G. Sánchez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | M.G. Sánchez"
+      },
+      {
+        "from": [
+          "QCAZ; Ma. Serena | Rosa Manosalva | Sara Gutierrez | Fausto Ulloa"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Ma. Serena | Rosa Manosalva | Sara Gutierrez | Fausto Ulloa"
+      },
+      {
+        "from": [
+          "QCAZ; Margarita Gaybor"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Margarita Gaybor"
+      },
+      {
+        "from": [
+          "QCAZ; Mario Grijalba"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Mario Grijalba"
+      },
+      {
+        "from": [
+          "QCAZ; N. Montalvo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | N. Montalvo"
+      },
+      {
+        "from": [
+          "QCAZ; N. Montalvo | Carmen Ortega"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | N. Montalvo | Carmen Ortega"
+      },
+      {
+        "from": [
+          "QCAZ; Nancy Troya"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Nancy Troya"
+      },
+      {
+        "from": [
+          "QCAZ; P. Paredes"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | P. Paredes"
+      },
+      {
+        "from": [
+          "QCAZ; P. Yánez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | P. Yánez"
+      },
+      {
+        "from": [
+          "QCAZ; Paola Leone"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Paola Leone"
+      },
+      {
+        "from": [
+          "QCAZ; Patricia Ojeda"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Patricia Ojeda"
+      },
+      {
+        "from": [
+          "QCAZ; Patricia Ojeda | Paola Leone"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Patricia Ojeda | Paola Leone"
+      },
+      {
+        "from": [
+          "QCAZ; Patricia Paredes"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Patricia Paredes"
+      },
+      {
+        "from": [
+          "QCAZ; Paúl Ramirez | Jenny Naranjo | Luis Coloma"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Paúl Ramirez | Jenny Naranjo | Luis Coloma"
+      },
+      {
+        "from": [
+          "QCAZ; R. Boada"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | R. Boada"
+      },
+      {
+        "from": [
+          "QCAZ; R. Boada | Agusta Córdova"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | R. Boada | Agusta Córdova"
+      },
+      {
+        "from": [
+          "QCAZ; Rafael Narvaez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Rafael Narvaez"
+      },
+      {
+        "from": [
+          "QCAZ; Raúl ramirez | Jenny Naranjo | Luis coloma"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Luis Coloma | Jenny Naranjo | Raúl Ramirez"
+      },
+      {
+        "from": [
+          "QCAZ; Rodríguez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Rodríguez"
+      },
+      {
+        "from": [
+          "QCAZ; Rossana Manosalva"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Rossana Manosalva"
+      },
+      {
+        "from": [
+          "QCAZ; Ruth Boada"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Ruth Boada"
+      },
+      {
+        "from": [
+          "QCAZ; Ruth Boada | M. A. Galarza"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Ruth Boada | M. A. Galarza"
+      },
+      {
+        "from": [
+          "QCAZ; S. Abril"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | S. Abril"
+      },
+      {
+        "from": [
+          "QCAZ; S. Cazar"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | S. Cazar"
+      },
+      {
+        "from": [
+          "QCAZ; S. Paredes"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | S. Paredes"
+      },
+      {
+        "from": [
+          "QCAZ; S. Vinueza"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | S. Vinueza"
+      },
+      {
+        "from": [
+          "QCAZ; Sara Abril"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Sara Abril"
+      },
+      {
+        "from": [
+          "QCAZ; Yarlnyn Jaramillo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "QCAZ | Yarlnyn Jaramillo"
+      },
+      {
+        "from": [
+          "R., Madera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "R. Madera"
+      },
+      {
+        "from": [
+          "R., Troquet"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "R. Troquet"
+      },
+      {
+        "from": [
+          "Raquel, Betancur; Edison Chancusig"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Raquel Betancur | Edison Chancusig"
+      },
+      {
+        "from": [
+          "S., Cáceres; H. Casco | P. Casco"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "S. Cáceres | H. Casco | P. Casco"
+      },
+      {
+        "from": [
+          "S., Cáceres; W. Cisneros | P. Casco"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "S. Cáceres | W. Cisneros | P. Casco"
+      },
+      {
+        "from": [
+          "S., Valarezo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "S. Valarezo"
+      },
+      {
+        "from": [
+          "S., Vega"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "S. Vega"
+      },
+      {
+        "from": [
+          "Santiago, Recalde"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Santiago Recalde"
+      },
+      {
+        "from": [
+          "Veronica Roman Robles; Jonathan Santiago Valdiviezo Rivera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Veronica Roman Robles | Jonathan Santiago Valdiviezo Rivera"
+      },
+      {
+        "from": [
+          "Veronica Roman Robles; Martha Buenaño Carriel | Kelly Swin"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Veronica Roman Robles | Martha Buenaño Carriel | Kelly Swin"
+      },
+      {
+        "from": [
+          "W., Carvajal"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "W. Carvajal"
+      }
+    ],
+    "description": "Editar celdas en masa en columna recordedBy"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Carolina Michelle Carrillo Moreno |Jonathan Santiago Valdiviezo Rivera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Jonathan Santiago Valdiviezo Rivera | Carolina Michelle Carrillo Moreno"
+      },
+      {
+        "from": [
+          "Francisco, Provenzano"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Francisco Provenzano Rizzi"
+      }
+    ],
+    "description": "Editar celdas en masa en columna identifiedBy"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "dateIdentified",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "sin datos"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna dateIdentified"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "verbatimEventDate",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "desconocido"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna verbatimEventDate"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "county",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "NA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna county"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "NA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "NA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna locationRemarks"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "establishmentMeans",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Desconocido"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "desconocido"
+      },
+      {
+        "from": [
+          "Nativo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "nativo"
+      }
+    ],
+    "description": "Editar celdas en masa en columna establishmentMeans"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "sex",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "indeterminado"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Indeterminado"
+      }
+    ],
+    "description": "Editar celdas en masa en columna sex"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "lifeStage",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "desconocido"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      },
+      {
+        "from": [
+          "Indeterminado"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna lifeStage"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "reproductiveCondition",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "desconocido"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      },
+      {
+        "from": [
+          "Desconocido"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna reproductiveCondition"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "scientificName",
+    "expression": "grel:value.replace(/\\u00A0/, ' ').replace(/\\s+/, ' ').trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna scientificName usando la expresión grel:value.replace(/\\u00A0/, ' ').replace(/\\s+/, ' ').trim()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "scientificNameAuthorship",
+    "expression": "grel:value.replace(/\\u00A0/, ' ').replace(/\\s+/, ' ').trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna scientificNameAuthorship usando la expresión grel:value.replace(/\\u00A0/, ' ').replace(/\\s+/, ' ').trim()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value.replace(/\\u00C3\\u00AD/, 'í')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:value.replace(/\\u00C3\\u00AD/, 'í')"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "county",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "La concordia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "La Concordia"
+      },
+      {
+        "from": [
+          "Playa ancha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Playa Ancha"
+      },
+      {
+        "from": [
+          "San Miguel de los Bancos"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "San Miguel de Los Bancos"
+      }
+    ],
+    "description": "Editar celdas en masa en columna county"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "municipality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Puerto Bolivar"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Puerto Bolívar"
+      },
+      {
+        "from": [
+          "Sua"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Súa"
+      },
+      {
+        "from": [
+          "Tonchigue"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Tonchigüe"
+      },
+      {
+        "from": [
+          "Yasuni"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Yasuní"
+      }
+    ],
+    "description": "Editar celdas en masa en columna municipality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Rio Gualtuyaku"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Gualtuyaku"
+      },
+      {
+        "from": [
+          "Sabalo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Sábalo"
+      },
+      {
+        "from": [
+          "Río playayacu"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Playayacu"
+      },
+      {
+        "from": [
+          "Aguarico. las chozas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Aguarico. Las Chozas"
+      },
+      {
+        "from": [
+          "Rio Puyo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Puyo"
+      },
+      {
+        "from": [
+          "Aguas negras"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Aguas Negras"
+      },
+      {
+        "from": [
+          "Tonchigue"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Tonchigüe"
+      },
+      {
+        "from": [
+          "Sua"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Súa"
+      },
+      {
+        "from": [
+          "Río chicta"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Chicta"
+      },
+      {
+        "from": [
+          "Blq: 31 NO. Pimare 3 Parque Nacional Yasuni"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Blq: 31 NO. Pimare 3 Parque Nacional Yasuní"
+      },
+      {
+        "from": [
+          "Quebrada San pablo de Aguarico"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Quebrada San Pablo de Aguarico"
+      },
+      {
+        "from": [
+          "Rio Verde"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Verde"
+      },
+      {
+        "from": [
+          "Sur de La sofía"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Sur de La Sofía"
+      },
+      {
+        "from": [
+          "Río la Playa"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río La Playa"
+      },
+      {
+        "from": [
+          "Río sin nombre"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Sin Nombre"
+      },
+      {
+        "from": [
+          "laguna de Limoncocha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Laguna de Limoncocha"
+      },
+      {
+        "from": [
+          "Río santa rosa",
+          "Rio Santa Rosa"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Santa Rosa"
+      },
+      {
+        "from": [
+          "Parque Nacional Yasuni Bloque 16"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Parque Nacional Yasuní Bloque 16"
+      },
+      {
+        "from": [
+          "Rio minas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Minas"
+      },
+      {
+        "from": [
+          "Río cune"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Cune"
+      },
+      {
+        "from": [
+          "Rio Negro",
+          "Río negro"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Negro"
+      },
+      {
+        "from": [
+          "Rio curaray"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Rio Curaray"
+      },
+      {
+        "from": [
+          "Bariza jita"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Bariza Jita"
+      },
+      {
+        "from": [
+          "Chino cocha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Chino Cocha"
+      },
+      {
+        "from": [
+          "Rio Santa Rosa ( Sabayán)"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Santa Rosa ( Sabayán)"
+      },
+      {
+        "from": [
+          "Río el Placer"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río El Placer"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "family",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "characidae"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Characidae"
+      },
+      {
+        "from": [
+          "trichomycteridae"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Trichomycteridae"
+      }
+    ],
+    "description": "Editar celdas en masa en columna family"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "preparations",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "ejemplar completo en alcohol"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ejemplar completo en alcohol"
+      }
+    ],
+    "description": "Editar celdas en masa en columna preparations"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:value.replace('Kelly Swingg', 'Kelly Swing').replace('Mauricio Herrera Madrid', 'Mauricio Gabriel Herrera Madrid').replace(/Mauricio Herrera(?! (Gabriel|Madrid))/, 'Mauricio Gabriel Herrera Madrid').replace(/Juan Luis Valdiviezo(?! Rivera)/, 'Juan Luis Valdiviezo Rivera').replace(/Juan Valdiviezo(?! Luis)/, 'Juan Luis Valdiviezo Rivera').replace('Daysi Gualavisi Cajas', 'Daysi Carina Gualavisi Cajas').replace(/Daysi Gualavisi(?! (Cajas|Carina))/, 'Daysi Carina Gualavisi Cajas').replace(/Jonathan Valdiviezo(?! Santiago)/, 'Jonathan Santiago Valdiviezo Rivera').replace(/Fernando Anaguano(?! Yancha)/, 'Fernando Anaguano Yancha').replace(/Maria Alarcón(?! Patricia)/, 'María Patricia Alarcón').replace('Veronica Roman Robles', 'Verónica Román Robles').replace(/Verónica Román(?! Robles)/, 'Verónica Román Robles').replace('Evelin Calvache', 'Evelyn Calvache').replace(/Kelly Swin(?!g)/, 'Kelly Swing').replace('Paul Tufiño', 'Paúl Tufiño').replace('Gabriela Echevarria', 'Gabriela Echevarría').replace('Hernando Manuel Roman Jimenez', 'Hernando Manuel Roman Jiménez').replace('Ernesto Rodriguez', 'Ernesto Rodríguez').replace('M.E. Sanchez', 'M.E. Sánchez').replace('Rafael Narvaez', 'Rafael Narváez').replace('Rodriguez', 'Rodríguez')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna recordedBy usando la expresión grel:value.replace('Kelly Swingg', 'Kelly Swing').replace('Mauricio Herrera Madrid', 'Mauricio Gabriel Herrera Madrid').replace(/Mauricio Herrera(?! (Gabriel|Madrid))/, 'Mauricio Gabriel Herrera Madrid').replace(/Juan Luis Valdiviezo(?! Rivera)/, 'Juan Luis Valdiviezo Rivera').replace(/Juan Valdiviezo(?! Luis)/, 'Juan Luis Valdiviezo Rivera').replace('Daysi Gualavisi Cajas', 'Daysi Carina Gualavisi Cajas').replace(/Daysi Gualavisi(?! (Cajas|Carina))/, 'Daysi Carina Gualavisi Cajas').replace(/Jonathan Valdiviezo(?! Santiago)/, 'Jonathan Santiago Valdiviezo Rivera').replace(/Fernando Anaguano(?! Yancha)/, 'Fernando Anaguano Yancha').replace(/Maria Alarcón(?! Patricia)/, 'María Patricia Alarcón').replace('Veronica Roman Robles', 'Verónica Román Robles').replace(/Verónica Román(?! Robles)/, 'Verónica Román Robles').replace('Evelin Calvache', 'Evelyn Calvache').replace(/Kelly Swin(?!g)/, 'Kelly Swing').replace('Paul Tufiño', 'Paúl Tufiño').replace('Gabriela Echevarria', 'Gabriela Echevarría').replace('Hernando Manuel Roman Jimenez', 'Hernando Manuel Roman Jiménez').replace('Ernesto Rodriguez', 'Ernesto Rodríguez').replace('M.E. Sanchez', 'M.E. Sánchez').replace('Rafael Narvaez', 'Rafael Narváez').replace('Rodriguez', 'Rodríguez')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:value.replace('Kelly Swingg', 'Kelly Swing').replace('Mauricio Herrera Madrid', 'Mauricio Gabriel Herrera Madrid').replace(/Mauricio Herrera(?! (Gabriel|Madrid))/, 'Mauricio Gabriel Herrera Madrid').replace(/Juan Luis Valdiviezo(?! Rivera)/, 'Juan Luis Valdiviezo Rivera').replace(/Juan Valdiviezo(?! Luis)/, 'Juan Luis Valdiviezo Rivera').replace('Daysi Gualavisi Cajas', 'Daysi Carina Gualavisi Cajas').replace(/Daysi Gualavisi(?! (Cajas|Carina))/, 'Daysi Carina Gualavisi Cajas').replace(/Jonathan Valdiviezo(?! Santiago)/, 'Jonathan Santiago Valdiviezo Rivera').replace(/Fernando Anaguano(?! Yancha)/, 'Fernando Anaguano Yancha').replace(/Maria Alarcón(?! Patricia)/, 'María Patricia Alarcón').replace('Veronica Roman Robles', 'Verónica Román Robles').replace(/Verónica Román(?! Robles)/, 'Verónica Román Robles').replace('Evelin Calvache', 'Evelyn Calvache').replace(/Kelly Swin(?!g)/, 'Kelly Swing').replace('Paul Tufiño', 'Paúl Tufiño').replace('Gabriela Echevarria', 'Gabriela Echevarría').replace('Hernando Manuel Roman Jimenez', 'Hernando Manuel Roman Jiménez').replace('Ernesto Rodriguez', 'Ernesto Rodríguez').replace('M.E. Sanchez', 'M.E. Sánchez').replace('Rafael Narvaez', 'Rafael Narváez').replace('Rodriguez', 'Rodríguez')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna identifiedBy usando la expresión grel:value.replace('Kelly Swingg', 'Kelly Swing').replace('Mauricio Herrera Madrid', 'Mauricio Gabriel Herrera Madrid').replace(/Mauricio Herrera(?! (Gabriel|Madrid))/, 'Mauricio Gabriel Herrera Madrid').replace(/Juan Luis Valdiviezo(?! Rivera)/, 'Juan Luis Valdiviezo Rivera').replace(/Juan Valdiviezo(?! Luis)/, 'Juan Luis Valdiviezo Rivera').replace('Daysi Gualavisi Cajas', 'Daysi Carina Gualavisi Cajas').replace(/Daysi Gualavisi(?! (Cajas|Carina))/, 'Daysi Carina Gualavisi Cajas').replace(/Jonathan Valdiviezo(?! Santiago)/, 'Jonathan Santiago Valdiviezo Rivera').replace(/Fernando Anaguano(?! Yancha)/, 'Fernando Anaguano Yancha').replace(/Maria Alarcón(?! Patricia)/, 'María Patricia Alarcón').replace('Veronica Roman Robles', 'Verónica Román Robles').replace(/Verónica Román(?! Robles)/, 'Verónica Román Robles').replace('Evelin Calvache', 'Evelyn Calvache').replace(/Kelly Swin(?!g)/, 'Kelly Swing').replace('Paul Tufiño', 'Paúl Tufiño').replace('Gabriela Echevarria', 'Gabriela Echevarría').replace('Hernando Manuel Roman Jimenez', 'Hernando Manuel Roman Jiménez').replace('Ernesto Rodriguez', 'Ernesto Rodríguez').replace('M.E. Sanchez', 'M.E. Sánchez').replace('Rafael Narvaez', 'Rafael Narváez').replace('Rodriguez', 'Rodríguez')"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Rolando Quetzalcoatl Torres García y Paola Nallely Plamerín Serrano"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Rolando Quetzalcoatl Torres García | Paola Nallely Plamerín Serrano"
+      }
+    ],
+    "description": "Editar celdas en masa en columna recordedBy"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value.replace(/\\u00C3\\u0027/, 'Ñ')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:value.replace(/\\u00C3\\u0027/, 'Ñ')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:value.replace(/\\u00C3\\u0027/, 'Ñ')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:value.replace(/\\u00C3\\u0027/, 'Ñ')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value.replace(/\\bRio\\b/, 'Río')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:value.replace(/\\bRio\\b/, 'Río')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:value.replace(/\\bRio\\b/, 'Río')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:value.replace(/\\bRio\\b/, 'Río')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value.replace(\"( Sabayán)\", \"(Sabayán)\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:value.replace(\"( Sabayán)\", \"(Sabayán)\")"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:value.replace(\"( Sabayán)\", \"(Sabayán)\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:value.replace(\"( Sabayán)\", \"(Sabayán)\")"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, toUppercase(value.get(0, 1)) + value.get(1, length(value)))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, toUppercase(value.get(0, 1)) + value.get(1, length(value)))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, toUppercase(value.get(0, 1)) + value.get(1, length(value)))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, toUppercase(value.get(0, 1)) + value.get(1, length(value)))"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Alto tambo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Alto Tambo"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value.replace(\"Reserva biologica\", \"Reserva Biológica\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:value.replace(\"Reserva biologica\", \"Reserva Biológica\")"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Río negro"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Negro"
+      },
+      {
+        "from": [
+          "Río bobonaza"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Bobonaza"
+      },
+      {
+        "from": [
+          "Río minas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Minas"
+      },
+      {
+        "from": [
+          "Río Limon"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Limón"
+      },
+      {
+        "from": [
+          "Río el Carmen"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río El Carmen"
+      },
+      {
+        "from": [
+          "Río Pindo chico"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Pindo Chico"
+      },
+      {
+        "from": [
+          "Tonchigue"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Tonchigüe"
+      },
+      {
+        "from": [
+          "Cuyabeno lodge"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Cuyabeno Lodge"
+      },
+      {
+        "from": [
+          "Yuca sur 19"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Yuca Sur 19"
+      },
+      {
+        "from": [
+          "Yuca sur 12"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Yuca Sur 12"
+      },
+      {
+        "from": [
+          "Km39 vía pompeya-NPF"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Km39 Vía Pompeya-NPF"
+      },
+      {
+        "from": [
+          "Punta km 13 +500. vía pompeya-NPF PC24"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Punta km 13 +500. Vía Pompeya-NPF PC24"
+      },
+      {
+        "from": [
+          "Linea 6ta campamento ENDESA"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Línea 6ta campamento ENDESA"
+      },
+      {
+        "from": [
+          "Vía Quininde Km 29"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Vía Quinindé Km 29"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locationRemarks"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordEnteredBy",
+    "expression": "grel:value.replace(\"Daysi Gualavisi Cajas\", \"Daysi Carina Gualavisi Cajas\").replace(\"Daysi Gualavisi\", \"Daysi Carina Gualavisi Cajas\").replace(\"Jonathan Valdiviezo Rivera\", \"Jonathan Santiago Valdiviezo Rivera\").replace(\"Jonathan Valdiviezo\", \"Jonathan Santiago Valdiviezo Rivera\").replace(/Juan Luis Valdiviezo(?! Rivera)/, \"Juan Luis Valdiviezo Rivera\").replace(\"Carolina Carrillo\", \"Carolina Michelle Carrillo Moreno\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna recordEnteredBy usando la expresión grel:value.replace(\"Daysi Gualavisi Cajas\", \"Daysi Carina Gualavisi Cajas\").replace(\"Daysi Gualavisi\", \"Daysi Carina Gualavisi Cajas\").replace(\"Jonathan Valdiviezo Rivera\", \"Jonathan Santiago Valdiviezo Rivera\").replace(\"Jonathan Valdiviezo\", \"Jonathan Santiago Valdiviezo Rivera\").replace(/Juan Luis Valdiviezo(?! Rivera)/, \"Juan Luis Valdiviezo Rivera\").replace(\"Carolina Carrillo\", \"Carolina Michelle Carrillo Moreno\")"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:value.replace(\"Marío Herrera Défaz\", \"Mario Herrera Défaz\").replace(\"M. Narvaéz\", \"M. Narváez\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna recordedBy usando la expresión grel:value.replace(\"Marío Herrera Défaz\", \"Mario Herrera Défaz\").replace(\"M. Narvaéz\", \"M. Narváez\")"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "year",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "0"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna year"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "month",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "0"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna month"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "day",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "0"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Editar celdas en masa en columna day"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identificationQualifier",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "sp.1"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "sp. 1"
+      },
+      {
+        "from": [
+          "sp.2"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "sp. 2"
+      },
+      {
+        "from": [
+          "sp.3",
+          "sp3"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "sp. 3"
+      }
+    ],
+    "description": "Editar celdas en masa en columna identificationQualifier"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "dateIdentified",
+    "expression": "grel:value.replace(/^(\\d{4})-(\\d)-(\\d{1,2})$/, \"$1-0$2-$3\").replace(/^(\\d{4})-(\\d{2})-(\\d)$/, \"$1-$2-0$3\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna dateIdentified usando la expresión grel:value.replace(/^(\\d{4})-(\\d)-(\\d{1,2})$/, \"$1-0$2-$3\").replace(/^(\\d{4})-(\\d{2})-(\\d)$/, \"$1-$2-0$3\")"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "dateIdentified",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "01/04/2025"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "2025-04-01"
+      }
+    ],
+    "description": "Editar celdas en masa en columna dateIdentified"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Laguna Garza-cocha",
+          "Laguna Garza Cocha",
+          "Garzacocha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Laguna Garzacocha"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value.replace(\"Lagro Agrio\", \"Lago Agrio\").replace(\"Lago Agrio. \", \"Lago Agrio \").replace(\"La Balzareña. \", \"La Balzareña \")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:value.replace(\"Lagro Agrio\", \"Lago Agrio\").replace(\"Lago Agrio. \", \"Lago Agrio \").replace(\"La Balzareña. \", \"La Balzareña \")"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Laguna de Limoncocha.100m Entrada Cabaña Supaycocha",
+          "Laguna de Limoncocha 100m . Entrada Cabaña Supaycocha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Laguna de Limoncocha 100m Entrada Cabaña Supaycocha"
+      },
+      {
+        "from": [
+          "Laguna de Limoncocha 140m . Entrada Cabaña Supaycocha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Laguna de Limoncocha 140m Entrada Cabaña Supaycocha"
+      },
+      {
+        "from": [
+          "Laguna de Limoncocha.100m lado derecho muelle principal"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Laguna de Limoncocha 100m lado derecho muelle principal"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value.replace(/(\\d)\\s*\\+\\s*(\\d)/, \"$1+$2\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:value.replace(/(\\d)\\s*\\+\\s*(\\d)/, \"$1+$2\")"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:value.replace(/(\\d)\\s*\\+\\s*(\\d)/, \"$1+$2\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:value.replace(/(\\d)\\s*\\+\\s*(\\d)/, \"$1+$2\")"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Aguarico. Las chozas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Aguarico. Las Chozas"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "county",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Araujo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Arajuno"
+      }
+    ],
+    "description": "Editar celdas en masa en columna county"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "otherCatalogNumbers",
+    "expression": "grel:if(isBlank(value), value, value.replace(/QCAZ\\s*-\\s*/, \"QCAZ-\").replace(/PEC\\s*-\\s*/, \"PEC-\").replace(/\\bQCA-/, \"QCAZ-\").replace(/\\bQCAZ(?=\\d)/, \"QCAZ-\").replace(/\\s*\\.\\s*/, \" | \").replace(/(\\d)\\s+(?=QCAZ-|PEC-)/, \"$1 | \").replace(/\\s*\\|\\s*/, \" | \").trim().replace(/\\|$/, \"\").trim().split(\" | \").uniques().join(\" | \"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna otherCatalogNumbers usando la expresión grel:if(isBlank(value), value, value.replace(/QCAZ\\s*-\\s*/, \"QCAZ-\").replace(/PEC\\s*-\\s*/, \"PEC-\").replace(/\\bQCA-/, \"QCAZ-\").replace(/\\bQCAZ(?=\\d)/, \"QCAZ-\").replace(/\\s*\\.\\s*/, \" | \").replace(/(\\d)\\s+(?=QCAZ-|PEC-)/, \"$1 | \").replace(/\\s*\\|\\s*/, \" | \").trim().replace(/\\|$/, \"\").trim().split(\" | \").uniques().join(\" | \"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bYasuni\\b/, \"Yasuní\").replace(/Oceáno/, \"Océano\").replace(/\\bRió\\b/, \"Río\").replace(/\\bRíachuelo\\b/, \"Riachuelo\").replace(/\\bFundacion\\b/, \"Fundación\").replace(/\\bEstacion\\b/, \"Estación\").replace(/\\bestacion\\b/, \"estación\").replace(/\\bCanande\\b/, \"Canandé\").replace(/\\bPlayon\\b/, \"Playón\").replace(/\\bAlambi\\b/, \"Alambí\").replace(/\\bHosteria\\b/, \"Hostería\").replace(/\\bhosteria\\b/, \"hostería\").replace(/\\bDespues\\b/, \"Después\").replace(/\\bdespues\\b/, \"después\").replace(/\\bCientifica\\b/, \"Científica\").replace(/\\bJose\\b/, \"José\").replace(/\\bLimon\\b/, \"Limón\").replace(/\\bUnion\\b/, \"Unión\").replace(/\\bBolivar\\b/, \"Bolívar\").replace(/\\bProduccion\\b/, \"Producción\").replace(/\\bFaunistica\\b/, \"Faunística\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/\\bYasuni\\b/, \"Yasuní\").replace(/Oceáno/, \"Océano\").replace(/\\bRió\\b/, \"Río\").replace(/\\bRíachuelo\\b/, \"Riachuelo\").replace(/\\bFundacion\\b/, \"Fundación\").replace(/\\bEstacion\\b/, \"Estación\").replace(/\\bestacion\\b/, \"estación\").replace(/\\bCanande\\b/, \"Canandé\").replace(/\\bPlayon\\b/, \"Playón\").replace(/\\bAlambi\\b/, \"Alambí\").replace(/\\bHosteria\\b/, \"Hostería\").replace(/\\bhosteria\\b/, \"hostería\").replace(/\\bDespues\\b/, \"Después\").replace(/\\bdespues\\b/, \"después\").replace(/\\bCientifica\\b/, \"Científica\").replace(/\\bJose\\b/, \"José\").replace(/\\bLimon\\b/, \"Limón\").replace(/\\bUnion\\b/, \"Unión\").replace(/\\bBolivar\\b/, \"Bolívar\").replace(/\\bProduccion\\b/, \"Producción\").replace(/\\bFaunistica\\b/, \"Faunística\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bYasuni\\b/, \"Yasuní\").replace(/Oceáno/, \"Océano\").replace(/\\bRió\\b/, \"Río\").replace(/\\bRíachuelo\\b/, \"Riachuelo\").replace(/\\bFundacion\\b/, \"Fundación\").replace(/\\bEstacion\\b/, \"Estación\").replace(/\\bestacion\\b/, \"estación\").replace(/\\bCanande\\b/, \"Canandé\").replace(/\\bPlayon\\b/, \"Playón\").replace(/\\bAlambi\\b/, \"Alambí\").replace(/\\bHosteria\\b/, \"Hostería\").replace(/\\bhosteria\\b/, \"hostería\").replace(/\\bDespues\\b/, \"Después\").replace(/\\bdespues\\b/, \"después\").replace(/\\bCientifica\\b/, \"Científica\").replace(/\\bJose\\b/, \"José\").replace(/\\bLimon\\b/, \"Limón\").replace(/\\bUnion\\b/, \"Unión\").replace(/\\bBolivar\\b/, \"Bolívar\").replace(/\\bProduccion\\b/, \"Producción\").replace(/\\bFaunistica\\b/, \"Faunística\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/\\bYasuni\\b/, \"Yasuní\").replace(/Oceáno/, \"Océano\").replace(/\\bRió\\b/, \"Río\").replace(/\\bRíachuelo\\b/, \"Riachuelo\").replace(/\\bFundacion\\b/, \"Fundación\").replace(/\\bEstacion\\b/, \"Estación\").replace(/\\bestacion\\b/, \"estación\").replace(/\\bCanande\\b/, \"Canandé\").replace(/\\bPlayon\\b/, \"Playón\").replace(/\\bAlambi\\b/, \"Alambí\").replace(/\\bHosteria\\b/, \"Hostería\").replace(/\\bhosteria\\b/, \"hostería\").replace(/\\bDespues\\b/, \"Después\").replace(/\\bdespues\\b/, \"después\").replace(/\\bCientifica\\b/, \"Científica\").replace(/\\bJose\\b/, \"José\").replace(/\\bLimon\\b/, \"Limón\").replace(/\\bUnion\\b/, \"Unión\").replace(/\\bBolivar\\b/, \"Bolívar\").replace(/\\bProduccion\\b/, \"Producción\").replace(/\\bFaunistica\\b/, \"Faunística\"))"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "county",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "El Eden"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "El Edén"
+      },
+      {
+        "from": [
+          "Ines Arango"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Inés Arango"
+      },
+      {
+        "from": [
+          "Bahía de Caraquez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Bahía de Caráquez"
+      },
+      {
+        "from": [
+          "Mendez"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Méndez"
+      },
+      {
+        "from": [
+          "Sucua"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Sucúa"
+      },
+      {
+        "from": [
+          "Teniente Hugo Ortíz"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Teniente Hugo Ortiz"
+      }
+    ],
+    "description": "Editar celdas en masa en columna county"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "municipality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "El Eden"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "El Edén"
+      },
+      {
+        "from": [
+          "General Farfan"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "General Farfán"
+      },
+      {
+        "from": [
+          "Alluriquin"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Alluriquín"
+      },
+      {
+        "from": [
+          "Ines Arango"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Inés Arango"
+      },
+      {
+        "from": [
+          "Sinai"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Sinaí"
+      },
+      {
+        "from": [
+          "Calderon"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Calderón"
+      },
+      {
+        "from": [
+          "Ambuqui"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ambuquí"
+      },
+      {
+        "from": [
+          "Selva alegre"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Selva Alegre"
+      },
+      {
+        "from": [
+          "La troncal"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "La Troncal"
+      },
+      {
+        "from": [
+          "San Sebastian del Coca"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "San Sebastián del Coca"
+      }
+    ],
+    "description": "Editar celdas en masa en columna municipality"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"exploratoRío\", \"exploratorio\").replace(\"aflunte\", \"afluente\").replace(\"Comununidad\", \"Comunidad\").replace(\"Riachelo\", \"Riachuelo\").replace(\"Cueneca\", \"Cuenca\").replace(/\\brio\\b/, \"río\").replace(\"puerto-Canelos\", \"Puerto-Canelos\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(\"exploratoRío\", \"exploratorio\").replace(\"aflunte\", \"afluente\").replace(\"Comununidad\", \"Comunidad\").replace(\"Riachelo\", \"Riachuelo\").replace(\"Cueneca\", \"Cuenca\").replace(/\\brio\\b/, \"río\").replace(\"puerto-Canelos\", \"Puerto-Canelos\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"exploratoRío\", \"exploratorio\").replace(\"aflunte\", \"afluente\").replace(\"Comununidad\", \"Comunidad\").replace(\"Riachelo\", \"Riachuelo\").replace(\"Cueneca\", \"Cuenca\").replace(/\\brio\\b/, \"río\").replace(\"puerto-Canelos\", \"Puerto-Canelos\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(\"exploratoRío\", \"exploratorio\").replace(\"aflunte\", \"afluente\").replace(\"Comununidad\", \"Comunidad\").replace(\"Riachelo\", \"Riachuelo\").replace(\"Cueneca\", \"Cuenca\").replace(/\\brio\\b/, \"río\").replace(\"puerto-Canelos\", \"Puerto-Canelos\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bSN\\b/, \"S/N\").replace(/S\\/N(\\d)/, \"S/N $1\").replace(\"Yana Yacu\", \"Yanayacu\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/\\bSN\\b/, \"S/N\").replace(/S\\/N(\\d)/, \"S/N $1\").replace(\"Yana Yacu\", \"Yanayacu\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bSN\\b/, \"S/N\").replace(/S\\/N(\\d)/, \"S/N $1\").replace(\"Yana Yacu\", \"Yanayacu\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/\\bSN\\b/, \"S/N\").replace(/S\\/N(\\d)/, \"S/N $1\").replace(\"Yana Yacu\", \"Yanayacu\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "scientificNameAuthorship",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\.\\s*(\\d{4})/, \", $1\").replace(/([A-Za-zñáéíóúü.\\)])\\s*\\((\\d{4})\\)\\s*$/, \"$1, $2\").replace(/([A-Za-zñáéíóúü.])\\s+(\\d{4})/, \"$1, $2\").replace(/([a-zñáéíóúü])(\\d{4})/, \"$1, $2\").replace(\" y \", \" & \").replace(/\\s+\\)/, \")\").replace(/(\\d{4})\\.$/, \"$1\").replace(/\\)\\.$/, \")\").replace(/,\\s*,/, \", \"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna scientificNameAuthorship usando la expresión grel:if(isBlank(value), value, value.replace(/\\.\\s*(\\d{4})/, \", $1\").replace(/([A-Za-zñáéíóúü.\\)])\\s*\\((\\d{4})\\)\\s*$/, \"$1, $2\").replace(/([A-Za-zñáéíóúü.])\\s+(\\d{4})/, \"$1, $2\").replace(/([a-zñáéíóúü])(\\d{4})/, \"$1, $2\").replace(\" y \", \" & \").replace(/\\s+\\)/, \")\").replace(/(\\d{4})\\.$/, \"$1\").replace(/\\)\\.$/, \")\").replace(/,\\s*,/, \", \"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bMO\\b/, \"M.O\").replace(/\\bTN\\b/, \"T.N\").replace(/\\bAE\\b/, \"A.E\").replace(\"Andres Cocha\", \"Andrés Cocha\").replace(\"Andrea Ubina\", \"Andrea Urbina\").replace(\"Danny Vera\", \"Dany Vera\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna recordedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bMO\\b/, \"M.O\").replace(/\\bTN\\b/, \"T.N\").replace(/\\bAE\\b/, \"A.E\").replace(\"Andres Cocha\", \"Andrés Cocha\").replace(\"Andrea Ubina\", \"Andrea Urbina\").replace(\"Danny Vera\", \"Dany Vera\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bMO\\b/, \"M.O\").replace(/\\bTN\\b/, \"T.N\").replace(/\\bAE\\b/, \"A.E\").replace(\"Andres Cocha\", \"Andrés Cocha\").replace(\"Andrea Ubina\", \"Andrea Urbina\").replace(\"Danny Vera\", \"Dany Vera\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna identifiedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bMO\\b/, \"M.O\").replace(/\\bTN\\b/, \"T.N\").replace(/\\bAE\\b/, \"A.E\").replace(\"Andres Cocha\", \"Andrés Cocha\").replace(\"Andrea Ubina\", \"Andrea Urbina\").replace(\"Danny Vera\", \"Dany Vera\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordEnteredBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bMO\\b/, \"M.O\").replace(/\\bTN\\b/, \"T.N\").replace(/\\bAE\\b/, \"A.E\").replace(\"Andres Cocha\", \"Andrés Cocha\").replace(\"Andrea Ubina\", \"Andrea Urbina\").replace(\"Danny Vera\", \"Dany Vera\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna recordEnteredBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bMO\\b/, \"M.O\").replace(/\\bTN\\b/, \"T.N\").replace(/\\bAE\\b/, \"A.E\").replace(\"Andres Cocha\", \"Andrés Cocha\").replace(\"Andrea Ubina\", \"Andrea Urbina\").replace(\"Danny Vera\", \"Dany Vera\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+(yacu|cocha|muyuna|jita|sur|playa|grande|chico|urco)\\b/, \"$1 u0000$2\").replace(/\\u0000y/, \"Y\").replace(/\\u0000c/, \"C\").replace(/\\u0000m/, \"M\").replace(/\\u0000j/, \"J\").replace(/\\u0000s/, \"S\").replace(/\\u0000p/, \"P\").replace(/\\u0000g/, \"G\").replace(/\\u0000u/, \"U\"))",
+    "onError": "keep-original",
+    "repeat": true,
+    "repeatCount": 5,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+(yacu|cocha|muyuna|jita|sur|playa|grande|chico|urco)\\b/, \"$1 u0000$2\").replace(/\\u0000y/, \"Y\").replace(/\\u0000c/, \"C\").replace(/\\u0000m/, \"M\").replace(/\\u0000j/, \"J\").replace(/\\u0000s/, \"S\").replace(/\\u0000p/, \"P\").replace(/\\u0000g/, \"G\").replace(/\\u0000u/, \"U\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+(yacu|cocha|muyuna|jita|sur|playa|grande|chico|urco)\\b/, \"$1 u0000$2\").replace(/\\u0000y/, \"Y\").replace(/\\u0000c/, \"C\").replace(/\\u0000m/, \"M\").replace(/\\u0000j/, \"J\").replace(/\\u0000s/, \"S\").replace(/\\u0000p/, \"P\").replace(/\\u0000g/, \"G\").replace(/\\u0000u/, \"U\"))",
+    "onError": "keep-original",
+    "repeat": true,
+    "repeatCount": 5,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+(yacu|cocha|muyuna|jita|sur|playa|grande|chico|urco)\\b/, \"$1 u0000$2\").replace(/\\u0000y/, \"Y\").replace(/\\u0000c/, \"C\").replace(/\\u0000m/, \"M\").replace(/\\u0000j/, \"J\").replace(/\\u0000s/, \"S\").replace(/\\u0000p/, \"P\").replace(/\\u0000g/, \"G\").replace(/\\u0000u/, \"U\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"u0000yacu\", \"Yacu\").replace(\"u0000cocha\", \"Cocha\").replace(\"u0000muyuna\", \"Muyuna\").replace(\"u0000jita\", \"Jita\").replace(\"u0000sur\", \"Sur\").replace(\"u0000playa\", \"Playa\").replace(\"u0000grande\", \"Grande\").replace(\"u0000chico\", \"Chico\").replace(\"u0000urco\", \"Urco\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+yacu\\b/, \"$1 Yacu\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+cocha\\b/, \"$1 Cocha\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+muyuna\\b/, \"$1 Muyuna\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+jita\\b/, \"$1 Jita\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+sur\\b/, \"$1 Sur\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+playa\\b/, \"$1 Playa\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+grande\\b/, \"$1 Grande\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+chico\\b/, \"$1 Chico\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+urco\\b/, \"$1 Urco\"))",
+    "onError": "keep-original",
+    "repeat": true,
+    "repeatCount": 5,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(\"u0000yacu\", \"Yacu\").replace(\"u0000cocha\", \"Cocha\").replace(\"u0000muyuna\", \"Muyuna\").replace(\"u0000jita\", \"Jita\").replace(\"u0000sur\", \"Sur\").replace(\"u0000playa\", \"Playa\").replace(\"u0000grande\", \"Grande\").replace(\"u0000chico\", \"Chico\").replace(\"u0000urco\", \"Urco\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+yacu\\b/, \"$1 Yacu\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+cocha\\b/, \"$1 Cocha\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+muyuna\\b/, \"$1 Muyuna\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+jita\\b/, \"$1 Jita\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+sur\\b/, \"$1 Sur\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+playa\\b/, \"$1 Playa\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+grande\\b/, \"$1 Grande\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+chico\\b/, \"$1 Chico\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+urco\\b/, \"$1 Urco\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"u0000yacu\", \"Yacu\").replace(\"u0000cocha\", \"Cocha\").replace(\"u0000muyuna\", \"Muyuna\").replace(\"u0000jita\", \"Jita\").replace(\"u0000sur\", \"Sur\").replace(\"u0000playa\", \"Playa\").replace(\"u0000grande\", \"Grande\").replace(\"u0000chico\", \"Chico\").replace(\"u0000urco\", \"Urco\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+yacu\\b/, \"$1 Yacu\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+cocha\\b/, \"$1 Cocha\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+muyuna\\b/, \"$1 Muyuna\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+jita\\b/, \"$1 Jita\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+sur\\b/, \"$1 Sur\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+playa\\b/, \"$1 Playa\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+grande\\b/, \"$1 Grande\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+chico\\b/, \"$1 Chico\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+urco\\b/, \"$1 Urco\"))",
+    "onError": "keep-original",
+    "repeat": true,
+    "repeatCount": 5,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(\"u0000yacu\", \"Yacu\").replace(\"u0000cocha\", \"Cocha\").replace(\"u0000muyuna\", \"Muyuna\").replace(\"u0000jita\", \"Jita\").replace(\"u0000sur\", \"Sur\").replace(\"u0000playa\", \"Playa\").replace(\"u0000grande\", \"Grande\").replace(\"u0000chico\", \"Chico\").replace(\"u0000urco\", \"Urco\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+yacu\\b/, \"$1 Yacu\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+cocha\\b/, \"$1 Cocha\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+muyuna\\b/, \"$1 Muyuna\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+jita\\b/, \"$1 Jita\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+sur\\b/, \"$1 Sur\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+playa\\b/, \"$1 Playa\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+grande\\b/, \"$1 Grande\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+chico\\b/, \"$1 Chico\").replace(/([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+urco\\b/, \"$1 Urco\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:if(and(cells.get(\"catalogNumber\").value == \"5713\", value == \"QCAZ | Luis Coloma | Jenny Naranjo | Raúl Ramirez\"), \"QCAZ | Raúl Ramirez | Jenny Naranjo | Luis Coloma\", value)",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordedBy usando la expresión grel:if(and(cells.get(\"catalogNumber\").value == \"5713\", value == \"QCAZ | Luis Coloma | Jenny Naranjo | Raúl Ramirez\"), \"QCAZ | Raúl Ramirez | Jenny Naranjo | Luis Coloma\", value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:if(and(contains(\"|4482|4483|4484|4487|4488|4489|4491|4499|4524|\", \"|\" + cells.get(\"catalogNumber\").value + \"|\"), value == \"Jonathan Santiago Valdiviezo Rivera | Carolina Michelle Carrillo Moreno\"), \"Carolina Michelle Carrillo Moreno | Jonathan Santiago Valdiviezo Rivera\", value)",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna identifiedBy usando la expresión grel:if(and(contains(\"|4482|4483|4484|4487|4488|4489|4491|4499|4524|\", \"|\" + cells.get(\"catalogNumber\").value + \"|\"), value == \"Jonathan Santiago Valdiviezo Rivera | Carolina Michelle Carrillo Moreno\"), \"Carolina Michelle Carrillo Moreno | Jonathan Santiago Valdiviezo Rivera\", value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"CementeRío\", \"Cementerio\").replace(\"territoRío\", \"territorio\").replace(\"Río sin nombre2\", \"Río sin nombre 2\").replace(\"Río Sin Nombre\", \"Río sin nombre\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(\"CementeRío\", \"Cementerio\").replace(\"territoRío\", \"territorio\").replace(\"Río sin nombre2\", \"Río sin nombre 2\").replace(\"Río Sin Nombre\", \"Río sin nombre\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"CementeRío\", \"Cementerio\").replace(\"territoRío\", \"territorio\").replace(\"Río sin nombre2\", \"Río sin nombre 2\").replace(\"Río Sin Nombre\", \"Río sin nombre\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(\"CementeRío\", \"Cementerio\").replace(\"territoRío\", \"territorio\").replace(\"Río sin nombre2\", \"Río sin nombre 2\").replace(\"Río Sin Nombre\", \"Río sin nombre\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\brío(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Río\").replace(/\\blaguna(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Laguna\").replace(/\\bcocha(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cocha\").replace(/\\bestero(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Estero\").replace(/\\bquebrada(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Quebrada\").replace(/\\bestación(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Estación\").replace(/\\bcomunidad(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Comunidad\").replace(/\\bsector(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Sector\").replace(/\\bcampamento(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Campamento\").replace(/\\bpuente(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Puente\").replace(/\\bsendero(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Sendero\").replace(/\\bplaya(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Playa\").replace(/\\bpunta(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Punta\").replace(/\\bvía(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Vía\").replace(/\\bvia(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Via\").replace(/\\bcarretera(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Carretera\").replace(/\\bhostería(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Hostería\").replace(/\\bgranja(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Granja\").replace(/\\bpozo(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Pozo\").replace(/\\bcamino(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Camino\").replace(/\\bruta(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Ruta\").replace(/\\blago(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Lago\").replace(/\\bisla(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Isla\").replace(/\\bcascada(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cascada\").replace(/\\bcerro(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cerro\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/\\brío(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Río\").replace(/\\blaguna(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Laguna\").replace(/\\bcocha(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cocha\").replace(/\\bestero(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Estero\").replace(/\\bquebrada(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Quebrada\").replace(/\\bestación(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Estación\").replace(/\\bcomunidad(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Comunidad\").replace(/\\bsector(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Sector\").replace(/\\bcampamento(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Campamento\").replace(/\\bpuente(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Puente\").replace(/\\bsendero(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Sendero\").replace(/\\bplaya(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Playa\").replace(/\\bpunta(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Punta\").replace(/\\bvía(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Vía\").replace(/\\bvia(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Via\").replace(/\\bcarretera(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Carretera\").replace(/\\bhostería(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Hostería\").replace(/\\bgranja(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Granja\").replace(/\\bpozo(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Pozo\").replace(/\\bcamino(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Camino\").replace(/\\bruta(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Ruta\").replace(/\\blago(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Lago\").replace(/\\bisla(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Isla\").replace(/\\bcascada(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cascada\").replace(/\\bcerro(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cerro\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\brío(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Río\").replace(/\\blaguna(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Laguna\").replace(/\\bcocha(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cocha\").replace(/\\bestero(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Estero\").replace(/\\bquebrada(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Quebrada\").replace(/\\bestación(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Estación\").replace(/\\bcomunidad(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Comunidad\").replace(/\\bsector(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Sector\").replace(/\\bcampamento(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Campamento\").replace(/\\bpuente(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Puente\").replace(/\\bsendero(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Sendero\").replace(/\\bplaya(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Playa\").replace(/\\bpunta(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Punta\").replace(/\\bvía(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Vía\").replace(/\\bvia(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Via\").replace(/\\bcarretera(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Carretera\").replace(/\\bhostería(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Hostería\").replace(/\\bgranja(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Granja\").replace(/\\bpozo(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Pozo\").replace(/\\bcamino(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Camino\").replace(/\\bruta(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Ruta\").replace(/\\blago(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Lago\").replace(/\\bisla(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Isla\").replace(/\\bcascada(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cascada\").replace(/\\bcerro(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cerro\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/\\brío(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Río\").replace(/\\blaguna(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Laguna\").replace(/\\bcocha(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cocha\").replace(/\\bestero(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Estero\").replace(/\\bquebrada(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Quebrada\").replace(/\\bestación(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Estación\").replace(/\\bcomunidad(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Comunidad\").replace(/\\bsector(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Sector\").replace(/\\bcampamento(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Campamento\").replace(/\\bpuente(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Puente\").replace(/\\bsendero(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Sendero\").replace(/\\bplaya(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Playa\").replace(/\\bpunta(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Punta\").replace(/\\bvía(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Vía\").replace(/\\bvia(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Via\").replace(/\\bcarretera(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Carretera\").replace(/\\bhostería(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Hostería\").replace(/\\bgranja(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Granja\").replace(/\\bpozo(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Pozo\").replace(/\\bcamino(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Camino\").replace(/\\bruta(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Ruta\").replace(/\\blago(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Lago\").replace(/\\bisla(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Isla\").replace(/\\bcascada(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cascada\").replace(/\\bcerro(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Cerro\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/([^\\s])(\\s+)Km\\b/, \"$1$2km\").replace(/([^\\s])(\\s+)Km\\.?(?=\\d)/, \"$1$2km \"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/([^\\s])(\\s+)Km\\b/, \"$1$2km\").replace(/([^\\s])(\\s+)Km\\.?(?=\\d)/, \"$1$2km \"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/([^\\s])(\\s+)Km\\b/, \"$1$2km\").replace(/([^\\s])(\\s+)Km\\.?(?=\\d)/, \"$1$2km \"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/([^\\s])(\\s+)Km\\b/, \"$1$2km\").replace(/([^\\s])(\\s+)Km\\.?(?=\\d)/, \"$1$2km \"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "scientificNameAuthorship",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Wijkamark. kullander & Barriga\", \"Wijkmark, Kullander & Barriga\").replace(\"Wijkmark. Kullander & Barriga Salazar\", \"Wijkmark, Kullander & Barriga Salazar\").replace(\"Crampton. de Santana. Waddell & Lovejoy\", \"Crampton, de Santana, Waddell & Lovejoy\").replace(\"Sullivan. Zuanon & Cox Fernandes\", \"Sullivan, Zuanon & Cox Fernandes\").replace(/&(?=\\S)/, \"& \").replace(\"unpublised\", \"\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna scientificNameAuthorship usando la expresión grel:if(isBlank(value), value, value.replace(\"Wijkamark. kullander & Barriga\", \"Wijkmark, Kullander & Barriga\").replace(\"Wijkmark. Kullander & Barriga Salazar\", \"Wijkmark, Kullander & Barriga Salazar\").replace(\"Crampton. de Santana. Waddell & Lovejoy\", \"Crampton, de Santana, Waddell & Lovejoy\").replace(\"Sullivan. Zuanon & Cox Fernandes\", \"Sullivan, Zuanon & Cox Fernandes\").replace(/&(?=\\S)/, \"& \").replace(\"unpublised\", \"\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "scientificNameAuthorship",
+    "expression": "grel:if(isBlank(value), value, if(and(value.startsWith(\"(\"), not(value.endsWith(\")\"))), value + \")\", value))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna scientificNameAuthorship usando la expresión grel:if(isBlank(value), value, if(and(value.startsWith(\"(\"), not(value.endsWith(\")\"))), value + \")\", value))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bRoman\\b/, \"Román\").replace(/\\bVillamarin\\b/, \"Villamarín\").replace(/\\bIvan\\b/, \"Iván\").replace(/\\bBelen\\b/, \"Belén\").replace(/\\bChavez\\b/, \"Chávez\").replace(/\\bGutierrez\\b/, \"Gutiérrez\").replace(/\\bGomez\\b/, \"Gómez\").replace(/\\bHernandez\\b/, \"Hernández\").replace(/\\bVasquez\\b/, \"Vásquez\").replace(/\\bRamirez\\b/, \"Ramírez\").replace(/\\bCordova\\b/, \"Córdova\").replace(\"Maldonado- Ocampo\", \"Maldonado-Ocampo\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bRoman\\b/, \"Román\").replace(/\\bVillamarin\\b/, \"Villamarín\").replace(/\\bIvan\\b/, \"Iván\").replace(/\\bBelen\\b/, \"Belén\").replace(/\\bChavez\\b/, \"Chávez\").replace(/\\bGutierrez\\b/, \"Gutiérrez\").replace(/\\bGomez\\b/, \"Gómez\").replace(/\\bHernandez\\b/, \"Hernández\").replace(/\\bVasquez\\b/, \"Vásquez\").replace(/\\bRamirez\\b/, \"Ramírez\").replace(/\\bCordova\\b/, \"Córdova\").replace(\"Maldonado- Ocampo\", \"Maldonado-Ocampo\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bRoman\\b/, \"Román\").replace(/\\bVillamarin\\b/, \"Villamarín\").replace(/\\bIvan\\b/, \"Iván\").replace(/\\bBelen\\b/, \"Belén\").replace(/\\bChavez\\b/, \"Chávez\").replace(/\\bGutierrez\\b/, \"Gutiérrez\").replace(/\\bGomez\\b/, \"Gómez\").replace(/\\bHernandez\\b/, \"Hernández\").replace(/\\bVasquez\\b/, \"Vásquez\").replace(/\\bRamirez\\b/, \"Ramírez\").replace(/\\bCordova\\b/, \"Córdova\").replace(\"Maldonado- Ocampo\", \"Maldonado-Ocampo\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna identifiedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bRoman\\b/, \"Román\").replace(/\\bVillamarin\\b/, \"Villamarín\").replace(/\\bIvan\\b/, \"Iván\").replace(/\\bBelen\\b/, \"Belén\").replace(/\\bChavez\\b/, \"Chávez\").replace(/\\bGutierrez\\b/, \"Gutiérrez\").replace(/\\bGomez\\b/, \"Gómez\").replace(/\\bHernandez\\b/, \"Hernández\").replace(/\\bVasquez\\b/, \"Vásquez\").replace(/\\bRamirez\\b/, \"Ramírez\").replace(/\\bCordova\\b/, \"Córdova\").replace(\"Maldonado- Ocampo\", \"Maldonado-Ocampo\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordEnteredBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bRoman\\b/, \"Román\").replace(/\\bVillamarin\\b/, \"Villamarín\").replace(/\\bIvan\\b/, \"Iván\").replace(/\\bBelen\\b/, \"Belén\").replace(/\\bChavez\\b/, \"Chávez\").replace(/\\bGutierrez\\b/, \"Gutiérrez\").replace(/\\bGomez\\b/, \"Gómez\").replace(/\\bHernandez\\b/, \"Hernández\").replace(/\\bVasquez\\b/, \"Vásquez\").replace(/\\bRamirez\\b/, \"Ramírez\").replace(/\\bCordova\\b/, \"Córdova\").replace(\"Maldonado- Ocampo\", \"Maldonado-Ocampo\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordEnteredBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bRoman\\b/, \"Román\").replace(/\\bVillamarin\\b/, \"Villamarín\").replace(/\\bIvan\\b/, \"Iván\").replace(/\\bBelen\\b/, \"Belén\").replace(/\\bChavez\\b/, \"Chávez\").replace(/\\bGutierrez\\b/, \"Gutiérrez\").replace(/\\bGomez\\b/, \"Gómez\").replace(/\\bHernandez\\b/, \"Hernández\").replace(/\\bVasquez\\b/, \"Vásquez\").replace(/\\bRamirez\\b/, \"Ramírez\").replace(/\\bCordova\\b/, \"Córdova\").replace(\"Maldonado- Ocampo\", \"Maldonado-Ocampo\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bM\\.O\\b(?!\\.)/, \"M.O.\").replace(/\\bT\\.N\\b(?!\\.)/, \"T.N.\").replace(/\\bA\\.E\\b(?!\\.)/, \"A.E.\").replace(/\\bC\\.P\\b(?!\\.)/, \"C.P.\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bM\\.O\\b(?!\\.)/, \"M.O.\").replace(/\\bT\\.N\\b(?!\\.)/, \"T.N.\").replace(/\\bA\\.E\\b(?!\\.)/, \"A.E.\").replace(/\\bC\\.P\\b(?!\\.)/, \"C.P.\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bM\\.O\\b(?!\\.)/, \"M.O.\").replace(/\\bT\\.N\\b(?!\\.)/, \"T.N.\").replace(/\\bA\\.E\\b(?!\\.)/, \"A.E.\").replace(/\\bC\\.P\\b(?!\\.)/, \"C.P.\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna identifiedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bM\\.O\\b(?!\\.)/, \"M.O.\").replace(/\\bT\\.N\\b(?!\\.)/, \"T.N.\").replace(/\\bA\\.E\\b(?!\\.)/, \"A.E.\").replace(/\\bC\\.P\\b(?!\\.)/, \"C.P.\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordEnteredBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bM\\.O\\b(?!\\.)/, \"M.O.\").replace(/\\bT\\.N\\b(?!\\.)/, \"T.N.\").replace(/\\bA\\.E\\b(?!\\.)/, \"A.E.\").replace(/\\bC\\.P\\b(?!\\.)/, \"C.P.\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordEnteredBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bM\\.O\\b(?!\\.)/, \"M.O.\").replace(/\\bT\\.N\\b(?!\\.)/, \"T.N.\").replace(/\\bA\\.E\\b(?!\\.)/, \"A.E.\").replace(/\\bC\\.P\\b(?!\\.)/, \"C.P.\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "taxonRank",
+    "expression": "grel:if(isBlank(value), value, value.toLowercase())",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna taxonRank usando la expresión grel:if(isBlank(value), value, value.toLowercase())"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "modified",
+    "expression": "grel:if(isBlank(value), value, value.replace(\" \", \"T\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna modified usando la expresión grel:if(isBlank(value), value, value.replace(\" \", \"T\"))"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "language",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Español"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "es"
+      }
+    ],
+    "description": "Editar celdas en masa en columna language"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "sex",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Indeterminado"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "undetermined"
+      },
+      {
+        "from": [
+          "Hembra"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "female"
+      },
+      {
+        "from": [
+          "Hembra | Macho"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "female | male"
+      }
+    ],
+    "description": "Editar celdas en masa en columna sex"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "establishmentMeans",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "desconocido"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "uncertain"
+      },
+      {
+        "from": [
+          "nativo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "native"
+      },
+      {
+        "from": [
+          "endémico"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "nativeEndemic"
+      },
+      {
+        "from": [
+          "introducido"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "introduced"
+      }
+    ],
+    "description": "Editar celdas en masa en columna establishmentMeans"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "typeStatus",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Holotipo"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Holotype"
+      }
+    ],
+    "description": "Editar celdas en masa en columna typeStatus"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:if(and(contains(\"|5713|\", \"|\" + cells.get(\"catalogNumber\").value + \"|\"), value == \"QCAZ | Luis Coloma | Jenny Naranjo | Raúl Ramírez\"), \"QCAZ | Raúl Ramírez | Jenny Naranjo | Luis Coloma\", value)",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordedBy usando la expresión grel:if(and(contains(\"|5713|\", \"|\" + cells.get(\"catalogNumber\").value + \"|\"), value == \"QCAZ | Luis Coloma | Jenny Naranjo | Raúl Ramírez\"), \"QCAZ | Raúl Ramírez | Jenny Naranjo | Luis Coloma\", value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bterritoria\\b/, \"territorio\").replace(\"Alto Alto Rofriguez\", \"Alto Rodríguez\").replace(\"Alto Rodriguez\", \"Alto Rodríguez\").replace(/\\bripo\\b/, \"río\").replace(\"Destacmento\", \"Destacamento\").replace(\"Artifical\", \"Artificial\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/\\bterritoria\\b/, \"territorio\").replace(\"Alto Alto Rofriguez\", \"Alto Rodríguez\").replace(\"Alto Rodriguez\", \"Alto Rodríguez\").replace(/\\bripo\\b/, \"río\").replace(\"Destacmento\", \"Destacamento\").replace(\"Artifical\", \"Artificial\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bterritoria\\b/, \"territorio\").replace(\"Alto Alto Rofriguez\", \"Alto Rodríguez\").replace(\"Alto Rodriguez\", \"Alto Rodríguez\").replace(/\\bripo\\b/, \"río\").replace(\"Destacmento\", \"Destacamento\").replace(\"Artifical\", \"Artificial\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/\\bterritoria\\b/, \"territorio\").replace(\"Alto Alto Rofriguez\", \"Alto Rodríguez\").replace(\"Alto Rodriguez\", \"Alto Rodríguez\").replace(/\\bripo\\b/, \"río\").replace(\"Destacmento\", \"Destacamento\").replace(\"Artifical\", \"Artificial\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bAmbuqui\\b/, \"Ambuquí\").replace(/\\bEden\\b/, \"Edén\").replace(/\\bJambeli\\b/, \"Jambelí\").replace(/\\bSucua\\b/, \"Sucúa\").replace(/\\bEl Angel\\b/, \"El Ángel\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/\\bAmbuqui\\b/, \"Ambuquí\").replace(/\\bEden\\b/, \"Edén\").replace(/\\bJambeli\\b/, \"Jambelí\").replace(/\\bSucua\\b/, \"Sucúa\").replace(/\\bEl Angel\\b/, \"El Ángel\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bAmbuqui\\b/, \"Ambuquí\").replace(/\\bEden\\b/, \"Edén\").replace(/\\bJambeli\\b/, \"Jambelí\").replace(/\\bSucua\\b/, \"Sucúa\").replace(/\\bEl Angel\\b/, \"El Ángel\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/\\bAmbuqui\\b/, \"Ambuquí\").replace(/\\bEden\\b/, \"Edén\").replace(/\\bJambeli\\b/, \"Jambelí\").replace(/\\bSucua\\b/, \"Sucúa\").replace(/\\bEl Angel\\b/, \"El Ángel\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bmts\\.?/, \"m\").replace(\"De la Calle principal\", \"de la Calle principal\").replace(\"Blp:31\", \"Blq: 31\").replace(/\\bblq\\b/, \"Blq\").replace(\"Sta.\", \"Santa\").replace(/\\bPN\\b/, \"Parque Nacional\").replace(\"Res. Eco.\", \"Reserva Ecológica\").replace(\"R.P.F.\", \"Reserva de Producción de Fauna\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/\\bmts\\.?/, \"m\").replace(\"De la Calle principal\", \"de la Calle principal\").replace(\"Blp:31\", \"Blq: 31\").replace(/\\bblq\\b/, \"Blq\").replace(\"Sta.\", \"Santa\").replace(/\\bPN\\b/, \"Parque Nacional\").replace(\"Res. Eco.\", \"Reserva Ecológica\").replace(\"R.P.F.\", \"Reserva de Producción de Fauna\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bmts\\.?/, \"m\").replace(\"De la Calle principal\", \"de la Calle principal\").replace(\"Blp:31\", \"Blq: 31\").replace(/\\bblq\\b/, \"Blq\").replace(\"Sta.\", \"Santa\").replace(/\\bPN\\b/, \"Parque Nacional\").replace(\"Res. Eco.\", \"Reserva Ecológica\").replace(\"R.P.F.\", \"Reserva de Producción de Fauna\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/\\bmts\\.?/, \"m\").replace(\"De la Calle principal\", \"de la Calle principal\").replace(\"Blp:31\", \"Blq: 31\").replace(/\\bblq\\b/, \"Blq\").replace(\"Sta.\", \"Santa\").replace(/\\bPN\\b/, \"Parque Nacional\").replace(\"Res. Eco.\", \"Reserva Ecológica\").replace(\"R.P.F.\", \"Reserva de Producción de Fauna\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "scientificNameAuthorship",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\band\\b/, \"&\"))",
+    "onError": null,
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna scientificNameAuthorship usando la expresión grel:if(isBlank(value), value, value.replace(/\\band\\b/, \"&\"))"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Río Nashiño Blq: 31 .1.8 km N del Helipuerto"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Nashiño Blq: 31. 1.8 km N del Helipuerto"
+      },
+      {
+        "from": [
+          "Parque Nacional Yasuní . estero a 100 m de OBE"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Parque Nacional Yasuní. estero a 100 m de OBE"
+      },
+      {
+        "from": [
+          "A 140m . Entrada Cabaña Supaycocha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "A 140m Entrada Cabaña Supaycocha"
+      },
+      {
+        "from": [
+          "Río Guajalito. atravesando un puente de 3 ."
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Guajalito. atravesando un puente de 3"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Juan Francisco Rivadeneira | Juan Francisco Rivadeneira | A. Chiriboga"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Juan Francisco Rivadeneira | A. Chiriboga"
+      }
+    ],
+    "description": "Editar celdas en masa en columna recordedBy"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "municipality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "ACUS Los monos"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "ACUS Los Monos"
+      },
+      {
+        "from": [
+          "10 de agosto"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "10 de Agosto"
+      },
+      {
+        "from": [
+          "Alshi (Cab. en 9 de octubre)"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Alshi (Cab. en 9 de Octubre)"
+      },
+      {
+        "from": [
+          "Veracruz (Indillama)(CAB. EN INDILLAMA)"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Veracruz (Indillama) (Cab. en Indillama)"
+      }
+    ],
+    "description": "Editar celdas en masa en columna municipality"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bKm\\.?\\s*/, \"km \").replace(/\\bVia\\b/, \"Vía\").replace(/\\bmetros\\b/, \"m\").replace(\"Sto.\", \"Santo\").replace(/\\bs\\/n\\b/, \"S/N\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/\\bKm\\.?\\s*/, \"km \").replace(/\\bVia\\b/, \"Vía\").replace(/\\bmetros\\b/, \"m\").replace(\"Sto.\", \"Santo\").replace(/\\bs\\/n\\b/, \"S/N\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bKm\\.?\\s*/, \"km \").replace(/\\bVia\\b/, \"Vía\").replace(/\\bmetros\\b/, \"m\").replace(\"Sto.\", \"Santo\").replace(/\\bs\\/n\\b/, \"S/N\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/\\bKm\\.?\\s*/, \"km \").replace(/\\bVia\\b/, \"Vía\").replace(/\\bmetros\\b/, \"m\").replace(\"Sto.\", \"Santo\").replace(/\\bs\\/n\\b/, \"S/N\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Río camarones\", \"Río Camarones\").replace(\"Río blanco\", \"Río Blanco\").replace(\"Río pichira\", \"Río Pichira\").replace(\"Río playayacu\", \"Río Playayacu\").replace(\"Río marahuille\", \"Río Marahuille\").replace(\"Río cariaco\", \"Río Cariaco\").replace(\"Río jurumbano\", \"Río Jurumbano\").replace(\"Río jurubuao\", \"Río Jurubuao\").replace(\"Quebrada sune\", \"Quebrada Sune\").replace(\"Quebrada santa rosa\", \"Quebrada Santa Rosa\").replace(\"Estero tigre\", \"Estero Tigre\").replace(\"Estero anteras\", \"Estero Anteras\").replace(\"Parque nacional\", \"Parque Nacional\").replace(\"Bosque protector\", \"Bosque Protector\").replace(/\\.$/, \"\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(\"Río camarones\", \"Río Camarones\").replace(\"Río blanco\", \"Río Blanco\").replace(\"Río pichira\", \"Río Pichira\").replace(\"Río playayacu\", \"Río Playayacu\").replace(\"Río marahuille\", \"Río Marahuille\").replace(\"Río cariaco\", \"Río Cariaco\").replace(\"Río jurumbano\", \"Río Jurumbano\").replace(\"Río jurubuao\", \"Río Jurubuao\").replace(\"Quebrada sune\", \"Quebrada Sune\").replace(\"Quebrada santa rosa\", \"Quebrada Santa Rosa\").replace(\"Estero tigre\", \"Estero Tigre\").replace(\"Estero anteras\", \"Estero Anteras\").replace(\"Parque nacional\", \"Parque Nacional\").replace(\"Bosque protector\", \"Bosque Protector\").replace(/\\.$/, \"\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Río camarones\", \"Río Camarones\").replace(\"Río marahuille\", \"Río Marahuille\").replace(\"Quebrada sune\", \"Quebrada Sune\").replace(\"Estero tigre\", \"Estero Tigre\").replace(\"Estero anteras\", \"Estero Anteras\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(\"Río camarones\", \"Río Camarones\").replace(\"Río marahuille\", \"Río Marahuille\").replace(\"Quebrada sune\", \"Quebrada Sune\").replace(\"Estero tigre\", \"Estero Tigre\").replace(\"Estero anteras\", \"Estero Anteras\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/(\\d)m\\b/, \"$1 m\").replace(\"al oriente de canelos\", \"al oriente de Canelos\").replace(\"Estación Canadé\", \"Estación Canandé\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/(\\d)m\\b/, \"$1 m\").replace(\"al oriente de canelos\", \"al oriente de Canelos\").replace(\"Estación Canadé\", \"Estación Canandé\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bCardenas\\b/, \"Cárdenas\").replace(/\\bMorejon\\b/, \"Morejón\").replace(/\\bYepez\\b/, \"Yépez\").replace(/\\bBarragan\\b/, \"Barragán\").replace(/\\bD Gower\\b/, \"D. Gower\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bCardenas\\b/, \"Cárdenas\").replace(/\\bMorejon\\b/, \"Morejón\").replace(/\\bYepez\\b/, \"Yépez\").replace(/\\bBarragan\\b/, \"Barragán\").replace(/\\bD Gower\\b/, \"D. Gower\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bCardenas\\b/, \"Cárdenas\").replace(/\\bMorejon\\b/, \"Morejón\").replace(/\\bYepez\\b/, \"Yépez\").replace(/\\bBarragan\\b/, \"Barragán\").replace(/\\bD Gower\\b/, \"D. Gower\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna identifiedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bCardenas\\b/, \"Cárdenas\").replace(/\\bMorejon\\b/, \"Morejón\").replace(/\\bYepez\\b/, \"Yépez\").replace(/\\bBarragan\\b/, \"Barragán\").replace(/\\bD Gower\\b/, \"D. Gower\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordEnteredBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bCardenas\\b/, \"Cárdenas\").replace(/\\bMorejon\\b/, \"Morejón\").replace(/\\bYepez\\b/, \"Yépez\").replace(/\\bBarragan\\b/, \"Barragán\").replace(/\\bD Gower\\b/, \"D. Gower\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordEnteredBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bCardenas\\b/, \"Cárdenas\").replace(/\\bMorejon\\b/, \"Morejón\").replace(/\\bYepez\\b/, \"Yépez\").replace(/\\bBarragan\\b/, \"Barragán\").replace(/\\bD Gower\\b/, \"D. Gower\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Afluyente\", \"Afluente\").replace(\"Cormorau\", \"Cormorán\").replace(\"Yanyacu\", \"Yanayacu\").replace(\"Sersacco\", \"Setsacco\").replace(\"Bucana\", \"Bocana\").replace(\"Sansahuani\", \"Sansahuari\").replace(/\\bCAMP\\s+(\\d)/, \"Campamento $1\").replace(/\\bCoop\\.\\s*/, \"Cooperativa \").replace(/\\bHda\\.\\s*/, \"Hacienda \").replace(/\\bPta\\.\\s*/, \"Punta \"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(\"Afluyente\", \"Afluente\").replace(\"Cormorau\", \"Cormorán\").replace(\"Yanyacu\", \"Yanayacu\").replace(\"Sersacco\", \"Setsacco\").replace(\"Bucana\", \"Bocana\").replace(\"Sansahuani\", \"Sansahuari\").replace(/\\bCAMP\\s+(\\d)/, \"Campamento $1\").replace(/\\bCoop\\.\\s*/, \"Cooperativa \").replace(/\\bHda\\.\\s*/, \"Hacienda \").replace(/\\bPta\\.\\s*/, \"Punta \"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Afluyente\", \"Afluente\").replace(\"Cormorau\", \"Cormorán\").replace(\"Yanyacu\", \"Yanayacu\").replace(\"Sersacco\", \"Setsacco\").replace(\"Bucana\", \"Bocana\").replace(\"Sansahuani\", \"Sansahuari\").replace(/\\bCAMP\\s+(\\d)/, \"Campamento $1\").replace(/\\bCoop\\.\\s*/, \"Cooperativa \").replace(/\\bHda\\.\\s*/, \"Hacienda \").replace(/\\bPta\\.\\s*/, \"Punta \"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(\"Afluyente\", \"Afluente\").replace(\"Cormorau\", \"Cormorán\").replace(\"Yanyacu\", \"Yanayacu\").replace(\"Sersacco\", \"Setsacco\").replace(\"Bucana\", \"Bocana\").replace(\"Sansahuani\", \"Sansahuari\").replace(/\\bCAMP\\s+(\\d)/, \"Campamento $1\").replace(/\\bCoop\\.\\s*/, \"Cooperativa \").replace(/\\bHda\\.\\s*/, \"Hacienda \").replace(/\\bPta\\.\\s*/, \"Punta \"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "scientificNameAuthorship",
+    "expression": "grel:if(or(value == \"Schltdl.\", value == \"Wedd.\"), \"\", value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna scientificNameAuthorship usando la expresión grel:if(or(value == \"Schltdl.\", value == \"Wedd.\"), \"\", value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bVictor\\b/, \"Víctor\").replace(\"German Tonecoto\", \"Germán Tonecoto\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bVictor\\b/, \"Víctor\").replace(\"German Tonecoto\", \"Germán Tonecoto\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bVictor\\b/, \"Víctor\").replace(\"German Tonecoto\", \"Germán Tonecoto\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna identifiedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bVictor\\b/, \"Víctor\").replace(\"German Tonecoto\", \"Germán Tonecoto\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordEnteredBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bVictor\\b/, \"Víctor\").replace(\"German Tonecoto\", \"Germán Tonecoto\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordEnteredBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\bVictor\\b/, \"Víctor\").replace(\"German Tonecoto\", \"Germán Tonecoto\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Alaubí\", \"Alambí\").replace(\"Canonaco\", \"Cononaco\").replace(\"Socotoco\", \"Jocotoco\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(\"Alaubí\", \"Alambí\").replace(\"Canonaco\", \"Cononaco\").replace(\"Socotoco\", \"Jocotoco\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Alaubí\", \"Alambí\").replace(\"Canonaco\", \"Cononaco\").replace(\"Socotoco\", \"Jocotoco\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(\"Alaubí\", \"Alambí\").replace(\"Canonaco\", \"Cononaco\").replace(\"Socotoco\", \"Jocotoco\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Cornorán\", \"Cormorán\").replace(/\\bMasphi\\b/, \"Mashpi\").replace(/\\bHcda\\.\\s*/, \"Hacienda \").replace(/\\bCamp\\s+(\\d)/, \"Campamento $1\").replace(/\\bcampamento(\\d)/, \"Campamento $1\").replace(/\\bbuenaventura\\b/, \"Buenaventura\").replace(/\\bpsicola\\b/, \"piscícola\").replace(/\\bbulubulu\\b/, \"Bulubulu\").replace(\"Reserva Producción de Fauna\", \"Reserva de Producción de Fauna\").replace(\"Campamento 1. Pisorie Setsacco\", \"Campamento 1 Pisorie Setsacco\").replace(\"NW.Playón\", \"NW. Playón\").replace(/\\bpunta(?=\\s+km)/, \"Punta\").replace(/\\brío(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Río\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(\"Cornorán\", \"Cormorán\").replace(/\\bMasphi\\b/, \"Mashpi\").replace(/\\bHcda\\.\\s*/, \"Hacienda \").replace(/\\bCamp\\s+(\\d)/, \"Campamento $1\").replace(/\\bcampamento(\\d)/, \"Campamento $1\").replace(/\\bbuenaventura\\b/, \"Buenaventura\").replace(/\\bpsicola\\b/, \"piscícola\").replace(/\\bbulubulu\\b/, \"Bulubulu\").replace(\"Reserva Producción de Fauna\", \"Reserva de Producción de Fauna\").replace(\"Campamento 1. Pisorie Setsacco\", \"Campamento 1 Pisorie Setsacco\").replace(\"NW.Playón\", \"NW. Playón\").replace(/\\bpunta(?=\\s+km)/, \"Punta\").replace(/\\brío(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Río\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Cornorán\", \"Cormorán\").replace(/\\bMasphi\\b/, \"Mashpi\").replace(/\\bHcda\\.\\s*/, \"Hacienda \").replace(/\\bCamp\\s+(\\d)/, \"Campamento $1\").replace(/\\bcampamento(\\d)/, \"Campamento $1\").replace(/\\bbuenaventura\\b/, \"Buenaventura\").replace(/\\bpsicola\\b/, \"piscícola\").replace(/\\bbulubulu\\b/, \"Bulubulu\").replace(\"Reserva Producción de Fauna\", \"Reserva de Producción de Fauna\").replace(\"Campamento 1. Pisorie Setsacco\", \"Campamento 1 Pisorie Setsacco\").replace(\"NW.Playón\", \"NW. Playón\").replace(/\\bpunta(?=\\s+km)/, \"Punta\").replace(/\\brío(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Río\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(\"Cornorán\", \"Cormorán\").replace(/\\bMasphi\\b/, \"Mashpi\").replace(/\\bHcda\\.\\s*/, \"Hacienda \").replace(/\\bCamp\\s+(\\d)/, \"Campamento $1\").replace(/\\bcampamento(\\d)/, \"Campamento $1\").replace(/\\bbuenaventura\\b/, \"Buenaventura\").replace(/\\bpsicola\\b/, \"piscícola\").replace(/\\bbulubulu\\b/, \"Bulubulu\").replace(\"Reserva Producción de Fauna\", \"Reserva de Producción de Fauna\").replace(\"Campamento 1. Pisorie Setsacco\", \"Campamento 1 Pisorie Setsacco\").replace(\"NW.Playón\", \"NW. Playón\").replace(/\\bpunta(?=\\s+km)/, \"Punta\").replace(/\\brío(?=\\s+[A-ZÁÉÍÓÚÑ])/, \"Río\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bmin\\./, \"min\").replace(\"99,4 km\", \"99.4 km\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/\\bmin\\./, \"min\").replace(\"99,4 km\", \"99.4 km\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bmin\\./, \"min\").replace(\"99,4 km\", \"99.4 km\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/\\bmin\\./, \"min\").replace(\"99,4 km\", \"99.4 km\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\b([A-ZÁÉÍÓÚÑ])\\.([A-ZÁÉÍÓÚÑ])\\.(?=\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ])/, \"$1. $2.\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\b([A-ZÁÉÍÓÚÑ])\\.([A-ZÁÉÍÓÚÑ])\\.(?=\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ])/, \"$1. $2.\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "identifiedBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\b([A-ZÁÉÍÓÚÑ])\\.([A-ZÁÉÍÓÚÑ])\\.(?=\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ])/, \"$1. $2.\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna identifiedBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\b([A-ZÁÉÍÓÚÑ])\\.([A-ZÁÉÍÓÚÑ])\\.(?=\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ])/, \"$1. $2.\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "recordEnteredBy",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\b([A-ZÁÉÍÓÚÑ])\\.([A-ZÁÉÍÓÚÑ])\\.(?=\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ])/, \"$1. $2.\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna recordEnteredBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\b([A-ZÁÉÍÓÚÑ])\\.([A-ZÁÉÍÓÚÑ])\\.(?=\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ])/, \"$1. $2.\"))"
+  }
+]

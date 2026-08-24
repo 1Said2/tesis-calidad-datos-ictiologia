@@ -1,0 +1,43 @@
+bloque,regla,severidad,destino,filas,registros,casos
+registro,"mismo punto, fecha y especie en varios catalogos",informativa,INABIO,726,726,239
+geografia,mismo valor en canton y parroquia,informativa,INABIO,125,125,22
+registro,lote con numero de individuos atipicamente alto,informativa,INABIO,7,7,6
+ecologia,altitud fuera del rango de la especie en la coleccion,media,INABIO,81,81,77
+registro,institucion o proyecto en el campo de colector,media,INABIO,1056,1056,69
+taxonomia,inconsistencia (cruce) entre taxonID y scientificName,media,INABIO,863,863,66
+coordenadas,coordenada irrecuperable,media,INABIO,67,67,32
+taxonomia,cualificador sp. sobre un binomio completo,media,INABIO,29,29,21
+ecologia,unico registro de la especie en esa vertiente,media,INABIO,19,19,19
+ortografia,valor a una letra de otro valor de locality,media,INABIO,24,19,14
+geografia,parroquia declarada sin canton,media,INABIO,12,12,8
+ortografia,valor a una letra de otro valor de locationRemarks,media,INABIO,11,7,5
+ortografia,valor a una letra de otro valor de recordedBy,media,INABIO,5,5,4
+registro,colector reducido a iniciales sin nombre desarrollado,media,INABIO,83,83,4
+ortografia,valor a una letra de otro valor de scientificName,media,INABIO,2,2,1
+registro,sin numero de individuos,media,INABIO,5,5,1
+coordenadas,coordenada fuera de la provincia declarada,alta,INABIO,231,231,91
+coordenadas,coordenada compartida y provincia minoritaria,alta,INABIO,56,56,43
+temporal,eventDate y verbatimEventDate con anos distintos,alta,INABIO,20,20,18
+temporal,determinado antes de ser colectado,alta,INABIO,73,73,13
+coordenadas,signo de la coordenada no resuelto,alta,INABIO,12,12,9
+coordenadas,coordenada derivada de un DMS fuera de rango,alta,INABIO,12,12,6
+geografia,canton asociado a dos provincias distintas,alta,INABIO,82,82,4
+ecologia,familia estrictamente marina en provincia amazonica,alta,INABIO,2,2,2
+temporal,fecha de colecta en el futuro,alta,INABIO,2,2,2
+temporal,registro modificado antes de la colecta,alta,INABIO,2,2,2
+registro,tipo nomenclatural sin datos de colecta,alta,INABIO,1,1,1
+temporal,colecta anterior a la fundacion de la coleccion,alta,INABIO,1,1,1
+geografia,locality y locationRemarks identicos,informativa,propio,500,500,102
+temporal,ano de colecta atipico para el colector,informativa,propio,253,253,69
+geografia,parroquia repetida como localidad,informativa,propio,193,193,17
+temporal,eventDate parcial sin startDayOfYear (grano no diario),informativa,propio,234,234,11
+registro,sello dcterms:modified fuera de los lotes de carga conocidos,informativa,propio,2,2,2
+geografia,locality vacia con locationRemarks poblada,media,propio,289,289,89
+registro,altitud maxima declarada sin altitud minima,media,propio,191,191,39
+geografia,coordenada o altitud embebida en el texto de localidad,media,propio,23,23,8
+temporal,dia fabricado por el portal (01 sobre verbatim ano-mes),media,propio,169,169,6
+taxonomia,jerarquia superior minoritaria o discrepante,media,ya_marcado,109,109,65
+taxonomia,epiteto no coincide con el binomio,media,ya_marcado,12,12,10
+taxonomia,genus no coincide con el binomio,media,ya_marcado,12,12,9
+taxonomia,registro sin metadatos de colecta,media,ya_marcado,4,4,2
+taxonomia,registro sin ningun dato taxonomico,media,ya_marcado,6,6,1

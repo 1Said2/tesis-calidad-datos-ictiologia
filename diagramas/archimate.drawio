@@ -1,0 +1,122 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="ArchiMate - BI Ictiologia INABIO v2" id="archimate2">
+    <mxGraphModel dx="816" dy="1323" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="driver1" parent="1" style="shape=mxgraph.archimate3.application;appType=driver;archiType=oct;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Mandato legal RCOAM Art. 47 (2019):&#xa;INABIO debe administrar, sistematizar y gestionar&#xa;la BNDB bajo directrices del MAAE" vertex="1">
+          <mxGeometry height="90" width="280" x="50" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="goal1" parent="1" style="shape=mxgraph.archimate3.application;appType=goal;archiType=oct;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Fortalecer el analisis y visualizacion&#xa;analitica de la coleccion ictiologica&#xa;para toma de decisiones informada" vertex="1">
+          <mxGeometry height="90" width="260" x="500" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="req1" parent="1" style="shape=mxgraph.archimate3.application;appType=requirement;archiType=oct;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Modelo dimensional hibrido&#xa;Kimball + Data Vault" vertex="1">
+          <mxGeometry height="90" width="240" x="940" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="req2" parent="1" style="shape=mxgraph.archimate3.application;appType=requirement;archiType=oct;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Dashboards interactivos con KPIs" vertex="1">
+          <mxGeometry height="90" width="240" x="1550" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="extact" parent="1" style="shape=mxgraph.archimate3.application;appType=actor;archiType=square;whiteSpace=wrap;html=1;fillColor=#FFFF99;strokeColor=#CCCC00;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="MAAE&#xa;(Autoridad Ambiental Nacional)" vertex="1">
+          <mxGeometry height="80" width="200" x="50" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="bact1" parent="1" style="shape=mxgraph.archimate3.application;appType=actor;archiType=square;whiteSpace=wrap;html=1;fillColor=#FFFF99;strokeColor=#CCCC00;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="INABIO" vertex="1">
+          <mxGeometry height="80" width="200" x="350" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="bact2" parent="1" style="shape=mxgraph.archimate3.application;appType=actor;archiType=square;whiteSpace=wrap;html=1;fillColor=#FFFF99;strokeColor=#CCCC00;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Investigador / Biologo&#xa;(ej. Mario Yanez)" vertex="1">
+          <mxGeometry height="80" width="220" x="350" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="bproc1" parent="1" style="shape=mxgraph.archimate3.application;appType=proc;archiType=rounded;whiteSpace=wrap;html=1;fillColor=#FFFF99;strokeColor=#CCCC00;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Gestion y conservacion de la&#xa;coleccion ictiologica del MECN-DP" vertex="1">
+          <mxGeometry height="80" width="260" x="650" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="bserv1" parent="1" style="shape=mxgraph.archimate3.application;appType=serv;archiType=rounded;whiteSpace=wrap;html=1;fillColor=#FFFF99;strokeColor=#CCCC00;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Toma de decisiones informada&#xa;sobre conservacion" vertex="1">
+          <mxGeometry height="80" width="240" x="1250" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="app0" parent="1" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Portal BNDB&#xa;(WordPress - CMS)" vertex="1">
+          <mxGeometry height="80" width="220" x="50" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="app1" parent="1" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Symbiota&#xa;(gestion de datos biologicos)" vertex="1">
+          <mxGeometry height="80" width="220" x="350" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="app2" parent="1" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Motor ETL&#xa;(Power Query)" vertex="1">
+          <mxGeometry height="80" width="220" x="650" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="app3" parent="1" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Modelo dimensional&#xa;(Data Warehouse)" vertex="1">
+          <mxGeometry height="80" width="220" x="950" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="app4" parent="1" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Power BI&#xa;(Desktop/Service)" vertex="1">
+          <mxGeometry height="80" width="220" x="1250" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="appserv1" parent="1" style="shape=mxgraph.archimate3.application;appType=serv;archiType=rounded;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Visualizacion analitica&#xa;(dashboards)" vertex="1">
+          <mxGeometry height="80" width="240" x="1550" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="tech1" parent="1" style="shape=mxgraph.archimate3.application;appType=sysSw;archiType=square;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="MySQL / MariaDB&#xa;(base de datos)" vertex="1">
+          <mxGeometry height="80" width="220" x="350" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" edge="1" parent="1" source="extact" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=block;endFill=1;" target="bact1" value="rige (RCOAM Art. 47)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="driver1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;dashed=1;" target="goal1" value="influencia">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="goal1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=block;endFill=0;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="req1" value="realiza">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1070" y="70" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="goal1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=block;endFill=0;dashed=1;" target="req2" value="realiza">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="630" y="-10" />
+              <mxPoint x="1550" y="-10" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="app3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=block;endFill=0;dashed=1;" target="req1" value="realizado por">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="appserv1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=block;endFill=0;dashed=1;" target="req2" value="realizado por">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="bact1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=none;startArrow=oval;startFill=1;" target="bproc1" value="asignado a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="bact2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=none;startArrow=oval;startFill=1;" target="bproc1" value="asignado a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="bproc1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=block;endFill=0;dashed=1;" target="bserv1" value="realiza">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1060" y="300" />
+              <mxPoint x="1060" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="app0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;dashed=1;dashPattern=1 4;" target="app1" value="provee acceso a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9b" edge="1" parent="1" source="app1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;dashed=1;dashPattern=1 4;" target="tech1" value="persiste en">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="app1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;dashed=1;dashPattern=1 4;" target="app2" value="alimenta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="app2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;dashed=1;dashPattern=1 4;" target="app3" value="carga">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="app3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;dashed=1;dashPattern=1 4;" target="app4" value="alimenta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="app4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=block;endFill=1;" target="appserv1" value="provee">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="appserv1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;endArrow=open;endFill=0;" target="bserv1" value="sirve a">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1580" y="280.04" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,44 @@
+bloque,regla,severidad,destino
+coordenadas,coordenada fuera de la provincia declarada,alta,INABIO
+coordenadas,coordenada irrecuperable,media,INABIO
+coordenadas,signo de la coordenada no resuelto,alta,INABIO
+coordenadas,coordenada derivada de un DMS fuera de rango,alta,INABIO
+coordenadas,continent declarado sobre coordenada marina (aviso GBIF esperado),informativa,propio
+ecologia,altitud fuera del rango de la especie en la coleccion,media,INABIO
+ecologia,unico registro de la especie en esa vertiente,media,INABIO
+ecologia,familia estrictamente marina en provincia amazonica,alta,INABIO
+geografia,locality y locationRemarks identicos,informativa,propio
+geografia,"canton homonimo de su provincia (verificado, no es error)",informativa,propio
+geografia,nombre de provincia usado como canton,media,INABIO
+geografia,parroquia repetida como localidad,informativa,propio
+geografia,mismo valor en canton y parroquia,informativa,INABIO
+geografia,canton asociado a dos provincias distintas,alta,INABIO
+geografia,coordenada o altitud embebida en el texto de localidad,media,propio
+geografia,parroquia declarada sin canton,media,INABIO
+ortografia,valor a una letra de otro valor de municipality,media,INABIO
+ortografia,valor a una letra de otro valor de genus,media,INABIO
+ortografia,valor a una letra de otro valor de county,media,INABIO
+ortografia,valor a una letra de otro valor de family,media,INABIO
+registro,institucion o proyecto en el campo de colector,media,INABIO
+registro,"mismo punto, fecha y especie en varios catalogos",informativa,INABIO
+registro,altitud maxima declarada sin altitud minima,media,propio
+registro,colector reducido a iniciales sin nombre desarrollado,media,INABIO
+registro,lote con numero de individuos atipicamente alto,informativa,INABIO
+registro,sin numero de individuos,media,INABIO
+taxonomia,taxonID apunta a mas de un nombre cientifico,media,INABIO
+taxonomia,un mismo nombre con mas de un taxonID,media,INABIO
+taxonomia,familia minoritaria dentro del genero,media,ya_marcado
+taxonomia,epiteto no coincide con el binomio,media,ya_marcado
+taxonomia,genus no coincide con el binomio,media,ya_marcado
+taxonomia,orden minoritario dentro de la familia,media,ya_marcado
+taxonomia,registro sin ningun dato taxonomico,media,ya_marcado
+taxonomia,familia minoritaria y ademas de otro orden,media,ya_marcado
+taxonomia,registro sin metadatos de colecta,media,ya_marcado
+temporal,ano de colecta atipico para el colector,informativa,INABIO
+temporal,eventDate parcial sin startDayOfYear (grano no diario),informativa,propio
+temporal,dia fabricado por el portal (01 sobre verbatim ano-mes),media,propio
+temporal,determinado antes de ser colectado,alta,INABIO
+temporal,eventDate y verbatimEventDate con anos distintos,alta,INABIO
+temporal,fecha de colecta en el futuro,alta,INABIO
+temporal,registro modificado antes de la colecta,alta,INABIO
+temporal,colecta anterior a la fundacion de la coleccion,alta,INABIO

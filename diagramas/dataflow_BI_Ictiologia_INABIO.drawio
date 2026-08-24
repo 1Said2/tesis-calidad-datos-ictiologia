@@ -1,0 +1,130 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Data Flow - BI Ictiologia INABIO" id="dataflow2">
+    <mxGraphModel dx="792" dy="1266" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3400" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="box1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Portal INABIO / BNDB&#xa;(bndb.sisbioecuador.bio)" vertex="1">
+          <mxGeometry height="70" width="200" x="40" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="box2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Seleccion de coleccion&#xa;(Ictiologia) + filtros opcionales&#xa;(taxon, localidad, geo, colector)" vertex="1">
+          <mxGeometry height="90" width="220" x="300" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="box3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Configuracion de descarga&#xa;Structure: Darwin Core&#xa;CSV, UTF-8, extensiones activas" vertex="1">
+          <mxGeometry height="90" width="220" x="580" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="box4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Descarga&#xa;(ZIP - Darwin Core Archive)" vertex="1">
+          <mxGeometry height="70" width="180" x="860" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="zcore" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="occurrences.csv&lt;br&gt;CORE - tabla de hechos" vertex="1">
+          <mxGeometry height="70" width="220" x="660" y="-110" as="geometry" />
+        </mxCell>
+        <mxCell id="zmeta" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" value="meta.xml&#xa;descriptor DwC-A&#xa;(mapeo de estructura)" vertex="1">
+          <mxGeometry height="70" width="220" x="910" y="-40" as="geometry" />
+        </mxCell>
+        <mxCell id="zeml" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" value="eml.xml&#xa;metadata del dataset" vertex="1">
+          <mxGeometry height="60" width="220" x="1030" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="zident" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="identifications.csv&#xa;EXT - historial determinacion&#xa;(join por coreid)" vertex="1">
+          <mxGeometry height="70" width="220" x="670" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="zmat" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="materialSample.csv&#xa;EXT - muestras de material&#xa;(join por coreid)" vertex="1">
+          <mxGeometry height="70" width="220" x="1020" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="zcite" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;dashed=1;fontColor=#999999;" value="CITEME.txt&#xa;solo cita bibliografica&#xa;(no se usa en ETL)" vertex="1">
+          <mxGeometry height="70" width="220" x="640" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="box5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="Motor de consulta&#xa;Join core + extensiones (por coreid)&#xa;Extraccion y limpieza (Power Query / M)" vertex="1">
+          <mxGeometry height="100" width="240" x="1900" y="335" as="geometry" />
+        </mxCell>
+        <mxCell id="box6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="Segmentacion en tabla de hechos&#xa;y dimensiones (taxon, geografica,&#xa;fecha, multimedia)" vertex="1">
+          <mxGeometry height="100" width="220" x="2200" y="335" as="geometry" />
+        </mxCell>
+        <mxCell id="box7a" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" value="Data Vault&lt;br&gt;Hub Taxon + Satelites" vertex="1">
+          <mxGeometry height="90" width="220" x="2530" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="box7b" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" value="Kimball&lt;br&gt;Tabla de hechos + Dimensiones" vertex="1">
+          <mxGeometry height="80" width="220" x="2370" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="box8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="Data Marts" vertex="1">
+          <mxGeometry height="70" width="160" x="2400" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="box9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="Dashboards Power BI&#xa;(Design Sprint + leyes UX)" vertex="1">
+          <mxGeometry height="70" width="200" x="2380" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="box1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="box2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="box3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zcore" value="contiene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zmeta" value="contiene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zeml" value="contiene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zident" value="contiene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zmat" value="contiene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zmulti" value="contiene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;dashed=1;" target="zcite" value="contiene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="zcore" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="zmeta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=9;" target="box5" value="define mapeo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="zeml" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=9;" target="box5" value="metadata">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="zident" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box5" value="join coreid">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="zmulti" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box5" value="join coreid">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="zmulti" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box5" value="join coreid">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="box5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="box6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box7a" value="datos volatiles&#xa;(geo, fecha)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="box6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box7b" value="hechos + dim.&#xa;estables">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="box7a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box7b" value="dimensiones&#xa;curadas">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="box7b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="1" source="box8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-PGdkwpYDkz-s59saLI2-1" edge="1" parent="1" source="zmat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zmulti" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zmulti" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="multimedia.csv&#xa;EXT - imagenes&#xa;(join por coreid)" vertex="1">
+          <mxGeometry height="70" width="220" x="1410" y="350" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
