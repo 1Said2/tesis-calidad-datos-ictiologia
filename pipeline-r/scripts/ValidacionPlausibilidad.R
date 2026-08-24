@@ -489,7 +489,9 @@ par_verificado <- function(a, b) {
 # no decidibles, lo que verifica el parche. locality, locationRemarks y
 # recordedBy necesitan el filtro de digito, porque las series numeradas de
 # estacion (Pindo 2 ~ Pindo 4, Yuca Sur 1 ~ Yuca Sur 2) inundan el resultado.
-solo_digito <- function(a, b) gsub("[0-9]", "#", a) == gsub("[0-9]", "#", b)
+# Sin el cuantificador, "Yuca Sur 1" -> "Yuca Sur #" y "Yuca Sur 15" -> "Yuca Sur ##"
+# no coincidian y las series numeradas de estacion seguian pasando el filtro.
+solo_digito <- function(a, b) gsub("[0-9]+", "#", a) == gsub("[0-9]+", "#", b)
 
 for (col in c("genus", "family", "scientificName", "county", "municipality",
               "stateProvince", "locality", "locationRemarks", "recordedBy")) {

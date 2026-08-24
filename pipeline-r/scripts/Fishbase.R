@@ -690,7 +690,9 @@ tiene_anclaje <- (df$country != "" & !is.na(df$country)) |
 # GBIF flaguea CONTINENT_COORDINATE_MISMATCH en los 24 registros de Galapagos
 # porque el archipielago queda fuera de su poligono continental. Se omite el
 # termino para ellos: no se afirma lo que la fuente no sostiene.
-insular <- df$stateProvince == "Galápagos"
+# stateProvince vacio se lee como NA y "NA == 'Galapagos'" devuelve NA, que el
+# ifelse propaga: seis registros con pais o coordenada perdian el continente.
+insular <- df$stateProvince %in% "Galápagos"
 df$continent <- ifelse(tiene_anclaje & !insular, "South America", "")
 cat("continent escrito:", sum(tiene_anclaje & !insular),
     "| omitido por falta de anclaje:", sum(!tiene_anclaje),

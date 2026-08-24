@@ -39,6 +39,14 @@ pipeline-r/datos/01_crudos/dataset_dwca.zip
 pipeline-r/datos/01_crudos/*_temp.*
 
 # ===================================
+# CSVs generados por generar_tablas_dashboard.py
+# Se reproducen ejecutando: python generar_tablas_dashboard.py
+# ===================================
+dashboard/gbif_incidencias.csv
+dashboard/gbif_completitud.csv
+dashboard/preguntas.csv
+
+# ===================================
 # Power BI (binario, fuera del repo por ahora)
 # ===================================
 *.pbix

@@ -1,0 +1,1555 @@
+{
+    "key": "ae85d330-b6d6-42a2-aaaa-2fce72a066ac",
+    "created": "2026-08-24T03:41:13.171+00:00",
+    "modified": "2026-08-24T03:42:20.798+00:00",
+    "username": "1said2",
+    "file": "dataset_dwca.zip",
+    "fileSize": 583792,
+    "fileFormat": "DWCA",
+    "status": "FINISHED",
+    "metrics": {
+        "indexeable": true,
+        "stepTypes": [
+            {
+                "stepType": "VALIDATOR_VALIDATE_ARCHIVE",
+                "status": "FINISHED",
+                "executionOrder": 2
+            },
+            {
+                "stepType": "VALIDATOR_DWCA_TO_VERBATIM",
+                "status": "FINISHED",
+                "executionOrder": 3
+            },
+            {
+                "stepType": "VALIDATOR_VERBATIM_TO_IDENTIFIER",
+                "status": "FINISHED",
+                "executionOrder": 4
+            },
+            {
+                "stepType": "VALIDATOR_VERBATIM_TO_INTERPRETED",
+                "status": "FINISHED",
+                "executionOrder": 5
+            },
+            {
+                "stepType": "VALIDATOR_COLLECT_METRICS",
+                "status": "FINISHED",
+                "executionOrder": 6
+            },
+            {
+                "stepType": "VALIDATOR_UPLOAD_ARCHIVE",
+                "status": "FINISHED",
+                "executionOrder": 1
+            }
+        ],
+        "files": [
+            {
+                "fileName": "eml.xml",
+                "fileType": "METADATA",
+                "terms": [],
+                "issues": [
+                    {
+                        "issue": "RESOURCE_CONTACTS_MISSING_OR_INCOMPLETE",
+                        "issueCategory": "METADATA_CONTENT",
+                        "samples": []
+                    }
+                ]
+            },
+            {
+                "fileName": "occurrences.csv",
+                "fileType": "CORE",
+                "count": 6427,
+                "indexedCount": 6427,
+                "rowType": "http://rs.tdwg.org/dwc/terms/Occurrence",
+                "terms": [
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/recordedBy",
+                        "rawIndexed": 6274,
+                        "uniqueRawValues": 221,
+                        "interpretedIndexed": 6427,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "Paúl Tufiño": 279,
+                            "Martha Buenaño Carriel": 497,
+                            "Fernando Sánchez": 197,
+                            "Lida Guarderas": 309,
+                            "Fernando Anaguano Yancha,N. Narankas,M. Ampam,L. Chuim": 166,
+                            "Jonathan Santiago Valdiviezo Rivera": 813,
+                            "GLOWS": 171,
+                            "QCAZ": 534,
+                            "Windsor Aguirre": 193,
+                            "Juan Francisco Rivadeneira": 242
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
+                        "rawIndexed": 5876
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/informationWithheld",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/preparations",
+                        "rawIndexed": 6423,
+                        "uniqueRawValues": 5,
+                        "interpretedIndexed": 6427,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "": 4,
+                            "Cabeza": 4,
+                            "Esqueleto": 7,
+                            "Ejemplar completo en alcohol,Tejido": 1,
+                            "Ejemplar seco": 1,
+                            "Ejemplar completo en alcohol": 6410
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/associatedOccurrences",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/month",
+                        "rawIndexed": 5900,
+                        "uniqueRawValues": 12,
+                        "interpretedIndexed": 5898,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "11": 410,
+                            "12": 442,
+                            "2": 438,
+                            "3": 371,
+                            "5": 723,
+                            "6": 406,
+                            "7": 448,
+                            "8": 549,
+                            "9": 684,
+                            "10": 882
+                        }
+                    },
+                    {
+                        "term": "http://purl.org/dc/terms/accessRights",
+                        "rawIndexed": 6427
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/previousIdentifications",
+                        "rawIndexed": 23
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/specificEpithet",
+                        "rawIndexed": 5160
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/basisOfRecord",
+                        "rawIndexed": 6427,
+                        "uniqueRawValues": 1,
+                        "interpretedIndexed": 6427,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "PRESERVED_SPECIMEN": 6427
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/taxonID",
+                        "rawIndexed": 5568,
+                        "uniqueRawValues": 641,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/individualCount",
+                        "rawIndexed": 6422,
+                        "uniqueRawValues": 109,
+                        "interpretedIndexed": 6422,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "1": 3268,
+                            "2": 1025,
+                            "3": 519,
+                            "4": 323,
+                            "5": 207,
+                            "6": 163,
+                            "7": 114,
+                            "8": 80,
+                            "9": 94,
+                            "10": 68
+                        }
+                    },
+                    {
+                        "term": "https://symbiota.org/terms/recordID",
+                        "rawIndexed": 6427
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/disposition",
+                        "rawIndexed": 6423
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/georeferenceSources",
+                        "rawIndexed": 6177
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/verbatimCoordinates",
+                        "rawIndexed": 5240
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+                        "rawIndexed": 6177,
+                        "uniqueRawValues": 1172,
+                        "interpretedIndexed": 6178,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "-3.000283": 152,
+                            "-2.230592": 69,
+                            "0.831411": 62,
+                            "-0.87127": 65,
+                            "-3.015": 68,
+                            "-1.922734": 90,
+                            "-1.610411": 78,
+                            "-0.599774": 58,
+                            "-2.096164": 67,
+                            "-1.628154": 56
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/verbatimEventDate",
+                        "rawIndexed": 5580
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/identificationQualifier",
+                        "rawIndexed": 1468
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/islandGroup",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+                        "rawIndexed": 6177,
+                        "uniqueRawValues": 1161,
+                        "interpretedIndexed": 6178,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "-76.625395": 89,
+                            "-79.85844": 68,
+                            "-75.988881": 78,
+                            "-76.19705": 56,
+                            "-75.901753": 80,
+                            "-77.924998": 68,
+                            "-79.952856": 62,
+                            "-78.271864": 58,
+                            "-77.846156": 152,
+                            "-76.247968": 63
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/day",
+                        "rawIndexed": 5669,
+                        "uniqueRawValues": 31,
+                        "interpretedIndexed": 5667,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "1": 571,
+                            "24": 221,
+                            "14": 206,
+                            "25": 195,
+                            "17": 201,
+                            "18": 231,
+                            "7": 191,
+                            "8": 250,
+                            "20": 232,
+                            "10": 204
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/endDayOfYear",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 5667,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "220": 67,
+                            "144": 72,
+                            "298": 64,
+                            "244": 162,
+                            "145": 73,
+                            "213": 73,
+                            "260": 112,
+                            "294": 71,
+                            "31": 82,
+                            "32": 100
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters",
+                        "rawIndexed": 5924,
+                        "uniqueRawValues": 3,
+                        "interpretedIndexed": 5924,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://purl.org/dc/elements/1.1/rights",
+                        "rawIndexed": 6427
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/reproductiveCondition",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/taxonRank",
+                        "rawIndexed": 6416
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/dataGeneralizations",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/establishmentMeans",
+                        "rawIndexed": 6380,
+                        "uniqueRawValues": 3,
+                        "interpretedIndexed": 6380,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "[introduced,WrappedArray(introduced)]": 47,
+                            "[native,WrappedArray(native)]": 2762,
+                            "[uncertain,WrappedArray(uncertain)]": 3571
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/genus",
+                        "rawIndexed": 6396,
+                        "uniqueRawValues": 403,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/dynamicProperties",
+                        "rawIndexed": 148
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/maximumElevationInMeters",
+                        "rawIndexed": 193,
+                        "uniqueRawValues": 40,
+                        "interpretedIndexed": 193,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "182.0": 12,
+                            "228.0": 9,
+                            "183.0": 8,
+                            "184.0": 8,
+                            "240.0": 18,
+                            "297.0": 10,
+                            "230.0": 8,
+                            "174.0": 9,
+                            "224.0": 16,
+                            "168.0": 14
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/otherCatalogNumbers",
+                        "rawIndexed": 636
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/georeferenceProtocol",
+                        "rawIndexed": 1605
+                    },
+                    {
+                        "term": "https://symbiota.org/terms/recordEnteredBy",
+                        "rawIndexed": 6423
+                    },
+                    {
+                        "term": "http://purl.org/dc/terms/rightsHolder",
+                        "rawIndexed": 6427
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/occurrenceID",
+                        "rawIndexed": 6427,
+                        "uniqueRawValues": 6427,
+                        "interpretedIndexed": 6427,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "9a4174ff-8a82-4c65-84d3-ff498aa48b8a": 1,
+                            "138c81ec-a7d7-41bc-bfd7-8435033816e4": 1,
+                            "43866d23-5e48-4b55-b8cd-528266c072ec": 1,
+                            "635b74b5-69eb-427e-a2e0-0b16c1f78524": 1,
+                            "0070546b-c55d-46c3-8481-56872a46741a": 1,
+                            "f8ec72a4-107a-44b3-815d-8fec87a59425": 1,
+                            "217fa5b8-4bde-4f8a-a5a7-0b898ef7c3bc": 1,
+                            "d353eedc-6d27-416e-b7e2-1d01f66b2346": 1,
+                            "70ce25b4-51d7-4753-9f41-ce752b84f36c": 1,
+                            "b9e2167a-8ff4-42bf-bdf5-1890d49ff60f": 1
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/habitat",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/locality",
+                        "rawIndexed": 5914,
+                        "uniqueRawValues": 856,
+                        "interpretedIndexed": 5914,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "Tonchigüe": 77,
+                            "Parque Nacional Yasuní": 84,
+                            "Bocana Yaupi": 152,
+                            "Tiputini-Tambococha": 76,
+                            "Río Shiripuno": 88,
+                            "Zancudococha": 73,
+                            "Cuyabeno": 70,
+                            "Chiruisla": 124,
+                            "Kawoa": 88,
+                            "Bobonaza": 144
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/higherClassification",
+                        "rawIndexed": 6421
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/verbatimTaxonRank",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus",
+                        "rawIndexed": 6177
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/scientificName",
+                        "rawIndexed": 6421
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/island",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/verbatimDepth",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/institutionCode",
+                        "rawIndexed": 6427,
+                        "uniqueRawValues": 1,
+                        "interpretedIndexed": 6427,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "INABIOEC": 6427
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/subgenus",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/waterBody",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/kingdom",
+                        "rawIndexed": 6421,
+                        "uniqueRawValues": 1,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/phylum",
+                        "rawIndexed": 6421,
+                        "uniqueRawValues": 1,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/dateIdentified",
+                        "rawIndexed": 6243,
+                        "uniqueRawValues": 201,
+                        "interpretedIndexed": 6243,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "2007": 228,
+                            "2017": 314,
+                            "2017-06": 275,
+                            "2016": 367,
+                            "2005": 217,
+                            "2014": 198,
+                            "2012": 152,
+                            "2011": 288,
+                            "2022": 200,
+                            "2021": 186
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/identificationRemarks",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/locationRemarks",
+                        "rawIndexed": 4952
+                    },
+                    {
+                        "term": "http://purl.org/dc/terms/modified",
+                        "rawIndexed": 6427,
+                        "uniqueRawValues": 22,
+                        "interpretedIndexed": 6427,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "2025-11-03T15:20:41": 181,
+                            "2025-11-03T15:20:40": 184,
+                            "2025-11-03T15:20:42": 205,
+                            "2025-11-03T15:20:34": 185,
+                            "2022-01-03T10:44:08": 179,
+                            "2025-11-03T15:20:36": 185,
+                            "2025-11-03T15:20:38": 186,
+                            "2020-01-08T16:10:25": 4124,
+                            "2025-11-03T15:20:37": 173,
+                            "2025-11-03T15:20:39": 183
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/associatedTaxa",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/georeferenceRemarks",
+                        "rawIndexed": 6177
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/taxonRemarks",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/geodeticDatum",
+                        "rawIndexed": 5707
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/occurrenceStatus",
+                        "rawIndexed": 6417,
+                        "uniqueRawValues": 1,
+                        "interpretedIndexed": 6427,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "PRESENT": 6427
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/recordNumber",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/continent",
+                        "rawIndexed": 6393,
+                        "uniqueRawValues": 1,
+                        "interpretedIndexed": 6410,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "SOUTH_AMERICA": 6410
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/minimumDepthInMeters",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/municipality",
+                        "rawIndexed": 4052
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/minimumElevationInMeters",
+                        "rawIndexed": 4521,
+                        "uniqueRawValues": 506,
+                        "interpretedIndexed": 4521,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "237.0": 61,
+                            "300.0": 59,
+                            "290.0": 59,
+                            "1585.0": 65,
+                            "200.0": 104,
+                            "210.0": 63,
+                            "260.0": 98,
+                            "240.0": 106,
+                            "230.0": 64,
+                            "235.0": 149
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/identifiedBy",
+                        "rawIndexed": 6418,
+                        "uniqueRawValues": 41,
+                        "interpretedIndexed": 6427,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "Jonathan Santiago Valdiviezo Rivera,Pablo Arguello,Daysi Carina Gualavisi Cajas,Juan Luis Valdiviezo Rivera,Evelyn Calvache,Paul Regalado": 144,
+                            "Jonathan Santiago Valdiviezo Rivera,Daysi Carina Gualavisi Cajas,Juan Luis Valdiviezo Rivera": 1607,
+                            "Jonathan Santiago Valdiviezo Rivera,Daysi Carina Gualavisi Cajas": 435,
+                            "Jonathan Santiago Valdiviezo Rivera": 1604,
+                            "Francisco Provenzano Rizzi": 257,
+                            "Carolina Michelle Carrillo Moreno": 154,
+                            "Jonathan Santiago Valdiviezo Rivera,Fernando Anaguano Yancha": 219,
+                            "Jonathan Santiago Valdiviezo Rivera,Catalina Suquillo,Daysi Carina Gualavisi Cajas": 728,
+                            "Windsor Aguirre": 286,
+                            "Juan Francisco Rivadeneira": 543
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/eventDate",
+                        "rawIndexed": 5903,
+                        "uniqueRawValues": 916,
+                        "interpretedIndexed": 5901,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "2011-10-21T00:00": 49,
+                            "2005-09-01T00:00": 77,
+                            "2007-09-17T00:00": 110,
+                            "2016-02-01T00:00": 92,
+                            "2022-03-01T00:00": 58,
+                            "2021-09-01T00:00": 71,
+                            "2022-05-01T00:00": 80,
+                            "2011-09-01T00:00": 78,
+                            "2011-12-14T00:00": 52,
+                            "2016-01-31T00:00": 71
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/collectionCode",
+                        "rawIndexed": 6427
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/year",
+                        "rawIndexed": 5903,
+                        "uniqueRawValues": 51,
+                        "interpretedIndexed": 5901,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "2009": 317,
+                            "2008": 347,
+                            "2007": 662,
+                            "2005": 344,
+                            "2016": 308,
+                            "2013": 246,
+                            "2023": 242,
+                            "2011": 542,
+                            "2022": 362,
+                            "2010": 338
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/georeferencedBy",
+                        "rawIndexed": 3501
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/family",
+                        "rawIndexed": 6421,
+                        "uniqueRawValues": 110,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/county",
+                        "rawIndexed": 4629
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/occurrenceRemarks",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/eventID",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/associatedSequences",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/collectionID",
+                        "rawIndexed": 6427
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/catalogNumber",
+                        "rawIndexed": 6427
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/sex",
+                        "rawIndexed": 6232,
+                        "uniqueRawValues": 3,
+                        "interpretedIndexed": 6232,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "[Indeterminate,WrappedArray(Indeterminate)]": 6229,
+                            "[Female,WrappedArray(Female)]": 2,
+                            "[Mixed,WrappedArray(Mixed)]": 1
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/country",
+                        "rawIndexed": 6423,
+                        "uniqueRawValues": 3,
+                        "interpretedIndexed": 6423,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "Ecuador": 6410,
+                            "Peru": 11,
+                            "Venezuela (Bolivarian Republic of)": 2
+                        }
+                    },
+                    {
+                        "term": "http://purl.org/dc/terms/language",
+                        "rawIndexed": 6423
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/class",
+                        "rawIndexed": 6421,
+                        "uniqueRawValues": 2,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/order",
+                        "rawIndexed": 6421,
+                        "uniqueRawValues": 34,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/stateProvince",
+                        "rawIndexed": 6417,
+                        "uniqueRawValues": 27,
+                        "interpretedIndexed": 6417,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "Carchi": 108,
+                            "Sucumbíos": 1647,
+                            "Orellana": 981,
+                            "Pichincha": 382,
+                            "El Oro": 331,
+                            "Morona Santiago": 751,
+                            "Pastaza": 1000,
+                            "Napo": 131,
+                            "Imbabura": 104,
+                            "Esmeraldas": 511
+                        }
+                    },
+                    {
+                        "term": "http://purl.org/dc/terms/references",
+                        "rawIndexed": 6427,
+                        "uniqueRawValues": 6427,
+                        "interpretedIndexed": 6427,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "https://localhost/bndb/collections/individual/index.php?occid=679535": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1840353": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=678622": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1840103": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=681339": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1841094": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=679537": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1840964": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=680029": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=679638": 1
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/startDayOfYear",
+                        "rawIndexed": 5669,
+                        "uniqueRawValues": 337,
+                        "interpretedIndexed": 5667,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "220": 67,
+                            "144": 72,
+                            "298": 64,
+                            "244": 162,
+                            "145": 73,
+                            "213": 73,
+                            "260": 112,
+                            "294": 71,
+                            "31": 82,
+                            "32": 100
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/fieldNumber",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/locationID",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/identificationReferences",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/maximumDepthInMeters",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/ownerInstitutionCode",
+                        "rawIndexed": 6427
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/lifeStage",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/verbatimElevation",
+                        "rawIndexed": 0
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/typeStatus",
+                        "rawIndexed": 2,
+                        "uniqueRawValues": 1,
+                        "interpretedIndexed": 2,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/minimumDistanceAboveSurfaceInMeters",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/maximumDistanceAboveSurfaceInMeters",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/coordinatePrecision",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/organismQuantity",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/organismQuantityType",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/sampleSizeUnit",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/sampleSizeValue",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/organismID",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/samplingProtocol",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 6427,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "": 6427
+                        }
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/parentEventID",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
+                    },
+                    {
+                        "term": "http://rs.tdwg.org/dwc/terms/countryCode",
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 6423,
+                        "uniqueInterpretedValues": 1,
+                        "sampleInterpretedValuesMap": {
+                            "PE": 11,
+                            "EC": 6410,
+                            "VE": 2
+                        }
+                    }
+                ],
+                "issues": [
+                    {
+                        "issue": "COLLECTION_MATCH_NONE",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 6427,
+                        "samples": [
+                            {
+                                "recordId": "1839641",
+                                "relatedData": {
+                                    "dwc:collectionID": "b636a8df-9e83-45fe-a0ae-dacfbb36c300",
+                                    "dwc:collectionCode": "MECN-DP"
+                                }
+                            },
+                            {
+                                "recordId": "1839642",
+                                "relatedData": {
+                                    "dwc:collectionID": "b636a8df-9e83-45fe-a0ae-dacfbb36c300",
+                                    "dwc:collectionCode": "MECN-DP"
+                                }
+                            },
+                            {
+                                "recordId": "1839643",
+                                "relatedData": {
+                                    "dwc:collectionID": "b636a8df-9e83-45fe-a0ae-dacfbb36c300",
+                                    "dwc:collectionCode": "MECN-DP"
+                                }
+                            },
+                            {
+                                "recordId": "1839644",
+                                "relatedData": {
+                                    "dwc:collectionID": "b636a8df-9e83-45fe-a0ae-dacfbb36c300",
+                                    "dwc:collectionCode": "MECN-DP"
+                                }
+                            },
+                            {
+                                "recordId": "1839645",
+                                "relatedData": {
+                                    "dwc:collectionID": "b636a8df-9e83-45fe-a0ae-dacfbb36c300",
+                                    "dwc:collectionCode": "MECN-DP"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "CONTINENT_COORDINATE_MISMATCH",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 2,
+                        "samples": [
+                            {
+                                "recordId": "680882",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "680986",
+                                "relatedData": {}
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "CONTINENT_DERIVED_FROM_COORDINATES",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 16,
+                        "samples": [
+                            {
+                                "recordId": "679467",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "679636",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "679637",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "680827",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "680864",
+                                "relatedData": {}
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "CONTINENT_DERIVED_FROM_COUNTRY",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 3,
+                        "samples": [
+                            {
+                                "recordId": "1840609",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "1840717",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "681063",
+                                "relatedData": {}
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "COORDINATE_INVALID",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 11,
+                        "samples": [
+                            {
+                                "recordId": "1840365",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "-0.072489 -78,213,042"
+                                }
+                            },
+                            {
+                                "recordId": "680913",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
+                                }
+                            },
+                            {
+                                "recordId": "680914",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
+                                }
+                            },
+                            {
+                                "recordId": "680915",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
+                                }
+                            },
+                            {
+                                "recordId": "680916",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "COORDINATE_OUT_OF_RANGE",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 54,
+                        "samples": [
+                            {
+                                "recordId": "1839775",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "24581/99445991"
+                                }
+                            },
+                            {
+                                "recordId": "1840020",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "0018521/0733457"
+                                }
+                            },
+                            {
+                                "recordId": "1840023",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "0002484/784064"
+                                }
+                            },
+                            {
+                                "recordId": "1840024",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "2856.80/763529.02"
+                                }
+                            },
+                            {
+                                "recordId": "1840025",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "14807.33/759887.35"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "COUNTRY_COORDINATE_MISMATCH",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 6,
+                        "samples": [
+                            {
+                                "recordId": "1840780",
+                                "relatedData": {
+                                    "dwc:decimalLatitude": "-5.063108",
+                                    "dwc:decimalLongitude": "-76.777627",
+                                    "dwc:verbatimCoordinates": "302930/9440090",
+                                    "dwc:geodeticDatum": "WGS84",
+                                    "dwc:country": "Ecuador"
+                                }
+                            },
+                            {
+                                "recordId": "680691",
+                                "relatedData": {
+                                    "dwc:decimalLatitude": "-5.063108",
+                                    "dwc:decimalLongitude": "-76.777627",
+                                    "dwc:verbatimCoordinates": "302930 / 9440090",
+                                    "dwc:geodeticDatum": "WGS84",
+                                    "dwc:country": "Ecuador"
+                                }
+                            },
+                            {
+                                "recordId": "680692",
+                                "relatedData": {
+                                    "dwc:decimalLatitude": "-5.063108",
+                                    "dwc:decimalLongitude": "-76.777627",
+                                    "dwc:verbatimCoordinates": "302930 / 9440090",
+                                    "dwc:geodeticDatum": "WGS84",
+                                    "dwc:country": "Ecuador"
+                                }
+                            },
+                            {
+                                "recordId": "680693",
+                                "relatedData": {
+                                    "dwc:decimalLatitude": "-5.063108",
+                                    "dwc:decimalLongitude": "-76.777627",
+                                    "dwc:verbatimCoordinates": "302930 / 9440090",
+                                    "dwc:geodeticDatum": "WGS84",
+                                    "dwc:country": "Ecuador"
+                                }
+                            },
+                            {
+                                "recordId": "680694",
+                                "relatedData": {
+                                    "dwc:decimalLatitude": "-5.063108",
+                                    "dwc:decimalLongitude": "-76.777627",
+                                    "dwc:verbatimCoordinates": "302930 / 9440090",
+                                    "dwc:geodeticDatum": "WGS84",
+                                    "dwc:country": "Ecuador"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "GEODETIC_DATUM_ASSUMED_WGS84",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 471,
+                        "samples": [
+                            {
+                                "recordId": "1839990",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "1839991",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "1839992",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "1839993",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "1839994",
+                                "relatedData": {}
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "INSTITUTION_MATCH_FUZZY",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 6427,
+                        "samples": [
+                            {
+                                "recordId": "1839641",
+                                "relatedData": {
+                                    "dwc:institutionCode": "INABIOEC",
+                                    "dwc:ownerInstitutionCode": "INABIO"
+                                }
+                            },
+                            {
+                                "recordId": "1839642",
+                                "relatedData": {
+                                    "dwc:institutionCode": "INABIOEC",
+                                    "dwc:ownerInstitutionCode": "INABIO"
+                                }
+                            },
+                            {
+                                "recordId": "1839643",
+                                "relatedData": {
+                                    "dwc:institutionCode": "INABIOEC",
+                                    "dwc:ownerInstitutionCode": "INABIO"
+                                }
+                            },
+                            {
+                                "recordId": "1839644",
+                                "relatedData": {
+                                    "dwc:institutionCode": "INABIOEC",
+                                    "dwc:ownerInstitutionCode": "INABIO"
+                                }
+                            },
+                            {
+                                "recordId": "1839645",
+                                "relatedData": {
+                                    "dwc:institutionCode": "INABIOEC",
+                                    "dwc:ownerInstitutionCode": "INABIO"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 6,
+                        "samples": [
+                            {
+                                "recordId": "677607",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "677645",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "677769",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "678101",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "678112",
+                                "relatedData": {}
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "PRESUMED_NEGATED_LATITUDE",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 6,
+                        "samples": [
+                            {
+                                "recordId": "1840167",
+                                "relatedData": {
+                                    "dwc:decimalLatitude": "0.43938",
+                                    "dwc:decimalLongitude": "-76.629934"
+                                }
+                            },
+                            {
+                                "recordId": "1840219",
+                                "relatedData": {
+                                    "dwc:decimalLatitude": "0.67541",
+                                    "dwc:decimalLongitude": "-76.42361"
+                                }
+                            },
+                            {
+                                "recordId": "1840744",
+                                "relatedData": {
+                                    "dwc:decimalLatitude": "0.91139",
+                                    "dwc:decimalLongitude": "-77.92565"
+                                }
+                            },
+                            {
+                                "recordId": "1840770",
+                                "relatedData": {
+                                    "dwc:decimalLatitude": "0.91139",
+                                    "dwc:decimalLongitude": "-77.92565"
+                                }
+                            },
+                            {
+                                "recordId": "1840774",
+                                "relatedData": {
+                                    "dwc:decimalLatitude": "0.62119",
+                                    "dwc:decimalLongitude": "-75.82578"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "RECORDED_DATE_UNLIKELY",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 2,
+                        "samples": [
+                            {
+                                "recordId": "1840780",
+                                "relatedData": {
+                                    "dwc:startDayOfYear": "291",
+                                    "dwc:eventDate": "2027-10-18",
+                                    "dwc:year": "2027",
+                                    "dwc:month": "10",
+                                    "dwc:day": "18"
+                                }
+                            },
+                            {
+                                "recordId": "1840783",
+                                "relatedData": {
+                                    "dwc:startDayOfYear": "289",
+                                    "dwc:eventDate": "2027-10-16",
+                                    "dwc:year": "2027",
+                                    "dwc:month": "10",
+                                    "dwc:day": "16"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "TAXON_ID_NOT_FOUND",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 5568,
+                        "samples": [
+                            {
+                                "recordId": "1839641",
+                                "relatedData": {
+                                    "dwc:taxonID": "35408"
+                                }
+                            },
+                            {
+                                "recordId": "1839642",
+                                "relatedData": {
+                                    "dwc:taxonID": "35976"
+                                }
+                            },
+                            {
+                                "recordId": "1839643",
+                                "relatedData": {
+                                    "dwc:taxonID": "35957"
+                                }
+                            },
+                            {
+                                "recordId": "1839644",
+                                "relatedData": {
+                                    "dwc:taxonID": "35408"
+                                }
+                            },
+                            {
+                                "recordId": "1839645",
+                                "relatedData": {
+                                    "dwc:taxonID": "35269"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "TAXON_MATCH_FUZZY",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 38,
+                        "samples": [
+                            {
+                                "recordId": "1839796",
+                                "relatedData": {
+                                    "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Trichomycterus",
+                                    "dwc:phylum": "Chordata",
+                                    "dwc:family": "Trichomycteridae",
+                                    "dwc:kingdom": "Animalia",
+                                    "dwc:scientificName": "Trichomycterus taczonowskii",
+                                    "dwc:specificEpithet": "taczonowskii",
+                                    "dwc:order": "Siluriformes"
+                                }
+                            },
+                            {
+                                "recordId": "1839912",
+                                "relatedData": {
+                                    "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Sorubumichthys",
+                                    "dwc:phylum": "Chordata",
+                                    "dwc:scientificNameAuthorship": "Spix & Agassiz, 1829",
+                                    "dwc:family": "Pimelodidae",
+                                    "dwc:kingdom": "Animalia",
+                                    "dwc:scientificName": "Sorubumichthys planiceps",
+                                    "dwc:specificEpithet": "planiceps",
+                                    "dwc:order": "Siluriformes"
+                                }
+                            },
+                            {
+                                "recordId": "1839988",
+                                "relatedData": {
+                                    "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Imparfinis",
+                                    "dwc:phylum": "Chordata",
+                                    "dwc:scientificNameAuthorship": "(Boulenger, 1887)",
+                                    "dwc:family": "Heptapteridae",
+                                    "dwc:kingdom": "Animalia",
+                                    "dwc:scientificName": "Imparfinis longicauda",
+                                    "dwc:specificEpithet": "longicauda",
+                                    "dwc:order": "Siluriformes"
+                                }
+                            },
+                            {
+                                "recordId": "1840158",
+                                "relatedData": {
+                                    "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Farlowella",
+                                    "dwc:phylum": "Chordata",
+                                    "dwc:scientificNameAuthorship": "(Kner, 1853)",
+                                    "dwc:family": "Loricariidae",
+                                    "dwc:kingdom": "Animalia",
+                                    "dwc:scientificName": "Farlowella oxyrhyncha",
+                                    "dwc:specificEpithet": "oxyrhyncha",
+                                    "dwc:order": "Siluriformes"
+                                }
+                            },
+                            {
+                                "recordId": "1840250",
+                                "relatedData": {
+                                    "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Cynoponthicus",
+                                    "dwc:phylum": "Chordata",
+                                    "dwc:scientificNameAuthorship": "(Jordan & Gilbert, 1882)",
+                                    "dwc:family": "Muraenesocidae",
+                                    "dwc:kingdom": "Animalia",
+                                    "dwc:scientificName": "Cynoponthicus coniceps",
+                                    "dwc:specificEpithet": "coniceps",
+                                    "dwc:order": "Anguilliformes"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "TAXON_MATCH_HIGHERRANK",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 23,
+                        "samples": [
+                            {
+                                "recordId": "1839654",
+                                "relatedData": {
+                                    "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Eretmobrycon",
+                                    "dwc:phylum": "Chordata",
+                                    "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
+                                    "dwc:family": "Characidae",
+                                    "dwc:kingdom": "Animalia",
+                                    "dwc:scientificName": "Eretmobrycon dahli",
+                                    "dwc:specificEpithet": "dahli",
+                                    "dwc:order": "Characiformes"
+                                }
+                            },
+                            {
+                                "recordId": "1839659",
+                                "relatedData": {
+                                    "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Eretmobrycon",
+                                    "dwc:phylum": "Chordata",
+                                    "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
+                                    "dwc:family": "Characidae",
+                                    "dwc:kingdom": "Animalia",
+                                    "dwc:scientificName": "Eretmobrycon dahli",
+                                    "dwc:specificEpithet": "dahli",
+                                    "dwc:order": "Characiformes"
+                                }
+                            },
+                            {
+                                "recordId": "1839673",
+                                "relatedData": {
+                                    "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Eretmobrycon",
+                                    "dwc:phylum": "Chordata",
+                                    "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
+                                    "dwc:family": "Characidae",
+                                    "dwc:kingdom": "Animalia",
+                                    "dwc:scientificName": "Eretmobrycon dahli",
+                                    "dwc:specificEpithet": "dahli",
+                                    "dwc:order": "Characiformes"
+                                }
+                            },
+                            {
+                                "recordId": "1839685",
+                                "relatedData": {
+                                    "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Eretmobrycon",
+                                    "dwc:phylum": "Chordata",
+                                    "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
+                                    "dwc:family": "Characidae",
+                                    "dwc:kingdom": "Animalia",
+                                    "dwc:scientificName": "Eretmobrycon dahli",
+                                    "dwc:specificEpithet": "dahli",
+                                    "dwc:order": "Characiformes"
+                                }
+                            },
+                            {
+                                "recordId": "1839782",
+                                "relatedData": {
+                                    "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Eretmobrycon",
+                                    "dwc:phylum": "Chordata",
+                                    "dwc:family": "Characidae",
+                                    "dwc:kingdom": "Animalia",
+                                    "dwc:scientificName": "Eretmobrycon dahli",
+                                    "dwc:specificEpithet": "dahli",
+                                    "dwc:order": "Characiformes"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "TAXON_MATCH_NONE",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 6,
+                        "samples": [
+                            {
+                                "recordId": "677607",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "677645",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "677769",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "678101",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "678112",
+                                "relatedData": {}
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
