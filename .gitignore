@@ -25,26 +25,23 @@ pipeline-r/cache_validacion_nombres.rds
 # ===================================
 pipeline-r/datos/00_referencia/gadm/
 
-# ===================================
-# CSVs intermedios y reportes (generados por el pipeline)
-# Se reproducen ejecutando los scripts en orden
-# ===================================
+# ==============================================================================
+# PIPELINE R (Outputs intermedios y reportes generados)
+# ==============================================================================
+# Ignorar los datos intermedios y crudos que no deben subirse
+pipeline-r/datos/01_crudos/*
+!pipeline-r/datos/01_crudos/eml.xml
+!pipeline-r/datos/01_crudos/meta.xml
 pipeline-r/datos/02_intermedios/
-pipeline-r/reportes_y_revisiones/
 
-# ===================================
-# DwCA generado por build_dwca_gbif.py (output, no fuente)
-# ===================================
+# Ignorar archivos autogenerados (DPA INEC y GBIF ZIP)
+pipeline-r/datos/00_referencia/dpa_*.csv
+dataset_dwca.zip
 pipeline-r/datos/01_crudos/dataset_dwca.zip
-pipeline-r/datos/01_crudos/*_temp.*
 
-# ===================================
-# CSVs generados por generar_tablas_dashboard.py
-# Se reproducen ejecutando: python generar_tablas_dashboard.py
-# ===================================
-dashboard/gbif_incidencias.csv
-dashboard/gbif_completitud.csv
-dashboard/preguntas.csv
+# Ignorar los reportes CSV generados por los scripts de R
+pipeline-r/reportes_y_revisiones/*.csv
+
 
 # ===================================
 # Power BI (binario, fuera del repo por ahora)
