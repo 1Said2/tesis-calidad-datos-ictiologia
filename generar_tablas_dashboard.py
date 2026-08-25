@@ -115,55 +115,57 @@ with open(md_path, encoding="utf-8") as f:
 sections = re.split(r'\n### ', md)
 rows_preg = []
 
-# Mapeo manual de id_pregunta → regla_vinculada y columna_bandera
-# Basado en el contenido del cuestionario y las flags del pipeline
+# Mapeo manual de id_pregunta → regla_vinculada y columna_bandera.
+# regla_vinculada debe coincidir EXACTAMENTE con la columna "regla" de
+# reporte_plausibilidad.csv (generado por ValidacionPlausibilidad.R).
+# columna_bandera apunta a la columna flag en DimRegistro.
 vinculaciones = {
     "A3":    {"regla": None, "bandera": None},
     "A3bis": {"regla": None, "bandera": None},
-    "B1":    {"regla": None, "bandera": None},
+    "B1":    {"regla": "eventDate y verbatimEventDate con anos distintos", "bandera": None},
     "B1bis": {"regla": None, "bandera": None},
-    "B2":    {"regla": None, "bandera": None},
-    "B3":    {"regla": None, "bandera": None},
-    "B4":    {"regla": None, "bandera": None},
+    "B2":    {"regla": "fecha de colecta en el futuro", "bandera": None},
+    "B3":    {"regla": "determinado antes de ser colectado", "bandera": None},
+    "B4":    {"regla": "dia fabricado por el portal (01 sobre verbatim ano-mes)", "bandera": None},
     "B5":    {"regla": None, "bandera": None},
-    "C1":    {"regla": "coherencia_provincia", "bandera": "coherencia_provincia"},
+    "C1":    {"regla": "canton asociado a dos provincias distintas", "bandera": "coherencia_provincia"},
     "C1bis": {"regla": None, "bandera": None},
     "C2":    {"regla": None, "bandera": None},
     "C2bis": {"regla": None, "bandera": None},
-    "C3":    {"regla": None, "bandera": None},
-    "C4":    {"regla": None, "bandera": None},
+    "C3":    {"regla": "parroquia declarada sin canton", "bandera": None},
+    "C4":    {"regla": "mismo valor en canton y parroquia", "bandera": None},
     "C5":    {"regla": None, "bandera": None},
     "C5bis": {"regla": None, "bandera": None},
-    "C6":    {"regla": None, "bandera": None},
-    "C7":    {"regla": None, "bandera": None},
+    "C6":    {"regla": "locality y locationRemarks identicos", "bandera": None},
+    "C7":    {"regla": "coordenada o altitud embebida en el texto de localidad", "bandera": None},
     "C8":    {"regla": None, "bandera": None},
     "C9":    {"regla": None, "bandera": None},
-    "D1":    {"regla": "signo_invertido", "bandera": "flag_signo_contradice_hermanas"},
-    "D2":    {"regla": "coherencia_provincia", "bandera": "coherencia_provincia"},
-    "D3":    {"regla": "signo_ambiguo", "bandera": "signo_ambiguo"},
-    "D4":    {"regla": "dms_rango_invalido", "bandera": "dms_rango_invalido"},
-    "D5":    {"regla": None, "bandera": None},
-    "D6":    {"regla": "sin_coordenada", "bandera": None},
-    "D6bis": {"regla": "sin_coordenada", "bandera": None},
-    "D7":    {"regla": "provincia_minoritaria", "bandera": "provincia_minoritaria"},
+    "D1":    {"regla": None, "bandera": "flag_signo_contradice_hermanas"},
+    "D2":    {"regla": "coordenada fuera de la provincia declarada", "bandera": "coherencia_provincia"},
+    "D3":    {"regla": "signo de la coordenada no resuelto", "bandera": "signo_ambiguo"},
+    "D4":    {"regla": "coordenada derivada de un DMS fuera de rango", "bandera": "dms_rango_invalido"},
+    "D5":    {"regla": "coordenada irrecuperable", "bandera": None},
+    "D6":    {"regla": None, "bandera": None},
+    "D6bis": {"regla": None, "bandera": None},
+    "D7":    {"regla": "coordenada compartida y provincia minoritaria", "bandera": "provincia_minoritaria"},
     "D8":    {"regla": None, "bandera": None},
     "D9":    {"regla": None, "bandera": None},
     "D10":   {"regla": None, "bandera": None},
     "D11":   {"regla": None, "bandera": None},
     "D12":   {"regla": None, "bandera": None},
-    "E1":    {"regla": None, "bandera": None},
-    "E2":    {"regla": None, "bandera": None},
+    "E1":    {"regla": "institucion o proyecto en el campo de colector", "bandera": None},
+    "E2":    {"regla": "colector reducido a iniciales sin nombre desarrollado", "bandera": None},
     "E3":    {"regla": None, "bandera": None},
     "E4":    {"regla": None, "bandera": None},
     "E5":    {"regla": None, "bandera": None},
-    "F1":    {"regla": "familia_orden_discrepante", "bandera": "flag_family_orden_discrepante"},
-    "F2":    {"regla": "familia_minoritaria", "bandera": "flag_family_minoritaria"},
-    "F3":    {"regla": "genus_no_coincide", "bandera": "flag_genus_no_coincide_con_nombre"},
-    "F4":    {"regla": None, "bandera": None},
-    "F5":    {"regla": "sin_taxonomia", "bandera": "flag_sin_taxonomia"},
-    "F6":    {"regla": "registro_incompleto", "bandera": "registro_incompleto"},
+    "F1":    {"regla": "jerarquia superior minoritaria o discrepante", "bandera": "flag_family_orden_discrepante"},
+    "F2":    {"regla": "jerarquia superior minoritaria o discrepante", "bandera": "flag_family_minoritaria"},
+    "F3":    {"regla": "genus no coincide con el binomio", "bandera": "flag_genus_no_coincide_con_nombre"},
+    "F4":    {"regla": "inconsistencia (cruce) entre taxonID y scientificName", "bandera": None},
+    "F5":    {"regla": "registro sin ningun dato taxonomico", "bandera": "flag_sin_taxonomia"},
+    "F6":    {"regla": "registro sin metadatos de colecta", "bandera": "registro_incompleto"},
     "F7":    {"regla": None, "bandera": None},
-    "F8":    {"regla": "identificado_a_nivel_familia", "bandera": "identificado_a_nivel_familia"},
+    "F8":    {"regla": None, "bandera": "identificado_a_nivel_familia"},
 }
 
 for section in sections[1:]:  # skip content before first ###
@@ -183,7 +185,13 @@ for section in sections[1:]:  # skip content before first ###
     id_pregunta = base_id + ("bis" if is_bis else "")
 
     # Extraer bloque (letra del id)
-    bloque_map = {"A": "Identificadores", "B": "Fechas", "C": "Geografía", "D": "Coordenadas", "E": "Personas", "F": "Taxonomía"}
+    bloque_map = {
+        "A": "Identificadores", "B": "Fechas", "C": "Geografía", "D": "Coordenadas", 
+        "E": "Personas", "F": "Taxonomía", "G": "Estructura y alcance", 
+        "H": "Anomalías acumuladas", "I": "Contradicciones biogeográficas", 
+        "J": "Determinaciones previas", "K": "Configuración del portal",
+        "L": "Criterios del curador", "N": "Nuevas Dudas"
+    }
     bloque = bloque_map.get(base_id[0], base_id[0])
 
     vinc = vinculaciones.get(id_pregunta, {})
