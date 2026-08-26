@@ -124,6 +124,76 @@ reg(tmp$.i, "temporal", "ano de colecta atipico para el colector",
 # ---------------------------------------------------------------
 cat("\nBLOQUE 2 - Jerarquia geografica\n")
 
+# --- VALIDACION OFICIAL DPA-INEC ---
+if (file.exists("datos/00_referencia/dpa_provincias.csv")) {
+  dpa_prov <- read_csv("datos/00_referencia/dpa_provincias.csv", col_types = cols(.default = "c")) %>% distinct(nombre, .keep_all = TRUE)
+  dpa_cant <- read_csv("datos/00_referencia/dpa_cantones.csv", col_types = cols(.default = "c")) %>% distinct(provincia_cod, nombre, .keep_all = TRUE)
+  dpa_parr <- read_csv("datos/00_referencia/dpa_parroquias.csv", col_types = cols(.default = "c")) %>% distinct(provincia_cod, canton_cod, nombre, .keep_all = TRUE)
+  
+  # El DPA y el portal escriben el mismo toponimo con convenciones distintas: el
+  # INEC pone el descriptor de cabecera unas veces en el catalogo y otras no.
+  # "Alshi (Cab. en 9 de Octubre)" figura como "alshi" (201 filas), pero
+  # "Coronel Carlos Concha Torres" figura como "coronel carlos concha torres
+  # (cab.en huele)" (38 filas): el parentesis esta en un lado o en el otro segun
+  # el caso. Se retira de AMBOS antes de comparar. La sustitucion k->c resuelve
+  # Sarayaku/Sarayacu (144 filas). Sin esto la regla producia 997 hallazgos de
+  # severidad alta y la mayoria eran fallos de emparejamiento, no errores.
+  norm_dpa <- function(x) {
+    x <- as.character(x)
+    x <- gsub("\\([^)]*\\)", " ", x)                      # quita cualquier parentesis
+    x <- gsub("(?i)\\bcab\\.?\\s*en\\b.*$", " ", x, perl = TRUE)
+    x <- iconv(x, to = "ASCII//TRANSLIT")
+    x <- tolower(gsub("[^A-Za-z0-9 ]", " ", x))
+    x <- gsub("k", "c", x)
+    trimws(gsub("\\s+", " ", x))
+  }
+
+  # Alias de nombre corto frente al nombre oficial del DPA.
+  ALIAS_CANTON <- c("orellana" = "francisco de orellana",
+                    "coca"     = "francisco de orellana")
+
+  # 1. stateProvince no existe en DPA
+  idx <- which(!vac(df$stateProvince) & !(norm_dpa(df$stateProvince) %in% dpa_prov$nombre))
+  # Loreto, Maynas y Apure no son provincias ecuatorianas: son las regiones
+  # transfronterizas que Coordenadas.R ya declara. Exigirles presencia en el
+  # clasificador del INEC es un falso positivo por construccion.
+  TRANSFRONTERIZAS <- c("Apure", "Maynas", "Loreto")
+  idx <- setdiff(idx, which(df$stateProvince %in% TRANSFRONTERIZAS))
+  reg(idx, "geografia", "provincia no existe en el clasificador DPA-INEC",
+      "stateProvince", df$stateProvince[idx], "media", "INABIO")
+  
+  # 2. county no existe en los cantones de esa provincia
+  tmp <- df %>% mutate(.i = row_number(),
+                       p_norm = norm_dpa(stateProvince),
+                       c_norm = norm_dpa(county),
+                       c_norm = ifelse(c_norm %in% names(ALIAS_CANTON), ALIAS_CANTON[c_norm], c_norm)) %>%
+    filter(!vac(county)) %>%
+    left_join(dpa_prov, by = c("p_norm" = "nombre")) %>%
+    left_join(dpa_cant, by = c("provincia_cod", "c_norm" = "nombre")) %>%
+    filter(is.na(canton_cod))
+  idx <- tmp$.i
+  idx <- setdiff(idx, which(df$stateProvince %in% TRANSFRONTERIZAS))
+  reg(idx, "geografia", "canton no existe en esa provincia segun DPA-INEC",
+      "stateProvince | county", paste(df$stateProvince[idx], "|", df$county[idx]), "media", "INABIO")
+  
+  # 3. municipality no existe en las parroquias de ese cantón
+  tmp <- df %>% mutate(.i = row_number(),
+                       p_norm = norm_dpa(stateProvince),
+                       c_norm = norm_dpa(county),
+                       c_norm = ifelse(c_norm %in% names(ALIAS_CANTON), ALIAS_CANTON[c_norm], c_norm),
+                       m_norm = norm_dpa(municipality)) %>%
+    filter(!vac(municipality)) %>%
+    left_join(dpa_prov, by = c("p_norm" = "nombre")) %>%
+    left_join(dpa_cant, by = c("provincia_cod", "c_norm" = "nombre")) %>%
+    left_join(dpa_parr, by = c("provincia_cod", "canton_cod", "m_norm" = "nombre")) %>%
+    filter(is.na(parroquia_cod))
+  idx <- tmp$.i
+  idx <- setdiff(idx, which(df$stateProvince %in% TRANSFRONTERIZAS))
+  reg(idx, "geografia", "parroquia no existe en ese canton segun DPA-INEC",
+      "county | municipality", paste(df$county[idx], "|", df$municipality[idx]), "media", "INABIO")
+}
+
+
 # Función auxiliar para marcar solo filas minoritarias en discrepancias jerárquicas.
 min_fila <- function(clave, valor) {
   may <- df %>% filter(!vac(.data[[clave]]), !vac(.data[[valor]])) %>%
