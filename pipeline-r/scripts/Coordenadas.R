@@ -17,7 +17,6 @@ sf::sf_use_s2(TRUE)   # necesario para que st_distance devuelva metros en EPSG:4
 # ---- 0. Configuración ----
 ARCHIVO_ENTRADA <- "datos/02_intermedios/ocurrences_openrefine.csv"
 ARCHIVO_SALIDA  <- "datos/02_intermedios/ocurrences_salida_coordenadas.csv"
-ARCHIVO_REPORTE <- "reportes_y_revisiones/reporte_coordenadas_revision.csv"
 
 norm_nombre <- function(x) {
   x <- iconv(x, to = "ASCII//TRANSLIT")
@@ -402,8 +401,17 @@ recuperar_decimal_corrupto <- function(raw, prov) {
   intentos <- 0
   while (abs(lon) > 180 && intentos < 8) { lon <- lon / 10; intentos <- intentos + 1 }
   lon <- -abs(lon)
-  if (in_bbox(lat, lon) && isTRUE(coherente_con_centroide(lat, lon, prov)))
-    return(list(lat = lat, lon = lon, metodo = "decimal_separador_corrupto"))
+# La validacion doble confundia dos cosas distintas: si la reconstruccion es
+# aritmeticamente correcta y si la provincia declarada es correcta. Cuando
+# discrepan, la fila se descartaba y se publicaba como "ilegible", que es falso.
+# El criterio correcto es el mismo que el script aplica a las otras 231
+# discordantes: reconstruir, publicar y dejar que el bloque 14 la marque.
+  if (in_bbox(lat, lon))
+    return(list(lat = lat, lon = lon,
+                metodo = if (isTRUE(coherente_con_centroide(lat, lon, prov)))
+                           "decimal_separador_corrupto"
+                         else
+                           "decimal_separador_corrupto_prov_discordante"))
   NULL
 }
 
@@ -548,6 +556,7 @@ cat("  incertidumbre elevada al piso tecnologico:",
 # ================================================================
 df$coherencia_provincia    <- NA_character_
 df$criterio_coherencia     <- NA_character_
+df$dist_fuera_provincia_m  <- NA_real_
 df$dist_fuera_provincia_km <- NA_real_
 df$umbral_km               <- NA_real_
 
@@ -575,6 +584,7 @@ if (!is.null(gadm)) {
       next
     }
     d_m <- as.numeric(sf::st_distance(pts[sel, ], poly_cache[[p]]))
+    df$dist_fuera_provincia_m[pts$idx[sel]]  <- round(d_m, 1)
     df$dist_fuera_provincia_km[pts$idx[sel]] <- round(d_m / 1000, 2)
     df$coherencia_provincia[pts$idx[sel]] <-
       ifelse(d_m <= TOLERANCIA_BORDE_M, "coherente", "discordante")
@@ -681,11 +691,46 @@ cat("  filas con la misma tupla verbatim y resultado divergente:",
 
 # ---- 14e. Tolerancia de borde explicitada ----
 # Bandera para métricas: puntos fuera del polígono provincial pero aceptados por tolerancia.
+# La bandera se calcula sobre la distancia sin redondear. El redondeo a dos
+# decimales de km tiene un suelo de 10 m: un punto a 3 m fuera del poligono se
+# guardaba como 0.00 y quedaba fuera del conteo.
 df$dentro_tolerancia_borde <- !is.na(df$lat_final) &
   df$coherencia_provincia == "coherente" &
-  !is.na(df$dist_fuera_provincia_km) & df$dist_fuera_provincia_km > 0
+  !is.na(df$dist_fuera_provincia_m) & df$dist_fuera_provincia_m > 0
 cat("  coherentes por tolerancia de borde (fuera del poligono, <=5 km):",
     sum(df$dentro_tolerancia_borde, na.rm = TRUE), "\n")
+
+# ---- 14f. PARCHE: coordenada minoritaria dentro de la propia localidad.
+# El bloque 14 mide contencion en la PROVINCIA y el bloque de coordenada
+# compartida compara PROVINCIAS entre si. Ninguno de los dos ve el caso en que
+# varias filas declaran la misma localidad y una cae a decenas de kilometros de
+# las demas dentro de la misma provincia: el poligono las acepta a todas. Es el
+# criterio del parche 14d subido un nivel: alli las hermanas se definian por
+# tupla verbatim identica, aqui por localidad declarada identica. Se exige que
+# la mayoria sea mayoria de verdad (>=80 % del grupo en un mismo punto) para no
+# marcar transectos ni localidades genericas dispersas. NO corrige: mide y marca.
+# Insertar despues del bloque 14e.
+df$flag_coord_minoritaria_en_localidad <- FALSE
+df$dist_a_mayoria_localidad_km         <- NA_real_
+
+idx_loc <- which(!is.na(df$lat_final) &
+                   !is.na(df$locality) & trimws(df$locality) != "")
+grupos <- split(idx_loc,
+                paste(df$stateProvince[idx_loc], df$locality[idx_loc], sep = "||"))
+
+for (g in grupos) {
+  if (length(g) < 5) next
+  k  <- paste(round(df$lat_final[g], 4), round(df$lon_final[g], 4))
+  tb <- sort(table(k), decreasing = TRUE)
+  if (length(tb) < 2)            next          # un solo punto: nada que comparar
+  if (tb[1] / length(g) < 0.80)  next          # sin mayoria clara no se decide
+  may <- as.numeric(strsplit(names(tb)[1], " ")[[1]])
+  d   <- dist_km(df$lat_final[g], df$lon_final[g], may[1], may[2])
+  df$dist_a_mayoria_localidad_km[g]         <- round(d, 1)
+  df$flag_coord_minoritaria_en_localidad[g] <- d > 10
+}
+cat("  coordenada minoritaria dentro de la propia localidad:",
+    sum(df$flag_coord_minoritaria_en_localidad, na.rm = TRUE), "\n")
 
 
 # ================================================================
@@ -710,8 +755,22 @@ pares_mayoritarios <- resumen_clave %>%
   pull(par)
 
 df$coordenada_compartida <- !is.na(df$clave_coord) & df$clave_coord %in% claves_compartidas
-df$provincia_minoritaria <- df$coordenada_compartida &
-  !(paste(df$clave_coord, df$stateProvince, sep = "||") %in% pares_mayoritarios)
+# El criterio de mayoria por conteo no decide cuando dos provincias declaran el
+# mismo punto con el mismo numero de filas: n_filas == n_max en ambas y ninguna
+# queda marcada. Son 7 claves y 14 filas. Se anade el desempate por contencion
+# en el poligono, que es el mismo criterio que ya gobierna el bloque 14 y que en
+# las 7 resuelve. En dos de ellas resuelve contra las dos provincias a la vez:
+# el punto no pertenece a ninguna de las declaradas.
+claves_empatadas <- resumen_clave %>%
+  filter(n_filas == n_max) %>%
+  count(clave_coord, name = "n_lideres") %>%
+  filter(n_lideres > 1) %>%
+  pull(clave_coord)
+
+df$provincia_minoritaria <- df$coordenada_compartida & ifelse(
+  df$clave_coord %in% claves_empatadas,
+  !is.na(df$coherencia_provincia) & df$coherencia_provincia == "discordante",
+  !(paste(df$clave_coord, df$stateProvince, sep = "||") %in% pares_mayoritarios))
 
 # ---- 15. Anulación de precisión en coordenadas sospechosas ----
 # No se estima incertidumbre para coordenadas discordantes, ambiguas o fuera de rango.
@@ -720,13 +779,15 @@ if (!is.null(gadm)) {
     df$signo_ambiguo |
     df$provincia_minoritaria |
     df$flag_signo_contradice_hermanas |
-    (df$dms_rango_invalido & tiene_coord)
+    (df$dms_rango_invalido & tiene_coord) |
+    df$flag_coord_minoritaria_en_localidad
 } else {
   sospechosa <- (!is.na(df$coherencia_provincia) & df$coherencia_provincia == "discordante") |
     df$provincia_minoritaria |
     df$flag_signo_contradice_hermanas |
     df$signo_ambiguo |
-    (df$dms_rango_invalido & tiene_coord)
+    (df$dms_rango_invalido & tiene_coord) |
+    df$flag_coord_minoritaria_en_localidad
 }
 df$coordinateUncertaintyInMeters[sospechosa] <- NA_character_
 df$incertidumbre_criterio[sospechosa] <- "no_estimable_coordenada_marcada_para_revision"
@@ -788,12 +849,44 @@ motivo[!is.na(df$lat_final) & df$flag_signo_contradice_hermanas] <- ifelse(
   paste(motivo[!is.na(df$lat_final) & df$flag_signo_contradice_hermanas],
         "verbatim numerico identico a otra fila con resultado distinto", sep = "; "))
 
+motivo[!is.na(df$lat_final) & df$flag_coord_minoritaria_en_localidad] <- ifelse(
+  is.na(motivo[!is.na(df$lat_final) & df$flag_coord_minoritaria_en_localidad]),
+  paste("la mayoria de los registros que declaran esta misma localidad se situa en otro",
+        "punto, a mas de 10 km; la contradiccion no es detectable por contencion en el",
+        "poligono provincial porque ambos puntos caen en la provincia declarada"),
+  paste(motivo[!is.na(df$lat_final) & df$flag_coord_minoritaria_en_localidad],
+        "coordenada minoritaria dentro de su propia localidad", sep = "; "))
+
 df$georeferenceRemarks <- ifelse(
   is.na(motivo), df$georeferenceRemarks,
   ifelse(is.na(df$georeferenceRemarks) | df$georeferenceRemarks == "",
          motivo, paste(df$georeferenceRemarks, motivo, sep = "; ")))
 
 cat("  georeferenceRemarks poblado por motivo de revision:", sum(!is.na(motivo)), "\n")
+
+# ---- 15d-bis. PARCHE: anotacion de las filas sin coordenada final que SI
+# traian un dato de origen. La invariante exige que toda celda modificada quede
+# anotada; el catalogo 5170 traia decimalLatitude/Longitude en el portal y sale
+# con el campo vacio, hoy indistinguible en Darwin Core de los 183 que nunca
+# tuvieron coordenada. Las 66 irreparables tampoco declaran que existe un
+# verbatim ilegible. Se anota sin publicar coordenada: no es imputacion, es
+# trazabilidad.  Insertar justo despues del bloque 15d, antes de 15e.
+motivo_sin <- rep(NA_character_, nrow(df))
+
+motivo_sin[is.na(df$lat_final) &
+             df$metodo_correccion == "descartada_fuera_de_rango"] <-
+  paste("el portal declaraba una coordenada decimal fuera del ambito geografico de la",
+        "coleccion y ninguna permutacion de signo o de eje la devuelve dentro; el valor",
+        "de origen se conserva en verbatimLatitude/verbatimLongitude y no se publica")
+
+motivo_sin[is.na(df$lat_final) &
+             df$metodo_correccion == "irreparable"] <-
+  paste("el registro declara verbatimCoordinates pero su formato no permite reconstruir",
+        "un par valido; el texto de origen se conserva integro en verbatimCoordinates")
+
+df$georeferenceRemarks <- ifelse(is.na(motivo_sin), df$georeferenceRemarks, motivo_sin)
+cat("  georeferenceRemarks poblado en filas sin coordenada final:",
+    sum(!is.na(motivo_sin)), "\n")
 
 # ---- 15e. Documentación del origen de la incertidumbre estimada ----
 nota_unc <- ifelse(
@@ -897,21 +990,3 @@ df_export$lon_final <- ifelse(is.na(df$lon_final), "", fmt_coord(round(df$lon_fi
 
 write_csv(df_export, ARCHIVO_SALIDA, na = "")
 cat("\nGuardado en", ARCHIVO_SALIDA, "\n")
-
-# Extracción de subconjunto de filas con problemas para revisión manual.
-df %>%
-  filter(coherencia_provincia %in% c("discordante", "no_evaluable", "fuera_de_tierra_firme") |
-           provincia_minoritaria |
-           signo_ambiguo |
-           (dms_rango_invalido & !is.na(lat_final)) |
-           (metodo_correccion == "irreparable" & !is.na(verbatimCoordinates) &
-              trimws(verbatimCoordinates) != "") |
-           metodo_correccion == "descartada_fuera_de_rango") %>%
-  select(id, catalogNumber, stateProvince, county, locality, verbatimCoordinates,
-         verbatimLatitude, verbatimLongitude, decimalLatitude, decimalLongitude,
-         metodo_correccion, confianza_coordenada, coherencia_provincia,
-         criterio_coherencia, dist_fuera_provincia_km, dist_centroide_km,
-         coordenada_compartida, provincia_minoritaria,
-         signo_ambiguo, dms_rango_invalido) %>%
-  write_csv(ARCHIVO_REPORTE, na = "")
-cat("Reporte de revisión en", ARCHIVO_REPORTE, "\n")

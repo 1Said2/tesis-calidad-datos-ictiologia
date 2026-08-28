@@ -69,8 +69,14 @@ reg(idx, "temporal", "colecta anterior a la fundacion de la coleccion",
     "eventDate", df$eventDate[idx], "alta", "INABIO")
 
 # Validación temporal: el sello de modificación debe ser posterior a la colecta.
-idx <- which(ge > 0 & !vac(df$modified) &
-               substr(nz(df$modified), 1, 4) < substr(nz(df$eventDate), 1, 4))
+# Las dos filas que dispara esta regla son las MISMAS que "fecha de colecta en
+# el futuro" (5684 y 5687). Contar la misma anomalia dos veces infla el reporte
+# de severidad alta. Se excluyen las ya marcadas como futuras: lo que quede es
+# lo unico que esta regla aporta por su cuenta.
+futuras <- which(ge > 0 & substr(nz(df$eventDate), 1, 4) > format(HOY, "%Y"))
+idx <- setdiff(which(ge > 0 & !vac(df$modified) &
+                     substr(nz(df$modified), 1, 4) < substr(nz(df$eventDate), 1, 4)),
+               futuras)
 reg(idx, "temporal", "registro modificado antes de la colecta",
     "eventDate | modified",
     paste(df$eventDate[idx], "|", df$modified[idx]), "alta", "INABIO")
@@ -333,8 +339,25 @@ nm <- df %>% filter(!vac(taxonID), !vac(scientificName)) %>%
   distinct(taxonID, scientificName) %>% count(scientificName) %>% filter(n > 1) %>%
   pull(scientificName)
 
-idx_tm <- which(df$taxonID %in% tm)
-idx_nm <- which(df$scientificName %in% nm)
+# La regla marcaba el GRUPO entero, no la fila divergente: 847 filas para 41
+# discrepancias reales, un inflado de 20,7x. Las 55 filas correctas de
+# "Crenicichla saxatilis" viajaban al curador junto a la unica que discrepa.
+# Se aplica el criterio de minoria que min_fila() ya usa en el bloque 2.
+may_tid <- df %>% filter(!vac(taxonID), !vac(scientificName)) %>%
+  count(taxonID, scientificName, name = "n") %>%
+  group_by(taxonID) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
+  ungroup() %>% select(taxonID, nombre_may = scientificName)
+may_nom <- df %>% filter(!vac(taxonID), !vac(scientificName)) %>%
+  count(scientificName, taxonID, name = "n") %>%
+  group_by(scientificName) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
+  ungroup() %>% select(scientificName, taxonID_may = taxonID)
+j <- df %>% select(taxonID, scientificName) %>%
+  left_join(may_tid, by = "taxonID") %>% left_join(may_nom, by = "scientificName")
+
+idx_tm <- which(df$taxonID %in% tm & !vac(df$scientificName) &
+                !is.na(j$nombre_may)  & df$scientificName != j$nombre_may)
+idx_nm <- which(df$scientificName %in% nm & !vac(df$taxonID) &
+                !is.na(j$taxonID_may) & df$taxonID != j$taxonID_may)
 idx_tax <- union(idx_tm, idx_nm)
 
 if (length(idx_tax)) {
@@ -377,15 +400,59 @@ if (all(c("flag_family_minoritaria", "flag_family_orden_discrepante", "flag_orde
   }
 }
 
-banderas <- c(flag_genus_no_coincide_con_nombre    = "genus no coincide con el binomio",
-              flag_epiteto_no_coincide_con_nombre  = "epiteto no coincide con el binomio",
-              flag_sin_taxonomia                   = "registro sin ningun dato taxonomico",
-              registro_incompleto                  = "registro sin metadatos de colecta")
-for (b in names(banderas)) {
-  if (!b %in% names(df)) next
+# El reporte se presenta como la consolidacion de todo lo que el pipeline sabe y
+# se habia quedado en la version de hace tres rondas: cinco banderas producidas
+# por Coordenadas.R, Fishbase.R y la union no llegaban al curador. Se anaden con
+# su severidad propia, no todas como "media": las nueve filas con tres testigos
+# independientes son el hallazgo mejor probado de la coleccion.
+banderas <- tibble::tribble(
+  ~col,                                    ~bloque,       ~regla,                                                         ~severidad, ~destino,
+  "flag_genus_no_coincide_con_nombre",     "taxonomia",   "genus no coincide con el binomio",                              "media",    "ya_marcado",
+  "flag_epiteto_no_coincide_con_nombre",   "taxonomia",   "epiteto no coincide con el binomio",                            "media",    "ya_marcado",
+  "flag_sin_taxonomia",                    "taxonomia",   "registro sin ningun dato taxonomico",                           "media",    "ya_marcado",
+  "registro_incompleto",                   "taxonomia",   "registro sin metadatos de colecta",                             "media",    "ya_marcado",
+  "flag_autoria_minoritaria_en_el_nombre", "taxonomia",   "autoria minoritaria para su propio nombre",                     "media",    "INABIO",
+  "flag_signo_contradice_hermanas",        "coordenadas", "mismo verbatim resuelto en hemisferios distintos",              "alta",     "INABIO",
+  "flag_coord_minoritaria_en_localidad",   "coordenadas", "coordenada minoritaria dentro de su propia localidad",          "alta",     "INABIO",
+  "flag_grafia_variante_gbif",             "taxonomia",   "grafia que el backbone de GBIF resuelve como variante de otra", "media",    "INABIO")
+for (k in seq_len(nrow(banderas))) {
+  b <- banderas$col[k]; if (!b %in% names(df)) next
   idx <- which(toupper(nz(df[[b]])) == "TRUE")
-  reg(idx, "taxonomia", banderas[[b]], b, nz(df$scientificName[idx]),
-      "media", "ya_marcado")
+  val <- switch(b,
+    flag_autoria_minoritaria_en_el_nombre =
+      paste(nz(df$scientificName[idx]), "|", nz(df$scientificNameAuthorship[idx]),
+            "|", nz(df$tipo_discrepancia_autoria[idx])),
+    flag_coord_minoritaria_en_localidad =
+      paste(nz(df$locality[idx]), "|", nz(df$dist_a_mayoria_localidad_km[idx]), "km"),
+    flag_signo_contradice_hermanas = nz(df$verbatimCoordinates[idx]),
+    flag_grafia_variante_gbif =
+      paste(nz(df$scientificName[idx]), "->", nz(df$grafia_sugerida_gbif[idx])),
+    nz(df$scientificName[idx]))
+  reg(idx, banderas$bloque[k], banderas$regla[k], b, val,
+      banderas$severidad[k], banderas$destino[k])
+}
+
+# El nombre contradicho por los campos atomizados va aparte: la severidad
+# depende de cuantos testigos independientes lo respalden.
+if ("testigos_contra_scientificName" %in% names(df)) {
+  t3 <- which(num(df$testigos_contra_scientificName) == 3)
+  reg(t3, "taxonomia", "nombre contradicho por genus, epiteto, taxonID y autoria",
+      "scientificName | nombre_reconstruido_de_atomicos | taxonID",
+      paste(df$scientificName[t3], "->", df$nombre_reconstruido_de_atomicos[t3]),
+      "alta", "INABIO")
+  t2 <- which(num(df$testigos_contra_scientificName) == 2)
+  reg(t2, "taxonomia", "nombre contradicho por los campos atomizados (dos testigos)",
+      "scientificName | nombre_reconstruido_de_atomicos",
+      paste(df$scientificName[t2], "->", df$nombre_reconstruido_de_atomicos[t2]),
+      "media", "INABIO")
+}
+
+if ("hipotesis_northing" %in% names(df)) {
+  idx <- which(!vac(df$hipotesis_northing))
+  reg(idx, "coordenadas", "northing con hipotesis de errata de un digito",
+      "verbatimCoordinates | hipotesis_northing",
+      paste(nz(df$verbatimCoordinates[idx]), "|", df$hipotesis_northing[idx]),
+      "media", "INABIO")
 }
 
 # ---------------------------------------------------------------
@@ -441,9 +508,14 @@ tmp <- df %>% mutate(.i = row_number()) %>%
   filter(!vac(decimalLatitude), !vac(eventDate), !vac(scientificName)) %>%
   group_by(decimalLatitude, decimalLongitude, eventDate, scientificName) %>%
   filter(n() > 1) %>% ungroup()
-reg(tmp$.i, "registro", "mismo punto, fecha y especie en varios catalogos",
+# En esta coleccion el catalogo es el EJEMPLAR, no el lote: 274 grupos, tamano
+# medio 2,6 y maximo 31 ejemplares. Compartir punto, fecha y especie es la
+# estructura normal de una colecta, no una duplicacion. La regla mide algo real
+# y util (el tamano de lote), pero no es un hallazgo: pasa a verificada.
+reg(tmp$.i, "registro",
+    "ejemplares del mismo lote de colecta (verificado, no es duplicacion)",
     "decimalLatitude | eventDate | scientificName",
-    paste(tmp$scientificName, "|", tmp$eventDate), "informativa", "INABIO")
+    paste(tmp$scientificName, "|", tmp$eventDate), "informativa", "propio")
 
 # ---------------------------------------------------------------
 # BLOQUE 5b - VOCABULARIOS CONTROLADOS DE DARWIN CORE
@@ -590,8 +662,11 @@ rep <- bind_rows(H) %>%
   arrange(severidad, bloque, regla, catalogNumber)
 
 # Exportación separada de reglas verificadas (falsos positivos documentados).
+# "continent sobre coordenada marina" produce cero filas desde que el bloque 8b
+# de Fishbase.R vacia continent en los insulares: la regla ya no existe y se
+# retira. En su lugar entra la de lote, que si produce (726 filas).
 reglas_verificadas <- c("canton homonimo de su provincia (verificado, no es error)",
-                        "continent declarado sobre coordenada marina (aviso GBIF esperado)")
+                        "ejemplares del mismo lote de colecta (verificado, no es duplicacion)")
 
 rep_verificadas <- rep %>% filter(regla %in% reglas_verificadas)
 rep <- rep %>% filter(!(regla %in% reglas_verificadas))
@@ -608,7 +683,6 @@ resumen_regla <- rep %>%
             .groups = "drop") %>%
   arrange(destino, desc(severidad), desc(casos))
 
-write_csv(resumen_regla, "reportes_y_revisiones/reporte_plausibilidad_resumen.csv", na = "")
 cat("\n=== RESUMEN POR REGLA ===\n"); print(as.data.frame(resumen_regla))
 cat("\nRegistros con al menos un hallazgo:", n_distinct(rep$catalogNumber),
     sprintf("(%.1f%% de la coleccion)\n", 100 * n_distinct(rep$catalogNumber) / nrow(df)))

@@ -232,36 +232,6 @@ for (i in idx) {
 }
 cat("genus derivado de nombre con cualificador:", length(idx), "fila(s)\n")
 
-# Validación de coherencia: genus vs. primer término del binomio.
-incoh <- which(lengths(bin) == 3 & df$genus != "" &
-               df$genus != vapply(seq_along(bin),
-                                  function(i) if (length(bin[[i]]) == 3) bin[[i]][2] else NA_character_,
-                                  character(1)))
-df$flag_genus_no_coincide_con_nombre <- FALSE
-if (length(incoh)) {
-  df$flag_genus_no_coincide_con_nombre[incoh] <- TRUE
-  cat("ATENCIÓN — genus no coincide con el binomio:", length(incoh), "fila(s)\n")
-  print(head(unique(df[incoh, c("scientificName","genus")]), 10))
-}
-
-# Validación de coherencia para nombres uninominales frente al campo genus.
-uni <- regmatches(df$scientificName,
-                  regexec("^\\s*([A-Z][a-z]+)\\s*$", df$scientificName))
-incoh_uni <- which(lengths(uni) == 2 & df$genus != "" &
-                   !grepl("(idae|inae)\\s*$", df$scientificName) &
-                   df$genus != vapply(uni,
-                     function(x) if (length(x) == 2) x[2] else NA_character_, ""))
-if (length(incoh_uni)) {
-  df$flag_genus_no_coincide_con_nombre[incoh_uni] <- TRUE
-  cat("ATENCIÓN — genus no coincide con el nombre uninominal:",
-      length(incoh_uni), "fila(s)\n")
-  print(unique(df[incoh_uni, c("catalogNumber","scientificName","genus")]))
-}
-
-incoh_ep <- which(lengths(bin) == 3 & df$specificEpithet != "" &
-                  df$specificEpithet != vapply(bin, function(x) if (length(x)==3) x[3] else NA_character_, ""))
-df$flag_epiteto_no_coincide_con_nombre <- FALSE
-df$flag_epiteto_no_coincide_con_nombre[incoh_ep] <- TRUE
 
 # ---- 4d. Limpieza de cualificadores dentro del scientificName ----
 # Se retira el cualificador del nombre (ya existe en identificationQualifier).
@@ -302,6 +272,86 @@ if (length(idx_hyp)) {
   df$family[idx_hyp] <- ""
   for (i in idx_hyp) anotar(i, "family_inexistente_vaciada")
 }
+
+# Las tres validaciones se calculaban sobre un scientificName que los bloques
+# 4d y 4c todavia modifican: quedaban desfasadas. Y la del epiteto no imprimia
+# nada, de modo que 12 filas donde el campo atomizado describe otra especie
+# distinta no aparecian en el log.
+bin <- regmatches(df$scientificName,
+                  regexec("^\\s*([A-Z][a-z]+)\\s+([a-z][a-z\\-]+)\\s*$", df$scientificName))
+prim <- vapply(bin, function(x) if (length(x) == 3) x[2] else NA_character_, "")
+segu <- vapply(bin, function(x) if (length(x) == 3) x[3] else NA_character_, "")
+uni  <- regmatches(df$scientificName, regexec("^\\s*([A-Z][a-z]+)\\s*$", df$scientificName))
+unig <- vapply(uni, function(x) if (length(x) == 2) x[2] else NA_character_, "")
+
+df$flag_genus_no_coincide_con_nombre <-
+  (!is.na(prim) & df$genus != "" & df$genus != prim) |
+  (!is.na(unig) & df$genus != "" & !grepl("(idae|inae)\\s*$", df$scientificName) &
+     df$genus != unig)
+df$flag_epiteto_no_coincide_con_nombre <-
+  !is.na(segu) & df$specificEpithet != "" & df$specificEpithet != segu
+
+cat("ATENCION - genus no coincide con el nombre:",
+    sum(df$flag_genus_no_coincide_con_nombre), "fila(s)\n")
+print(df[df$flag_genus_no_coincide_con_nombre,
+         c("catalogNumber","scientificName","genus")], n = 20)
+cat("ATENCION - specificEpithet no coincide con el nombre:",
+    sum(df$flag_epiteto_no_coincide_con_nombre), "fila(s)\n")
+print(df[df$flag_epiteto_no_coincide_con_nombre,
+         c("catalogNumber","scientificName","genus","specificEpithet")], n = 20)
+
+# ---- 4e. PARCHE: testigos independientes contra el scientificName.
+# Las banderas de genus y de epiteto dicen que hay contradiccion pero no cual de
+# los dos lados manda. El archivo tiene dos testigos mas, y los dos son
+# independientes del nombre: el taxonID (clave interna del portal) y la autoria.
+# Si el taxonID de la fila lo usan mayoritariamente otras filas cuyo nombre es
+# el que se reconstruye desde genus+specificEpithet, y si ademas la autoria de
+# la fila es minoritaria para su propio scientificName, son tres campos contra
+# uno. NO corrige nada: cuenta los testigos y los escribe para el oficio.
+# Insertar despues del bloque de validacion de coherencia reubicado (A.1).
+df$nombre_reconstruido_de_atomicos <- ifelse(
+  df$genus != "" & df$specificEpithet != "",
+  paste(df$genus, df$specificEpithet), NA_character_)
+
+tid_nombre <- df %>% filter(taxonID != "", scientificName != "") %>%
+  count(taxonID, scientificName, name = "n") %>%
+  group_by(taxonID) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
+  ungroup() %>% select(taxonID, nombre_mayoritario_del_taxonID = scientificName)
+
+aut_ref <- df %>% filter(scientificName != "", scientificNameAuthorship != "") %>%
+  count(scientificName, scientificNameAuthorship, name = "n") %>%
+  group_by(scientificName) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
+  ungroup() %>% select(scientificName, autoria_ref = scientificNameAuthorship)
+
+df <- df %>% left_join(tid_nombre, by = "taxonID") %>%
+             left_join(aut_ref,    by = "scientificName")
+
+df$flag_nombre_contradice_atomicos <- !is.na(df$nombre_reconstruido_de_atomicos) &
+  df$scientificName != "" &
+  df$nombre_reconstruido_de_atomicos != df$scientificName
+
+t_tid <- df$flag_nombre_contradice_atomicos &
+         !is.na(df$nombre_mayoritario_del_taxonID) &
+         df$nombre_mayoritario_del_taxonID == df$nombre_reconstruido_de_atomicos
+t_aut <- df$flag_nombre_contradice_atomicos &
+         df$scientificNameAuthorship != "" & !is.na(df$autoria_ref) &
+         df$scientificNameAuthorship != df$autoria_ref
+
+df$testigos_contra_scientificName <-
+  as.integer(df$flag_nombre_contradice_atomicos) +
+  as.integer(t_tid %in% TRUE) + as.integer(t_aut %in% TRUE)
+
+cat("scientificName contradicho por los campos atomizados:",
+    sum(df$flag_nombre_contradice_atomicos), "fila(s)\n")
+cat("  con 3 testigos (atomicos + taxonID + autoria):",
+    sum(df$testigos_contra_scientificName == 3), "\n")
+cat("  con 2 testigos:", sum(df$testigos_contra_scientificName == 2), "\n")
+print(df %>% filter(flag_nombre_contradice_atomicos) %>%
+        select(catalogNumber, scientificName, nombre_reconstruido_de_atomicos,
+               taxonID, nombre_mayoritario_del_taxonID,
+               scientificNameAuthorship, autoria_ref,
+               testigos_contra_scientificName), n = 30)
+df <- df %>% select(-nombre_mayoritario_del_taxonID, -autoria_ref)
 
 # ---- 5. Completar class y order desde el backbone ----
 # Derivación desde una fuente autoritativa a partir del género. No es
@@ -372,7 +422,13 @@ if (length(idx)) {
   origen_formal <- grepl("^[A-Z][a-z]+iformes$", df$order_verbatim[idx])
   valido <- grepl("^[A-Z][a-z]+iformes$", raiz) & !origen_formal
   df$order[idx] <- ifelse(valido, raiz, df$order_verbatim[idx])
-  for (i in idx) anotar(i, "order_informal_reducido_a_orden_valido")
+# Simetria con la segunda pasada: una celda que vuelve al verbatim no puede
+# declarar que fue reducida a un orden valido. Hoy no hay reversiones en esta
+# pasada, pero la anotacion incondicional es el defecto, no su efecto actual.
+  for (i in idx) anotar(i, if (identical(df$order[i], df$order_verbatim[i]))
+                          "order_revertido_al_verbatim_clado_informal"
+                        else
+                          "order_informal_reducido_a_orden_valido")
   cat("ordenes informales normalizados:", length(idx),
       "| revertidos al verbatim:", sum(!valido), "\n")
 }
@@ -401,7 +457,11 @@ for (i in idx) {
   df$order[i] <- fb$Order[1]; n_ord <- n_ord + 1
   anotar(i, "order_desde_backbone_autoridad_unica")
 }
-cat("order alineado al backbone:", n_ord, "fila(s)\n")
+# La cifra es provisional: el bloque de clados informales que viene a
+# continuacion revierte parte de estas asignaciones y 5c-quinquies les retira la
+# anotacion. Se declara provisional aqui y neta al final, que es la que cuenta.
+cat("order alineado al backbone (provisional, antes de revertir clados):",
+    n_ord, "fila(s)\n")
 
 # Segunda pasada de normalización de clados informales post-asignación.
 idx <- which(grepl("/", df$order))
@@ -430,6 +490,10 @@ cat("  anotaciones de autoridad unica retiradas por reversion:", length(idx_rev)
 
 df$metodo_correccion_taxon <- vapply(strsplit(df$metodo_correccion_taxon, "|", fixed = TRUE),
   function(v) paste(unique(v), collapse = "|"), character(1))
+
+cat("  order alineado al backbone (NETO tras reversiones):",
+    sum(grepl("order_desde_backbone_autoridad_unica",
+              df$metodo_correccion_taxon, fixed = TRUE)), "fila(s)\n")
 
 # ---- 5c-ter. Respaldo familia -> orden para géneros sin backbone ----
 # Derivación de orden a partir de la familia (solo si la familia es única para el género).
@@ -516,7 +580,11 @@ corte <- function(rank) switch(as.character(rank),
   "genus"     = c("kingdom","phylum","class","order","family"),
   "subfamily" = c("kingdom","phylum","class","order","family"),
   "family"    = c("kingdom","phylum","class","order"),
-  c("kingdom","phylum","class","order","family","genus"))
+# Rama por defecto explicita. Si el rango no se pudo determinar (F7: los cinco
+# nombres con cualificador de grupo o complejo), la jerarquia no puede afirmar
+# una profundidad que depende justo del rango que se declara desconocido. Se
+# corta en family, que es superior a todos los rangos posibles de esos cinco.
+  c("kingdom","phylum","class","order","family"))
 df$higherClassification <- vapply(seq_len(nrow(df)), function(i) {
   cols <- corte(df$taxonRank[i])
   v <- unlist(df[i, cols], use.names = FALSE)
@@ -621,6 +689,7 @@ n_nom <- df %>% filter(scientificName != "", family != "") %>%
 cat("nombres cientificos con mas de una familia:", n_nom,
     "| filas en la minoria del nombre:", sum(df$flag_family_minoritaria_en_el_nombre), "\n")
 
+
 # ---- 8c. Familia con más de un orden ----
 # Detección de inconsistencias cruzadas (órdenes minoritarios dentro de una familia).
 ord_may_fam <- df %>% filter(family != "", order != "") %>%
@@ -692,7 +761,15 @@ tiene_anclaje <- (df$country != "" & !is.na(df$country)) |
 # termino para ellos: no se afirma lo que la fuente no sostiene.
 # stateProvince vacio se lee como NA y "NA == 'Galapagos'" devuelve NA, que el
 # ifelse propaga: seis registros con pais o coordenada perdian el continente.
-insular <- df$stateProvince %in% "Galápagos"
+# La insularidad se decidia por la provincia DECLARADA. El catalogo 4195 declara
+# Manabi y su coordenada (-90.65) cae en Galapagos: recibia continent y GBIF lo
+# marca. Se anade la prueba por coordenada, con el mismo bbox insular que usa
+# in_bbox() en Coordenadas.R.
+la_ <- suppressWarnings(as.numeric(df$decimalLatitude))
+lo_ <- suppressWarnings(as.numeric(df$decimalLongitude))
+insular <- df$stateProvince %in% "Galápagos" |
+           (!is.na(la_) & !is.na(lo_) &
+            la_ >= -1.5 & la_ <= 1.9 & lo_ >= -92.5 & lo_ <= -89)
 df$continent <- ifelse(tiene_anclaje & !insular, "South America", "")
 cat("continent escrito:", sum(tiene_anclaje & !insular),
     "| omitido por falta de anclaje:", sum(!tiene_anclaje),
@@ -703,6 +780,124 @@ df$occurrenceStatus <- ifelse(df$registro_incompleto | df$flag_sin_taxonomia,
                               "", "present")
 cat("occurrenceStatus escrito:", sum(df$occurrenceStatus != ""),
     "| omitido por falta de taxon o de anclaje:", sum(df$occurrenceStatus == ""), "\n")
+
+# ---- Contraste contra el backbone de GBIF (misma fuente que usa el validador).
+# El validador solo devuelve 5 muestras por incidencia, pero el backbone que
+# usa esta expuesto en la API publica de especies. Consultarlo directamente da
+# el matchType de los 936 nombres distintos del archivo, no una muestra, y sin
+# publicar nada en UAT. Es la segunda opinion externa que separa la errata
+# ortografica del genero valido ausente de FishBase.
+#
+# Puesto en FALSE por defecto para no penalizar el tiempo de ejecucion local
+# con llamadas de red si no se requiere actualizar este reporte.
+USAR_API_GBIF <- TRUE
+if (USAR_API_GBIF) {
+  library(rgbif); library(dplyr); library(readr)
+
+  nombres <- df %>% filter(scientificName != "") %>%
+    distinct(scientificName, kingdom, phylum, class, order, family, genus) %>%
+    rename(name = scientificName)
+
+  # La API publica de GBIF corta la conexion ("Status: 0") si se envian casi 1000
+  # nombres de golpe. Partimos la peticion en bloques (batches) de 100 nombres
+  # para que el servidor de GBIF no cancele por timeout.
+  mb_list <- list()
+  for (i in seq(1, nrow(nombres), by = 100)) {
+    cat(sprintf("  GBIF: procesando %d a %d de %d...\n", i, min(i+99, nrow(nombres)), nrow(nombres)))
+    mb_list[[length(mb_list) + 1]] <- name_backbone_checklist(nombres[i:min(i+99, nrow(nombres)), ])
+    Sys.sleep(1)
+  }
+  
+  # canonicalName es el nombre de la USAGE con la que GBIF emparejo, no el nombre
+  # aceptado. Si emparejo con un sinonimo o una variante, devuelve esa variante:
+  # "Farlowella oxyrhyncha" -> "oxyrryncha" es la grafia vieja que el bloque
+  # 4a-ter ya habia corregido. Hay que traer el estado y el nombre aceptado para
+  # poder distinguir la errata real del emparejamiento con una usage secundaria.
+  # El nombre aceptado se perdia porque el transmute de `erratas` no lo arrastraba.
+  # Es el unico dato que hace accionables las cinco filas SYNONYM.
+  mb <- bind_rows(mb_list) %>%
+    select(verbatim_name, matchType, confidence, rank, status,
+           canonicalName,
+           accepted_gbif = any_of(c("accepted", "acceptedScientificName",
+                                    "acceptedCanonicalName")),
+           family_gbif = family, genus_gbif = genus)
+
+  cat("\n=== CONTRASTE CON EL BACKBONE DE GBIF ===\n")
+  print(table(mb$matchType))
+
+  # Se marcan aparte los emparejamientos con usage no aceptada (status distinto de
+  # ACCEPTED) y los nombres de rango subfamiliar, que GBIF resuelve a la familia y
+  # no son erratas: son los cuatro falsos positivos de la primera corrida
+  # (Farlowella oxyrhyncha, Loricariinae, Chaetostoma platycephalus, Selene oerstedii).
+  # Dos casos que la guarda anterior no separaba. (1) Los SYNONYM necesitan el
+  # nombre ACEPTADO para ser accionables: sin el, "Cochliodon oculus -> oculeus"
+  # no dice si oculeus es el nombre bueno o solo la usage con la que emparejo.
+  # (2) Farlowella oxyrhyncha -> oxyrryncha salia ACCEPTED, pero oxyrryncha es
+  # justo la grafia que el bloque 4a-ter ya corrigio en tres filas: GBIF propone
+  # deshacer una correccion propia. Eso no se aplica a ciegas, se pregunta.
+  nz <- function(x) ifelse(is.na(x), "", x)
+  erratas <- mb %>% filter(matchType %in% c("FUZZY", "VARIANT")) %>%
+    transmute(nombre_archivo = verbatim_name, nombre_gbif = canonicalName,
+              nombre_aceptado_gbif = accepted_gbif,
+              tipo = matchType, confianza = confidence, estado_gbif = status,
+              revisar = dplyr::case_when(
+                status != "ACCEPTED"
+                  ~ "GBIF emparejo con un sinonimo; falta confirmar el nombre aceptado",
+                grepl("inae$", verbatim_name)
+                  ~ "nombre de rango subfamiliar: GBIF lo resuelve a la familia",
+                canonicalName %in% names(grafia_epiteto) |
+                sub("^([A-Z][a-z]+ [a-z-]+).*$", "\\1", nz(accepted_gbif)) %in% names(grafia_epiteto)
+                  ~ "GBIF propone la grafia que el bloque 4a-ter ya corrigio",
+                TRUE ~ "")) %>%
+    left_join(df %>% count(scientificName, name = "filas"),
+              by = c("nombre_archivo" = "scientificName")) %>%
+    arrange(desc(filas))
+    
+  # Y ademas exportar SIEMPRE, aunque salga vacio: la ausencia de erratas es
+  # evidencia y tiene que quedar registrada con fecha.
+  write_csv(erratas, "reportes_y_revisiones/gbif_nombres_difusos.csv", na = "")
+
+  # Los que GBIF solo resuelve al rango superior son el otro grupo util:
+  altos <- mb %>% filter(matchType == "HIGHERRANK") %>%
+    transmute(nombre_archivo = verbatim_name, resuelve_a = canonicalName, rango = rank)
+  
+  cat("nombres con grafia variante:", nrow(erratas),
+      "| nombres que solo resuelven al rango superior:", nrow(altos), "\n")
+
+  # Y la particion que el reporte de generos no resueltos no da:
+  # errata ortografica  vs  genero valido que FishBase no tiene.
+  gen <- read_csv("reportes_y_revisiones/generos_no_resueltos_backbone.csv",
+                  col_types = cols(.default = "c"))
+  gen$en_gbif <- name_backbone_checklist(
+    data.frame(name = gen$genus))$matchType
+  write_csv(gen, "reportes_y_revisiones/generos_no_resueltos_backbone.csv", na = "")
+  cat("\ngeneros no resueltos en FishBase, contrastados con GBIF:\n"); print(gen)
+
+  # El contraste produce un hallazgo verificado contra una fuente externa y hasta
+  # ahora vivia solo en dos CSV sueltos. Se escribe como bandera en el propio
+  # archivo para que viaje con el dato, lo consolide el reporte de plausibilidad y
+  # lo pueda leer el tablero. NO corrige: la grafia sigue pendiente de INABIO (F15).
+  df <- df %>%
+    left_join(erratas %>%
+                select(scientificName = nombre_archivo,
+                       grafia_sugerida_gbif = nombre_gbif,
+                       revisar_gbif = revisar),
+              by = "scientificName")
+  df$flag_grafia_variante_gbif <- !is.na(df$grafia_sugerida_gbif) &
+                                  nz(df$revisar_gbif) == ""
+  df$grafia_sugerida_gbif <- nz(df$grafia_sugerida_gbif)
+  df <- df %>% select(-revisar_gbif)
+  cat("  filas marcadas con grafia variante segun GBIF:",
+      sum(df$flag_grafia_variante_gbif), "\n")
+
+  # Los dos reportes exportan subconjuntos (29 variantes y 21 de rango superior).
+  # Para que el tablero pueda MEDIR y no escribir cifras a mano, hace falta la
+  # tabla completa de los 993 nombres con su matchType.
+  write_csv(mb, "reportes_y_revisiones/gbif_contraste_completo.csv", na = "")
+  cat("contraste completo exportado:", nrow(mb), "nombres |",
+      paste(names(table(mb$matchType)), table(mb$matchType), sep = ": ",
+            collapse = " | "), "\n")
+}
 
 write_csv(df, ARCHIVO_SALIDA, na = "")
 cat("\nGuardado en", ARCHIVO_SALIDA, "— el archivo de entrada no se modificó.\n")

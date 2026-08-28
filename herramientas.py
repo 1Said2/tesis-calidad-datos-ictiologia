@@ -112,8 +112,11 @@ def construir_dwca():
     import xml.etree.ElementTree as ET
     import zipfile
     import re
+    import datetime
     
     ROOT_DIR = Path(__file__).resolve().parent
+    timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+    zip_basename = f'dataset_dwca_{timestamp}.zip'
     CRUDOS_DIR = ROOT_DIR / 'pipeline-r' / 'datos' / '01_crudos'
     INTERMEDIOS_DIR = ROOT_DIR / 'pipeline-r' / 'datos' / '02_intermedios'
 
@@ -232,7 +235,7 @@ def construir_dwca():
 
     eml_text = re.sub(r'<characterEncoding>.*?</characterEncoding>', '', eml_text)
     eml_text = re.sub(r'(<surName>.*?</surName>)\s*(<givenName>.*?</givenName>)', r'\2\1', eml_text)
-    eml_text = re.sub(r'(<physical>)\s*(<dataFormat>)', r'\1<objectName>dataset_dwca.zip</objectName>\2', eml_text)
+    eml_text = re.sub(r'(<physical>)\s*(<dataFormat>)', r'\1<objectName>' + zip_basename + r'</objectName>\2', eml_text)
     eml_text = eml_text.replace('<addr>', '<address>').replace('</addr>', '</address>')
 
     def sort_party_block(match):
@@ -275,7 +278,16 @@ def construir_dwca():
     print("\n==========================================")
     print("4. EMPAQUETANDO ARCHIVO ZIP (DwC-A)")
     print("==========================================")
-    zip_filename = ROOT_DIR / 'dataset_dwca.zip'
+    
+    # Eliminar archivos .zip anteriores que empiecen con dataset_dwca
+    for old_zip in ROOT_DIR.glob('dataset_dwca*.zip'):
+        try:
+            old_zip.unlink()
+            print(f"Eliminado zip anterior: {old_zip.name}")
+        except Exception as e:
+            print(f"Advertencia: No se pudo eliminar {old_zip.name}: {e}")
+            
+    zip_filename = ROOT_DIR / zip_basename
     files_to_zip = {
         occ_out: 'occurrences.csv',
         meta_out: 'meta.xml',

@@ -1,10 +1,10 @@
 {
-    "key": "7d8e1905-9c96-4188-9d91-9527646ba1ff",
-    "created": "2026-08-25T17:38:02.400+00:00",
-    "modified": "2026-08-25T17:39:06.774+00:00",
+    "key": "a3c9b2f3-031c-4abb-a4bf-bc052b244e6f",
+    "created": "2026-08-27T03:28:31.216+00:00",
+    "modified": "2026-08-27T03:29:29.770+00:00",
     "username": "1said2",
-    "file": "dataset_dwca.zip",
-    "fileSize": 583791,
+    "file": "dataset_dwca_20260826_222804.zip",
+    "fileSize": 586537,
     "fileFormat": "DWCA",
     "status": "FINISHED",
     "metrics": {
@@ -99,16 +99,16 @@
                         "interpretedIndexed": 6427,
                         "uniqueInterpretedValues": 6427,
                         "sampleInterpretedValuesMap": {
-                            "https://localhost/bndb/collections/individual/index.php?occid=1841450": 1,
                             "https://localhost/bndb/collections/individual/index.php?occid=679535": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=679667": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1840353": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=680011": 1,
                             "https://localhost/bndb/collections/individual/index.php?occid=1840818": 1,
                             "https://localhost/bndb/collections/individual/index.php?occid=677332": 1,
                             "https://localhost/bndb/collections/individual/index.php?occid=678773": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1840103": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=679537": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1840964": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=679638": 1
+                            "https://localhost/bndb/collections/individual/index.php?occid=1840862": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=681339": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=677804": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1841094": 1
                         }
                     },
                     {
@@ -327,7 +327,7 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/continent",
-                        "rawIndexed": 6399,
+                        "rawIndexed": 6398,
                         "uniqueRawValues": 1,
                         "interpretedIndexed": 6410,
                         "uniqueInterpretedValues": 1,
@@ -413,9 +413,9 @@
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/locality",
                         "rawIndexed": 5914,
-                        "uniqueRawValues": 856,
+                        "uniqueRawValues": 855,
                         "interpretedIndexed": 5914,
-                        "uniqueInterpretedValues": 856,
+                        "uniqueInterpretedValues": 855,
                         "sampleInterpretedValuesMap": {
                             "Tonchigüe": 77,
                             "Parque Nacional Yasuní": 84,
@@ -497,10 +497,10 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/decimalLatitude",
-                        "rawIndexed": 6177,
-                        "uniqueRawValues": 1172,
-                        "interpretedIndexed": 6178,
-                        "uniqueInterpretedValues": 1170,
+                        "rawIndexed": 6178,
+                        "uniqueRawValues": 1173,
+                        "interpretedIndexed": 6179,
+                        "uniqueInterpretedValues": 1171,
                         "sampleInterpretedValuesMap": {
                             "-3.000283": 152,
                             "-2.230592": 69,
@@ -516,9 +516,9 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/decimalLongitude",
-                        "rawIndexed": 6177,
+                        "rawIndexed": 6178,
                         "uniqueRawValues": 1161,
-                        "interpretedIndexed": 6178,
+                        "interpretedIndexed": 6179,
                         "uniqueInterpretedValues": 1162,
                         "sampleInterpretedValuesMap": {
                             "-76.625395": 89,
@@ -535,18 +535,18 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/geodeticDatum",
-                        "rawIndexed": 5707
+                        "rawIndexed": 5708
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters",
-                        "rawIndexed": 5924,
+                        "rawIndexed": 5911,
                         "uniqueRawValues": 3,
-                        "interpretedIndexed": 5924,
+                        "interpretedIndexed": 5911,
                         "uniqueInterpretedValues": 3,
                         "sampleInterpretedValuesMap": {
                             "200.0": 1,
-                            "30.0": 4283,
-                            "100.0": 1640
+                            "30.0": 4275,
+                            "100.0": 1635
                         }
                     },
                     {
@@ -565,15 +565,15 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceProtocol",
-                        "rawIndexed": 1605
+                        "rawIndexed": 1606
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceSources",
-                        "rawIndexed": 6177
+                        "rawIndexed": 6178
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceRemarks",
-                        "rawIndexed": 6177
+                        "rawIndexed": 6244
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/preparations",
@@ -612,16 +612,16 @@
                         "interpretedIndexed": 6427,
                         "uniqueInterpretedValues": 6427,
                         "sampleInterpretedValuesMap": {
-                            "6240": 1,
-                            "1090": 1,
-                            "1436": 1,
                             "4937": 1,
+                            "6240": 1,
                             "3959": 1,
-                            "1159": 1,
                             "4032": 1,
-                            "5645": 1,
+                            "675": 1,
+                            "5325": 1,
+                            "4821": 1,
+                            "2904": 1,
                             "2162": 1,
-                            "691": 1
+                            "6194": 1
                         }
                     },
                     {
@@ -708,7 +708,7 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus",
-                        "rawIndexed": 6177
+                        "rawIndexed": 6178
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/occurrenceStatus",
@@ -844,11 +844,11 @@
                         "rawIndexed": 6421,
                         "uniqueRawValues": 936,
                         "interpretedIndexed": 6421,
-                        "uniqueInterpretedValues": 895,
+                        "uniqueInterpretedValues": 894,
                         "sampleInterpretedValuesMap": {
                             "Bujurquina moriorum Kullander, 1986": 66,
                             "Astroblepus Humboldt, 1805": 304,
-                            "Bryconamericus Eigenmann in Eigenmann, McAtee & Ward, 1907": 120,
+                            "Bryconamericus Eigenmann in Eigenmann, McAtee & Ward, 1907": 121,
                             "Creagrutus muelleri (Günther, 1859)": 81,
                             "Rhoadsia altipinna Fowler, 1911": 65,
                             "Moenkhausia comma Eigenmann, 1908": 63,
@@ -924,7 +924,7 @@
                         "term": "http://rs.tdwg.org/dwc/terms/family",
                         "rawIndexed": 6421,
                         "uniqueRawValues": 110,
-                        "interpretedIndexed": 6370,
+                        "interpretedIndexed": 6371,
                         "uniqueInterpretedValues": 112,
                         "sampleInterpretedValuesMap": {
                             "Loricariidae": 609,
@@ -936,7 +936,7 @@
                             "Heptapteridae": 235,
                             "Acestrorhamphidae": 846,
                             "Astroblepidae": 603,
-                            "Characidae": 419
+                            "Characidae": 420
                         }
                     },
                     {
@@ -969,7 +969,7 @@
                             "Bryconamericus": 178,
                             "Chaetostoma": 177,
                             "Astroblepus": 603,
-                            "Hemigrammus": 106,
+                            "Crenicichla": 106,
                             "Creagrutus": 206,
                             "Bujurquina": 158,
                             "Brycon": 137,
@@ -1033,7 +1033,7 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
-                        "rawIndexed": 5876
+                        "rawIndexed": 5855
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/taxonRemarks",
@@ -1086,12 +1086,8 @@
                     {
                         "issue": "CONTINENT_COORDINATE_MISMATCH",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 2,
+                        "count": 1,
                         "samples": [
-                            {
-                                "recordId": "680882",
-                                "relatedData": {}
-                            },
                             {
                                 "recordId": "680986",
                                 "relatedData": {}
@@ -1139,14 +1135,8 @@
                     {
                         "issue": "COORDINATE_INVALID",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 11,
+                        "count": 10,
                         "samples": [
-                            {
-                                "recordId": "1840365",
-                                "relatedData": {
-                                    "dwc:verbatimCoordinates": "-0.072489 -78,213,042"
-                                }
-                            },
                             {
                                 "recordId": "680913",
                                 "relatedData": {
@@ -1167,6 +1157,12 @@
                             },
                             {
                                 "recordId": "680916",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
+                                }
+                            },
+                            {
+                                "recordId": "680917",
                                 "relatedData": {
                                     "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
                                 }

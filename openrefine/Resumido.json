@@ -4371,5 +4371,70 @@
     "repeat": false,
     "repeatCount": 0,
     "description": "Transforma el texto de las celdas en la columna recordEnteredBy usando la expresión grel:if(isBlank(value), value, value.replace(/\\b([A-ZÁÉÍÓÚÑ])\\.([A-ZÁÉÍÓÚÑ])\\.(?=\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ])/, \"$1. $2.\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bBl[qp]\\s*:\\s*/, \"Bloque \").replace(/\\bBloq\\s*:\\s*/, \"Bloque \").replace(/(\\.\\s+)estación(\\s+\\d)/, \"$1Estación$2\").replace(/(\\d)\\s*mtrs\\b/, \"$1 m\").replace(/(\\d)\\s*mts\\b/, \"$1 m\").replace(/(\\d)(km|Km|KM)\\b/, \"$1 km\").replace(\"Reserva Producción Faunística\", \"Reserva de Producción de Fauna\").replace(/\\bLoracachi\\b/, \"Lorocachi\").replace(/\\bLargarto\\b/, \"Lagarto\").replace(/\\bHumedad\\b/, \"Humedal\").replace(/\\bháces\\b/, \"haces\").replace(/\\bTeone\\b/, \"Teaone\").replace(/\\bMagadalena\\b/, \"Magdalena\").replace(/\\bQuedrada\\b/, \"Quebrada\").replace(/\\bPirraña\\b/, \"Piraña\").replace(/\\bPuellaro\\b/, \"Puéllaro\").replace(\"San Cristobal\", \"San Cristóbal\").replace(/\\bLaguan\\b/, \"Laguna\").replace(/\\bBobanza\\b/, \"Bobonaza\").replace(/\\bAregentinas\\b/, \"Argentinas\").replace(/\\bAngentinas\\b/, \"Argentinas\").replace(\"Samaborondón\", \"Samborondón\").replace(\"Orquideologica\", \"Orquideológica\").replace(/\\bBorbon\\b/, \"Borbón\").replace(/\\bCutucu\\b/, \"Cutucú\").replace(/\\bCaoni\\b/, \"Caoní\").replace(/\\bMoran\\b/, \"Morán\").replace(/\\bArenilla\\b/, \"Arenillas\").replace(/\\bSansaguari\\b/, \"Sansahuari\").replace(/\\bSancahuari\\b/, \"Sansahuari\").replace(/\\bZuñag\\b/, \"Zuñac\").replace(\"El Galán\", \"El Golán\").replace(/\\bGuepi\\b/, \"Gueppi\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(/\\bBl[qp]\\s*:\\s*/, \"Bloque \").replace(/\\bBloq\\s*:\\s*/, \"Bloque \").replace(/(\\.\\s+)estación(\\s+\\d)/, \"$1Estación$2\").replace(/(\\d)\\s*mtrs\\b/, \"$1 m\").replace(/(\\d)\\s*mts\\b/, \"$1 m\").replace(/(\\d)(km|Km|KM)\\b/, \"$1 km\").replace(\"Reserva Producción Faunística\", \"Reserva de Producción de Fauna\").replace(/\\bLoracachi\\b/, \"Lorocachi\").replace(/\\bLargarto\\b/, \"Lagarto\").replace(/\\bHumedad\\b/, \"Humedal\").replace(/\\bháces\\b/, \"haces\").replace(/\\bTeone\\b/, \"Teaone\").replace(/\\bMagadalena\\b/, \"Magdalena\").replace(/\\bQuedrada\\b/, \"Quebrada\").replace(/\\bPirraña\\b/, \"Piraña\").replace(/\\bPuellaro\\b/, \"Puéllaro\").replace(\"San Cristobal\", \"San Cristóbal\").replace(/\\bLaguan\\b/, \"Laguna\").replace(/\\bBobanza\\b/, \"Bobonaza\").replace(/\\bAregentinas\\b/, \"Argentinas\").replace(/\\bAngentinas\\b/, \"Argentinas\").replace(\"Samaborondón\", \"Samborondón\").replace(\"Orquideologica\", \"Orquideológica\").replace(/\\bBorbon\\b/, \"Borbón\").replace(/\\bCutucu\\b/, \"Cutucú\").replace(/\\bCaoni\\b/, \"Caoní\").replace(/\\bMoran\\b/, \"Morán\").replace(/\\bArenilla\\b/, \"Arenillas\").replace(/\\bSansaguari\\b/, \"Sansahuari\").replace(/\\bSancahuari\\b/, \"Sansahuari\").replace(/\\bZuñag\\b/, \"Zuñac\").replace(\"El Galán\", \"El Golán\").replace(/\\bGuepi\\b/, \"Gueppi\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\bBl[qp]\\s*:\\s*/, \"Bloque \").replace(/\\bBloq\\s*:\\s*/, \"Bloque \").replace(/(\\d)\\s*mtrs\\b/, \"$1 m\").replace(/(\\d)\\s*mts\\b/, \"$1 m\").replace(/(\\d)(km|Km|KM)\\b/, \"$1 km\").replace(/\\bLoracachi\\b/, \"Lorocachi\").replace(/\\bLargarto\\b/, \"Lagarto\").replace(/\\bHumedad\\b/, \"Humedal\").replace(/\\bTeone\\b/, \"Teaone\").replace(/\\bMagadalena\\b/, \"Magdalena\").replace(/\\bQuedrada\\b/, \"Quebrada\").replace(/\\bPuellaro\\b/, \"Puéllaro\").replace(\"San Cristobal\", \"San Cristóbal\").replace(/\\bLaguan\\b/, \"Laguna\").replace(/\\bBobanza\\b/, \"Bobonaza\").replace(/\\bAngentinas\\b/, \"Argentinas\").replace(/\\bAregentinas\\b/, \"Argentinas\").replace(/\\bCaoni\\b/, \"Caoní\").replace(/\\bMoran\\b/, \"Morán\").replace(/\\bArenilla\\b/, \"Arenillas\").replace(/\\bSansaguari\\b/, \"Sansahuari\").replace(/\\bSancahuari\\b/, \"Sansahuari\").replace(/\\bZuñag\\b/, \"Zuñac\").replace(/\\bGuepi\\b/, \"Gueppi\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(/\\bBl[qp]\\s*:\\s*/, \"Bloque \").replace(/\\bBloq\\s*:\\s*/, \"Bloque \").replace(/(\\d)\\s*mtrs\\b/, \"$1 m\").replace(/(\\d)\\s*mts\\b/, \"$1 m\").replace(/(\\d)(km|Km|KM)\\b/, \"$1 km\").replace(/\\bLoracachi\\b/, \"Lorocachi\").replace(/\\bLargarto\\b/, \"Lagarto\").replace(/\\bHumedad\\b/, \"Humedal\").replace(/\\bTeone\\b/, \"Teaone\").replace(/\\bMagadalena\\b/, \"Magdalena\").replace(/\\bQuedrada\\b/, \"Quebrada\").replace(/\\bPuellaro\\b/, \"Puéllaro\").replace(\"San Cristobal\", \"San Cristóbal\").replace(/\\bLaguan\\b/, \"Laguna\").replace(/\\bBobanza\\b/, \"Bobonaza\").replace(/\\bAngentinas\\b/, \"Argentinas\").replace(/\\bAregentinas\\b/, \"Argentinas\").replace(/\\bCaoni\\b/, \"Caoní\").replace(/\\bMoran\\b/, \"Morán\").replace(/\\bArenilla\\b/, \"Arenillas\").replace(/\\bSansaguari\\b/, \"Sansahuari\").replace(/\\bSancahuari\\b/, \"Sansahuari\").replace(/\\bZuñag\\b/, \"Zuñac\").replace(/\\bGuepi\\b/, \"Gueppi\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "scientificNameAuthorship",
+    "expression": "grel:if(isBlank(value), value, value.replace(/\\ben\\b/, \"in\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna scientificNameAuthorship usando la expresión grel:if(isBlank(value), value, value.replace(/\\ben\\b/, \"in\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Humedal la Tembladera\", \"Humedal La Tembladera\").replace(\"Río Sector la Cuca\", \"Río Sector La Cuca\").replace(\"Quebrada la Magdalena\", \"Quebrada La Magdalena\").replace(\"Río la Bermeja\", \"Río La Bermeja\").replace(\"Quebrada la Chilca\", \"Quebrada La Chilca\").replace(\"Quebrada la chilca\", \"Quebrada La Chilca\").replace(\"Río las Chontas\", \"Río Las Chontas\").replace(\"Río la Virginia\", \"Río La Virginia\").replace(\"Quebrada los Monos\", \"Quebrada Los Monos\").replace(\"Campamento las Peñas\", \"Campamento Las Peñas\").replace(\"Hostería el Jardín\", \"Hostería El Jardín\").replace(\"hostería el Jardín\", \"Hostería El Jardín\").replace(\"bajo la Bonita\", \"bajo La Bonita\").replace(\"desde la Armenia\", \"desde La Armenia\").replace(\"Represa tawin\", \"Represa Tawin\").replace(\"Shuin mammus\", \"Shuin Mammus\").replace(\"Laguna artificial\", \"Laguna Artificial\").replace(\"granja piscícola del concejo provincial\", \"Granja Piscícola del Consejo Provincial\").replace(\"R. Lagartococha\", \"Río Lagartococha\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locality usando la expresión grel:if(isBlank(value), value, value.replace(\"Humedal la Tembladera\", \"Humedal La Tembladera\").replace(\"Río Sector la Cuca\", \"Río Sector La Cuca\").replace(\"Quebrada la Magdalena\", \"Quebrada La Magdalena\").replace(\"Río la Bermeja\", \"Río La Bermeja\").replace(\"Quebrada la Chilca\", \"Quebrada La Chilca\").replace(\"Quebrada la chilca\", \"Quebrada La Chilca\").replace(\"Río las Chontas\", \"Río Las Chontas\").replace(\"Río la Virginia\", \"Río La Virginia\").replace(\"Quebrada los Monos\", \"Quebrada Los Monos\").replace(\"Campamento las Peñas\", \"Campamento Las Peñas\").replace(\"Hostería el Jardín\", \"Hostería El Jardín\").replace(\"hostería el Jardín\", \"Hostería El Jardín\").replace(\"bajo la Bonita\", \"bajo La Bonita\").replace(\"desde la Armenia\", \"desde La Armenia\").replace(\"Represa tawin\", \"Represa Tawin\").replace(\"Shuin mammus\", \"Shuin Mammus\").replace(\"Laguna artificial\", \"Laguna Artificial\").replace(\"granja piscícola del concejo provincial\", \"Granja Piscícola del Consejo Provincial\").replace(\"R. Lagartococha\", \"Río Lagartococha\"))"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:if(isBlank(value), value, value.replace(\"Río la Cuca\", \"Río La Cuca\").replace(\"Río el Golán\", \"Río El Golán\").replace(\"Quebrada las Peñas\", \"Quebrada Las Peñas\").replace(\"Quebrada la Morán\", \"Quebrada La Morán\").replace(\"Quebrada la chilca\", \"Quebrada La Chilca\").replace(\"Bocana de ostiones\", \"Bocana de Ostiones\").replace(\"Wiro kaspi\", \"Wiro Kaspi\").replace(\"Laguna # 1\", \"Laguna 1\"))",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 0,
+    "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(\"Río la Cuca\", \"Río La Cuca\").replace(\"Río el Golán\", \"Río El Golán\").replace(\"Quebrada las Peñas\", \"Quebrada Las Peñas\").replace(\"Quebrada la Morán\", \"Quebrada La Morán\").replace(\"Quebrada la chilca\", \"Quebrada La Chilca\").replace(\"Bocana de ostiones\", \"Bocana de Ostiones\").replace(\"Wiro kaspi\", \"Wiro Kaspi\").replace(\"Laguna # 1\", \"Laguna 1\"))"
   }
 ]

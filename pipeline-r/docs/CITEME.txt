@@ -1,6 +1,0 @@
-This data package was downloaded from a Symbiota INABIO Portal Search on 2026-07-29 12:11:37.
-
-Please use the following format to cite this dataset:
-Biodiversity occurrence data published by: Symbiota INABIO (accessed through the Symbiota INABIO Portal, https://localhost/bndb, 2026-07-29).
-
-For more information on citation formats, please see the following page: https://localhost/bndb/includes/usagepolicy.php

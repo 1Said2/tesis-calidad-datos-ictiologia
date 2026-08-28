@@ -38,7 +38,33 @@ copiable <- function(v) !vac(v) & !(tolower(nrm(v)) %in% NO_COPIABLE) &
 
 # Normalización de autorías importadas (and -> &) para mantener
 # la convención establecida en el core.
-i_aut <- which(vac(df$scientificNameAuthorship) & copiable(id$scientificNameAuthorship))
+# La autoria pertenece al NOMBRE, no a la fila. Importarla sin comprobar que las
+# dos tablas declaran el mismo nombre mete la autoria de otra especie: son 21 de
+# las 803, y en cinco de ellas (4267, 4284, 4327, 4331, 4334) el propio script
+# declara dos bloques mas abajo que ese nombre es el ANTERIOR. Medido sobre el
+# archivo: la incoherencia de autoria sube de 58 nombres/104 filas a 71/127.
+# La comparacion va contra scientificName_verbatim, no contra el nombre limpio,
+# por el mismo motivo que el bloque 2: no penalizar las correcciones propias.
+mismo_nombre <- tolower(nrm(id$scientificName)) ==
+                tolower(nrm(df$scientificName_verbatim))
+
+i_aut <- which(vac(df$scientificNameAuthorship) &
+               copiable(id$scientificNameAuthorship) & mismo_nombre)
+i_aut_rechazada <- which(vac(df$scientificNameAuthorship) &
+                         copiable(id$scientificNameAuthorship) & !mismo_nombre)
+
+df$autoria_rechazada_de_identifications <- ""
+df$autoria_rechazada_de_identifications[i_aut_rechazada] <-
+  nrm(id$scientificNameAuthorship[i_aut_rechazada])
+df$nombre_de_esa_autoria <- ""
+df$nombre_de_esa_autoria[i_aut_rechazada] <- nrm(id$scientificName[i_aut_rechazada])
+
+cat("autorias NO importadas por pertenecer a otro nombre:",
+    length(i_aut_rechazada), "\n")
+print(tibble(catalogNumber = df$catalogNumber[i_aut_rechazada],
+             core  = nrm(df$scientificName_verbatim[i_aut_rechazada]),
+             ident = nrm(id$scientificName[i_aut_rechazada]),
+             autoria = nrm(id$scientificNameAuthorship[i_aut_rechazada])), n = 25)
 aut_norm <- gsub("\\band\\b", "&", nrm(id$scientificNameAuthorship[i_aut]))
 aut_norm <- sub("([A-Za-zÀ-ÿ\\.\\)])\\s+(\\d{4})", "\\1, \\2", aut_norm)
 aut_norm <- trimws(gsub("\\s+", " ", aut_norm))
@@ -55,7 +81,11 @@ cat("identifiedBy de identifications descartados por placeholder:",
 cat("  valores:", paste(unique(nrm(id$identifiedBy[i_ide_descartado])), collapse = " | "), "\n")
 
 # dateIdentified: valores inútiles (vacíos o s.d.).
-cat("dateIdentified NO importados (176 sin datos, 5 s.d.): 181\n")
+i_fec <- which(vac(df$dateIdentified) & !vac(id$dateIdentified))
+cat("dateIdentified NO importados:", length(i_fec), "->",
+    paste(names(table(tolower(nrm(id$dateIdentified[i_fec])))),
+          table(tolower(nrm(id$dateIdentified[i_fec]))),
+          sep = ": ", collapse = " | "), "\n")
 # recordID y tidInterpreted: atributos de determinación ajenos al core. Se descartan.
 cat("recordID y tidInterpreted de identifications descartados: no aplican al core\n")
 
@@ -164,8 +194,7 @@ if (length(sin_destino)) {
   print(df$catalogNumber[sin_destino])
 }
 stopifnot(length(sin_destino) == 0)
-# 23 + 45 = 68 sobre 63 nombres: hay cinco filas (4271, 4388, 4437, 4452, 4453)
-# que resuelven su redeterminacion Y ademas van al oficio por el cualificador.
+# Hay filas que resuelven su redeterminacion Y ademas van al oficio por el cualificador.
 solo_prev <- setdiff(i_prev, which(!is.na(motivo)))
 ambos     <- intersect(i_prev, which(!is.na(motivo)))
 solo_ofi  <- setdiff(which(nombre_difiere & !is.na(motivo)), i_prev)
@@ -174,7 +203,13 @@ cat("particion de los", sum(nombre_difiere), "nombres distintos:",
     length(solo_ofi), "solo al oficio =",
     length(solo_prev) + length(ambos) + length(solo_ofi), "\n")
 
-i_pend <- which(!is.na(motivo))
+# Las cinco filas cuya autoria se rechaza Y ademas resuelven como redeterminacion
+# salian del grupo pendiente y no llegaban al curador. Se anaden explicitamente.
+i_pend <- sort(union(which(!is.na(motivo)), i_aut_rechazada))
+motivo[i_aut_rechazada] <- ifelse(is.na(motivo[i_aut_rechazada]),
+  "identifications trae la autoria de un nombre distinto al del core; no se importa",
+  paste(motivo[i_aut_rechazada],
+        "ademas su autoria pertenece a otro nombre y no se importo", sep = "; "))
 tibble(catalogNumber = df$catalogNumber[i_pend],
        core_id       = df$id[i_pend],
        nombre_identifications = nrm(id$scientificName[i_pend]),
@@ -183,6 +218,8 @@ tibble(catalogNumber = df$catalogNumber[i_pend],
        fecha_core             = d_cor[i_pend],
        determinador_identifications = nrm(id$identifiedBy[i_pend]),
        determinador_core            = nrm(df$identifiedBy[i_pend]),
+       autoria_rechazada            = df$autoria_rechazada_de_identifications[i_pend],
+       nombre_de_esa_autoria        = df$nombre_de_esa_autoria[i_pend],
        motivo = motivo[i_pend]) %>%
   rename(id = core_id) %>%
   arrange(motivo, catalogNumber) %>%
@@ -205,6 +242,89 @@ if (exists("i_432")) df$metodo_correccion_taxon <- marcar(df$metodo_correccion_t
 # de identifications en el portal de Symbiota, pero con solo dos valores distintos
 # no sirve para detectar cambios incrementales.
 df$modified_identifications <- id$modified
+
+# ---- 4. Autoria minoritaria dentro del propio NOMBRE (medida DESPUES de la
+# importacion). Estaba en Fishbase.R y la union le anade 782 autorias despues,
+# de modo que la bandera describia un archivo intermedio y no el publicado.
+nzc <- function(x) ifelse(is.na(x), "", x)
+
+aut_may <- df %>%
+  filter(nzc(scientificName) != "", nzc(scientificNameAuthorship) != "") %>%
+  count(scientificName, scientificNameAuthorship, name = "n_filas") %>%
+  group_by(scientificName) %>%
+  slice_max(n_filas, n = 1, with_ties = FALSE) %>%
+  ungroup() %>%
+  select(scientificName, autoria_mayoritaria_del_nombre = scientificNameAuthorship)
+
+df <- df %>% left_join(aut_may, by = "scientificName")
+
+# read_csv lee la celda vacia como NA y "NA != ''" devuelve NA, no FALSE: la
+# bandera salia NA en 58 filas y el sum() del log imprimia NA. Se normaliza con
+# nzc() antes de comparar, igual que hace nz() en el resto del script.
+df$flag_autoria_minoritaria_en_el_nombre <-
+  nzc(df$scientificName) != "" & nzc(df$scientificNameAuthorship) != "" &
+  !is.na(df$autoria_mayoritaria_del_nombre) &
+  nzc(df$scientificNameAuthorship) != nzc(df$autoria_mayoritaria_del_nombre)
+
+sin_acento <- function(x) iconv(x, to = "ASCII//TRANSLIT")
+sin_anio   <- function(x) gsub("[0-9]{4}", "AAAA", x)
+sin_paren  <- function(x) gsub("[()]", "", x)
+sin_guion  <- function(x) trimws(gsub("\\s+", " ", gsub("-", " ", x)))
+solo_letras<- function(x) tolower(gsub("[^A-Za-z]", "", sin_acento(x)))
+
+df$tipo_discrepancia_autoria <- NA_character_
+k <- which(df$flag_autoria_minoritaria_en_el_nombre)
+A <- nzc(df$scientificNameAuthorship[k]); B <- nzc(df$autoria_mayoritaria_del_nombre[k])
+# Distancia de edicion sobre las letras, ya sin anio ni tildes: separa la errata
+# de apellido (Ranzanl/Ranzani) de la autoria realmente distinta.
+dlev <- mapply(function(x, y) adist(solo_letras(sin_anio(x)),
+                                    solo_letras(sin_anio(y)))[1, 1], A, B)
+df$tipo_discrepancia_autoria[k] <- dplyr::case_when(
+  sin_paren(A) == sin_paren(B)                       ~ "solo_el_parentesis",
+  sin_anio(A)  == sin_anio(B)                        ~ "solo_el_anio",
+  solo_letras(sin_guion(sin_anio(A))) ==
+    solo_letras(sin_guion(sin_anio(B)))              ~ "solo_tildes_guion_o_espaciado",
+  dlev <= 2                                          ~ "errata_ortografica_del_apellido",
+  TRUE                                               ~ "autoria_distinta")
+
+n_aut <- df %>% filter(nzc(scientificName) != "", nzc(scientificNameAuthorship) != "") %>%
+  group_by(scientificName) %>%
+  summarise(k = n_distinct(scientificNameAuthorship), .groups = "drop") %>%
+  filter(k > 1) %>% nrow()
+cat("nombres cientificos con mas de una autoria:", n_aut,
+    "| filas en la autoria minoritaria:",
+    sum(df$flag_autoria_minoritaria_en_el_nombre), "\n")
+print(table(df$tipo_discrepancia_autoria, useNA = "no"))
+df <- df %>% select(-autoria_mayoritaria_del_nombre)
+
+# ---- 5. tidInterpreted: prueba del origen de la ambiguedad, no reparacion.
+# Se comprobo que el tid NO es una segunda opinion: coincide con el taxonID del
+# core en 4.238 de 4.287 filas y las 49 que difieren son exactamente las 49 con
+# nombre distinto (cero excepciones en los dos sentidos). Es el mismo campo del
+# portal exportado dos veces. Lo que si demuestra es que los 19 taxonID que el
+# core usa para mas de un nombre son ambiguos IGUAL en la extension: el defecto
+# esta en el tesauro de Symbiota, no en el pipeline. Se mide y se deja escrito.
+df$tid_identifications <- nrm(id$tidInterpreted)
+amb <- df$tid_identifications != "" & nz(df$taxonID) != ""
+cat("\ntidInterpreted vs taxonID del core:\n")
+cat("  ambos poblados:", sum(amb),
+    "| coinciden:", sum(amb & df$tid_identifications == nz(df$taxonID)),
+    "| difieren:",  sum(amb & df$tid_identifications != nz(df$taxonID)), "\n")
+
+ambig_core <- df %>% filter(nz(taxonID) != "", nz(scientificName) != "") %>%
+  group_by(taxonID) %>% summarise(k = n_distinct(scientificName), .groups = "drop") %>%
+  filter(k > 1) %>% pull(taxonID)
+ambig_ext <- tibble(tid = df$tid_identifications, nom = nrm(id$scientificName)) %>%
+  filter(tid != "", nom != "", tolower(nom) != "undefined") %>%
+  group_by(tid) %>% summarise(k = n_distinct(nom), .groups = "drop") %>%
+  filter(k > 1) %>% pull(tid)
+cat("  taxonID ambiguos en el core:", length(ambig_core),
+    "| de ellos, tambien ambiguos en identifications:",
+    length(intersect(ambig_core, ambig_ext)),
+    "| resueltos por la extension:",
+    length(setdiff(ambig_core, ambig_ext)), "\n")
+cat("  >> la ambiguedad se reproduce en las dos exportaciones: es del portal.\n")
+cat("  >> la dimension Taxon debe llevar clave sustituta sobre el nombre canonico.\n")
 
 write_csv(df, SALIDA, na = "")
 cat("\nGuardado en", SALIDA, "\n")

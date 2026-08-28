@@ -36,8 +36,8 @@ pipeline-r/datos/02_intermedios/
 
 # Ignorar archivos autogenerados (DPA INEC y GBIF ZIP)
 pipeline-r/datos/00_referencia/dpa_*.csv
-dataset_dwca.zip
-pipeline-r/datos/01_crudos/dataset_dwca.zip
+dataset_dwca*.zip
+pipeline-r/datos/01_crudos/dataset_dwca*.zip
 
 # Ignorar los reportes CSV generados por los scripts de R
 pipeline-r/reportes_y_revisiones/*.csv
