@@ -1,27 +1,25 @@
 # ================================================================
-# VALIDACIÓN DE PLAUSIBILIDAD Y CONSISTENCIA INTERNA
+# 4/4 - VALIDACIÓN DE PLAUSIBILIDAD Y CONSISTENCIA INTERNA
 # Colección Ictiológica MECN-DP - INABIO
 #
-# Detecta combinaciones de valores que, siendo válidas campo a campo,
-# describen algo imposible o inverosímil al mirarse en conjunto.
-# NO CORRIGE NADA. Cada hallazgo se reporta con su severidad y su destino.
+# Entrada:  ocurrences_con_identifications.csv (salida de UnirIdentificationsOcurrences.R)
+# Salida:   reporte_plausibilidad.csv           -> tablero / oficio al curador
+#           reporte_plausibilidad_verificadas.csv
+#           reporte_plausibilidad_resumen.csv
+#           reglas_ejecutadas.csv               -> tablero (inventario completo)
 #
-# Severidad:  alta        = contradicción lógica, no puede ser correcto
-#             media       = muy improbable, requiere verificación
-#             informativa = patrón a documentar, no necesariamente un error
-# Destino:    INABIO      = solo el curador o la etiqueta física lo resuelve
-#             propio      = decisión metodológica del autor
-#             ya_marcado  = el pipeline ya lo señala, se consolida aquí
+# NO CORRIGE NADA. Cada hallazgo se reporta con severidad y destino.
+# Severidad:  alta = contradicción lógica | media = requiere verificación | informativa = patrón
+# Destino:    INABIO = curador | propio = decisión metodológica | ya_marcado = consolidación
 # ================================================================
 library(readr); library(dplyr); library(tidyr)
 
 ARCHIVO  <- "datos/02_intermedios/ocurrences_con_identifications.csv"
 SALIDA   <- "reportes_y_revisiones/reporte_plausibilidad.csv"
 RESUMEN  <- "reportes_y_revisiones/reporte_plausibilidad_resumen.csv"
-# Fecha de corte fija: con Sys.Date() el reporte deja de ser reproducible y las
-# dos colectas de 2027 dejarian de marcarse a partir de ese año.
+# Fecha de corte fija para reproducibilidad.
 HOY      <- as.Date("2026-08-23")
-ANIO_MIN <- 1900   # limite inferior de plausibilidad para una colecta ecuatoriana documentada.
+ANIO_MIN <- 1900
 
 df <- read_csv(ARCHIVO, col_types = cols(.default = "c"))
 num <- function(x) suppressWarnings(as.numeric(x))
@@ -48,7 +46,7 @@ reg <- function(idx, bloque, regla, campos, valores, severidad, destino) {
 # ---------------------------------------------------------------
 cat("\nBLOQUE 1 - Temporal\n")
 
-# Comparación de fechas considerando su granularidad máxima común.
+# Comparación de fechas por granularidad máxima común.
 gran <- function(x) ifelse(grepl("^\\d{4}-\\d{2}-\\d{2}$", x), 3L,
                     ifelse(grepl("^\\d{4}-\\d{2}$", x), 2L,
                     ifelse(grepl("^\\d{4}$", x), 1L, 0L)))
@@ -73,11 +71,7 @@ idx <- which(ge > 0 & num(substr(nz(df$eventDate), 1, 4)) < ANIO_MIN)
 reg(idx, "temporal", "colecta anterior a 1900 (umbral de plausibilidad declarado)",
     "eventDate", df$eventDate[idx], "alta", "INABIO")
 
-# Validación temporal: el sello de modificación debe ser posterior a la colecta.
-# Las dos filas que dispara esta regla son las MISMAS que "fecha de colecta en
-# el futuro" (5684 y 5687). Contar la misma anomalia dos veces infla el reporte
-# de severidad alta. Se excluyen las ya marcadas como futuras: lo que quede es
-# lo unico que esta regla aporta por su cuenta.
+# Excluir las ya marcadas como futuras para no inflar severidad alta.
 futuras <- which(ge > 0 & substr(nz(df$eventDate), 1, 4) > format(HOY, "%Y"))
 idx <- setdiff(which(ge > 0 & !vac(df$modified) &
                      substr(nz(df$modified), 1, 4) < substr(nz(df$eventDate), 1, 4)),
@@ -86,11 +80,7 @@ reg(idx, "temporal", "registro modificado antes de la colecta",
     "eventDate | modified",
     paste(df$eventDate[idx], "|", df$modified[idx]), "alta", "INABIO")
 
-# El dcterms:modified de este dataset no es la fecha de modificacion del
-# registro: es el sello del lote de exportacion del portal. 4.287 filas comparten
-# 2020-01-08 y 1.859 comparten 2025-11-03. La regla producia 1.506 hallazgos, de
-# los cuales 1.487 son simplemente registros determinados en 2023 sobre un sello
-# de 2020. Se sustituye por la comprobacion que si tiene sentido sobre este campo.
+# dcterms:modified es sello de lote, no fecha de edición individual.
 sellos <- table(substr(nz(df$modified), 1, 10))
 idx <- which(!vac(df$modified) & !(substr(nz(df$modified), 1, 10) %in%
                                    names(sellos)[sellos >= 10]))
@@ -108,7 +98,7 @@ reg(idx, "temporal", "eventDate y verbatimEventDate con anos distintos",
     "eventDate | verbatimEventDate",
     paste(df$eventDate[idx], "|", df$verbatimEventDate[idx]), "alta", "INABIO")
 
-# Detección de imputación de día (01) por el portal fuente.
+# Día fabricado por el portal (01 imputado sobre verbatim año-mes).
 idx <- which(grepl("^\\d{4}-\\d{1,2}$", nz(df$verbatimEventDate)) &
                grepl("^\\d{4}-\\d{2}-01$", nz(df$eventDate)))
 reg(idx, "temporal", "dia fabricado por el portal (01 sobre verbatim ano-mes)",
@@ -119,7 +109,7 @@ idx <- which(ge > 0 & vac(df$startDayOfYear))
 reg(idx, "temporal", "eventDate parcial sin startDayOfYear (grano no diario)",
     "eventDate | startDayOfYear", df$eventDate[idx], "informativa", "propio")
 
-# Detección estadística de año de colecta atípico por colector (IQR).
+# Año de colecta atípico por colector (IQR).
 tmp <- df %>% mutate(.i = row_number(), anio = num(substr(nz(eventDate), 1, 4))) %>%
   filter(!vac(recordedBy), !is.na(anio)) %>% group_by(recordedBy) %>%
   filter(n() >= 15) %>%
@@ -135,23 +125,16 @@ reg(tmp$.i, "temporal", "ano de colecta atipico para el colector",
 # ---------------------------------------------------------------
 cat("\nBLOQUE 2 - Jerarquia geografica\n")
 
-# --- VALIDACION OFICIAL DPA-INEC ---
+# Validación contra el clasificador DPA-INEC.
 if (file.exists("datos/00_referencia/dpa_provincias.csv")) {
   dpa_prov <- read_csv("datos/00_referencia/dpa_provincias.csv", col_types = cols(.default = "c")) %>% distinct(nombre, .keep_all = TRUE)
   dpa_cant <- read_csv("datos/00_referencia/dpa_cantones.csv", col_types = cols(.default = "c")) %>% distinct(provincia_cod, nombre, .keep_all = TRUE)
   dpa_parr <- read_csv("datos/00_referencia/dpa_parroquias.csv", col_types = cols(.default = "c")) %>% distinct(provincia_cod, canton_cod, nombre, .keep_all = TRUE)
   
-  # El DPA y el portal escriben el mismo toponimo con convenciones distintas: el
-  # INEC pone el descriptor de cabecera unas veces en el catalogo y otras no.
-  # "Alshi (Cab. en 9 de Octubre)" figura como "alshi" (201 filas), pero
-  # "Coronel Carlos Concha Torres" figura como "coronel carlos concha torres
-  # (cab.en huele)" (38 filas): el parentesis esta en un lado o en el otro segun
-  # el caso. Se retira de AMBOS antes de comparar. La sustitucion k->c resuelve
-  # Sarayaku/Sarayacu (144 filas). Sin esto la regla producia 997 hallazgos de
-  # severidad alta y la mayoria eran fallos de emparejamiento, no errores.
+  # Normalización para emparejamiento: quita paréntesis, cab.en, acentos, k->c.
   norm_dpa <- function(x) {
     x <- as.character(x)
-    x <- gsub("\\([^)]*\\)", " ", x)                      # quita cualquier parentesis
+    x <- gsub("\\([^)]*\\)", " ", x)
     x <- gsub("(?i)\\bcab\\.?\\s*en\\b.*$", " ", x, perl = TRUE)
     x <- iconv(x, to = "ASCII//TRANSLIT")
     x <- tolower(gsub("[^A-Za-z0-9 ]", " ", x))
@@ -159,21 +142,17 @@ if (file.exists("datos/00_referencia/dpa_provincias.csv")) {
     trimws(gsub("\\s+", " ", x))
   }
 
-  # Alias de nombre corto frente al nombre oficial del DPA.
   ALIAS_CANTON <- c("orellana" = "francisco de orellana",
                     "coca"     = "francisco de orellana")
 
-  # 1. stateProvince no existe en DPA
+  # stateProvince no existe en DPA (excluir provincias transfronterizas).
   idx <- which(!vac(df$stateProvince) & !(norm_dpa(df$stateProvince) %in% dpa_prov$nombre))
-  # Loreto, Maynas y Apure no son provincias ecuatorianas: son las regiones
-  # transfronterizas que Coordenadas.R ya declara. Exigirles presencia en el
-  # clasificador del INEC es un falso positivo por construccion.
   TRANSFRONTERIZAS <- c("Apure", "Maynas", "Loreto")
   idx <- setdiff(idx, which(df$stateProvince %in% TRANSFRONTERIZAS))
   reg(idx, "geografia", "provincia no existe en el clasificador DPA-INEC",
       "stateProvince", df$stateProvince[idx], "media", "INABIO")
   
-  # 2. county no existe en los cantones de esa provincia
+  # county no existe en los cantones de esa provincia.
   tmp <- df %>% mutate(.i = row_number(),
                        p_norm = norm_dpa(stateProvince),
                        c_norm = norm_dpa(county),
@@ -187,7 +166,7 @@ if (file.exists("datos/00_referencia/dpa_provincias.csv")) {
   reg(idx, "geografia", "canton no existe en esa provincia segun DPA-INEC",
       "stateProvince | county", paste(df$stateProvince[idx], "|", df$county[idx]), "media", "INABIO")
   
-  # 3. municipality no existe en las parroquias de ese cantón
+  # municipality no existe en las parroquias de ese cantón.
   tmp <- df %>% mutate(.i = row_number(),
                        p_norm = norm_dpa(stateProvince),
                        c_norm = norm_dpa(county),
@@ -205,7 +184,7 @@ if (file.exists("datos/00_referencia/dpa_provincias.csv")) {
 }
 
 
-# Función auxiliar para marcar solo filas minoritarias en discrepancias jerárquicas.
+# Marcar solo filas minoritarias en discrepancias jerárquicas.
 min_fila <- function(clave, valor) {
   may <- df %>% filter(!vac(.data[[clave]]), !vac(.data[[valor]])) %>%
     count(.data[[clave]], .data[[valor]], name = "n") %>%
@@ -215,7 +194,7 @@ min_fila <- function(clave, valor) {
   which(!vac(j[[valor]]) & !is.na(j$may) & j[[valor]] != j$may)
 }
 
-# Excepciones de jerarquía geográfica por reasignación territorial histórica (ej. La Concordia).
+# Excepciones por reasignación territorial histórica.
 VIGENCIA <- tibble::tribble(
   ~county,         ~stateProvince,                   ~anio_hasta, ~anio_desde,
   "La Concordia",  "Esmeraldas",                     2007L,       NA_integer_,
@@ -239,8 +218,6 @@ idx <- which(!vac(df$municipality) & vac(df$county))
 reg(idx, "geografia", "parroquia declarada sin canton", "municipality | county",
     df$municipality[idx], "media", "INABIO")
 
-# Orellana es cabecera cantonal de su propia provincia (Puerto Francisco de
-# Orellana). Su ausencia generaba 196 falsos positivos de severidad media.
 CANTON_HOMONIMO_LEGITIMO <- c("Pastaza", "Esmeraldas", "Sucumbíos", "Loja", "Orellana",
                               "Cañar", "Santa Elena", "Bolívar", "Carchi", "Napo")
 
@@ -266,12 +243,11 @@ idx <- which(!vac(df$locality) & df$locality == df$locationRemarks)
 reg(idx, "geografia", "locality y locationRemarks identicos",
     "locality | locationRemarks", df$locality[idx], "informativa", "propio")
 
-# Detección de descripción de sitio desplazada al campo locationRemarks.
 idx <- which(vac(df$locality) & !vac(df$locationRemarks))
 reg(idx, "geografia", "locality vacia con locationRemarks poblada",
     "locality|locationRemarks", df$locationRemarks[idx], "media", "propio")
 
-# Detección de coordenadas UTM o altitud (msnm) embebidas en la localidad.
+# Coordenadas UTM o altitud embebidas en el texto de localidad.
 idx <- which(grepl("\\d{1,2}\\s*[NS]\\s*\\d{5,7}\\s*/\\s*\\d{6,8}", nz(df$locality)) |
              grepl("msnm", nz(df$locality), ignore.case = TRUE))
 reg(idx, "geografia", "coordenada o altitud embebida en el texto de localidad",
@@ -279,11 +255,10 @@ reg(idx, "geografia", "coordenada o altitud embebida en el texto de localidad",
 
 # ---------------------------------------------------------------
 # BLOQUE 3 - ECOLOGIA Y BIOGEOGRAFIA
-# Validación de combinaciones inverosímiles (campos válidos individualmente).
 # ---------------------------------------------------------------
 cat("\nBLOQUE 3 - Ecologia y biogeografia\n")
 
-# Detección de familias marinas reportadas en provincias amazónicas.
+# Familias marinas en provincias amazónicas.
 FAM_MARINAS <- c("Sphyrnidae","Gempylidae","Scorpaenidae","Muraenesocidae",
                  "Paralichthyidae","Haemulidae","Serranidae","Epinephelidae","Carangidae",
                  "Scombridae","Lutjanidae","Centropomidae","Aulopidae","Urotrygonidae",
@@ -306,7 +281,7 @@ reg(idx, "ecologia", "familia estrictamente marina en provincia amazonica",
     paste(df$scientificName[idx], "|", df$family[idx], "|", df$stateProvince[idx]),
     "alta", "INABIO")
 
-# Registro solitario de una especie transandina en una vertiente anómala.
+# Registro solitario de una especie en una vertiente anómala.
 tmp <- df %>% mutate(.i = row_number(),
                      vert = ifelse(stateProvince %in% AMAZONIA, "amazonia",
                                    ifelse(stateProvince %in% PACIFICO, "pacifico", NA))) %>%
@@ -319,7 +294,7 @@ reg(tmp$.i, "ecologia", "unico registro de la especie en esa vertiente",
     "scientificName | stateProvince",
     paste(tmp$scientificName, "|", tmp$stateProvince), "media", "INABIO")
 
-# Detección estadística de altitud anómala para la especie (cálculo de MAD).
+# Altitud anómala para la especie (MAD).
 tmp <- df %>% mutate(.i = row_number(), el = num(minimumElevationInMeters)) %>%
   filter(taxonRank == "species", !is.na(el)) %>% group_by(scientificName) %>%
   filter(n() >= 12) %>%
@@ -335,19 +310,13 @@ reg(tmp$.i, "ecologia", "altitud fuera del rango de la especie en la coleccion",
 # ---------------------------------------------------------------
 cat("\nBLOQUE 4 - Integridad taxonomica\n")
 
-# Eliminado el cálculo redundante de familia u orden minoritario 
-# (ya cubierto por las banderas de LimpiezaFishbase.R).
-
 tm <- df %>% filter(!vac(taxonID), !vac(scientificName)) %>%
   distinct(taxonID, scientificName) %>% count(taxonID) %>% filter(n > 1) %>% pull(taxonID)
 nm <- df %>% filter(!vac(taxonID), !vac(scientificName)) %>%
   distinct(taxonID, scientificName) %>% count(scientificName) %>% filter(n > 1) %>%
   pull(scientificName)
 
-# La regla marcaba el GRUPO entero, no la fila divergente: 847 filas para 41
-# discrepancias reales, un inflado de 20,7x. Las 55 filas correctas de
-# "Crenicichla saxatilis" viajaban al curador junto a la unica que discrepa.
-# Se aplica el criterio de minoria que min_fila() ya usa en el bloque 2.
+# Marcar solo la fila minoritaria del cruce taxonID <-> scientificName.
 may_tid <- df %>% filter(!vac(taxonID), !vac(scientificName)) %>%
   count(taxonID, scientificName, name = "n") %>%
   group_by(taxonID) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
@@ -371,20 +340,17 @@ if (length(idx_tax)) {
   sub_tax[idx_tax %in% idx_tm & !(idx_tax %in% idx_nm)] <- "taxonID apunta a varios nombres"
   sub_tax[idx_tax %in% idx_nm & !(idx_tax %in% idx_tm)] <- "nombre con varios taxonID"
   
-  # Reporte unificado de colisiones entre taxonID y scientificName.
   reg(idx_tax, "taxonomia", "inconsistencia (cruce) entre taxonID y scientificName",
       "taxonID | scientificName | subtipo",
       paste(df$taxonID[idx_tax], "|", df$scientificName[idx_tax], "|", sub_tax), "media", "INABIO")
 }
 
-# Detección de cualificador "sp." acompañando a un binomio completo.
 idx <- which(df$identificationQualifier == "sp." & df$taxonRank == "species")
 reg(idx, "taxonomia", "cualificador sp. sobre un binomio completo",
     "scientificName|identificationQualifier|taxonRank",
     paste(df$scientificName[idx], "+", df$identificationQualifier[idx]), "media", "INABIO")
 
-# Consolidacion de las banderas que el pipeline ya produce.
-# Colapsar solapes anidados de jerarquia (3.3b)
+# Consolidar banderas de jerarquía superior (Fishbase.R).
 if (all(c("flag_family_minoritaria", "flag_family_orden_discrepante", "flag_orden_minoritario_en_familia", "flag_family_minoritaria_en_el_nombre") %in% names(df))) {
   idx_fm <- which(toupper(nz(df$flag_family_minoritaria)) == "TRUE")
   idx_fo <- which(toupper(nz(df$flag_family_orden_discrepante)) == "TRUE")
@@ -405,11 +371,7 @@ if (all(c("flag_family_minoritaria", "flag_family_orden_discrepante", "flag_orde
   }
 }
 
-# El reporte se presenta como la consolidacion de todo lo que el pipeline sabe y
-# se habia quedado en la version de hace tres rondas: cinco banderas producidas
-# por Coordenadas.R, Fishbase.R y la union no llegaban al curador. Se anaden con
-# su severidad propia, no todas como "media": las nueve filas con tres testigos
-# independientes son el hallazgo mejor probado de la coleccion.
+# Consolidar banderas individuales del pipeline (Coordenadas.R, Fishbase.R, UnirIdentifications.R).
 banderas <- tibble::tribble(
   ~col,                                    ~bloque,       ~regla,                                                         ~severidad, ~destino,
   "flag_genus_no_coincide_con_nombre",     "taxonomia",   "genus no coincide con el binomio",                              "media",    "ya_marcado",
@@ -437,8 +399,7 @@ for (k in seq_len(nrow(banderas))) {
       banderas$severidad[k], banderas$destino[k])
 }
 
-# El nombre contradicho por los campos atomizados va aparte: la severidad
-# depende de cuantos testigos independientes lo respalden.
+# Nombre contradicho por campos atómicos (genus, epíteto, taxonID).
 if ("testigos_contra_scientificName" %in% names(df)) {
   t3 <- which(num(df$testigos_contra_scientificName) == 3)
   reg(t3, "taxonomia", "nombre contradicho por genus, epiteto, taxonID y autoria",
@@ -468,7 +429,6 @@ cat("\nBLOQUE 5 - Registro y colecta\n")
 idx <- which(vac(df$individualCount))
 reg(idx, "registro", "sin numero de individuos", "individualCount", "", "media", "INABIO")
 
-# Detección de tipos nomenclaturales sin datos de colecta (ej. holotipos huecos).
 idx <- which(nz(df$typeStatus) != "" &
              (vac(df$recordedBy) | vac(df$eventDate) | vac(df$locality)))
 reg(idx, "registro", "tipo nomenclatural sin datos de colecta",
@@ -496,27 +456,23 @@ reg(idx, "registro", "altitud minima mayor que la maxima",
     paste(df$minimumElevationInMeters[idx], "|", df$maximumElevationInMeters[idx]),
     "alta", "INABIO")
 
-# Detección de instituciones o proyectos ingresados en recordedBy.
+# Instituciones o proyectos en campo de colector.
 NO_PERSONAS <- c("QCAZ","GLOWS","Gueppi","Simbioe","Indigenas","Indígenas","JVDC")
 patron <- paste0("(^|\\| )(", paste(NO_PERSONAS, collapse = "|"), ")( \\||$)")
 idx <- which(grepl(patron, nz(df$recordedBy)))
 reg(idx, "registro", "institucion o proyecto en el campo de colector",
     "recordedBy", df$recordedBy[idx], "media", "INABIO")
 
-# Detección de colectores reducidos a iniciales, sin nombre desarrollado.
+# Colectores reducidos a iniciales.
 idx <- which(grepl("(^|\\| )[A-Z]\\.([A-Z]\\.)+( \\||$)", nz(df$recordedBy)))
 reg(idx, "registro", "colector reducido a iniciales sin nombre desarrollado",
     "recordedBy", df$recordedBy[idx], "media", "INABIO")
 
-# Detección de registros con igual punto, fecha y especie (posible lote o duplicación).
+# Agrupación por lote de colecta (mismo punto, fecha y especie). Regla verificada.
 tmp <- df %>% mutate(.i = row_number()) %>%
   filter(!vac(decimalLatitude), !vac(eventDate), !vac(scientificName)) %>%
   group_by(decimalLatitude, decimalLongitude, eventDate, scientificName) %>%
   filter(n() > 1) %>% ungroup()
-# En esta coleccion el catalogo es el EJEMPLAR, no el lote: 274 grupos, tamano
-# medio 2,6 y maximo 31 ejemplares. Compartir punto, fecha y especie es la
-# estructura normal de una colecta, no una duplicacion. La regla mide algo real
-# y util (el tamano de lote), pero no es un hallazgo: pasa a verificada.
 reg(tmp$.i, "registro",
     "ejemplares del mismo lote de colecta (verificado, no es duplicacion)",
     "decimalLatitude | eventDate | scientificName",
@@ -524,15 +480,10 @@ reg(tmp$.i, "registro",
 
 # ---------------------------------------------------------------
 # BLOQUE 5b - VOCABULARIOS CONTROLADOS DE DARWIN CORE
-# Detección de términos fuera de vocabularios controlados (para evitar descartes silenciosos).
 # ---------------------------------------------------------------
 cat("\nBLOQUE 5b - Vocabularios controlados\n")
 
 VOC <- list(
-  # nativeEndemic es valor controlado NORMATIVO: dwcem:e007 ("native: endemic"),
-  # incorporado por decision del Comite Ejecutivo de TDWG 2025-06-12_47, version
-  # vigente del vocabulario 2026-05-26 (https://dwc.tdwg.org/em/). La lista
-  # anterior era la de 2020 y marcaba 148 filas correctas como fuera de norma.
   establishmentMeans = c("native","nativeEndemic","nativeReintroduced","introduced",
                          "introducedAssistedColonisation","vagrant","uncertain"),
   basisOfRecord      = c("PreservedSpecimen","FossilSpecimen","LivingSpecimen",
@@ -546,7 +497,6 @@ VOC <- list(
 for (campo in names(VOC)) {
   if (!campo %in% names(df)) next
   v <- nz(df[[campo]])
-  # Los campos multivalor se evaluan termino a termino.
   fuera <- vapply(strsplit(v, "\\s*\\|\\s*"), function(p) {
     p <- p[p != ""]
     length(p) > 0 && any(!(p %in% VOC[[campo]]))
@@ -558,7 +508,7 @@ for (campo in names(VOC)) {
 }
 
 # ---------------------------------------------------------------
-# BLOQUE 6 - COORDENADAS (consolidacion, no recalculo)
+# BLOQUE 6 - COORDENADAS (consolidación de banderas, no recálculo)
 # ---------------------------------------------------------------
 cat("\nBLOQUE 6 - Coordenadas\n")
 if ("coherencia_provincia" %in% names(df)) {
@@ -577,7 +527,6 @@ if ("coherencia_provincia" %in% names(df)) {
   reg(idx, "coordenadas", "coordenada irrecuperable", "metodo_correccion",
       nz(df$verbatimCoordinates[idx]), "media", "INABIO")
       
-  # Consolidación de coordenada compartida en provincia minoritaria.
   if ("provincia_minoritaria" %in% names(df)) {
     idx <- which(df$provincia_minoritaria == "TRUE")
     reg(idx, "coordenadas", "coordenada compartida y provincia minoritaria",
@@ -586,14 +535,12 @@ if ("coherencia_provincia" %in% names(df)) {
   }
 }
 
-# Detección de puntos marinos con continente declarado (aviso esperado en GBIF).
 idx <- which(!vac(df$continent) & df$coherencia_provincia == "fuera_de_tierra_firme")
 reg(idx, "coordenadas", "continent declarado sobre coordenada marina (aviso GBIF esperado)",
     "continent | coherencia_provincia", df$continent[idx], "informativa", "propio")
 
 # ---------------------------------------------------------------
-# OPCIONAL - Altitud declarada contra el modelo digital de elevacion.
-# Requiere internet y el paquete elevatr.
+# OPCIONAL - Altitud declarada vs modelo digital de elevación (DEM).
 # ---------------------------------------------------------------
 USAR_DEM <- TRUE
 if (USAR_DEM) {
@@ -611,8 +558,7 @@ if (USAR_DEM) {
 }
 
 # ---------------------------------------------------------------
-# BLOQUE 7 - SIMILITUD ORTOGRAFICA DENTRO DE LA MISMA COLUMNA
-# Detección de posibles erratas (distancia Levenshtein = 1) con frecuencias dispares.
+# BLOQUE 7 - SIMILITUD ORTOGRAFICA (Levenshtein = 1)
 # ---------------------------------------------------------------
 cat("\nBLOQUE 7 - Similitud ortografica\n")
 
@@ -620,11 +566,9 @@ norm_txt <- function(x) tolower(iconv(x, to = "ASCII//TRANSLIT"))
 lev1 <- function(a, b) abs(nchar(a) - nchar(b)) <= 1 &&
                        adist(a, b, ignore.case = TRUE)[1, 1] <= 1
 
-# La clave se construye con sort(), asi que los pares tienen que ir en orden
-# alfabetico. Tres de los cinco no coincidian y seguian generando 34 filas.
+# Pares verificados como correctos (no son erratas).
 PARES_VERIFICADOS <- c("mera~mira", "cynodontidae~synodontidae", "conodon~cynodon",
                        "anodus~knodus", "taracoa~tarapoa",
-                       # pares nuevos verificados en las columnas anadidas al bloque 7
                        "noreste de taracoa~noreste de tarapoa",
                        "sureste de dureno~suroeste de dureno",
                        "antes del armadillo a 18m~antes del armadillo b 18m",
@@ -635,13 +579,7 @@ par_verificado <- function(a, b) {
   paste(sort(c(norm_txt(a), norm_txt(b))), collapse = "~") %in% PARES_VERIFICADOS
 }
 
-# scientificName es la columna donde estaban los 15 pares de epiteto corregidos:
-# ejecutar la regla despues de la correccion devuelve solo los 3 casos declarados
-# no decidibles, lo que verifica el parche. locality, locationRemarks y
-# recordedBy necesitan el filtro de digito, porque las series numeradas de
-# estacion (Pindo 2 ~ Pindo 4, Yuca Sur 1 ~ Yuca Sur 2) inundan el resultado.
-# Sin el cuantificador, "Yuca Sur 1" -> "Yuca Sur #" y "Yuca Sur 15" -> "Yuca Sur ##"
-# no coincidian y las series numeradas de estacion seguian pasando el filtro.
+# Filtrar series numéricas de estación (Pindo 2 ~ Pindo 4).
 solo_digito <- function(a, b) gsub("[0-9]+", "#", a) == gsub("[0-9]+", "#", b)
 
 for (col in c("genus", "family", "scientificName", "county", "municipality",
@@ -670,10 +608,7 @@ rep <- bind_rows(H) %>%
   mutate(severidad = factor(severidad, c("alta", "media", "informativa"))) %>%
   arrange(severidad, bloque, regla, catalogNumber)
 
-# Exportación separada de reglas verificadas (falsos positivos documentados).
-# "continent sobre coordenada marina" produce cero filas desde que el bloque 8b
-# de Fishbase.R vacia continent en los insulares: la regla ya no existe y se
-# retira. En su lugar entra la de lote, que si produce (726 filas).
+# Separar reglas verificadas (falsos positivos documentados).
 reglas_verificadas <- c("canton homonimo de su provincia (verificado, no es error)",
                         "ejemplares del mismo lote de colecta (verificado, no es duplicacion)")
 
@@ -683,7 +618,7 @@ rep <- rep %>% filter(!(regla %in% reglas_verificadas))
 write_csv(rep_verificadas, "reportes_y_revisiones/reporte_plausibilidad_verificadas.csv", na = "")
 write_csv(rep, SALIDA, na = "")
 
-# Agrupación de filas en casos únicos para el reporte de curación.
+# Resumen por regla para el reporte de curación.
 resumen_regla <- rep %>%
   group_by(bloque, regla, severidad, destino) %>%
   summarise(filas = n(),
@@ -708,9 +643,7 @@ cat("\nReglas ejecutadas:", length(unique(REGLAS_EJECUTADAS)),
     "| sin hallazgos:", length(sin_hallazgo), "\n")
 print(sin_hallazgo)
 
-# ---- Exportacion del inventario de reglas para el tablero.
-# El tablero no puede afirmar "se probaron 63 reglas y 12 devuelven cero" si esa
-# informacion solo existe en la consola de la corrida.
+# Inventario de reglas para el tablero.
 tibble::tibble(regla = unique(REGLAS_EJECUTADAS)) %>%
   dplyr::mutate(estado = dplyr::case_when(
     regla %in% reglas_verificadas   ~ "verificada_descartada",

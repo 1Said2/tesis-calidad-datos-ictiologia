@@ -1,6 +1,9 @@
 # ================================================================
-# LIMPIEZA DE COORDENADAS - Colección Ictiológica MECN-DP INABIO
-
+# 1/4 - LIMPIEZA DE COORDENADAS - Colección Ictiológica MECN-DP INABIO
+#
+# Entrada: ocurrences_openrefine.csv
+# Salida:  ocurrences_salida_coordenadas.csv -> Fishbase.R
+#
 # Funciones principales:
 # 1. Recuperación de coordenadas desde campo verbatim (DMS, UTM truncadas, erratas de signo).
 # 2. Validación espacial contra polígonos GADM y jerarquía administrativa.
@@ -12,7 +15,7 @@ library(dplyr)
 library(parzer)
 library(sf)
 
-sf::sf_use_s2(TRUE)   # necesario para que st_distance devuelva metros en EPSG:4326
+sf::sf_use_s2(TRUE)
 
 # ---- 0. Configuración ----
 ARCHIVO_ENTRADA <- "datos/02_intermedios/ocurrences_openrefine.csv"
@@ -25,10 +28,8 @@ norm_nombre <- function(x) {
 }
 
 # ---- Polígonos administrativos de nivel 1 (GADM 4.1) ----
-# Descarga y caché local de polígonos (requiere geodata y terra).
-#   install.packages(c("geodata", "terra"))
 DIR_REFERENCIA <- "datos/00_referencia"
-PAISES_GADM    <- c("ECU", "PER", "VEN")   # Ecuador + los dos transfronterizos
+PAISES_GADM    <- c("ECU", "PER", "VEN")
 TOLERANCIA_BORDE_M <- 5000
 
 dir.create(DIR_REFERENCIA, recursive = TRUE, showWarnings = FALSE)
@@ -77,7 +78,6 @@ es_utm_con_letra <- function(x) !grepl("°", x) & grepl("[0-9](\\.[0-9]+)?\\s*[E
 df$coord_tipo[df$coord_tipo == "dms" & es_utm_con_letra(df$verbatimCoordinates)] <- "utm_o_similar"
 
 # ---- 2b. Validación de rango en minutos y segundos ----
-# Detección de valores aritméticamente parseables pero fuera de rango (>=60).
 dms_rango_invalido <- function(x) {
   if (is.na(x) || trimws(x) == "") return(FALSE)
   if (!grepl("[°'\"´]", x)) return(FALSE)
@@ -106,25 +106,17 @@ utm_northing_valido <- function(n, epsg) {
   FALSE
 }
 
-# ================================================================
-# CAMBIO A (1/2): los polígonos se cargan ANTES del corrector de signo,
-# porque ahora el corrector los necesita para desempatar. En la v3 se
-# cargaban al final y por eso la decisión de signo era ciega.
-# ================================================================
+# ---- Carga de polígonos ----
 prov_norm_df <- norm_nombre(df$stateProvince)
 gadm <- cargar_gadm(PAISES_GADM, DIR_REFERENCIA)
 
 if (!is.null(gadm)) {
-  # Alias: stateProvince que no son nivel 1 en su pais.
-  # "Maynas" es provincia peruana dentro del departamento de Loreto.
   alias_provincia <- c("maynas" = "loreto")
   prov_norm_df <- ifelse(prov_norm_df %in% names(alias_provincia),
                          alias_provincia[prov_norm_df], prov_norm_df)
 }
 prov_norm_df[is.na(prov_norm_df)] <- ""
 
-# Union por provincia, calculada una sola vez y reutilizada tanto por el
-# desempate de signo como por la evaluación de coherencia del bloque 14.
 poly_cache <- list()
 if (!is.null(gadm)) {
   for (p in unique(prov_norm_df[prov_norm_df != ""])) {
@@ -140,8 +132,6 @@ if (!is.null(gadm)) {
   cat("Poligonos cargados:", nrow(gadm), "| provincias con union:", length(poly_cache), "\n")
 }
 
-# Devuelve TRUE/FALSE si hay polígono para la provincia declarada, NA si no
-# se puede evaluar. NA nunca se interpreta como aprobación.
 en_provincia <- function(lat, lon, prov_norm) {
   if (is.na(lat) || is.na(lon)) return(NA)
   if (is.na(prov_norm) || prov_norm == "") return(NA)
@@ -150,9 +140,7 @@ en_provincia <- function(lat, lon, prov_norm) {
   as.numeric(sf::st_distance(pt, poly_cache[[prov_norm]])) <= TOLERANCIA_BORDE_M
 }
 
-# ---- 5. Corrector de swap/signo ----
-# Generación de permutaciones (inversión de lat/lon y signos). 
-# Desempate mediante contención en el polígono provincial.
+# ---- 5. Corrector de swap/signo mediante contención en polígono provincial ----
 fix_coord <- function(lat, lon, prov_norm = "") {
   if (is.na(lat) || is.na(lon)) return(c(lat = NA, lon = NA, metodo = "vacio"))
   if (in_bbox(lat, lon)) return(c(lat = lat, lon = lon, metodo = "original"))
@@ -211,8 +199,6 @@ normalize_dms <- function(x) {
   x
 }
 
-# Detección de hemisferio en coordenadas UTM: el valor del northing (>9M = Sur)
-# tiene prioridad sobre la letra 'N', que puede representar el eje y no el norte.
 detectar_hemisferio <- function(raw) {
   raw_c  <- gsub("\\s", "", raw)
   partes <- strsplit(raw_c, "[/,|]")[[1]]
@@ -328,8 +314,7 @@ for (i in pendientes_idx) {
   }
 }
 
-# ---- 8c. Reasignación a zona 18S ----
-# Corrección de coordenadas UTM de Sucumbíos/Orellana erróneamente asignadas a la zona 17S.
+# ---- 8c. Reasignación a zona 18S (Sucumbíos/Orellana) ----
 convertir_zona18 <- function(raw) {
   raw_clean <- gsub("\\s", "", raw)
   partes <- strsplit(raw_clean, "/")[[1]]
@@ -372,7 +357,6 @@ df$dist_centroide_km <- mapply(function(la, lo, p) {
 }, df$lat_final, df$lon_final, df$stateProvince)
 
 # ---- 10. Recuperación de coordenadas irreparables (validación doble) ----
-# Intenta recuperar northings UTM truncados (6 dígitos) y decimales corruptos.
 recuperar_northing_truncado <- function(raw, prov) {
   raw_clean <- gsub("[ENSWensw]", "", gsub("[[:space:]]", "", raw))
   partes <- strsplit(raw_clean, "[/,|]")[[1]]
@@ -401,11 +385,6 @@ recuperar_decimal_corrupto <- function(raw, prov) {
   intentos <- 0
   while (abs(lon) > 180 && intentos < 8) { lon <- lon / 10; intentos <- intentos + 1 }
   lon <- -abs(lon)
-# La validacion doble confundia dos cosas distintas: si la reconstruccion es
-# aritmeticamente correcta y si la provincia declarada es correcta. Cuando
-# discrepan, la fila se descartaba y se publicaba como "ilegible", que es falso.
-# El criterio correcto es el mismo que el script aplica a las otras 231
-# discordantes: reconstruir, publicar y dejar que el bloque 14 la marque.
   if (in_bbox(lat, lon))
     return(list(lat = lat, lon = lon,
                 metodo = if (isTRUE(coherente_con_centroide(lat, lon, prov)))
@@ -429,7 +408,6 @@ for (i in irr_idx) {
 }
 cat("Filas recuperadas del bloque irreparable:", n_rec, "\n")
 
-# Clasificación de la causa de ausencia de coordenada (sin origen vs. fuera de rango).
 sin_verbatim <- is.na(df$verbatimCoordinates) | trimws(df$verbatimCoordinates) == ""
 sin_decimal  <- is.na(df$decimalLatitude_num)
 df$metodo_correccion[df$metodo_correccion == "irreparable" & sin_verbatim & sin_decimal] <-
@@ -437,7 +415,6 @@ df$metodo_correccion[df$metodo_correccion == "irreparable" & sin_verbatim & sin_
 df$metodo_correccion[df$metodo_correccion == "irreparable" & sin_verbatim & !sin_decimal] <-
   "descartada_fuera_de_rango"
 
-# Bandera para elección de signo no resuelta por el polígono.
 df$signo_ambiguo <- !is.na(df$metodo_correccion) & grepl("_ambiguo$", df$metodo_correccion)
 cat("Filas con signo ambiguo no resuelto por poligono:", sum(df$signo_ambiguo), "\n")
 
@@ -452,7 +429,6 @@ df$confianza_coordenada <- dplyr::case_when(
 )
 
 # ---- 12. Precisión original (verbatimCoordinates) ----
-# Se determina con base en el número de decimales declarados en el origen, no por descarte.
 precision_verbatim <- function(raw, dec_lat_txt, tipo) {
   if (!is.na(raw) && trimws(raw) != "") {
     m <- regmatches(raw, regexec("^\\s*-?([0-9]{1,3})[.,]([0-9]+)\\s*°?(\\s|$)",
@@ -469,11 +445,9 @@ precision_verbatim <- function(raw, dec_lat_txt, tipo) {
       if (grepl("[0-9]+[.,][0-9]+\\s*[´']", s)) return("dms_minuto_decimal")
       return("dms_minuto")
     }
-    # Precisión de par decimal con separador no estándar (ej. 2.12/79.11).
     md <- regmatches(raw, regexec("^\\s*-?[0-9]{1,3}[.,]([0-9]+)\\s*[/, ]", raw))[[1]]
     if (length(md) >= 2) return(paste0("decimal_", min(nchar(md[2]), 8), "d"))
     if (!is.na(tipo) && tipo == "utm_o_similar") return("utm_metro")
-    # Heredar precisión del campo decimalLatitude original si el verbatim no la determina.
     if (!is.na(dec_lat_txt) && trimws(dec_lat_txt) != "" && grepl("\\.", dec_lat_txt)) {
       return(paste0("decimal_", min(nchar(sub("^.*\\.", "", dec_lat_txt)), 8), "d"))
     }
@@ -498,7 +472,6 @@ reclasificar_precision <- function(raw, actual) {
     if (length(p) == 0) 0L else nchar(p) - 1L
   }
   nd <- vapply(n, dec, integer(1))
-  # decimal disfrazado de DMS: dos (o cuatro) campos y al menos uno con >= 4 decimales
   if (length(n) %in% c(2L, 4L) && any(nd >= 4L)) return("decimal_6d")
   if (length(n) >= 6L) {
     return(if (any(nd[c(3L, 6L)] > 0L)) "dms_segundo_decimal" else "dms_segundo_entero")
@@ -512,7 +485,7 @@ df$precision_origen <- mapply(reclasificar_precision,
 cat("  filas reclasificadas por el parche 12b:",
     sum(prev != df$precision_origen, na.rm = TRUE), "\n")
 
-# ---- 12c. Limpieza: sin coordenada no hay precisión original ----
+# ---- 12c. Sin coordenada no hay precisión original ----
 df$precision_origen[is.na(df$lat_final)] <- NA_character_
 
 # ---- 13. coordinateUncertaintyInMeters estimada ----
@@ -530,9 +503,8 @@ df$coordinateUncertaintyInMeters <- dplyr::case_when(
   df$precision_origen %in% c("decimal_2d","decimal_1d","decimal_0d") ~ "2000",
   TRUE ~ NA_character_
 )
-# ---- 13b. Piso tecnológico de incertidumbre ----
-# Se aplica un piso de incertidumbre (100 m pre-2000, 30 m post-2000) considerando 
-# las limitaciones tecnológicas de la época de colecta (GPS availability).
+
+# ---- 13b. Piso tecnológico de incertidumbre (100 m pre-2000, 30 m post-2000) ----
 anio_evento <- suppressWarnings(as.integer(substr(df$eventDate, 1, 4)))
 piso_m <- ifelse(is.na(anio_evento) | anio_evento < 2000, 100, 30)
 
@@ -552,7 +524,7 @@ cat("  incertidumbre elevada al piso tecnologico:",
     sum(df$piso_incertidumbre_aplicado, na.rm = TRUE), "\n")
 
 # ================================================================
-# 14. Coherencia con la provincia por contención en polígono
+# 14. Coherencia espacial (contención en polígono)
 # ================================================================
 df$coherencia_provincia    <- NA_character_
 df$criterio_coherencia     <- NA_character_
@@ -589,7 +561,7 @@ if (!is.null(gadm)) {
       ifelse(d_m <= TOLERANCIA_BORDE_M, "coherente", "discordante")
   }
   
-  # Tolerancia ampliada para registros marinos identificables (fuera de polígonos terrestres GADM).
+  # Tolerancia ampliada para marinos fuera de GADM terrestre.
   TOLERANCIA_MARINA_M <- 50000
   contexto_marino <- (df$stateProvince == "Galápagos" & !is.na(df$stateProvince)) |
     grepl("c[eé]ano|Pac[ií]fico", df$locationRemarks, ignore.case = TRUE)
@@ -603,11 +575,10 @@ if (!is.null(gadm)) {
   df$coherencia_provincia[reclasificar] <- "fuera_de_tierra_firme"
   cat("  reclasificadas como fuera_de_tierra_firme:", sum(reclasificar), "\n")
 } else {
-  stop("Error: No se pudieron cargar los poligonos de GADM. Ejecucion abortada para proteger la integridad metodologica (evita el uso del respaldo estadistico no validado).")
+  stop("Error: No se pudieron cargar poligonos GADM. Abortando para mantener la integridad (evita respaldos de menor calidad).")
 }
 
-# ---- 14b. Clasificación de discordancias mecánicas vs sin explicación ----
-# Verifica si invertir signos o transponer ejes devuelve el punto al polígono provincial.
+# ---- 14b. Clasificación de discordancias (mecánicas vs incomprensibles) ----
 df$discordancia_explicada <- NA_character_
 for (i in which(df$coherencia_provincia == "discordante")) {
   p  <- prov_norm_df[i]
@@ -622,7 +593,7 @@ cat("\n=== REPARTO DE LAS DISCORDANCIAS ===\n")
 print(table(df$discordancia_explicada, useNA = "no"))
 print(table(df$stateProvince, df$discordancia_explicada))
 
-# ---- 14c. Hipótesis de errata de un dígito en northings UTM discordantes ----
+# ---- 14c. Hipótesis de errata de un dígito en northings UTM ----
 df$hipotesis_northing <- NA_character_
 idx <- which(df$coherencia_provincia == "discordante" &
                df$discordancia_explicada == "sin_explicacion_mecanica" &
@@ -647,8 +618,8 @@ for (i in idx) {
     }
   }
 }
-# ---- 14d. Contradicción de signo entre filas con el mismo verbatim ----
-# Detecta tuplas idénticas en origen que resuelven en hemisferios distintos.
+
+# ---- 14d. Contradicción de signo en misma tupla verbatim ----
 tupla_verbatim <- function(x) {
   if (is.na(x) || trimws(x) == "") return(NA_character_)
   n <- regmatches(x, gregexpr("[0-9]+(?:[.,][0-9]+)?", x))[[1]]
@@ -670,26 +641,13 @@ cat("  filas con la misma tupla verbatim y resultado divergente:",
     sum(df$flag_signo_contradice_hermanas), "\n")
 
 # ---- 14e. Tolerancia de borde explicitada ----
-# Bandera para métricas: puntos fuera del polígono provincial pero aceptados por tolerancia.
-# La bandera se calcula sobre la distancia sin redondear. El redondeo a dos
-# decimales de km tiene un suelo de 10 m: un punto a 3 m fuera del poligono se
-# guardaba como 0.00 y quedaba fuera del conteo.
 df$dentro_tolerancia_borde <- !is.na(df$lat_final) &
   df$coherencia_provincia == "coherente" &
   !is.na(df$dist_fuera_provincia_m) & df$dist_fuera_provincia_m > 0
 cat("  coherentes por tolerancia de borde (fuera del poligono, <=5 km):",
     sum(df$dentro_tolerancia_borde, na.rm = TRUE), "\n")
 
-# ---- 14f. PARCHE: coordenada minoritaria dentro de la propia localidad.
-# El bloque 14 mide contencion en la PROVINCIA y el bloque de coordenada
-# compartida compara PROVINCIAS entre si. Ninguno de los dos ve el caso en que
-# varias filas declaran la misma localidad y una cae a decenas de kilometros de
-# las demas dentro de la misma provincia: el poligono las acepta a todas. Es el
-# criterio del parche 14d subido un nivel: alli las hermanas se definian por
-# tupla verbatim identica, aqui por localidad declarada identica. Se exige que
-# la mayoria sea mayoria de verdad (>=80 % del grupo en un mismo punto) para no
-# marcar transectos ni localidades genericas dispersas. NO corrige: mide y marca.
-# Insertar despues del bloque 14e.
+# ---- 14f. Coordenada minoritaria dentro de la propia localidad ----
 df$flag_coord_minoritaria_en_localidad <- FALSE
 df$dist_a_mayoria_localidad_km         <- NA_real_
 
@@ -702,8 +660,8 @@ for (g in grupos) {
   if (length(g) < 5) next
   k  <- paste(round(df$lat_final[g], 4), round(df$lon_final[g], 4))
   tb <- sort(table(k), decreasing = TRUE)
-  if (length(tb) < 2)            next          # un solo punto: nada que comparar
-  if (tb[1] / length(g) < 0.80)  next          # sin mayoria clara no se decide
+  if (length(tb) < 2)            next
+  if (tb[1] / length(g) < 0.80)  next
   may <- as.numeric(strsplit(names(tb)[1], " ")[[1]])
   d   <- dist_km(df$lat_final[g], df$lon_final[g], may[1], may[2])
   df$dist_a_mayoria_localidad_km[g]         <- round(d, 1)
@@ -713,10 +671,7 @@ cat("  coordenada minoritaria dentro de la propia localidad:",
     sum(df$flag_coord_minoritaria_en_localidad, na.rm = TRUE), "\n")
 
 
-# ================================================================
-# Coordenada compartida vs provincia minoritaria
-# ================================================================
-# Se identifica si una misma coordenada aparece en múltiples provincias y se marca solo la minoría.
+# ---- Coordenada compartida vs provincia minoritaria ----
 clave <- ifelse(is.na(df$lat_final), NA_character_,
                 paste(round(df$lat_final, 5), round(df$lon_final, 5)))
 df$clave_coord <- clave
@@ -735,12 +690,6 @@ pares_mayoritarios <- resumen_clave %>%
   pull(par)
 
 df$coordenada_compartida <- !is.na(df$clave_coord) & df$clave_coord %in% claves_compartidas
-# El criterio de mayoria por conteo no decide cuando dos provincias declaran el
-# mismo punto con el mismo numero de filas: n_filas == n_max en ambas y ninguna
-# queda marcada. Son 7 claves y 14 filas. Se anade el desempate por contencion
-# en el poligono, que es el mismo criterio que ya gobierna el bloque 14 y que en
-# las 7 resuelve. En dos de ellas resuelve contra las dos provincias a la vez:
-# el punto no pertenece a ninguna de las declaradas.
 claves_empatadas <- resumen_clave %>%
   filter(n_filas == n_max) %>%
   count(clave_coord, name = "n_lideres") %>%
@@ -753,7 +702,6 @@ df$provincia_minoritaria <- df$coordenada_compartida & ifelse(
   !(paste(df$clave_coord, df$stateProvince, sep = "||") %in% pares_mayoritarios))
 
 # ---- 15. Anulación de precisión en coordenadas sospechosas ----
-# No se estima incertidumbre para coordenadas discordantes, ambiguas o fuera de rango.
 if (!is.null(gadm)) {
   sospechosa <- (!is.na(df$coherencia_provincia) & df$coherencia_provincia == "discordante") |
     df$signo_ambiguo |
@@ -777,7 +725,7 @@ df$georeferenceVerificationStatus <- dplyr::case_when(
   TRUE                ~ "unverified"
 )
 
-# ---- 15b. Exportación de bandera minoritaria al Darwin Core (georeferenceRemarks) ----
+# ---- 15b. georeferenceRemarks: Bandera minoritaria ----
 df$georeferenceRemarks <- ifelse(
   df$provincia_minoritaria & !is.na(df$lat_final),
   "coordenada compartida con registros de otra provincia; este registro esta en la minoria",
@@ -785,7 +733,7 @@ df$georeferenceRemarks <- ifelse(
 cat("  georeferenceRemarks poblado por provincia minoritaria:",
     sum(df$provincia_minoritaria & !is.na(df$lat_final), na.rm = TRUE), "\n")
 
-# ---- 15c. Exportación de avisos de coherencia no concluyente o registros marinos ----
+# ---- 15c. georeferenceRemarks: Avisos marinos o inevaluables ----
 marca <- rep(NA_character_, nrow(df))
 marca[!is.na(df$lat_final) & df$coherencia_provincia == "fuera_de_tierra_firme"] <-
   "coordenada fuera del poligono terrestre de la provincia declarada; no verificada contra tierra firme"
@@ -800,7 +748,7 @@ df$georeferenceRemarks <- ifelse(
 cat("  georeferenceRemarks poblado por coherencia no concluyente:",
     sum(!is.na(marca)), "\n")
 
-# ---- 15d. Exportación del motivo específico de revisión (georeferenceRemarks) ----
+# ---- 15d. georeferenceRemarks: Motivo específico de revisión ----
 motivo <- rep(NA_character_, nrow(df))
 
 motivo[!is.na(df$lat_final) & df$coherencia_provincia == "discordante" &
@@ -844,13 +792,7 @@ df$georeferenceRemarks <- ifelse(
 
 cat("  georeferenceRemarks poblado por motivo de revision:", sum(!is.na(motivo)), "\n")
 
-# ---- 15d-bis. PARCHE: anotacion de las filas sin coordenada final que SI
-# traian un dato de origen. La invariante exige que toda celda modificada quede
-# anotada; el catalogo 5170 traia decimalLatitude/Longitude en el portal y sale
-# con el campo vacio, hoy indistinguible en Darwin Core de los 183 que nunca
-# tuvieron coordenada. Las 66 irreparables tampoco declaran que existe un
-# verbatim ilegible. Se anota sin publicar coordenada: no es imputacion, es
-# trazabilidad.  Insertar justo despues del bloque 15d, antes de 15e.
+# ---- 15d-bis. georeferenceRemarks: Trazabilidad en irreparables/descartadas ----
 motivo_sin <- rep(NA_character_, nrow(df))
 
 motivo_sin[is.na(df$lat_final) &
@@ -868,7 +810,7 @@ df$georeferenceRemarks <- ifelse(is.na(motivo_sin), df$georeferenceRemarks, moti
 cat("  georeferenceRemarks poblado en filas sin coordenada final:",
     sum(!is.na(motivo_sin)), "\n")
 
-# ---- 15e. Documentación del origen de la incertidumbre estimada ----
+# ---- 15e. georeferenceRemarks: Origen de la incertidumbre ----
 nota_unc <- ifelse(
   is.na(df$coordinateUncertaintyInMeters), NA_character_,
   paste0("incertidumbre no medida en campo: estimada desde la precision ",
@@ -882,20 +824,9 @@ df$georeferenceRemarks <- ifelse(
 cat("  georeferenceRemarks poblado por incertidumbre estimada:",
     sum(!is.na(nota_unc)), "\n")
 
-# ---- 15e-bis. Anotacion del redondeo a 6 decimales.
-# La condicion no puede ser "el origen declaraba mas de 6 decimales": un valor
-# como -0.8712700 declara siete y redondea a si mismo. Hay que comparar el
-# VALOR, no la longitud de la cadena. Con la condicion por longitud se anotaban
-# 551 filas de las que 203 no habian cambiado.
-# Se exige (a) que exista diferencia real y (b) que esa diferencia desaparezca
-# al redondear ambos a 6 decimales, para no capturar las filas que cambiaron
-# por correccion de signo o de eje, que ya tienen su propio motivo.
+# ---- 15e-bis. georeferenceRemarks: Anotación del redondeo a 6 decimales ----
 lat_o <- suppressWarnings(as.numeric(df$verbatimLatitude))
 lon_o <- suppressWarnings(as.numeric(df$verbatimLongitude))
-# lat_final AUN NO esta redondeado en este punto: el redondeo ocurre en el
-# volcado. Hay que comparar el valor QUE SE VA A PUBLICAR (redondeado a 6)
-# contra el de origen, no el interno contra el de origen: para las filas
-# 'original' los dos son el mismo numero y la diferencia da 0 siempre.
 lat_r <- round(df$lat_final, 6)
 lon_r <- round(df$lon_final, 6)
 redondeada <- !is.na(df$lat_final) & !is.na(lat_o) & !is.na(lon_o) &
@@ -912,7 +843,7 @@ df$georeferenceRemarks <- ifelse(
 cat("  georeferenceRemarks poblado por redondeo a 6 decimales:",
     sum(redondeada), "\n")
 
-# Declaración de protocolo de georreferenciación.
+# ---- Georeference Protocol ----
 df$georeferenceProtocol <- ifelse(
   !is.na(df$lat_final) & !df$metodo_correccion %in% c("original", "original_transfronterizo"),
   paste0(ifelse(df$confianza_coordenada == "leida",
@@ -921,7 +852,7 @@ df$georeferenceProtocol <- ifelse(
          df$metodo_correccion),
   df$georeferenceProtocol)
 
-# ---- 15f. Declaración de georeferenceSources ----
+# ---- 15f. Georeference Sources ----
 df$georeferenceSources <- dplyr::case_when(
   is.na(df$lat_final) ~ NA_character_,
   df$metodo_correccion %in% c("original", "original_transfronterizo") ~
@@ -930,12 +861,7 @@ df$georeferenceSources <- dplyr::case_when(
 )
 cat("  georeferenceSources declarado:", sum(!is.na(df$georeferenceSources)), "\n")
 
-# ---- 15g. Autoria de la georreferencia producida por el pipeline.
-# Darwin Core atribuye georeferencedBy a quien DETERMINA la georreferencia.
-# En 1606 filas la determino este script desde verbatimCoordinates, no una
-# persona del portal. Dejar el campo vacio en esas filas hace indistinguible
-# "no consta quien georreferencio" (1071 filas del portal, duda C6) de
-# "lo georreferencio el pipeline" (1606 filas, dato conocido).
+# ---- 15g. GeoreferencedBy ----
 df$georeferencedBy <- ifelse(
   !is.na(df$lat_final) &
     !df$metodo_correccion %in% c("original", "original_transfronterizo") &
@@ -947,14 +873,14 @@ cat("  georeferencedBy atribuido al pipeline:",
         !df$metodo_correccion %in% c("original","original_transfronterizo")), "\n")
 
 # ================================================================
-# Volcado de resultados a los campos Darwin Core definitivos
+# 16. Volcado a Darwin Core
 # ================================================================
 fmt_coord <- function(x) {
   s <- formatC(x, format = "f", digits = 7)
   s <- sub("0+$", "", s); s <- sub("\\.$", "", s)
   ifelse(is.na(x), NA_character_, s)
 }
-# Formateo a 6 decimales máximo (límite de GBIF sin advertencia COORDINATE_ROUNDED).
+
 lat_pub <- fmt_coord(round(df$lat_final, 6))
 lon_pub <- fmt_coord(round(df$lon_final, 6))
 identico <- !is.na(df$lat_final) &
@@ -966,7 +892,7 @@ solo_formato <- !is.na(df$lat_final) & identico &
 
 df$decimalLatitude  <- ifelse(is.na(df$lat_final),  "", fmt_coord(round(df$lat_final,  6)))
 df$decimalLongitude <- ifelse(is.na(df$lon_final), "", fmt_coord(round(df$lon_final, 6)))
-# Asignación de datum (WGS84) exclusivamente para conversiones UTM.
+
 justifica_datum <- !is.na(df$lat_final) & grepl("^utm_", df$metodo_correccion)
 n_datum_nuevo   <- sum(justifica_datum &
                        (is.na(df$geodeticDatum) | df$geodeticDatum == ""))
@@ -975,7 +901,6 @@ df$geodeticDatum <- ifelse(justifica_datum & (is.na(df$geodeticDatum) | df$geode
 cat("  geodeticDatum escrito por conversion UTM:", n_datum_nuevo,
     "de", sum(justifica_datum), "filas convertidas\n")
 
-# Retiro de geodeticDatum huérfano en filas sin coordenada final.
 n_datum_huerfano <- sum(is.na(df$lat_final) &
                         !is.na(df$geodeticDatum) & df$geodeticDatum != "")
 df$geodeticDatum[is.na(df$lat_final)] <- NA_character_
@@ -987,7 +912,7 @@ cat("  filas donde cambió el valor  :", sum(!identico & !is.na(df$lat_final)), 
 cat("  filas donde cambió solo el formato:", sum(solo_formato, na.rm = TRUE), "\n")
 cat("  origen preservado en verbatimLatitude/verbatimLongitude\n")
 
-# ---- 16. Resumen ----
+# ---- Resumen ----
 cat("\n=== MÉTODO DE CORRECCIÓN ===\n");  print(table(df$metodo_correccion, useNA = "ifany"))
 cat("\n=== NIVEL DE CONFIANZA ===\n");    print(table(df$confianza_coordenada))
 cat("\n=== COHERENCIA CON LA PROVINCIA ===\n")
@@ -1006,10 +931,8 @@ cat("  con coordenada:", sum(!is.na(df$lat_final)),
 cat("  sin coordenada:", sum(is.na(df$lat_final)), "\n")
 
 # ---- 17. Exportación ----
-# Exportación de reporte final de coordenadas.
 df_export <- df %>% select(-decimalLatitude_num, -decimalLongitude_num, -clave_coord)
 
-# ---- 17b. Aplicación de formato (6 decimales) al CSV exportado ----
 df_export$lat_final <- ifelse(is.na(df$lat_final), "", fmt_coord(round(df$lat_final, 6)))
 df_export$lon_final <- ifelse(is.na(df$lon_final), "", fmt_coord(round(df$lon_final, 6)))
 
