@@ -175,18 +175,26 @@ cat("previousIdentifications escritas (fecha anterior probada):", length(i_prev)
 
 # ---- 3. Exportación de discrepancias para revisión manual ----
 # Grupos sin resolución automática o con conflictos de fechas/nombres.
-motivo[which(nombre_difiere & !fecha_anterior & g_id > 0 & g_cor > 0 &
-               substr(d_id, 1, L) == substr(d_cor, 1, L))] <- "misma fecha: mismo acto con dos nombres"
-motivo[which(nombre_difiere & (g_id == 0 | g_cor == 0))] <- "sin fecha comparable en identifications"
-motivo[which(!vac(id$scientificName) &
-               tolower(nrm(id$scientificName)) == "undefined")] <- "identifications trae el texto literal undefined"
+add_motivo <- function(v, idx, txt) {
+  if (!length(idx)) return(v)
+  v[idx] <- ifelse(is.na(v[idx]), txt, paste(v[idx], txt, sep = "; ")); v
+}
+motivo <- add_motivo(motivo,
+  which(nombre_difiere & !fecha_anterior & g_id > 0 & g_cor > 0 &
+        substr(d_id, 1, L) == substr(d_cor, 1, L)),
+  "misma fecha: mismo acto con dos nombres")
+motivo <- add_motivo(motivo, which(nombre_difiere & (g_id == 0 | g_cor == 0)),
+  "sin fecha comparable en identifications")
+motivo <- add_motivo(motivo,
+  which(!vac(id$scientificName) & tolower(nrm(id$scientificName)) == "undefined"),
+  "identifications trae el texto literal undefined")
 
 # Manejo de casos atípicos: determinaciones posteriores al core o truncamientos.
 fecha_posterior <- g_id > 0 & g_cor > 0 & substr(d_id, 1, L) > substr(d_cor, 1, L)
-motivo[which(nombre_difiere & fecha_posterior)] <-
-  "identifications trae una determinacion POSTERIOR: el core seria el desactualizado"
-motivo[which(nombre_difiere & truncamiento)] <-
-  "identifications trae el nombre truncado, no una determinacion anterior"
+motivo <- add_motivo(motivo, which(nombre_difiere & fecha_posterior),
+  "identifications trae una determinacion POSTERIOR: el core seria el desactualizado")
+motivo <- add_motivo(motivo, which(nombre_difiere & truncamiento),
+  "identifications trae el nombre truncado, no una determinacion anterior")
 
 sin_destino <- setdiff(which(nombre_difiere & is.na(motivo)), i_prev)
 if (length(sin_destino)) {
@@ -206,10 +214,19 @@ cat("particion de los", sum(nombre_difiere), "nombres distintos:",
 # Las cinco filas cuya autoria se rechaza Y ademas resuelven como redeterminacion
 # salian del grupo pendiente y no llegaban al curador. Se anaden explicitamente.
 i_pend <- sort(union(which(!is.na(motivo)), i_aut_rechazada))
-motivo[i_aut_rechazada] <- ifelse(is.na(motivo[i_aut_rechazada]),
-  "identifications trae la autoria de un nombre distinto al del core; no se importa",
-  paste(motivo[i_aut_rechazada],
-        "ademas su autoria pertenece a otro nombre y no se importo", sep = "; "))
+motivo <- add_motivo(motivo, i_aut_rechazada,
+  "identifications trae la autoria de un nombre distinto al del core; no se importa")
+
+# ---- 3b. El motivo viaja en el archivo, no solo en el oficio.
+# De las 11 columnas del oficio, 9 no existen en el core: 50 de los 71 casos
+# son invisibles en ocurrences_con_identifications.csv (los 21 de autoria si se
+# ven, por autoria_rechazada_de_identifications). Sin esto el tablero no puede
+# contar lo pendiente de INABIO ni hacer drill-through al registro.
+en_pend <- seq_len(nrow(df)) %in% i_pend
+df$flag_pendiente_identifications <- en_pend
+df$motivo_identifications         <- ifelse(is.na(motivo), "", motivo)
+df$nombre_de_identifications      <- ifelse(en_pend, nrm(id$scientificName), "")
+cat("  motivo de identifications incorporado al archivo:", sum(en_pend), "filas\n")
 tibble(catalogNumber = df$catalogNumber[i_pend],
        core_id       = df$id[i_pend],
        nombre_identifications = nrm(id$scientificName[i_pend]),
@@ -246,10 +263,10 @@ df$modified_identifications <- id$modified
 # ---- 4. Autoria minoritaria dentro del propio NOMBRE (medida DESPUES de la
 # importacion). Estaba en Fishbase.R y la union le anade 782 autorias despues,
 # de modo que la bandera describia un archivo intermedio y no el publicado.
-nzc <- function(x) ifelse(is.na(x), "", x)
+
 
 aut_may <- df %>%
-  filter(nzc(scientificName) != "", nzc(scientificNameAuthorship) != "") %>%
+  filter(nz(scientificName) != "", nz(scientificNameAuthorship) != "") %>%
   count(scientificName, scientificNameAuthorship, name = "n_filas") %>%
   group_by(scientificName) %>%
   slice_max(n_filas, n = 1, with_ties = FALSE) %>%
@@ -260,11 +277,11 @@ df <- df %>% left_join(aut_may, by = "scientificName")
 
 # read_csv lee la celda vacia como NA y "NA != ''" devuelve NA, no FALSE: la
 # bandera salia NA en 58 filas y el sum() del log imprimia NA. Se normaliza con
-# nzc() antes de comparar, igual que hace nz() en el resto del script.
+# nz() antes de comparar, igual que hace nz() en el resto del script.
 df$flag_autoria_minoritaria_en_el_nombre <-
-  nzc(df$scientificName) != "" & nzc(df$scientificNameAuthorship) != "" &
+  nz(df$scientificName) != "" & nz(df$scientificNameAuthorship) != "" &
   !is.na(df$autoria_mayoritaria_del_nombre) &
-  nzc(df$scientificNameAuthorship) != nzc(df$autoria_mayoritaria_del_nombre)
+  nz(df$scientificNameAuthorship) != nz(df$autoria_mayoritaria_del_nombre)
 
 sin_acento <- function(x) iconv(x, to = "ASCII//TRANSLIT")
 sin_anio   <- function(x) gsub("[0-9]{4}", "AAAA", x)
@@ -274,7 +291,7 @@ solo_letras<- function(x) tolower(gsub("[^A-Za-z]", "", sin_acento(x)))
 
 df$tipo_discrepancia_autoria <- NA_character_
 k <- which(df$flag_autoria_minoritaria_en_el_nombre)
-A <- nzc(df$scientificNameAuthorship[k]); B <- nzc(df$autoria_mayoritaria_del_nombre[k])
+A <- nz(df$scientificNameAuthorship[k]); B <- nz(df$autoria_mayoritaria_del_nombre[k])
 # Distancia de edicion sobre las letras, ya sin anio ni tildes: separa la errata
 # de apellido (Ranzanl/Ranzani) de la autoria realmente distinta.
 dlev <- mapply(function(x, y) adist(solo_letras(sin_anio(x)),
@@ -287,7 +304,7 @@ df$tipo_discrepancia_autoria[k] <- dplyr::case_when(
   dlev <= 2                                          ~ "errata_ortografica_del_apellido",
   TRUE                                               ~ "autoria_distinta")
 
-n_aut <- df %>% filter(nzc(scientificName) != "", nzc(scientificNameAuthorship) != "") %>%
+n_aut <- df %>% filter(nz(scientificName) != "", nz(scientificNameAuthorship) != "") %>%
   group_by(scientificName) %>%
   summarise(k = n_distinct(scientificNameAuthorship), .groups = "drop") %>%
   filter(k > 1) %>% nrow()

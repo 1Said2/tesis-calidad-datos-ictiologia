@@ -126,7 +126,7 @@ def construir_dwca():
     
     POSIBLES_NUEVOS_TERMINOS = [
         'occurrenceStatus', 'continent', 'establishmentMeans', 'dynamicProperties', 
-        'waterBody', 'islandGroup', 'island', 'previousIdentifications'
+        'waterBody', 'islandGroup', 'island', 'previousIdentifications', 'countryCode'
     ]
 
     input_csv = INTERMEDIOS_DIR / 'ocurrences_con_identifications.csv'
@@ -137,6 +137,11 @@ def construir_dwca():
 
     print(f"Leyendo archivo core: {input_csv}")
     df = pd.read_csv(input_csv, dtype=str, low_memory=False).fillna('')
+    
+    # Resolver countryCode a partir de country para evitar advertencias de GBIF
+    if 'countryCode' not in df.columns and 'country' in df.columns:
+        mapping = {'Ecuador': 'EC', 'Perú': 'PE', 'Venezuela': 'VE'}
+        df['countryCode'] = df['country'].map(mapping).fillna('')
 
     tree = ET.parse(CRUDOS_DIR / 'meta.xml')
     root = tree.getroot()
@@ -158,6 +163,14 @@ def construir_dwca():
         idx = int(field.attrib['index'])
         if idx > max_index: max_index = idx
         col_name = field.attrib['term'].split('/')[-1]
+        
+        # ELIMINAR taxonID para no disparar TAXON_ID_NOT_FOUND en el validador GBIF
+        if col_name == 'taxonID':
+            core.remove(field)
+            added_any = True
+            print("  - Removido taxonID de meta.xml (para evitar TAXON_ID_NOT_FOUND en GBIF)")
+            continue
+            
         expected_columns[idx] = col_name
         existing_terms.append(col_name)
 
@@ -178,14 +191,30 @@ def construir_dwca():
         added_any = True
         print("  - Extensiones removidas de meta.xml (solo se empaquetará el Core)")
 
-    meta_out = ROOT_DIR / 'meta_temp.xml'
-    if added_any:
-        tree.write(meta_out, xml_declaration=True, encoding='utf-8')
-        print("meta_temp.xml actualizado con nuevos términos y sin extensiones.")
-    else:
-        print("meta.xml ya contenía todos los términos y ninguna extensión.")
-
     ordered_columns = [expected_columns[i] for i in sorted(expected_columns.keys())]
+
+    # Reindexar ANTES de escribir. Al quitar taxonID queda un hueco en los indices
+    # del meta.xml, pero el CSV se escribe con las columnas ya compactadas: si el
+    # XML se guarda antes del reindexado, cada termino posterior al hueco lee la
+    # columna siguiente y el archivo entero sale desalineado. El validador NO lo
+    # denuncia (el archivo es formalmente valido e indexa las 6.427 filas): solo
+    # se nota mirando los valores, y para entonces el informe ya es basura.
+    if id_field is not None and 'id' in ordered_columns:
+        id_field.set('index', str(ordered_columns.index('id')))
+    for field in core.findall('{http://rs.tdwg.org/dwc/text/}field'):
+        col_name = field.attrib['term'].split('/')[-1]
+        if col_name in ordered_columns:
+            field.set('index', str(ordered_columns.index(col_name)))
+
+    meta_out = ROOT_DIR / 'meta_temp.xml'
+    tree.write(meta_out, xml_declaration=True, encoding='utf-8')
+
+    idxs = [int(f.attrib['index']) for f in core.findall('{http://rs.tdwg.org/dwc/text/}field')]
+    if id_field is not None and 'index' in id_field.attrib:
+        idxs.append(int(id_field.attrib['index']))
+    assert max(idxs) == len(ordered_columns) - 1, \
+        f"meta.xml llega al indice {max(idxs)} y el CSV tiene {len(ordered_columns)} columnas"
+    print(f"meta_temp.xml escrito y reindexado: {len(ordered_columns)} columnas.")
 
     print("\n==========================================")
     print("2. LIMPIANDO DATOS (OCCURRENCES.CSV)")
@@ -196,6 +225,11 @@ def construir_dwca():
     occ_out = ROOT_DIR / 'occurrences_temp.csv'
     df_final.to_csv(occ_out, index=False)
     print("occurrences_temp.csv limpio y creado.")
+
+    print("  Comprobacion de alineacion (termino <- primer valor real):")
+    for t in ['modified', 'country', 'individualCount', 'typeStatus', 'georeferencedBy']:
+        if t in df_final.columns:
+            print(f"    {t:20s} <- {str(df_final[t].iloc[0])[:45]!r}")
 
     print("\n==========================================")
     print("3. REPARANDO EML.XML (METADATOS)")
@@ -228,6 +262,14 @@ def construir_dwca():
     if match_rights:
         eml_text = eml_text.replace(match_rights.group(0), '')
     eml_text = re.sub(r'(<contact>)', license_xml + r'\n\1', eml_text)
+
+    if '<contact>' not in eml_text:
+        contacto = ('<contact><individualName><givenName>Said</givenName>'
+                    '<surName>Cotacachi</surName></individualName>'
+                    '<organizationName>INABIO</organizationName>'
+                    '<electronicMailAddress>TU_CORREO</electronicMailAddress>'
+                    '<role>pointOfContact</role></contact>')
+        eml_text = re.sub(r'(</dataset>)', contacto + r'\1', eml_text)
 
     distribution_xml = '<distribution><online><url function="download">https://bndb.sisbioecuador.bio/</url></online></distribution>'
     if '<distribution>' not in eml_text and '<physical>' in eml_text:
@@ -297,10 +339,12 @@ def construir_dwca():
     with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for temp_file, zip_arcname in files_to_zip.items():
             original_file = CRUDOS_DIR / zip_arcname
-            if temp_file.exists():
-                zipf.write(temp_file, arcname=zip_arcname)
-            elif original_file.exists():
-                zipf.write(original_file, arcname=zip_arcname)
+            # Sin respaldo al archivo crudo: si el temporal no existe, el ZIP
+            # llevaria el meta.xml original de Symbiota (con taxonID, con las
+            # extensiones y con los indices viejos) contra un CSV reordenado.
+            if not temp_file.exists():
+                raise FileNotFoundError(f"No se genero {temp_file.name}; se aborta el empaquetado.")
+            zipf.write(temp_file, arcname=zip_arcname)
 
     for temp_file in files_to_zip.keys():
         if temp_file.exists():

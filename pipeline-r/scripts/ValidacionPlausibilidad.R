@@ -29,8 +29,13 @@ vac <- function(x) is.na(x) | trimws(x) == ""
 nz  <- function(x) ifelse(is.na(x), "", x)
 
 H <- list()
+REGLAS_EJECUTADAS <- character(0)
 reg <- function(idx, bloque, regla, campos, valores, severidad, destino) {
-  if (!length(idx)) return(invisible())
+  REGLAS_EJECUTADAS[[length(REGLAS_EJECUTADAS) + 1]] <<- regla
+  if (!length(idx)) {
+    cat(sprintf("  [%-11s] %-46s %5d  (sin hallazgos)\n", severidad, regla, 0))
+    return(invisible())
+  }
   H[[length(H) + 1]] <<- tibble(
     catalogNumber = df$catalogNumber[idx], id = df$id[idx],
     bloque = bloque, regla = regla, campos = campos,
@@ -65,7 +70,7 @@ reg(idx, "temporal", "fecha de determinacion en el futuro", "dateIdentified",
     df$dateIdentified[idx], "alta", "INABIO")
 
 idx <- which(ge > 0 & num(substr(nz(df$eventDate), 1, 4)) < ANIO_MIN)
-reg(idx, "temporal", "colecta anterior a la fundacion de la coleccion",
+reg(idx, "temporal", "colecta anterior a 1900 (umbral de plausibilidad declarado)",
     "eventDate", df$eventDate[idx], "alta", "INABIO")
 
 # Validación temporal: el sello de modificación debe ser posterior a la colecta.
@@ -524,7 +529,11 @@ reg(tmp$.i, "registro",
 cat("\nBLOQUE 5b - Vocabularios controlados\n")
 
 VOC <- list(
-  establishmentMeans = c("native","nativeReintroduced","introduced",
+  # nativeEndemic es valor controlado NORMATIVO: dwcem:e007 ("native: endemic"),
+  # incorporado por decision del Comite Ejecutivo de TDWG 2025-06-12_47, version
+  # vigente del vocabulario 2026-05-26 (https://dwc.tdwg.org/em/). La lista
+  # anterior era la de 2020 y marcaba 148 filas correctas como fuera de norma.
+  establishmentMeans = c("native","nativeEndemic","nativeReintroduced","introduced",
                          "introducedAssistedColonisation","vagrant","uncertain"),
   basisOfRecord      = c("PreservedSpecimen","FossilSpecimen","LivingSpecimen",
                          "MaterialSample","HumanObservation","MachineObservation",
@@ -586,7 +595,7 @@ reg(idx, "coordenadas", "continent declarado sobre coordenada marina (aviso GBIF
 # OPCIONAL - Altitud declarada contra el modelo digital de elevacion.
 # Requiere internet y el paquete elevatr.
 # ---------------------------------------------------------------
-USAR_DEM <- FALSE
+USAR_DEM <- TRUE
 if (USAR_DEM) {
   library(elevatr); library(sf)
   sub <- df %>% mutate(.i = row_number()) %>%
@@ -684,8 +693,31 @@ resumen_regla <- rep %>%
   arrange(destino, desc(severidad), desc(casos))
 
 cat("\n=== RESUMEN POR REGLA ===\n"); print(as.data.frame(resumen_regla))
+write_csv(resumen_regla, RESUMEN, na = "")
+cat("resumen por regla exportado:", nrow(resumen_regla), "filas\n")
 cat("\nRegistros con al menos un hallazgo:", n_distinct(rep$catalogNumber),
     sprintf("(%.1f%% de la coleccion)\n", 100 * n_distinct(rep$catalogNumber) / nrow(df)))
 cat("Reglas distintas:", n_distinct(rep$regla),
     "| casos distintos a resolver:", n_distinct(paste(rep$regla, rep$valores)), "\n")
+
+sin_hallazgo <- setdiff(unique(REGLAS_EJECUTADAS),
+                        c(unique(rep$regla), reglas_verificadas))
+cat("\nReglas ejecutadas:", length(unique(REGLAS_EJECUTADAS)),
+    "| con hallazgos:", n_distinct(rep$regla),
+    "| verificadas y descartadas:", length(reglas_verificadas),
+    "| sin hallazgos:", length(sin_hallazgo), "\n")
+print(sin_hallazgo)
+
+# ---- Exportacion del inventario de reglas para el tablero.
+# El tablero no puede afirmar "se probaron 63 reglas y 12 devuelven cero" si esa
+# informacion solo existe en la consola de la corrida.
+tibble::tibble(regla = unique(REGLAS_EJECUTADAS)) %>%
+  dplyr::mutate(estado = dplyr::case_when(
+    regla %in% reglas_verificadas   ~ "verificada_descartada",
+    regla %in% unique(rep$regla)    ~ "con_hallazgos",
+    TRUE                            ~ "sin_hallazgos")) %>%
+  dplyr::arrange(estado, regla) %>%
+  readr::write_csv("reportes_y_revisiones/reglas_ejecutadas.csv", na = "")
+cat("reglas_ejecutadas.csv exportado:", length(unique(REGLAS_EJECUTADAS)), "reglas\n")
+
 cat("\nGuardado en", SALIDA, "\n")

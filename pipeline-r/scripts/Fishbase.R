@@ -713,17 +713,7 @@ if (any(df$flag_orden_minoritario_en_familia))
 df$identificado_a_nivel_familia <- df$flag_nombre_es_familia
 df$flag_nombre_es_familia <- NULL
 
-# ---- 9. Géneros sin correspondencia en el backbone ----
-# Exportación de géneros no resueltos para revisión de erratas vs. géneros válidos ausentes.
-gen_no_resuelto <- df %>%
-  filter(genus != "", !(genus %in% backbone$Genus)) %>%
-  count(genus, family, name = "filas") %>% arrange(desc(filas))
-if (nrow(gen_no_resuelto)) {
-  write_csv(gen_no_resuelto,
-            "reportes_y_revisiones/generos_no_resueltos_backbone.csv", na = "")
-  cat("\ngéneros sin correspondencia en el backbone:", nrow(gen_no_resuelto), "\n")
-  print(gen_no_resuelto)
-}
+
 
 # ---- 8d. Segunda opinion sobre family: el backbone, no la mayoria del genero ----
 # NO corrige: L3 sigue vigente, solo se derivan las familias vacias. Marca.
@@ -747,11 +737,7 @@ df <- df %>% select(-family_backbone)
 # ---- 8. Cierre Darwin Core ----
 # Derivación de campos obligatorios del estándar ausentes en el origen.
 
-# 8a. Mapeo de "nativeEndemic" a "native" y preservación en dynamicProperties.
-idx <- which(df$establishmentMeans == "nativeEndemic")
-df$dynamicProperties[idx] <- '{"establishmentMeansVerbatim":"nativeEndemic","endemismo":"endemico"}'
-df$establishmentMeans[idx] <- "native"
-cat("establishmentMeans nativeEndemic reasignados a native:", length(idx), "\n")
+
 
 # 8b. Derivación de continente condicionada a la existencia de país o coordenada.
 tiene_anclaje <- (df$country != "" & !is.na(df$country)) |
@@ -779,7 +765,18 @@ cat("continent escrito:", sum(tiene_anclaje & !insular),
 df$occurrenceStatus <- ifelse(df$registro_incompleto | df$flag_sin_taxonomia,
                               "", "present")
 cat("occurrenceStatus escrito:", sum(df$occurrenceStatus != ""),
-    "| omitido por falta de taxon o de anclaje:", sum(df$occurrenceStatus == ""), "\n")
+    "| omitido por registro incompleto o falta de taxonomia:", sum(df$occurrenceStatus == ""), "\n")
+
+# ---- 8d. Anotacion del cierre Darwin Core.
+# Los bloques 8b-8c escriben dos terminos del estandar y ninguno pasaba por
+# anotar(). Siete filas (las de flag_sin_taxonomia) recibian continent como
+# unica modificacion de toda la etapa y salian con metodo_correccion_taxon
+# vacio, indistinguibles de una fila intacta.
+for (i in which(df$continent != ""))         anotar(i, "continent_derivado_de_pais_o_coordenada")
+for (i in which(df$occurrenceStatus != ""))  anotar(i, "occurrenceStatus_derivado_present")
+cat("  anotaciones del cierre Darwin Core:",
+    sum(grepl("continent_derivado|occurrenceStatus_derivado",
+              df$metodo_correccion_taxon)), "\n")
 
 # ---- Contraste contra el backbone de GBIF (misma fuente que usa el validador).
 # El validador solo devuelve 5 muestras por incidencia, pero el backbone que
@@ -788,15 +785,24 @@ cat("occurrenceStatus escrito:", sum(df$occurrenceStatus != ""),
 # publicar nada en UAT. Es la segunda opinion externa que separa la errata
 # ortografica del genero valido ausente de FishBase.
 #
-# Puesto en FALSE por defecto para no penalizar el tiempo de ejecucion local
-# con llamadas de red si no se requiere actualizar este reporte.
+# Puesto en TRUE por defecto para incorporar el contraste externo al archivo,
+# lo que añade un par de minutos al tiempo de ejecucion por las llamadas de red.
 USAR_API_GBIF <- TRUE
 if (USAR_API_GBIF) {
   library(rgbif); library(dplyr); library(readr)
 
+  # El validador empareja scientificName + scientificNameAuthorship; nosotros
+  # mandabamos solo el nombre. Por eso "Eretmobrycon dahli" nos devolvia EXACT
+  # (confianza 100) y al validador TAXON_MATCH_HIGHERRANK sobre las mismas 8
+  # filas: no es un desacuerdo entre fuentes, es que se consultaba con menos
+  # informacion de la que lleva el archivo publicado.
+  # Nota: distinct() se queda con la PRIMERA autoria de cada nombre; para los 62
+  # nombres con mas de una (duda F14) eso elige por orden de fila, no por mayoria.
   nombres <- df %>% filter(scientificName != "") %>%
-    distinct(scientificName, kingdom, phylum, class, order, family, genus) %>%
-    rename(name = scientificName)
+    distinct(scientificName, .keep_all = TRUE) %>%
+    select(name = scientificName, scientificNameAuthorship,
+           kingdom, phylum, class, order, family, genus)
+  stopifnot(!any(duplicated(nombres$name)))
 
   # La API publica de GBIF corta la conexion ("Status: 0") si se envian casi 1000
   # nombres de golpe. Partimos la peticion en bloques (batches) de 100 nombres
@@ -821,6 +827,7 @@ if (USAR_API_GBIF) {
            accepted_gbif = any_of(c("accepted", "acceptedScientificName",
                                     "acceptedCanonicalName")),
            family_gbif = family, genus_gbif = genus)
+  stopifnot("accepted_gbif" %in% names(mb))
 
   cat("\n=== CONTRASTE CON EL BACKBONE DE GBIF ===\n")
   print(table(mb$matchType))
@@ -864,19 +871,13 @@ if (USAR_API_GBIF) {
   cat("nombres con grafia variante:", nrow(erratas),
       "| nombres que solo resuelven al rango superior:", nrow(altos), "\n")
 
-  # Y la particion que el reporte de generos no resueltos no da:
-  # errata ortografica  vs  genero valido que FishBase no tiene.
-  gen <- read_csv("reportes_y_revisiones/generos_no_resueltos_backbone.csv",
-                  col_types = cols(.default = "c"))
-  gen$en_gbif <- name_backbone_checklist(
-    data.frame(name = gen$genus))$matchType
-  write_csv(gen, "reportes_y_revisiones/generos_no_resueltos_backbone.csv", na = "")
-  cat("\ngeneros no resueltos en FishBase, contrastados con GBIF:\n"); print(gen)
-
-  # El contraste produce un hallazgo verificado contra una fuente externa y hasta
-  # ahora vivia solo en dos CSV sueltos. Se escribe como bandera en el propio
-  # archivo para que viaje con el dato, lo consolide el reporte de plausibilidad y
-  # lo pueda leer el tablero. NO corrige: la grafia sigue pendiente de INABIO (F15).
+  # ---- Consolidacion: el contraste externo viaja en el archivo.
+  # Hoy tres CSV sueltos guardan informacion que el tablero necesita medir y que
+  # no esta en el archivo de ocurrencias: el matchType de los nombres EXACT, los
+  # que solo resuelven a rango superior, y los generos fuera del backbone de
+  # FishBase. Con estas cuatro columnas, generos_no_resueltos_backbone.csv pasa a
+  # ser un GROUP BY y gbif_nombres_difusos.csv un FILTER: dejan de ser fuentes
+  # paralelas de verdad y pasan a ser exports para INABIO.
   df <- df %>%
     left_join(erratas %>%
                 select(scientificName = nombre_archivo,
@@ -886,13 +887,31 @@ if (USAR_API_GBIF) {
   df$flag_grafia_variante_gbif <- !is.na(df$grafia_sugerida_gbif) &
                                   nz(df$revisar_gbif) == ""
   df$grafia_sugerida_gbif <- nz(df$grafia_sugerida_gbif)
-  df <- df %>% select(-revisar_gbif)
+  # Se conserva revisar_gbif en el archivo porque explica por que no se aplica la sugerencia
+  
   cat("  filas marcadas con grafia variante segun GBIF:",
       sum(df$flag_grafia_variante_gbif), "\n")
 
-  # Los dos reportes exportan subconjuntos (29 variantes y 21 de rango superior).
+  df <- df %>%
+    left_join(mb %>% transmute(scientificName = verbatim_name,
+                               gbif_matchtype      = matchType,
+                               gbif_estado         = status,
+                               gbif_nombre_aceptado = accepted_gbif),
+              by = "scientificName")
+  df$gbif_matchtype[is.na(df$gbif_matchtype)]           <- ""   # sin scientificName
+  df$gbif_estado[is.na(df$gbif_estado)]                 <- ""
+  df$gbif_nombre_aceptado[is.na(df$gbif_nombre_aceptado)] <- ""
+  df$genero_fuera_de_backbone_fishbase <-
+    !is.na(df$genus) & df$genus != "" & !(df$genus %in% backbone$Genus)
+
+  cat("  contraste GBIF incorporado al archivo:",
+      sum(df$gbif_matchtype != ""), "filas |",
+      "generos fuera del backbone de FishBase:",
+      sum(df$genero_fuera_de_backbone_fishbase), "filas\n")
+
+  # Los dos reportes exportan subconjuntos (29 variantes y 20 de rango superior).
   # Para que el tablero pueda MEDIR y no escribir cifras a mano, hace falta la
-  # tabla completa de los 993 nombres con su matchType.
+  # tabla completa de los 936 nombres con su matchType.
   write_csv(mb, "reportes_y_revisiones/gbif_contraste_completo.csv", na = "")
   cat("contraste completo exportado:", nrow(mb), "nombres |",
       paste(names(table(mb$matchType)), table(mb$matchType), sep = ": ",

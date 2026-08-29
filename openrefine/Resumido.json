@@ -4436,5 +4436,373 @@
     "repeat": false,
     "repeatCount": 0,
     "description": "Transforma el texto de las celdas en la columna locationRemarks usando la expresión grel:if(isBlank(value), value, value.replace(\"Río la Cuca\", \"Río La Cuca\").replace(\"Río el Golán\", \"Río El Golán\").replace(\"Quebrada las Peñas\", \"Quebrada Las Peñas\").replace(\"Quebrada la Morán\", \"Quebrada La Morán\").replace(\"Quebrada la chilca\", \"Quebrada La Chilca\").replace(\"Bocana de ostiones\", \"Bocana de Ostiones\").replace(\"Wiro kaspi\", \"Wiro Kaspi\").replace(\"Laguna # 1\", \"Laguna 1\"))"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Reserva Biológica Limoncocha.Laguna Limoncocha 17N 321429/9957040 236msnm"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Reserva Biológica Limoncocha. Laguna Limoncocha 18N 321429/9957040 236 msnm"
+      },
+      {
+        "from": [
+          "Reserva Biológica Limoncocha.Laguna Limoncocha 18N 320868/9956786 234msnm"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Reserva Biológica Limoncocha. Laguna Limoncocha 18N 320868/9956786 234 msnm"
+      },
+      {
+        "from": [
+          "Reserva Biológica Limoncocha.Laguna Limoncocha 18N 321429/9953040 236msnm"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Reserva Biológica Limoncocha. Laguna Limoncocha 18N 321429/9953040 236 msnm"
+      },
+      {
+        "from": [
+          "Reserva Biológica Limoncocha.Laguna Limoncocha 18N 321429/9957040 236msnm"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Reserva Biológica Limoncocha. Laguna Limoncocha 18N 321429/9957040 236 msnm"
+      },
+      {
+        "from": [
+          "Reserva Biológica Limoncocha.Laguna Limoncocha 18N 322262/9956962 236msnm"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Reserva Biológica Limoncocha. Laguna Limoncocha 18N 322262/9956962 236 msnm"
+      },
+      {
+        "from": [
+          "Reserva Biológica Limoncocha.Río Pishira cerca de la carretera 18N 318808/9959494 250msnm"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Reserva Biológica Limoncocha. Río Pishira cerca de la carretera 18N 318808/9959494 250 msnm"
+      },
+      {
+        "from": [
+          "Reserva Biológica Limoncocha.Río Playayacu 18N 318807/9959492 240msnm"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Reserva Biológica Limoncocha. Río Playayacu 18N 318807/9959492 240 msnm"
+      },
+      {
+        "from": [
+          "Reserva Biológica Limoncocha.entrada al muelle 18N 319811/9959906 234msnm"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Reserva Biológica Limoncocha. Entrada al muelle 18N 319811/9959906 234 msnm"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Parque Nacional Yasuní. pozo exploratorio del Río Boya 2"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Parque Nacional Yasuní. Pozo exploratorio del Río Boya 2"
+      },
+      {
+        "from": [
+          "Chino Cucha. territorio Kichwa de Kawsak Sacha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Chino Cucha. Territorio Kichwa de Kawsak Sacha"
+      },
+      {
+        "from": [
+          "Danta Cucha. territorio Kichwa de Kawsak Sacha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Danta Cucha. Territorio Kichwa de Kawsak Sacha"
+      },
+      {
+        "from": [
+          "Río Chiguaza. debajo del puente llegando a la unión con el Río Pastaza"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Chiguaza. Debajo del puente llegando a la unión con el Río Pastaza"
+      },
+      {
+        "from": [
+          "Piraña Cocha. territorio Kichwa de Kawsak Sacha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Piraña Cocha. Territorio Kichwa de Kawsak Sacha"
+      },
+      {
+        "from": [
+          "Río Lagarto-Cocha. cerca de la Laguna Cocha Campamento 1"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Lagarto-Cocha. Cerca de la Laguna Cocha Campamento 1"
+      },
+      {
+        "from": [
+          "Río Salado Chico. en la vía"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Salado Chico. En la vía"
+      },
+      {
+        "from": [
+          "Ila Muyuna. territorio Kichwa de Kawsak Sacha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Ila Muyuna. Territorio Kichwa de Kawsak Sacha"
+      },
+      {
+        "from": [
+          "Huiririma Cucha. territorio Kichwa de Kawsak Sacha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Huiririma Cucha. Territorio Kichwa de Kawsak Sacha"
+      },
+      {
+        "from": [
+          "Río Sandalia. junto a carretera vía a Macas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Sandalia. Junto a carretera vía a Macas"
+      },
+      {
+        "from": [
+          "Río Guajalito. atravesando un puente de 3"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Guajalito. Atravesando un puente de 3"
+      },
+      {
+        "from": [
+          "Blanca A. junto al campamento"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Blanca A. Junto al campamento"
+      },
+      {
+        "from": [
+          "Pacai Cucha. territorio Kichwa de Kawsak Sacha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Pacai Cucha. Territorio Kichwa de Kawsak Sacha"
+      },
+      {
+        "from": [
+          "En la carretera desde La Armenia a Pacto. a 15 min de Pacto"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "En la carretera desde La Armenia a Pacto. A 15 min de Pacto"
+      },
+      {
+        "from": [
+          "Río sin nombre 2. carretera vía a Macas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río sin nombre 2. Carretera vía a Macas"
+      },
+      {
+        "from": [
+          "Río Ambato abajo del desvío del río. regresa entrando a Ambato"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Ambato abajo del desvío del río. Regresa entrando a Ambato"
+      },
+      {
+        "from": [
+          "Río Chinchin. manto de la novia"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Chinchin. Manto de la novia"
+      },
+      {
+        "from": [
+          "Río Pishira. junto a la carretera"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Pishira. Junto a la carretera"
+      },
+      {
+        "from": [
+          "Campamento 2. laguna redondo cocha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Campamento 2. Laguna redondo cocha"
+      },
+      {
+        "from": [
+          "Parque Nacional Yasuní. estero a 100 m de OBE"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Parque Nacional Yasuní. Estero a 100 m de OBE"
+      },
+      {
+        "from": [
+          "El Ramal. cerca de Ambuquí"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "El Ramal. Cerca de Ambuquí"
+      },
+      {
+        "from": [
+          "En el puente de la Panamericana Norte. junto al desvío a Puéllaro"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "En el puente de la Panamericana Norte. Junto al desvío a Puéllaro"
+      },
+      {
+        "from": [
+          "Afluente Saloya. atravesando un puente de 1.50"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Afluente Saloya. Atravesando un puente de 1.50"
+      },
+      {
+        "from": [
+          "Afluente Saloya. cerca de Chiriboga"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Afluente Saloya. Cerca de Chiriboga"
+      },
+      {
+        "from": [
+          "Río Saloya. cerca de Chiriboga"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Saloya. Cerca de Chiriboga"
+      },
+      {
+        "from": [
+          "Huiririma Sacha. territorio Kichwa de Kawsak Sacha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Huiririma Sacha. Territorio Kichwa de Kawsak Sacha"
+      },
+      {
+        "from": [
+          "Río Colimbo. en la vía"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Colimbo. En la vía"
+      },
+      {
+        "from": [
+          "PescadeRío. luego de desfogue del agua de las piscinas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "PescadeRío. Luego de desfogue del agua de las piscinas"
+      },
+      {
+        "from": [
+          "Chili Cucha. territorio Kichwa de Kawsak Sacha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Chili Cucha. Territorio Kichwa de Kawsak Sacha"
+      },
+      {
+        "from": [
+          "Victoria Cucha. territorio Kichwa de Kawsak Sacha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Victoria Cucha. Territorio Kichwa de Kawsak Sacha"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "A 99.4 km NW. Playón"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "A 99.4 km NO. Playón"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Yasuní. sendero bordeante del Tiputini"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Yasuní. Sendero bordeante del Tiputini"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locationRemarks"
   }
 ]

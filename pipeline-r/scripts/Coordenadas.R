@@ -238,7 +238,7 @@ convertir_utm2 <- function(raw) {
   zonas <- if (identical(hemisferio, "S")) c(32717, 32718)
   else if (identical(hemisferio, "N")) c(32617, 32618)
   else c(32717, 32718, 32617, 32618)
-  escalas <- if (is.na(hemisferio)) 1 else c(1, 10, 100, 1000)
+  escalas <- if (is.na(hemisferio)) 1 else c(1, 10, 100)
   
   for (mult in escalas) for (epsg in zonas) {
     n2 <- northing * mult
@@ -558,7 +558,6 @@ df$coherencia_provincia    <- NA_character_
 df$criterio_coherencia     <- NA_character_
 df$dist_fuera_provincia_m  <- NA_real_
 df$dist_fuera_provincia_km <- NA_real_
-df$umbral_km               <- NA_real_
 
 tiene_coord <- !is.na(df$lat_final)
 
@@ -604,25 +603,7 @@ if (!is.null(gadm)) {
   df$coherencia_provincia[reclasificar] <- "fuera_de_tierra_firme"
   cat("  reclasificadas como fuera_de_tierra_firme:", sum(reclasificar), "\n")
 } else {
-  # --- 14b. Criterio de respaldo: dispersión robusta (MAD) ---
-  # Se usa distancia al centroide provincial (mediana + 3*MAD) si falla GADM.
-  umbrales <- df %>%
-    filter(metodo_correccion %in% c("original", "dms_directo"), !is.na(dist_centroide_km)) %>%
-    group_by(stateProvince) %>%
-    summarise(
-      med = median(dist_centroide_km),
-      mad = 1.4826 * median(abs(dist_centroide_km - median(dist_centroide_km))),
-      .groups = "drop") %>%
-    mutate(umbral_km = pmax(med + 3 * mad, 40)) %>%
-    select(stateProvince, umbral_km)
-  
-  df <- df %>% select(-umbral_km) %>% left_join(umbrales, by = "stateProvince")
-  evaluable <- tiene_coord & !is.na(df$dist_centroide_km) & !is.na(df$umbral_km)
-  df$criterio_coherencia[tiene_coord] <- "sin_poligono_de_referencia"
-  df$criterio_coherencia[evaluable]   <- "distancia_centroide_robusta"
-  df$coherencia_provincia[tiene_coord & !evaluable] <- "no_evaluable"
-  df$coherencia_provincia[evaluable] <-
-    ifelse(df$dist_centroide_km[evaluable] > df$umbral_km[evaluable], "discordante", "coherente")
+  stop("Error: No se pudieron cargar los poligonos de GADM. Ejecucion abortada para proteger la integridad metodologica (evita el uso del respaldo estadistico no validado).")
 }
 
 # ---- 14b. Clasificación de discordancias mecánicas vs sin explicación ----
@@ -655,17 +636,16 @@ for (i in idx) {
   s <- strsplit(as.character(n), "")[[1]]
   for (pos in seq_along(s)) for (d in as.character(0:9)) {
     if (s[pos] == d) next
-    s2 <- s; s2[pos] <- d; n2 <- as.numeric(paste(s2, collapse = ""))
-    if (n2 < 9000000 || n2 > 10000000) next
-    p <- sf::st_transform(sf::st_sfc(sf::st_point(c(e, n2)), crs = epsg), 4326)
+    s2 <- s; s2[pos] <- d; nuevo_northing <- as.numeric(paste(s2, collapse = ""))
+    if (nuevo_northing < 9000000 || nuevo_northing > 10000000) next
+    p <- sf::st_transform(sf::st_sfc(sf::st_point(c(e, nuevo_northing)), crs = epsg), 4326)
     cc <- sf::st_coordinates(p)
     if (isTRUE(en_provincia(cc[2], cc[1], prov_norm_df[i]))) {
       df$hipotesis_northing[i] <- sprintf("northing %s -> %s (digito %d) cae en la provincia declarada",
-                                          n, n2, pos)
+                                          n, nuevo_northing, as.integer(d))
       break
     }
   }
-  if (!is.na(df$hipotesis_northing[i])) next
 }
 # ---- 14d. Contradicción de signo entre filas con el mismo verbatim ----
 # Detecta tuplas idénticas en origen que resuelven en hemisferios distintos.
@@ -902,6 +882,36 @@ df$georeferenceRemarks <- ifelse(
 cat("  georeferenceRemarks poblado por incertidumbre estimada:",
     sum(!is.na(nota_unc)), "\n")
 
+# ---- 15e-bis. Anotacion del redondeo a 6 decimales.
+# La condicion no puede ser "el origen declaraba mas de 6 decimales": un valor
+# como -0.8712700 declara siete y redondea a si mismo. Hay que comparar el
+# VALOR, no la longitud de la cadena. Con la condicion por longitud se anotaban
+# 551 filas de las que 203 no habian cambiado.
+# Se exige (a) que exista diferencia real y (b) que esa diferencia desaparezca
+# al redondear ambos a 6 decimales, para no capturar las filas que cambiaron
+# por correccion de signo o de eje, que ya tienen su propio motivo.
+lat_o <- suppressWarnings(as.numeric(df$verbatimLatitude))
+lon_o <- suppressWarnings(as.numeric(df$verbatimLongitude))
+# lat_final AUN NO esta redondeado en este punto: el redondeo ocurre en el
+# volcado. Hay que comparar el valor QUE SE VA A PUBLICAR (redondeado a 6)
+# contra el de origen, no el interno contra el de origen: para las filas
+# 'original' los dos son el mismo numero y la diferencia da 0 siempre.
+lat_r <- round(df$lat_final, 6)
+lon_r <- round(df$lon_final, 6)
+redondeada <- !is.na(df$lat_final) & !is.na(lat_o) & !is.na(lon_o) &
+  (abs(lat_r - lat_o) > 1e-12 | abs(lon_r - lon_o) > 1e-12) &
+  abs(lat_r - round(lat_o, 6)) < 1e-9 &
+  abs(lon_r - round(lon_o, 6)) < 1e-9
+nota_red <- ifelse(redondeada,
+  "coordenada redondeada a 6 decimales desde el valor del portal; desplazamiento < 0.1 m; valor integro en verbatimLatitude/verbatimLongitude",
+  NA_character_)
+df$georeferenceRemarks <- ifelse(
+  is.na(nota_red), df$georeferenceRemarks,
+  ifelse(is.na(df$georeferenceRemarks) | df$georeferenceRemarks == "",
+         nota_red, paste(df$georeferenceRemarks, nota_red, sep = "; ")))
+cat("  georeferenceRemarks poblado por redondeo a 6 decimales:",
+    sum(redondeada), "\n")
+
 # Declaración de protocolo de georreferenciación.
 df$georeferenceProtocol <- ifelse(
   !is.na(df$lat_final) & !df$metodo_correccion %in% c("original", "original_transfronterizo"),
@@ -919,6 +929,22 @@ df$georeferenceSources <- dplyr::case_when(
   TRUE ~ "verbatimCoordinates del registro (MECN-DP)"
 )
 cat("  georeferenceSources declarado:", sum(!is.na(df$georeferenceSources)), "\n")
+
+# ---- 15g. Autoria de la georreferencia producida por el pipeline.
+# Darwin Core atribuye georeferencedBy a quien DETERMINA la georreferencia.
+# En 1606 filas la determino este script desde verbatimCoordinates, no una
+# persona del portal. Dejar el campo vacio en esas filas hace indistinguible
+# "no consta quien georreferencio" (1071 filas del portal, duda C6) de
+# "lo georreferencio el pipeline" (1606 filas, dato conocido).
+df$georeferencedBy <- ifelse(
+  !is.na(df$lat_final) &
+    !df$metodo_correccion %in% c("original", "original_transfronterizo") &
+    (is.na(df$georeferencedBy) | df$georeferencedBy == ""),
+  "Said Cotacachi (pipeline de limpieza MECN-DP)",
+  df$georeferencedBy)
+cat("  georeferencedBy atribuido al pipeline:",
+    sum(!is.na(df$lat_final) &
+        !df$metodo_correccion %in% c("original","original_transfronterizo")), "\n")
 
 # ================================================================
 # Volcado de resultados a los campos Darwin Core definitivos
@@ -982,7 +1008,6 @@ cat("  sin coordenada:", sum(is.na(df$lat_final)), "\n")
 # ---- 17. Exportación ----
 # Exportación de reporte final de coordenadas.
 df_export <- df %>% select(-decimalLatitude_num, -decimalLongitude_num, -clave_coord)
-if (!is.null(gadm)) df_export <- df_export %>% select(-umbral_km)
 
 # ---- 17b. Aplicación de formato (6 decimales) al CSV exportado ----
 df_export$lat_final <- ifelse(is.na(df$lat_final), "", fmt_coord(round(df$lat_final, 6)))

@@ -6,7 +6,7 @@
 
 Cada duda trae un filtro reproducible sobre dos archivos, `ocurrences_con_identifications.csv` y `reporte_plausibilidad.csv`. Esto permite aislar inmediatamente los registros afectados y revisar los datos en su contexto.
 
-Las columnas que empiezan por `flag_` son banderas booleanas producidas por el pipeline. El archivo tiene 58 columnas internas de auditoría además de las 92 de Darwin Core, que documentan cada paso de la limpieza.
+Las columnas que empiezan por `flag_` son banderas booleanas producidas por el pipeline. El archivo tiene 158 columnas: 92 términos tal como los entrega el portal, 4 términos Darwin Core que el portal no exportaba (`verbatimLatitude`, `verbatimLongitude`, `occurrenceStatus`, `previousIdentifications`) y 62 columnas de auditoría que no forman parte del estándar y no se publican.
 
 La severidad "alta" del reporte significa que el dato contradice una restricción física o de calendario. La severidad "media" indica que es una inconsistencia de forma o de jerarquía. La categoría "informativa" señala un patrón verificado que no requiere acción.
 
@@ -15,16 +15,16 @@ La severidad "alta" del reporte significa que el dato contradice una restricció
 
 | Archivo | Filas | Qué contiene | Dudas que sustenta |
 |---|---|---|---|
-| `ocurrences_con_identifications.csv` | 6.427 × 150 col | Conjunto de datos final: 92 términos Darwin Core y 58 columnas internas de auditoría | Todas |
-| `reporte_plausibilidad.csv` | 5.019 | Un hallazgo por fila, con regla, severidad y destino | Todas las que citan una `regla` |
-| `reporte_plausibilidad_resumen.csv` | 48 | Una fila por regla, con filas, registros y casos únicos | Vista general |
+| `ocurrences_con_identifications.csv` | 6.427 × 158 col | Conjunto de datos final: 92 términos tal como los entrega el portal, 4 términos Darwin Core que el portal no exportaba (`verbatimLatitude`, `verbatimLongitude`, `occurrenceStatus`, `previousIdentifications`) y 62 columnas de auditoría | Todas |
+| `reporte_plausibilidad.csv` | 5.081 | Un hallazgo por fila, con regla, severidad y destino | Todas las que citan una `regla` |
+| `reglas_ejecutadas.csv` | 63 | Una fila por regla, con el estado de la regla (`con_hallazgos`, `sin_hallazgos` o `verificada_descartada`) | Vista general |
+| `reporte_plausibilidad_resumen.csv` | 49 | Una fila por regla con hallazgos: filas, registros y casos únicos, agrupados por severidad y destino | Vista general |
 | `reporte_plausibilidad_verificadas.csv` | 1.309 | Casos evaluados y descartados con justificación: 583 cantones homónimos de su provincia y 726 ejemplares del mismo lote de colecta | Ninguna. Es el registro de lo que no hay que preguntar |
-| `reporte_coordenadas_revision.csv` | 326 | Coordenadas marcadas, con método de reconstrucción, categoría de coherencia y distancia fuera de la provincia | D1, D3, D4, D5, D6, D6 bis, D7, D8, D13, H1, H2, H3 |
 | `identifications_para_inabio.csv` | 71 | Discrepancias entre `identifications.csv` y el core, con el motivo y la autoría rechazada | J1, J2, G2 |
 | `generos_no_resueltos_backbone.csv` | 15 × 4 col | Géneros sin correspondencia en FishBase, contrastados contra el backbone de GBIF en la columna `en_gbif` | F10, F12 |
-| `gbif_contraste_completo.csv` | 993 | Tabla completa del contraste con el backbone de GBIF, con matchType por nombre | F15, F16 |
-| `gbif_nombres_difusos.csv` | 29 | Nombres cuya grafía el backbone de GBIF resuelve como variante de otra | F15 y añadir la columna nueva estado_gbif |
-| `gbif_nombres_rango_superior.csv` | 21 | Nombres que el backbone de GBIF solo resuelve al rango de género o de familia | F16, F10 |
+| `gbif_contraste_completo.csv` | 936 | Tabla completa del contraste con el backbone de GBIF, con `matchType` por nombre. Los 19 nombres que solo resuelven al rango superior se obtienen filtrando `matchType = HIGHERRANK` | F15, F16 |
+| `gbif_nombres_difusos.csv` | 30 | Nombres cuya grafía el backbone de GBIF resuelve como variante de otra | F15, F17 |
+| _(sin archivo separado)_ | — | Coordenadas con reconstrucción, discordancia o ambigüedad de signo. Se obtienen de `ocurrences_con_identifications.csv` filtrando por `coherencia_provincia` ∈ {`discordante`, `fuera_de_tierra_firme`}, `signo_ambiguo = TRUE`, o `metodo_correccion` distinto de `original` y `sin_dato_origen`. La columna `dist_fuera_provincia_km` da la distancia al polígono provincial | D1–D8, D13, H1–H3 |
 
 ---
 
@@ -32,11 +32,11 @@ La severidad "alta" del reporte significa que el dato contradice una restricció
 
 Una corrección va a esta lista cuando dos fuentes independientes coinciden o cuando el propio archivo la resuelve por contradicción interna; se queda como pregunta cuando hay una sola fuente, cuando dos fuentes discrepan, o cuando lo que falta es un juicio taxonómico y no un dato.
 
-Estas 47 filas no requieren una decisión: requieren un visto bueno o una objeción. Cada una tiene dos fuentes independientes que coinciden, o una contradicción interna que el propio conjunto de datos resuelve. Si no hay objeción en la revisión, se aplican y quedan anotadas en `metodo_correccion_taxon`.
+Estas 48 filas no requieren una decisión: requieren un visto bueno o una objeción. Cada una tiene dos fuentes independientes que coinciden, o una contradicción interna que el propio conjunto de datos resuelve. Si no hay objeción en la revisión, se aplican y quedan anotadas en `metodo_correccion_taxon`.
 
 | Grupo | Filas | Sustento |
 |---|---|---|
-| 22 grafías que el backbone de GBIF resuelve como variante, con estado ACCEPTED, confianza 100 y una sola forma en el archivo | 33 | GBIF + ausencia de contradicción interna |
+| 23 grafías que el backbone de GBIF resuelve como variante, con estado ACCEPTED, confianza 100 y una sola forma en el archivo | 34 | GBIF + ausencia de contradicción interna |
 | *Durlanis perugiae* (cat. 6046) → *Duringlanis perugiae* | 1 | El archivo: 11 filas con la grafía correcta y la misma autoría (Steindachner, 1882) |
 | Autorías que difieren solo en tilde, guion o una letra del apellido | 13 | Mayoría interna del propio nombre |
 
@@ -390,13 +390,13 @@ Además, `Distrito Torres Causana` lleva el nivel escrito dentro del valor, igua
 
 ### C6. ¿Quién georreferenció la colección?
 
-**El problema.** El campo `georeferencedBy` tiene un único valor en todo el dataset —`Mateo Andrés Vega Yánez`— en 3.501 registros, y está vacío en 2.926. De esos 2.926 sin georreferenciador, **2.677 sí tienen coordenada**: el punto existe pero no consta quién lo determinó.
+**El problema.** El campo `georeferencedBy` tiene un único valor en todo el dataset —`Mateo Andrés Vega Yánez`— en 3.501 registros, y está vacío en 2.926. De esos 2.926 sin georreferenciador, **2.677 sí tienen coordenada**: el punto existe pero no consta quién lo determinó. *(Nota: tras la intervención del pipeline, que atribuyó 1.606 conversiones, quedan 1.320 vacíos y 1.071 con coordenada sin georreferenciador; ver D14.)*
 
 **Por qué importa.** Si el nombre corresponde a la persona que efectivamente georreferenció esos 3.501 registros, es un dato de procedencia valioso para la dimensión Persona. Si es un valor asignado en bloque durante una migración del portal, no significa nada y no debe modelarse como una autoría.
 
 
 **Cómo aislar los registros.** En `ocurrences_con_identifications.csv`:
-`georeferencedBy = ""` y `decimalLatitude <> ""` → 2677 registros.
+`georeferencedBy = ""` y `decimalLatitude <> ""` → 2.677 registros en el archivo del portal; 1.071 en el archivo limpio (ver D14).
 
 **Preguntas.**
 1. ¿Las 3.501 georreferenciaciones son efectivamente de esta persona, o es un valor por defecto del portal?
@@ -458,9 +458,66 @@ Las tres reglas DPA se ejecutaron con severidad alta en la primera corrida y pro
 
 ---
 
+
+### C11. `Q/N1 Buenaventura` y `Q/N2 Buenaventura`
+
+**El problema.** 3 celdas. El campo escribe `Quebrada S/N 1` y `Estero S/N 2` con espacio en 40 valores. Se corrigió el espacio por ser tipográfico.
+
+**Pregunta.** ¿`Q/N` significa «quebrada sin nombre»? Si es así, ¿debe desarrollarse como los demás `S/N`?
+
+---
+
+### C12. Magnitud sin unidad
+
+**El problema.** `OBE Oriental a 390 al Oeste del punto unión` (1 valor). Las otras 53 expresiones de distancia del campo llevan `m` o `km`.
+
+**Pregunta.** ¿390 metros o 390 kilómetros?
+
+---
+
+### C13. Dos denominaciones para un mismo sitio
+
+**El problema.** `Curaray - Motor Cocha` (10 filas) y `Río Curaray Motor Cocha`.
+
+**Pregunta.** ¿Son el mismo sitio? ¿Con qué denominación se unifica?
+
+---
+
+### C14. Cuatro denominaciones alrededor de Canandé
+
+**El problema.** `Estación Científica Canandé - Jocotoco`, `Estación Canandé de la Fundación Jocotoco`, `Reserva Ecológica Canandé`, `Reserva Río Canandé Fundación Jocotoco`.
+
+**Pregunta.** ¿Son la estación, la reserva y la fundación tres entidades distintas, o una con cuatro nombres?
+
+---
+
+### C15. Siglas sin resolver dentro de `locality`
+
+**El problema.** `DHR` (10 filas, en `Junto vía a DHR` y `Vía Sansahuari/DHR`).
+
+**Pregunta.** ¿Qué significa `DHR`?
+
+---
+
+### C16. Comillas rectas dentro de `locality`
+
+**El problema.** `"Brazo Seco" Comunidad Otto Arosemena Gómez N.2` y `Sobre puente carretera "El Edén"` (2 valores, 5 filas). Son el único lugar del conjunto con comillas.
+
+**Pregunta.** ¿Se conservan, se quitan, o se sustituyen por comillas angulares?
+
+---
+
+### C17. Sitio con dos redacciones de la misma distancia temporal
+
+**El problema.** `Río Yasuní a 2 h en canoa de la Comunidad Kawimeno` (6 filas) y `Río Yasuní a 2 horas de la Comunidad Kawimeno` (2 filas), en total 8 filas.
+
+**Pregunta.** ¿Un miembro o dos?
+
+---
+
 ## BLOQUE D — Coordenadas
 
-*(Estas 328 filas están en el anexo `reporte_coordenadas_revision.csv`, con su categoría, método de reconstrucción y distancia fuera de la provincia.)*
+*(Estas 328 filas se identifican en `ocurrences_con_identifications.csv` por las columnas `metodo_correccion`, `coherencia_provincia` y `dist_fuera_provincia_km`.)*
 
 ### D1. Ochenta y cinco coordenadas que se arreglan invirtiendo la latitud (y un punto por defecto)
 
@@ -482,7 +539,7 @@ Las tres reglas DPA se ejecutaron con severidad alta en la primera corrida y pro
 
 **El problema.** El ingreso QCAZ concentra la inmensa mayoría de los errores de contención. Los registros cuyo `recordedBy` contiene `QCAZ` (598 con coordenada) fallan la contención provincial en el 27,9 % de los casos; el resto de la colección, en el 1,1 %. Es decir, tienen veinticinco veces más discordancias.
 
-De las 231 discordancias geográficas totales, 167 están en los catálogos ~5100–5799. En el tramo 5600–5699, 42 de cada 100 filas son discordantes y 76 de cada 100 no tienen localidad.
+De las 232 discordancias geográficas totales, 167 están en los catálogos ~5100–5799. En el tramo 5600–5699, 42 de cada 100 filas son discordantes y 76 de cada 100 no tienen localidad.
 
 **Pregunta.** ¿Cómo se cargaron esos registros? ¿Fueron una migración desde otro sistema, una carga masiva sin georreferenciación propia, o se asignaron puntos por defecto al lote completo?
 
@@ -490,7 +547,7 @@ De las 231 discordancias geográficas totales, 167 están en los catálogos ~510
 
 ### D3. Doce coordenadas donde el hemisferio es genuinamente ambiguo
 
-**El problema.** El registro original no trae letra de hemisferio (`N`/`S`) ni signo. Mi script prueba todas las lecturas posibles y, cuando más de una cae dentro de Ecuador, desempata comprobando cuál queda dentro de la provincia declarada. En estas 12 el polígono no resolvió: o ninguna lectura cae en la provincia o caen varias. **No elegí por mi cuenta**: quedaron marcadas como `signo_ambiguo`.
+**El problema.** El registro original no trae letra de hemisferio (`N`/`S`) ni signo. Mi script prueba todas las lecturas posibles y, cuando más de una cae dentro de Ecuador, desempata comprobando cuál queda dentro de la provincia declarada. En estas 12 el polígono no resolvió: o ninguna lectura cae en la provincia o caen varias. El script **sí elige**: publica la primera lectura aritméticamente válida de la lista de candidatos cuando el polígono no desempata, y declara que esa elección no está respaldada por evidencia. Son 12 registros, todos con `requires verification`.
 
 **Filas afectadas.** 12, identificables en el anexo por la columna `signo_ambiguo = TRUE`. Incluyen los catálogos 3765, 3926, 3927, 4183, 4195, 4289, 4948, 4949, 5246, 5648, 5674 y 5678.
 
@@ -553,7 +610,7 @@ Siguen abiertos solo los catálogos 4212/4213 (`3°55'64''S`) y el caso múltipl
 
 ---
 
-### D6 bis. Las 66 coordenadas irrecuperables son cinco problemas distintos
+### D6 bis. Las 66 coordenadas irrecuperables (65 ilegibles + 1 descartada por estar fuera de rango) son cinco problemas distintos
 
 **El problema.** El bloque D6 las describe como un solo grupo ilegible. Al clasificarlas por patrón resulta que dos familias sí son reconstruibles y que una ni siquiera es una coordenada.
 
@@ -608,9 +665,9 @@ La cifra subió de 56 a 66 al añadir el desempate por contención en el polígo
 
 ---
 
-### D9. Cuatrocientos setenta registros con coordenada y sin datum declarado
+### D9. Cuatrocientos setenta registros con coordenada y sin datum declarado — RESUELTA
 
-**El problema.** Declaré `WGS84` únicamente en las 1.013 filas donde la conversión UTM lo determina por definición. En el resto —coordenadas que solo se leyeron o a las que se corrigió el signo— el datum de origen es desconocido y **decidí no suponerlo**. GBIF lo marca como `GEODETIC_DATUM_ASSUMED_WGS84` en 470 filas. El validador de GBIF confirma esta cifra con la incidencia `GEODETIC_DATUM_ASSUMED_WGS84` = 471, que incluye un registro adicional del bloque transfronterizo.
+**Respuesta.** De las 1.013 filas convertidas desde UTM, 492 no declaraban `geodeticDatum` y se les escribió `WGS84` porque la conversión lo determina por definición; las otras 521 ya lo traían del portal. Quedan **470 filas con coordenada y sin datum**. El validador de GBIF reporta **471** porque interpretó 6.179 coordenadas —una más que las 6.178 publicadas—: recuperó de `verbatimCoordinates` un punto que el pipeline había clasificado como irreparable. La diferencia de una unidad queda explicada.
 
 
 **Cómo aislar los registros.** En `ocurrences_con_identifications.csv`:
@@ -689,6 +746,23 @@ misma longitud.
 
 **Pregunta.** En los once registros que no son el caso inverso, ¿la coordenada
 pertenece a otro sitio del mismo lote o la localidad está mal escrita en esas filas?
+
+---
+
+
+### D14. Autoría de la georreferencia
+
+**El problema.** El pipeline determinó la coordenada de 1.606 registros a partir de `verbatimCoordinates` y les asignó `georeferencedBy`. Quedan **1.071 registros con coordenada leída del portal y sin georreferenciador declarado**.
+
+**Pregunta.** ¿Quién georreferenció esos 1.071? ¿Se atribuyen a Mateo Andrés Vega Yánez como los otros 3.501, o consta otro responsable?
+
+---
+
+### D15. Contraste altitudinal contra modelo digital de elevación
+
+**El problema.** 59 registros declaran una altitud que discrepa del DEM en más de 300 m. Es el único control altitudinal del pipeline que no usa la propia colección como referencia.
+
+**Pregunta.** ¿Se corrige la altitud declarada, se conserva la de la etiqueta física, o se declaran ambas?
 
 ---
 
@@ -983,9 +1057,9 @@ Nota: el catálogo 4322 (Paúl Tufiño, 2019-10-23, Quebrada S/N) fue rescatado 
 
 ---
 
-### F6. Cuatro registros que solo tienen un nombre de familia
+### F6. Cuatro registros que solo tienen un nombre de familia — RESUELTA
 
-**El problema.** Catálogos 4371, 4372, 4373 y 4374. Su `scientificName` es únicamente un nombre de familia (`Aspredinidae` el primero, `Characidae` los otros tres) y todo lo demás está vacío: sin colector, sin fecha, sin localidad, sin número de ejemplares.
+**Respuesta.** La grafía quedó corregida: `Asprenidae` → `Aspredinidae` en el catálogo 4371. Los cuatro registros (4371–4374) siguen siendo válidos como determinación a nivel de familia.
 
 
 **Cómo aislar los registros.** En `ocurrences_con_identifications.csv`:
@@ -997,7 +1071,7 @@ Nota: el catálogo 4322 (Paúl Tufiño, 2019-10-23, Quebrada S/N) fue rescatado 
 
 ### F7. Cinco determinaciones con cualificador que no encajan en ningún rango
 
-**El problema.** Su `scientificName` lleva un cualificador de incertidumbre, así que no es ni un binomio limpio ni un nombre de género, y quedaron sin `taxonRank`. Son cinco determinaciones con cualificador (5146, 6395, 6396, 4323, 4325). El campo `taxonRank` queda vacío en doce filas: estas cinco más las siete de la duda F5, que no tienen determinación alguna.
+**El problema.** Su `scientificName` lleva un cualificador de incertidumbre, así que no es ni un binomio limpio ni un nombre de género, y quedaron sin `taxonRank`. Son cinco determinaciones con cualificador (5146, 6395, 6396, 4323, 4325). El campo `taxonRank` queda vacío en once filas: estas cinco más las seis de la duda F5, que no tienen determinación alguna.
 
 | catalogNumber | `scientificName` |
 |---|---|
@@ -1093,11 +1167,9 @@ ausente de FishBase y de GBIF, o es una grafía que hay que sustituir? Si es vá
 ---
 
 
-### F12. Dos familias con order en dos estados
+### F12. Nueve registros repartidos en siete familias con `order` en dos estados
 
-**El problema.** Dentro de una misma familia, un registro tiene un orden declarado distinto al resto del grupo. No obedece al criterio de vaciado: son registros defectuosos.
-- `Haemulidae` (16 filas sin orden, 1 con Perciformes): la fila rara es el catálogo 5367, determinado como `Orthropristis` (errata de `Orthopristis`).
-- `Pomacentridae` (14 sin orden, 1 con Acanthuriformes): la fila rara es el catálogo 4201, determinado como `Holacanthus` (que es `Pomacanthidae` en el backbone, no `Pomacentridae`).
+**El problema.** Dentro de una misma familia, un registro tiene un orden declarado distinto al resto del grupo. No obedece al criterio de vaciado: son registros defectuosos. Las siete familias afectadas son Astroblepidae, Callichthyidae, Cichlidae, Hypopomidae, Pomacentridae, Rivulidae y Serrasalmidae, con un total de 9 filas en la minoría.
 
 **Pregunta.**
 1. Para el catálogo 4201: ¿se corrige la familia a Pomacanthidae acorde con el género *Holacanthus*?
@@ -1158,19 +1230,13 @@ falsa en cada uno de los 38 casos.
 
 ---
 
-### F15. Veintinueve nombres cuya grafía corrige el backbone de GBIF
+### F15. Treinta nombres cuya grafía corrige el backbone de GBIF
 
-**El problema.** El validador de GBIF señaló 38 registros con `TAXON_MATCH_FUZZY`
-pero solo devuelve cinco muestras. Consultando directamente el mismo backbone para
-los 993 nombres del archivo resultan 29 nombres con grafía variante, todos con
-confianza 100, que afectan a 48 filas.
+**El problema.** Treinta nombres científicos que el backbone de GBIF resuelve como variante ortográfica de otro, presentes en 49 filas. De ellos, **23 nombres (34 filas)** tienen corrección limpia y aceptada; los 7 restantes (15 filas) quedan a criterio curatorial: cinco porque GBIF empareja con un sinónimo (ver F17), uno porque es un nombre de rango subfamiliar que GBIF resuelve a la familia (`Loricariinae` → `Loricariidae`), y uno (`Farlowella oxyrhyncha` → `oxyrryncha`) porque GBIF propone la grafía que el propio pipeline ya corrigió.
 
-Al revisar la columna `estado_gbif`, se identificó una discrepancia de fuentes:
-- **`Farlowella oxyrhyncha` → `oxyrryncha`**: Sale como ACCEPTED en GBIF, pero FishBase defiende `oxyrhyncha` (el pipeline ya había corregido 3 filas para usar la 'h'). Es una contradicción directa entre los dos repositorios.
+La bandera `flag_grafia_variante_gbif` está en `TRUE` en las 34 filas aplicables. La columna `grafia_sugerida_gbif` está poblada en las 49, incluidas las 15 que no se aplican.
 
-Descontando este caso, un emparejamiento de rango subfamiliar (`Loricariinae`), y cinco casos de sinonimia (ver F17), quedan **22 nombres en 33 filas (31 tras el parche)** que sí son erratas limpias y decidibles.
-
-Dos de ellos cierran dudas abiertas en otros bloques:
+Dos de los 23 cierran dudas abiertas en otros bloques:
 
 | Cat. | Como aparece | Grafía de GBIF | Cierra |
 |---|---|---|---|
@@ -1190,7 +1256,7 @@ En dos casos la grafía de GBIF coincide con la mayoría del propio archivo: `Pi
 
 ### F16. Dos nombres que GBIF solo resuelve al rango de género y parecen erratas
 
-**El problema.** Veinte nombres del archivo solo resuelven hasta el género o la
+**El problema.** Diecinueve nombres del archivo solo resuelven hasta el género o la
 familia contra el backbone de GBIF. La mayoría son especies descritas recientemente
 que el backbone no incorpora todavía, pero dos tienen forma de errata de digitación:
 
@@ -1199,29 +1265,52 @@ que el backbone no incorpora todavía, pero dos tienen forma de errata de digita
 | 5544 | `Parapsettus steindcher` | El epíteto está truncado. ¿`steindachneri`? |
 | 5633 | `Alphestes inmaculatus` | ¿`immaculatus`, con doble m? |
 
-**Cómo aislar los registros.** ver `gbif_nombres_rango_superior.csv`.
+**Cómo aislar los registros.** En `gbif_contraste_completo.csv`: `matchType = HIGHERRANK`.
 
 **Pregunta.** ¿Cuál es la grafía correcta de los epítetos de los catálogos 5544 y 5633?
 
 ---
 
-### F17. Cinco nombres donde GBIF propone un sinónimo
+### F17. Cinco nombres donde GBIF propone un sinónimo — RESUELTA
 
-**El problema.** De los 29 nombres que el backbone de GBIF marcó como difusos (ver F15), hay cinco casos donde el emparejamiento con confianza 100 no se hizo contra el nombre aceptado, sino contra un sinónimo. Como el script no guardó el nombre aceptado que devuelve GBIF, la duda sobre la combinación correcta sigue abierta, enlazando con el mismo problema del bloque L5 (los 26 géneros que no resuelven y pueden ser un tema de combinación).
+**Respuesta.** El pipeline ya guarda el nombre aceptado en la columna `nombre_aceptado_gbif`. Los cinco casos son:
 
-Los cinco casos son:
-- *Cochliodon oculus* → *Cochliodon oculeus*
-- *Selene oerstedii* → *Selene oerstedi*
-- *Sciadeops troschelii* → *Sciadeops troschellii*
-- *Curimatella renhi* → *Curimatella rehni*
-- *Chaetostoma platycephalus* → *Chaetostomus platycephalus*
+| Nombre en el archivo | Sinónimo en GBIF | Nombre aceptado |
+|---|---|---|
+| *Cochliodon oculus* | *Cochliodon oculeus* | *Hypostomus oculeus* (Fowler, 1943) |
+| *Selene oerstedii* | *Selene oerstedi* | *Selene orstedii* Lütken, 1880 |
+| *Sciadeops troschelii* | *Sciadeops troschellii* | *Notarius troschelii* (Gill, 1863) |
+| *Curimatella renhi* | *Curimatella rehni* | *Cyphocharax gillii* (Eigenmann & Kennedy, 1903) |
+| *Chaetostoma platycephalus* | *Chaetostomus platycephalus* | *Andeancistrus platycephalus* (Boulenger, 1898) |
 
 **Cómo aislar los registros.** En `gbif_nombres_difusos.csv`: `estado_gbif = SYNONYM`.
 
-**Pregunta.**
-1. En estos cinco casos, ¿cuál es el nombre aceptado que debería quedar en el conjunto de datos?
+**Pregunta.** ¿Acepta el curador estas cinco combinaciones propuestas por el backbone de GBIF?
 
 ---
+
+### F18. `establishmentMeans = nativeEndemic` en 148 registros
+
+**El problema.** El valor es el término controlado normativo de Darwin Core (`dwcem:e007`, «native: endemic», incorporado por decisión del Comité Ejecutivo de TDWG 2025-06-12_47, versión vigente del vocabulario 2026-05-26). **El validador de GBIF descarta los 148 valores sin levantar ninguna incidencia**: su vocabulario todavía no implementa el término.
+
+**Pregunta.** ¿Se conserva `nativeEndemic` por conformidad con el estándar vigente, o se colapsa a `native` por compatibilidad con el agregador? La recomendación técnica es conservarlo y documentar la discrepancia.
+
+---
+
+### F19. `TAXON_ID_NOT_FOUND` en las 5.568 filas con `taxonID` poblado
+
+**El problema.** Darwin Core espera que `dwc:taxonID` sea un identificador resoluble del concepto taxonómico (LSID, URI o clave de GBIF); el `tid` numérico interno de Symbiota no lo es. El campo se retira del paquete que va al validador y se conserva en el archivo interno, donde sostiene la duda F9.
+
+**Pregunta.** ¿El portal puede exponer un identificador taxonómico resoluble, o `taxonID` queda declarado como identificador local?
+
+---
+
+### F20. `Eretmobrycon dahli` (8 filas)
+
+**El problema.** El backbone de GBIF consultado por API devuelve `EXACT` con confianza 100; el validador, sobre el mismo backbone, devuelve `TAXON_MATCH_HIGHERRANK`. Enviar también `scientificNameAuthorship` en la consulta no elimina la divergencia. Es una diferencia entre dos puntos de entrada al mismo backbone, no un defecto del dato. Se documenta sin resolver.
+
+---
+
 ## BLOQUE G — Estructura y alcance del dataset
 
 ### G2. `identifications.csv` no es un historial, pero contiene información que el core no tiene
@@ -1241,7 +1330,7 @@ Al comparar contra el core crudo, y tras descartar los falsos positivos por espa
 
 **Preguntas.**
 1. ¿Confirman que el portal no guarda historial completo de redeterminaciones, o existe en otro lado y esta exportación no lo trae?
-2. ¿Autorizan tomar las 803 autorías y las 23 redeterminaciones y dejarlas integradas al core?
+2. ¿Autorizan tomar las 782 autorías y las 23 redeterminaciones y dejarlas integradas al core?
 
 ---
 
@@ -1321,9 +1410,9 @@ Ninguna de las dos familias tiene representantes dulceacuícolas en la cuenca am
 
 ---
 
-### I3. Ochenta registros a una altitud fuera del rango de su propia especie
+### I3. Ochenta y un registros a una altitud fuera del rango de su propia especie
 
-**El problema.** Comparando cada registro contra la mediana de altitud de su misma especie **dentro de esta colección**, ochenta se desvían más de seis desviaciones absolutas medianas. Afecta a 32 especies. Ejemplos:
+**El problema.** Comparando cada registro contra la mediana de altitud de su misma especie **dentro de esta colección**, 81 se desvían más de seis desviaciones absolutas medianas. Afecta a 32 especies. Ejemplos:
 
 | catalogNumber | Especie | Altitud declarada | Mediana de la especie |
 |---|---|---|---|
@@ -1449,16 +1538,7 @@ que traían un valor previo y 62 que estaban vacías. El valor de origen se cons
 íntegro en `order_verbatim`. Los 15 géneros que no resuelven contra el backbone
 conservan el orden del origen; su listado está en `generos_no_resueltos_backbone.csv`.
 
-**L6. Continente calculado sobre islas.** Escribir `continent` en las 6.427 filas
-generaba el aviso `CONTINENT_COORDINATE_MISMATCH` en trece registros del
-archipiélago, porque el polígono continental de GBIF no cubre Galápagos. Decisión
-adoptada: se omite `continent` en los registros insulares, identificados tanto por
-la provincia declarada como por la caída de la coordenada dentro del recuadro del
-archipiélago. Hoy el campo se escribe en 6.398 filas y se omite en 29: 24 por
-provincia insular, 4 por falta de país y de coordenada, y 1 por coordenada insular
-con provincia continental declarada (catálogo 4195, que declara Manabí y tiene
-longitud −90,65). El aviso bajó de trece registros a uno, el catálogo 4289, que es
-un punto marino frente a la costa de Manabí y ya está marcado como discordante.
+**L6. Continente calculado sobre islas — RESUELTA.** Lo escribe el bloque 8b de `Fishbase.R`: 6.398 registros con `South America`, 4 omitidos por falta de país y coordenada, 25 omitidos por insularidad. Nota adicional: la omisión en los insulares no evitó el aviso —GBIF rederivó el continente desde las coordenadas en 12 registros y aun así marcó `CONTINENT_COORDINATE_MISMATCH` en uno (catálogo 4289)—.
 
 
 
@@ -1474,8 +1554,41 @@ de digitación. La regla que lo mide pasó a `reporte_plausibilidad_verificadas.
 Hay que confirmar que la unidad de análisis del tablero es el ejemplar y no el lote
 ni el evento de colecta, porque cambia todos los conteos.
 
+**L11. `references` con host `localhost` y `rightsHolder` con guion asimétrico.** El conjunto no se publicará en GBIF; ambos campos se conservan tal como los entrega el portal. El validador de GBIF se emplea como instrumento externo de medición para el Capítulo IV, no como destino de publicación.
+
+**L12. `km` en minúscula al inicio de valor.** 14 celdas. La regla de capitalización inicial cede ante el símbolo de unidad del SI.
+
+**L13. Redondeo a seis decimales de la coordenada publicada.** 354 filas: es normalización de formato, no corrección de valor; el desplazamiento máximo es inferior a 0,1 m y el valor íntegro se conserva en `verbatimLatitude` y `verbatimLongitude`.
+
+**L14. Ausencia de fecha tratada como anterior al año 2000.** En el piso tecnológico de incertidumbre (493 registros con coordenada y sin `eventDate`).
+
+**L15. Fin de línea y empaquetado.** El `meta.xml` debe declarar el mismo número de columnas que el CSV. Un desajuste no lo denuncia el validador como error de estructura.
 
 
+
+
+
+---
+
+
+## Contraste con el validador de GBIF
+
+El conjunto se empaquetó como Darwin Core Archive y se sometió al validador de GBIF antes y después del pipeline. Las incidencias se agrupan en tres categorías porque no todas dependen del dato.
+
+| Grupo | Original | Limpio | Variación |
+|---|---|---|---|
+| Registro e identificador | 18.300 | 12.855 | −29,8 % |
+| Interpretación suplida por GBIF | 13.259 | 490 | −96,3 % |
+| **Contenido del dato** | **2.508** | **146** | **−94,2 %** |
+| Total | 34.067 | 13.491 | −60,4 % |
+
+El primer grupo no depende del pipeline: `INSTITUTION_MATCH_FUZZY` y `COLLECTION_MATCH_NONE` se originan en el registro de la institución en GRSciColl, y `TAXON_ID_NOT_FOUND` desaparece únicamente porque el identificador local de Symbiota se retiró del paquete.
+
+Siete incidencias desaparecen por completo: `COORDINATE_ROUNDED` (562), `PRESUMED_SWAPPED_COORDINATE` (197), `IDENTIFIED_DATE_INVALID` (177), `PRESUMED_NEGATED_LONGITUDE` (162), `BASIS_OF_RECORD_INVALID` (68), `GEODETIC_DATUM_INVALID` (8) y `EML_GBIF_SCHEMA` (13).
+
+De las 146 incidencias de contenido que persisten, el pipeline tenía marcadas previamente todas menos las ocho filas de `Eretmobrycon dahli` (duda F20). La relación entre bandera propia e incidencia externa es de **contención, no de equivalencia**: el pipeline marca 232 coordenadas discordantes con la provincia declarada y el validador señala seis de ellas.
+
+Aparece una incidencia nueva: `CONTINENT_COORDINATE_MISMATCH` en un registro (catálogo 4289), que el pipeline ya tenía marcado como `signo_ambiguo`.
 
 ---
 
@@ -1520,3 +1633,36 @@ ni el evento de colecta, porque cambia todos los conteos.
 | Catálogos 3766 / 3767 | Intercambio recíproco entre Trichomycterus y Brachyhypopomus en identifications.csv |
 | Catálogo 3765 | identifications dice Microglanis, el core dice Xyliphius melanopterus. Arrastre de las tres filas anteriores |
 | Catálogos 2336 y 3775 | Misma fecha, dos nombres, discordancia real. Con el 3765 son tres casos que necesitan al curador, no dos |
+
+
+<!-- VERIFICACION FINAL
+Recuento de dudas por bloque:
+- A: 2 (A3, A3bis)
+- B: 5 (B1, B1bis, B2, B3, B4, B5)
+- C: 17 (C1, C1bis, C2, C2bis, C3, C4, C5, C5bis, C6, C7, C8, C9, C10, C11, C12, C13, C14, C15, C16, C17)
+- D: 15 (D1, D2, D3, D4, D5, D6, D6bis, D7, D8, D9, D10, D11, D12, D13, D14, D15)
+- E: 3 (E1, E2, E3)
+- F: 20 (F1, F2, F3, F5, F6, F7, F8, F9, F10, F12, F13, F14, F15, F16, F17, F18, F19, F20)
+- G: 1 (G2)
+- H: 3 (H1, H2, H3)
+- I: 3 (I1, I2, I3)
+- J: 2 (J1, J2)
+- K: 2 (K7, K8)
+- L: 15 (L1-L15)
+- N: 1 (Bloque N con subtablas)
+
+Dudas cerradas: D9, F6, F17, L6
+Dudas nuevas: C11, C12, C13, C14, C15, C16, C17, D14, D15, F18, F19, F20, L11, L12, L13, L14, L15
+
+REVISAR:
+- Columnas: REAL=158 (66 internas). El prompt decia 150 (58 internas).
+  Diferencia probablemente debida a columnas nuevas del pipeline GBIF (nombre_aceptado_gbif, etc).
+- Reporte plausibilidad: REAL=5.081. El prompt decia 5.019.
+  Diferencia de 62 filas probablemente debida a las reglas nuevas del contraste GBIF.
+- F15 filas afectadas: REAL=49 (30 nombres). El prompt decia 34 filas (30 nombres).
+  Nombres cuadra, filas no: la diferencia son las 5 filas de SYNONYM + la de Loricariinae.
+  23 clean ACCEPTED con 34 filas. El prompt decia 22/33 que incluia Alphestes como excluido.
+  En los datos Alphestes inmaculatus es ACCEPTED, asi que entra como errata limpia.
+- G2 atomizacion: la cifra 1.937 no se pudo verificar con el metodo usado. No se toco.
+  Se requiere verificacion manual contra identifications.csv, no contra el core.
+-->

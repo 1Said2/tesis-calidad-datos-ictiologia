@@ -1,10 +1,10 @@
 {
-    "key": "a3c9b2f3-031c-4abb-a4bf-bc052b244e6f",
-    "created": "2026-08-27T03:28:31.216+00:00",
-    "modified": "2026-08-27T03:29:29.770+00:00",
+    "key": "c75d23a0-2d81-40a7-88ff-ca1131f4b80d",
+    "created": "2026-08-29T04:16:06.018+00:00",
+    "modified": "2026-08-29T04:17:28.933+00:00",
     "username": "1said2",
-    "file": "dataset_dwca_20260826_222804.zip",
-    "fileSize": 586537,
+    "file": "dataset_dwca_20260828_230821.zip",
+    "fileSize": 576276,
     "fileFormat": "DWCA",
     "status": "FINISHED",
     "metrics": {
@@ -99,16 +99,16 @@
                         "interpretedIndexed": 6427,
                         "uniqueInterpretedValues": 6427,
                         "sampleInterpretedValuesMap": {
+                            "https://localhost/bndb/collections/individual/index.php?occid=677098": 1,
                             "https://localhost/bndb/collections/individual/index.php?occid=679535": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1840353": 1,
                             "https://localhost/bndb/collections/individual/index.php?occid=680011": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1840818": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=677324": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=677642": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1841154": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=679982": 1,
                             "https://localhost/bndb/collections/individual/index.php?occid=677332": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=678773": 1,
                             "https://localhost/bndb/collections/individual/index.php?occid=1840862": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=681339": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=677804": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1841094": 1
+                            "https://localhost/bndb/collections/individual/index.php?occid=1839713": 1
                         }
                     },
                     {
@@ -373,8 +373,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/countryCode",
-                        "rawIndexed": 0,
-                        "uniqueRawValues": 0,
+                        "rawIndexed": 6423,
+                        "uniqueRawValues": 3,
                         "interpretedIndexed": 6423,
                         "uniqueInterpretedValues": 3,
                         "sampleInterpretedValuesMap": {
@@ -555,11 +555,12 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferencedBy",
-                        "rawIndexed": 3501,
-                        "uniqueRawValues": 1,
+                        "rawIndexed": 5107,
+                        "uniqueRawValues": 2,
                         "interpretedIndexed": 6427,
-                        "uniqueInterpretedValues": 1,
+                        "uniqueInterpretedValues": 2,
                         "sampleInterpretedValuesMap": {
+                            "Said Cotacachi (pipeline de limpieza MECN-DP)": 1606,
                             "Mateo Andrés Vega Yánez": 3501
                         }
                     },
@@ -612,16 +613,16 @@
                         "interpretedIndexed": 6427,
                         "uniqueInterpretedValues": 6427,
                         "sampleInterpretedValuesMap": {
-                            "4937": 1,
                             "6240": 1,
                             "3959": 1,
-                            "4032": 1,
-                            "675": 1,
+                            "467": 1,
+                            "1572": 1,
                             "5325": 1,
-                            "4821": 1,
+                            "2088": 1,
                             "2904": 1,
-                            "2162": 1,
-                            "6194": 1
+                            "691": 1,
+                            "3606": 1,
+                            "829": 1
                         }
                     },
                     {
@@ -697,12 +698,12 @@
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/establishmentMeans",
                         "rawIndexed": 6380,
-                        "uniqueRawValues": 3,
-                        "interpretedIndexed": 6380,
+                        "uniqueRawValues": 4,
+                        "interpretedIndexed": 6232,
                         "uniqueInterpretedValues": 3,
                         "sampleInterpretedValuesMap": {
                             "[introduced,WrappedArray(introduced)]": 47,
-                            "[native,WrappedArray(native)]": 2762,
+                            "[native,WrappedArray(native)]": 2614,
                             "[uncertain,WrappedArray(uncertain)]": 3571
                         }
                     },
@@ -818,26 +819,7 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/dynamicProperties",
-                        "rawIndexed": 148
-                    },
-                    {
-                        "term": "http://rs.tdwg.org/dwc/terms/taxonID",
-                        "rawIndexed": 5568,
-                        "uniqueRawValues": 641,
-                        "interpretedIndexed": 5568,
-                        "uniqueInterpretedValues": 641,
-                        "sampleInterpretedValuesMap": {
-                            "35735": 63,
-                            "35217": 301,
-                            "35744": 69,
-                            "35227": 62,
-                            "35444": 81,
-                            "35311": 66,
-                            "35310": 64,
-                            "35365": 64,
-                            "35293": 122,
-                            "35219": 69
-                        }
+                        "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/scientificName",
@@ -969,7 +951,7 @@
                             "Bryconamericus": 178,
                             "Chaetostoma": 177,
                             "Astroblepus": 603,
-                            "Crenicichla": 106,
+                            "Hemigrammus": 106,
                             "Creagrutus": 206,
                             "Bujurquina": 158,
                             "Brycon": 137,
@@ -1214,51 +1196,56 @@
                             {
                                 "recordId": "1840780",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-76.777627",
                                     "dwc:decimalLatitude": "-5.063108",
+                                    "dwc:decimalLongitude": "-76.777627",
                                     "dwc:verbatimCoordinates": "302930/9440090",
                                     "dwc:geodeticDatum": "WGS84",
-                                    "dwc:country": "Ecuador"
+                                    "dwc:country": "Ecuador",
+                                    "dwc:countryCode": "EC"
                                 }
                             },
                             {
                                 "recordId": "680691",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-76.777627",
                                     "dwc:decimalLatitude": "-5.063108",
+                                    "dwc:decimalLongitude": "-76.777627",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
-                                    "dwc:country": "Ecuador"
+                                    "dwc:country": "Ecuador",
+                                    "dwc:countryCode": "EC"
                                 }
                             },
                             {
                                 "recordId": "680692",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-76.777627",
                                     "dwc:decimalLatitude": "-5.063108",
+                                    "dwc:decimalLongitude": "-76.777627",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
-                                    "dwc:country": "Ecuador"
+                                    "dwc:country": "Ecuador",
+                                    "dwc:countryCode": "EC"
                                 }
                             },
                             {
                                 "recordId": "680693",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-76.777627",
                                     "dwc:decimalLatitude": "-5.063108",
+                                    "dwc:decimalLongitude": "-76.777627",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
-                                    "dwc:country": "Ecuador"
+                                    "dwc:country": "Ecuador",
+                                    "dwc:countryCode": "EC"
                                 }
                             },
                             {
                                 "recordId": "680694",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-76.777627",
                                     "dwc:decimalLatitude": "-5.063108",
+                                    "dwc:decimalLongitude": "-76.777627",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
-                                    "dwc:country": "Ecuador"
+                                    "dwc:country": "Ecuador",
+                                    "dwc:countryCode": "EC"
                                 }
                             }
                         ]
@@ -1367,36 +1354,36 @@
                             {
                                 "recordId": "1840167",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-76.629934",
-                                    "dwc:decimalLatitude": "0.43938"
+                                    "dwc:decimalLatitude": "0.43938",
+                                    "dwc:decimalLongitude": "-76.629934"
                                 }
                             },
                             {
                                 "recordId": "1840219",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-76.42361",
-                                    "dwc:decimalLatitude": "0.67541"
+                                    "dwc:decimalLatitude": "0.67541",
+                                    "dwc:decimalLongitude": "-76.42361"
                                 }
                             },
                             {
                                 "recordId": "1840744",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-77.92565",
-                                    "dwc:decimalLatitude": "0.91139"
+                                    "dwc:decimalLatitude": "0.91139",
+                                    "dwc:decimalLongitude": "-77.92565"
                                 }
                             },
                             {
                                 "recordId": "1840770",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-77.92565",
-                                    "dwc:decimalLatitude": "0.91139"
+                                    "dwc:decimalLatitude": "0.91139",
+                                    "dwc:decimalLongitude": "-77.92565"
                                 }
                             },
                             {
                                 "recordId": "1840774",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-75.82578",
-                                    "dwc:decimalLatitude": "0.62119"
+                                    "dwc:decimalLatitude": "0.62119",
+                                    "dwc:decimalLongitude": "-75.82578"
                                 }
                             }
                         ]
@@ -1429,43 +1416,6 @@
                         ]
                     },
                     {
-                        "issue": "TAXON_ID_NOT_FOUND",
-                        "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 5568,
-                        "samples": [
-                            {
-                                "recordId": "1839641",
-                                "relatedData": {
-                                    "dwc:taxonID": "35408"
-                                }
-                            },
-                            {
-                                "recordId": "1839642",
-                                "relatedData": {
-                                    "dwc:taxonID": "35976"
-                                }
-                            },
-                            {
-                                "recordId": "1839643",
-                                "relatedData": {
-                                    "dwc:taxonID": "35957"
-                                }
-                            },
-                            {
-                                "recordId": "1839644",
-                                "relatedData": {
-                                    "dwc:taxonID": "35408"
-                                }
-                            },
-                            {
-                                "recordId": "1839645",
-                                "relatedData": {
-                                    "dwc:taxonID": "35269"
-                                }
-                            }
-                        ]
-                    },
-                    {
                         "issue": "TAXON_MATCH_FUZZY",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
                         "count": 38,
@@ -1473,8 +1423,8 @@
                             {
                                 "recordId": "1839796",
                                 "relatedData": {
-                                    "dwc:genus": "Trichomycterus",
                                     "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Trichomycterus",
                                     "dwc:phylum": "Chordata",
                                     "dwc:kingdom": "Animalia",
                                     "dwc:family": "Trichomycteridae",
@@ -1486,8 +1436,8 @@
                             {
                                 "recordId": "1839912",
                                 "relatedData": {
-                                    "dwc:genus": "Sorubumichthys",
                                     "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Sorubumichthys",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "Spix & Agassiz, 1829",
                                     "dwc:kingdom": "Animalia",
@@ -1500,8 +1450,8 @@
                             {
                                 "recordId": "1839988",
                                 "relatedData": {
-                                    "dwc:genus": "Imparfinis",
                                     "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Imparfinis",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Boulenger, 1887)",
                                     "dwc:kingdom": "Animalia",
@@ -1514,8 +1464,8 @@
                             {
                                 "recordId": "1840158",
                                 "relatedData": {
-                                    "dwc:genus": "Farlowella",
                                     "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Farlowella",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Kner, 1853)",
                                     "dwc:kingdom": "Animalia",
@@ -1528,8 +1478,8 @@
                             {
                                 "recordId": "1840250",
                                 "relatedData": {
-                                    "dwc:genus": "Cynoponthicus",
                                     "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Cynoponthicus",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Jordan & Gilbert, 1882)",
                                     "dwc:kingdom": "Animalia",
@@ -1549,8 +1499,8 @@
                             {
                                 "recordId": "1839654",
                                 "relatedData": {
-                                    "dwc:genus": "Eretmobrycon",
                                     "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Eretmobrycon",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
                                     "dwc:kingdom": "Animalia",
@@ -1563,8 +1513,8 @@
                             {
                                 "recordId": "1839659",
                                 "relatedData": {
-                                    "dwc:genus": "Eretmobrycon",
                                     "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Eretmobrycon",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
                                     "dwc:kingdom": "Animalia",
@@ -1577,8 +1527,8 @@
                             {
                                 "recordId": "1839673",
                                 "relatedData": {
-                                    "dwc:genus": "Eretmobrycon",
                                     "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Eretmobrycon",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
                                     "dwc:kingdom": "Animalia",
@@ -1591,8 +1541,8 @@
                             {
                                 "recordId": "1839685",
                                 "relatedData": {
-                                    "dwc:genus": "Eretmobrycon",
                                     "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Eretmobrycon",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
                                     "dwc:kingdom": "Animalia",
@@ -1605,8 +1555,8 @@
                             {
                                 "recordId": "1839782",
                                 "relatedData": {
-                                    "dwc:genus": "Eretmobrycon",
                                     "dwc:class": "Actinopterygii",
+                                    "dwc:genus": "Eretmobrycon",
                                     "dwc:phylum": "Chordata",
                                     "dwc:kingdom": "Animalia",
                                     "dwc:family": "Characidae",
