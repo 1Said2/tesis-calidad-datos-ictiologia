@@ -484,6 +484,36 @@ def descargar_simbiota():
 
 
 # =============================================================================
+# FUNCIONALIDAD 0: PREPARAR ENTORNO (INSTALAR DEPENDENCIAS)
+# =============================================================================
+def preparar_entorno():
+    import subprocess
+    import sys
+    
+    ROOT_DIR = Path(__file__).resolve().parent
+    req_file = ROOT_DIR / 'requirements.txt'
+    
+    print("\n" + "="*60)
+    print(" PREPARANDO ENTORNO: INSTALANDO DEPENDENCIAS DE PYTHON")
+    print("="*60 + "\n")
+    
+    if req_file.exists():
+        print(f"Instalando paquetes desde {req_file.name}...")
+        try:
+            subprocess.run([sys.executable, "-m", "pip", "install", "-r", str(req_file)], check=True)
+            print("\n¡Dependencias de Python instaladas correctamente!")
+        except subprocess.CalledProcessError:
+            print("\nError al instalar las dependencias de Python.")
+    else:
+        print("No se encontró el archivo requirements.txt para Python.")
+        
+    print("\nNota para R: Para instalar las dependencias de R, abre RStudio,")
+    print("selecciona el proyecto y ejecuta el comando: renv::restore()")
+    print("Asegúrate primero de haber hecho renv::snapshot() si agregaste librerías nuevas.")
+    print("\n" + "="*60 + "\n")
+
+
+# =============================================================================
 # FUNCIONALIDAD 5: PIPELINE COMPLETO END-TO-END
 # =============================================================================
 def ejecutar_pipeline_completo():
@@ -543,12 +573,14 @@ def ejecutar_pipeline_completo():
 # =============================================================================
 def main():
     parser = argparse.ArgumentParser(description="Herramientas para el pipeline de Ictiología (INABIO)")
-    parser.add_argument("comando", nargs="?", choices=["simbiota", "dpa", "refine", "dwca", "all"], 
-                        help="Comando a ejecutar: simbiota, dpa, refine, dwca o all (pipeline completo)")
+    parser.add_argument("comando", nargs="?", choices=["setup", "simbiota", "dpa", "refine", "dwca", "all"], 
+                        help="Comando a ejecutar: setup, simbiota, dpa, refine, dwca o all (pipeline completo)")
     
     args = parser.parse_args()
 
-    if args.comando == "simbiota":
+    if args.comando == "setup":
+        preparar_entorno()
+    elif args.comando == "simbiota":
         descargar_simbiota()
     elif args.comando == "dpa":
         generar_dpa()
@@ -563,6 +595,7 @@ def main():
         print("\n" + "="*50)
         print("  HERRAMIENTAS PYTHON - TESIS ICTIOLOGÍA INABIO")
         print("="*50)
+        print("-1. Preparar entorno (Instalar dependencias de Python)")
         print("0. Ejecutar pipeline completo (End-to-End)")
         print("1. Descargar dataset crudo desde Symbiota (BNDB)")
         print("2. Descargar y parsear división política (DPA INEC)")
@@ -572,8 +605,11 @@ def main():
         print("="*50)
         
         while True:
-            opcion = input("\nElige una opción (0, 1, 2, 3, 4 o 5): ").strip()
-            if opcion == '0':
+            opcion = input("\nElige una opción (-1, 0, 1, 2, 3, 4 o 5): ").strip()
+            if opcion == '-1':
+                preparar_entorno()
+                break
+            elif opcion == '0':
                 ejecutar_pipeline_completo()
                 break
             elif opcion == '1':
