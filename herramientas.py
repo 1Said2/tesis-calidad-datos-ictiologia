@@ -13,6 +13,7 @@ import sys
 import os
 import argparse
 from pathlib import Path
+from urllib.parse import urlparse, parse_qs
 
 # =============================================================================
 # FUNCIONALIDAD 1: DESCARGA Y PARSEO DE DPA (INEC)
@@ -355,38 +356,239 @@ def construir_dwca():
 
 
 # =============================================================================
+# FUNCIONALIDAD 3: AUTOMATIZACIÓN DE OPENREFINE
+# =============================================================================
+def ejecutar_openrefine():
+    import requests
+    import json
+    
+    URL = "http://localhost:3333"
+    ROOT_DIR = Path(__file__).resolve().parent
+    INPUT_CSV = ROOT_DIR / 'pipeline-r' / 'datos' / '01_crudos' / 'occurrences.csv'
+    REGLAS_JSON = ROOT_DIR / 'openrefine' / 'Reglas.json'
+    OUTPUT_CSV = ROOT_DIR / 'pipeline-r' / 'datos' / '02_intermedios' / 'ocurrences_openrefine.csv'
+    
+    if not INPUT_CSV.exists():
+        print(f"Error: No se encontró el archivo de entrada en {INPUT_CSV}")
+        return
+    if not REGLAS_JSON.exists():
+        print(f"Error: No se encontró el archivo de reglas en {REGLAS_JSON}")
+        return
+        
+    print(f"Conectando con OpenRefine en {URL}...")
+    try:
+        session = requests.Session()
+        resp = session.get(f"{URL}/command/core/get-csrf-token", timeout=5)
+        resp.raise_for_status()
+        csrf = resp.json()["token"]
+    except requests.exceptions.RequestException as e:
+        print(f"Error: No se pudo conectar a OpenRefine. Asegúrate de que esté abierto (puerto 3333).\nDetalles: {e}")
+        return
+
+    print("Subiendo occurrences.csv y creando el proyecto...")
+    files = {
+        'project-file': ('occurrences.csv', open(INPUT_CSV, 'rb'), 'text/csv')
+    }
+    data = {
+        'project-name': 'tesis_ictio_temp',
+        'format': 'text/line-based/*sv',
+        'options': json.dumps({'separator': ',', 'headerLines': 1})
+    }
+    res_create = session.post(f"{URL}/command/core/create-project-from-upload?csrf_token={csrf}", data=data, files=files)
+    
+    parsed = urlparse(res_create.url)
+    qs = parse_qs(parsed.query)
+    if 'project' not in qs:
+        print(f"Error al crear el proyecto. Respuesta: {res_create.text}")
+        return
+    pid = qs['project'][0]
+    
+    print("Aplicando reglas desde Reglas.json (esto puede tardar unos segundos)...")
+    with open(REGLAS_JSON, "r", encoding="utf-8") as f:
+        operations = f.read()
+
+    res_apply = session.post(
+        f"{URL}/command/core/apply-operations?project={pid}&csrf_token={csrf}",
+        data={'operations': operations}
+    )
+    
+    if res_apply.json().get("code") != "ok":
+        print(f"Error al aplicar las reglas: {res_apply.text}")
+    
+    print("Exportando el resultado...")
+    OUTPUT_CSV.parent.mkdir(parents=True, exist_ok=True)
+    res_export = session.post(f"{URL}/command/core/export-rows/tesis_ictio.csv?project={pid}&format=csv&csrf_token={csrf}")
+    with open(OUTPUT_CSV, "wb") as f:
+        f.write(res_export.content)
+        
+    print("Limpiando (borrando el proyecto temporal)...")
+    session.post(f"{URL}/command/core/delete-project?project={pid}&csrf_token={csrf}")
+    
+    print(f"¡Listo! Archivo generado exitosamente en {OUTPUT_CSV}")
+
+
+# =============================================================================
+# FUNCIONALIDAD 4: DESCARGA AUTOMÁTICA DESDE SYMBIOTA (BNDB)
+# =============================================================================
+def descargar_simbiota():
+    import requests
+    import zipfile
+    import io
+    
+    URL = "https://bndb.sisbioecuador.bio/bndb/collections/download/downloadhandler.php"
+    ROOT_DIR = Path(__file__).resolve().parent
+    OUTPUT_DIR = ROOT_DIR / 'pipeline-r' / 'datos' / '01_crudos'
+    
+    data = {
+        "schema": "dwc",
+        "identifications": "1",
+        "images": "1",
+        "materialsample": "1",
+        "format": "csv",
+        "cset": "utf-8",
+        "zip": "1",
+        "publicsearch": "1",
+        "taxonFilterCode": "0",
+        "sourcepage": "specimen",
+        "searchvar": "db=6",
+        "submitaction": ""
+    }
+
+    print("Iniciando descarga desde Symbiota (BNDB)...")
+    try:
+        session = requests.Session()
+        # Obtener cookies iniciales por si acaso
+        session.get("https://bndb.sisbioecuador.bio/bndb/collections/download/index.php", timeout=10)
+        
+        response = session.post(URL, data=data, timeout=30)
+        response.raise_for_status()
+        
+        if response.content.startswith(b'PK'):
+            print(f"ZIP descargado correctamente ({len(response.content) // 1024} KB).")
+            print(f"Descomprimiendo en {OUTPUT_DIR}...")
+            
+            OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+            
+            with zipfile.ZipFile(io.BytesIO(response.content)) as z:
+                z.extractall(OUTPUT_DIR)
+                
+            print("¡Archivos extraídos exitosamente!")
+        else:
+            print("Error: El servidor no devolvió un archivo ZIP válido.")
+            print(f"Respuesta del servidor (primeros 200 caracteres): {response.text[:200]}")
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Error de conexión al intentar descargar: {e}")
+    except zipfile.BadZipFile:
+        print("Error: El archivo descargado está corrupto y no es un ZIP válido.")
+
+
+# =============================================================================
+# FUNCIONALIDAD 5: PIPELINE COMPLETO END-TO-END
+# =============================================================================
+def ejecutar_pipeline_completo():
+    import subprocess
+    import time
+    
+    ROOT_DIR = Path(__file__).resolve().parent
+    scripts_r = [
+        "Coordenadas.R",
+        "Fishbase.R",
+        "UnirIdentificationsOcurrences.R",
+        "ValidacionPlausibilidad.R"
+    ]
+    
+    print("\n" + "="*60)
+    print(" INICIANDO PIPELINE COMPLETO DE TESIS ICTIOLOGÍA (END-TO-END)")
+    print("="*60 + "\n")
+    
+    # 1. Simbiota
+    print(">>> PASO 1: Descarga de datos crudos (Symbiota)...")
+    descargar_simbiota()
+    
+    # 2. DPA
+    print("\n>>> PASO 2: Descarga de datos espaciales (DPA INEC)...")
+    generar_dpa()
+    
+    # 3. OpenRefine
+    print("\n>>> PASO 3: Limpieza automatizada (OpenRefine)...")
+    ejecutar_openrefine()
+    
+    # 4. R Scripts
+    print("\n>>> PASO 4: Ejecución de scripts en R (Taxonomía, Coordenadas, Validación)...")
+    for script in scripts_r:
+        script_path = ROOT_DIR / "pipeline-r" / "scripts" / script
+        print(f"\n--- Ejecutando {script} ---")
+        try:
+            # Ejecuta Rscript y redirige la salida en tiempo real
+            subprocess.run(["Rscript", str(script_path)], cwd=str(ROOT_DIR / "pipeline-r"), check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"\n[ERROR] El script {script} falló. Abortando pipeline completo.")
+            return
+        except FileNotFoundError:
+            print("\n[ERROR] No se encontró 'Rscript' en el sistema. Asegúrate de tener R instalado y en el PATH.")
+            return
+            
+    # 5. DWCA
+    print("\n>>> PASO 5: Empaquetado final (Darwin Core Archive)...")
+    construir_dwca()
+    
+    print("\n" + "="*60)
+    print(" PIPELINE COMPLETO EJECUTADO CON ÉXITO")
+    print("="*60 + "\n")
+
+
+# =============================================================================
 # MENÚ INTERACTIVO Y CLI
 # =============================================================================
 def main():
     parser = argparse.ArgumentParser(description="Herramientas para el pipeline de Ictiología (INABIO)")
-    parser.add_argument("comando", nargs="?", choices=["dpa", "dwca"], 
-                        help="Comando a ejecutar: dpa (descargar DPA) o dwca (empaquetar dataset)")
+    parser.add_argument("comando", nargs="?", choices=["simbiota", "dpa", "refine", "dwca", "all"], 
+                        help="Comando a ejecutar: simbiota, dpa, refine, dwca o all (pipeline completo)")
     
     args = parser.parse_args()
 
-    if args.comando == "dpa":
+    if args.comando == "simbiota":
+        descargar_simbiota()
+    elif args.comando == "dpa":
         generar_dpa()
+    elif args.comando == "refine":
+        ejecutar_openrefine()
     elif args.comando == "dwca":
         construir_dwca()
+    elif args.comando == "all":
+        ejecutar_pipeline_completo()
     else:
         # Menú interactivo (cuando se ejecuta con el botón "Run" del IDE sin argumentos)
         print("\n" + "="*50)
         print("  HERRAMIENTAS PYTHON - TESIS ICTIOLOGÍA INABIO")
         print("="*50)
-        print("1. Descargar y parsear división política (DPA INEC)")
-        print("2. Construir Darwin Core Archive (dataset_dwca.zip)")
-        print("3. Salir")
+        print("0. Ejecutar pipeline completo (End-to-End)")
+        print("1. Descargar dataset crudo desde Symbiota (BNDB)")
+        print("2. Descargar y parsear división política (DPA INEC)")
+        print("3. Ejecutar reglas de OpenRefine automáticamente")
+        print("4. Construir Darwin Core Archive (dataset_dwca.zip)")
+        print("5. Salir")
         print("="*50)
         
         while True:
-            opcion = input("\nElige una opción (1, 2 o 3): ").strip()
-            if opcion == '1':
-                generar_dpa()
+            opcion = input("\nElige una opción (0, 1, 2, 3, 4 o 5): ").strip()
+            if opcion == '0':
+                ejecutar_pipeline_completo()
+                break
+            elif opcion == '1':
+                descargar_simbiota()
                 break
             elif opcion == '2':
-                construir_dwca()
+                generar_dpa()
                 break
             elif opcion == '3':
+                ejecutar_openrefine()
+                break
+            elif opcion == '4':
+                construir_dwca()
+                break
+            elif opcion == '5':
                 print("Saliendo...")
                 break
             else:

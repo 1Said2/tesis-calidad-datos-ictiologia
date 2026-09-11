@@ -30,8 +30,6 @@ pipeline-r/datos/00_referencia/gadm/
 # ==============================================================================
 # Ignorar los datos intermedios y crudos que no deben subirse
 pipeline-r/datos/01_crudos/*
-!pipeline-r/datos/01_crudos/eml.xml
-!pipeline-r/datos/01_crudos/meta.xml
 pipeline-r/datos/02_intermedios/
 
 # Ignorar archivos autogenerados (DPA INEC y GBIF ZIP)

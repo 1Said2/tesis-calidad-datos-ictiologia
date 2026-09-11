@@ -4804,5 +4804,149 @@
       }
     ],
     "description": "Editar celdas en masa en columna locationRemarks"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Q/N1 Buenaventura"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Q/N 1 Buenaventura"
+      },
+      {
+        "from": [
+          "Q/N2 Buenaventura"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Q/N 2 Buenaventura"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Río Yasuní a 2h en canoa de la Comunidad Kawimeno"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Río Yasuní a 2 h en canoa de la Comunidad Kawimeno"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locality",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Riachuelo con fondo Pedregoso Vía Quito- Santo Domingo camino a las pampas"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Riachuelo con fondo Pedregoso Vía Quito-Santo Domingo camino a las pampas"
+      },
+      {
+        "from": [
+          "Vía Quito- Santo Domingo Camino El Placer"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Vía Quito-Santo Domingo Camino El Placer"
+      },
+      {
+        "from": [
+          "A 30 min a pie de Estación Científica Canandé- Jocotoco"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "A 30 min a pie de Estación Científica Canandé - Jocotoco"
+      },
+      {
+        "from": [
+          "Curaray- Motor Cocha"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Curaray - Motor Cocha"
+      },
+      {
+        "from": [
+          "Mandur- Río Jubones"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Mandur - Río Jubones"
+      },
+      {
+        "from": [
+          "Sur de Taracoa- 500 m Yuca 19"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Sur de Taracoa - 500 m Yuca 19"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locality"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "locationRemarks",
+    "expression": "grel:value",
+    "edits": [
+      {
+        "from": [
+          "Vía Toachi- Chiriboga"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Vía Toachi-Chiriboga"
+      },
+      {
+        "from": [
+          "PNY: Vía ECY-Paraíso"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Parque Nacional Yasuní: Vía ECY-Paraíso"
+      },
+      {
+        "from": [
+          "PNY: Vía Pompeya-Tivacuno"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Parque Nacional Yasuní: Vía Pompeya-Tivacuno"
+      }
+    ],
+    "description": "Editar celdas en masa en columna locationRemarks"
   }
 ]

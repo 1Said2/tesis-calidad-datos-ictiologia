@@ -713,12 +713,12 @@ if (USAR_API_GBIF) {
            kingdom, phylum, class, order, family, genus)
   stopifnot(!any(duplicated(nombres$name)))
 
-  # Enviar en bloques de 100 para evitar timeout de la API.
+  # Enviar en bloques más pequeños (50) y mayor pausa para evitar timeout de la API.
   mb_list <- list()
-  for (i in seq(1, nrow(nombres), by = 100)) {
-    cat(sprintf("  GBIF: procesando %d a %d de %d...\n", i, min(i+99, nrow(nombres)), nrow(nombres)))
-    mb_list[[length(mb_list) + 1]] <- name_backbone_checklist(nombres[i:min(i+99, nrow(nombres)), ])
-    Sys.sleep(1)
+  for (i in seq(1, nrow(nombres), by = 50)) {
+    cat(sprintf("  GBIF: procesando %d a %d de %d...\n", i, min(i+49, nrow(nombres)), nrow(nombres)))
+    mb_list[[length(mb_list) + 1]] <- name_backbone_checklist(nombres[i:min(i+49, nrow(nombres)), ])
+    Sys.sleep(3)
   }
   
   nz <- function(x) ifelse(is.na(x), "", x)
@@ -751,6 +751,7 @@ if (USAR_API_GBIF) {
               by = c("nombre_archivo" = "scientificName")) %>%
     arrange(desc(filas))
     
+  if (!dir.exists("reportes_y_revisiones")) dir.create("reportes_y_revisiones")
   write_csv(erratas, "reportes_y_revisiones/gbif_nombres_difusos.csv", na = "")
 
   altos <- mb %>% filter(matchType == "HIGHERRANK") %>%
