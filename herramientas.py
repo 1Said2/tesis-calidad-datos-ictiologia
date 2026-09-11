@@ -531,9 +531,35 @@ def preparar_entorno():
     else:
         print("No se encontró el archivo requirements.txt para Python.")
         
-    print("\nNota para R: Para instalar las dependencias de R, abre RStudio,")
-    print("selecciona el proyecto y ejecuta el comando: renv::restore()")
-    print("\n" + "="*60 + "\n")
+    # 3. Instalar requerimientos de R (renv)
+    print("\n" + "-"*60)
+    print(" PREPARANDO ENTORNO DE R (renv)")
+    print("-"*60 + "\n")
+    
+    import shutil
+    import glob
+    
+    rscript_exe = shutil.which("Rscript")
+    if not rscript_exe and os.name == 'nt':
+        posibles_rutas = glob.glob(r"C:\Program Files\R\R-*\bin\Rscript.exe")
+        if posibles_rutas:
+            rscript_exe = sorted(posibles_rutas)[-1]
+            
+    if rscript_exe:
+        print("Restaurando paquetes de R con renv::restore()...")
+        try:
+            # prompt=FALSE evita que pida confirmación interactiva
+            subprocess.run([rscript_exe, "-e", "renv::restore(prompt=FALSE)"], cwd=str(ROOT_DIR / "pipeline-r"), check=True)
+            print("\n¡Dependencias de R instaladas/restauradas correctamente!")
+        except subprocess.CalledProcessError:
+            print("\nError al restaurar las dependencias de R. Hazlo manualmente abriendo RStudio.")
+    else:
+        print("\nNo se pudo encontrar 'Rscript' automáticamente.")
+        print("Para instalar las dependencias de R, abre el proyecto en RStudio y ejecuta: renv::restore()")
+        
+    print("\n" + "="*60)
+    print(" CONFIGURACIÓN FINALIZADA")
+    print("="*60 + "\n")
 
 
 # =============================================================================

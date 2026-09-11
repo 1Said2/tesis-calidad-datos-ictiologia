@@ -29,24 +29,38 @@ Trabajo de titulación — Ingeniería de Software.
 
 ## Cómo reproducir
 
-### Requisitos
+Este proyecto ha sido completamente automatizado usando un script maestro en Python que orquesta todo el pipeline (descargas, limpieza en OpenRefine, ejecución de R, y empaquetado final).
 
-- R ≥ 4.x con [renv](https://rstudio.github.io/renv/)
-- RStudio (recomendado)
-- Python 3.x (solo para `build_dwca_gbif.py`)
-- OpenRefine (solo si se necesita re-ejecutar la fase de limpieza textual)
+### Requisitos previos
 
-### Pasos
+- **Python 3.8+** instalado.
+- **R 4.x** instalado.
+- **OpenRefine 3.x+** descargado y ejecutándose en tu máquina (debe estar abierto en el puerto 3333).
 
-1. Abrir `pipeline-r/pipeline-r.Rproj` en RStudio.
-2. Ejecutar `renv::restore()` para instalar dependencias.
-3. Ejecutar los scripts en orden:
-   - `scripts/UnirIdentificationsOcurrences.R`
-   - Importar a OpenRefine y aplicar los JSON de `openrefine/`
-   - `scripts/Coordenadas.R`
-   - `scripts/Fishbase.R`
-   - `scripts/ValidacionPlausibilidad.R`
-4. Para validar con GBIF: `cd pipeline-r/datos/01_crudos && python build_dwca_gbif.py`
+### Pasos (Flujo automatizado)
+
+1. **Abre una terminal** en la raíz del proyecto.
+2. **Prepara tu entorno** instalando todas las dependencias necesarias de Python y R:
+   ```bash
+   python herramientas.py setup
+   ```
+   *(Nota: Este comando creará automáticamente un entorno virtual `venv` y restaurará los paquetes de R).*
+3. **Activa el entorno virtual** de Python:
+   - En Windows: `.\venv\Scripts\activate`
+   - En Mac/Linux: `source venv/bin/activate`
+4. **¡Ejecuta el pipeline completo!**
+   Asegúrate de que OpenRefine esté abierto y corre:
+   ```bash
+   python herramientas.py all
+   ```
+   Esto realizará automáticamente las siguientes tareas en estricto orden:
+   - Descarga de datos crudos desde Symbiota.
+   - Descarga y parseo de división política (DPA INEC).
+   - Limpieza automatizada usando el API de OpenRefine.
+   - Ejecución de limpieza taxonómica, espacial y plausibilidad usando los scripts de R.
+   - Empaquetado final en un archivo Darwin Core Archive (`dataset_dwca.zip`).
+
+*(Si lo prefieres, puedes ejecutar `python herramientas.py` sin argumentos para abrir un menú interactivo y correr cada paso individualmente).*
 
 ## Datos
 
