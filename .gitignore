@@ -52,3 +52,6 @@ pipeline-r/reportes_y_revisiones/*.csv
 Thumbs.db
 .DS_Store
 .Rproj.user
+
+# Entorno virtual de Python
+venv/

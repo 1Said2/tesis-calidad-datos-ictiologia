@@ -569,19 +569,31 @@ def ejecutar_pipeline_completo():
     
     # 4. R Scripts
     print("\n>>> PASO 4: Ejecución de scripts en R (Taxonomía, Coordenadas, Validación)...")
+    
+    import shutil
+    import glob
+    
+    rscript_exe = shutil.which("Rscript")
+    if not rscript_exe and os.name == 'nt':
+        # Buscar en las rutas comunes de Windows si no está en el PATH
+        posibles_rutas = glob.glob(r"C:\Program Files\R\R-*\bin\Rscript.exe")
+        if posibles_rutas:
+            rscript_exe = sorted(posibles_rutas)[-1] # Tomar la versión más reciente
+            
+    if not rscript_exe:
+        print("\n[ERROR] No se encontró 'Rscript' en el sistema ni en el PATH.")
+        print("Asegúrate de tener R instalado (usualmente en C:\\Program Files\\R\\). Abortando.")
+        return
+
     for script in scripts_r:
         script_path = ROOT_DIR / "pipeline-r" / "scripts" / script
         print(f"\n--- Ejecutando {script} ---")
         try:
             # Ejecuta Rscript y redirige la salida en tiempo real
-            subprocess.run(["Rscript", str(script_path)], cwd=str(ROOT_DIR / "pipeline-r"), check=True)
+            subprocess.run([rscript_exe, str(script_path)], cwd=str(ROOT_DIR / "pipeline-r"), check=True)
         except subprocess.CalledProcessError as e:
             print(f"\n[ERROR] El script {script} falló. Abortando pipeline completo.")
             return
-        except FileNotFoundError:
-            print("\n[ERROR] No se encontró 'Rscript' en el sistema. Asegúrate de tener R instalado y en el PATH.")
-            return
-            
     # 5. DWCA
     print("\n>>> PASO 5: Empaquetado final (Darwin Core Archive)...")
     construir_dwca()
