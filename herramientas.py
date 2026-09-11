@@ -489,19 +489,43 @@ def descargar_simbiota():
 def preparar_entorno():
     import subprocess
     import sys
+    import venv
     
     ROOT_DIR = Path(__file__).resolve().parent
     req_file = ROOT_DIR / 'requirements.txt'
+    venv_dir = ROOT_DIR / 'venv'
     
     print("\n" + "="*60)
-    print(" PREPARANDO ENTORNO: INSTALANDO DEPENDENCIAS DE PYTHON")
+    print(" PREPARANDO ENTORNO DE PYTHON")
     print("="*60 + "\n")
     
+    # 1. Crear entorno virtual si no existe
+    if not venv_dir.exists():
+        print("Creando entorno virtual (venv)...")
+        venv.create(venv_dir, with_pip=True)
+        print("¡Entorno virtual creado exitosamente!")
+    else:
+        print("El entorno virtual ya existe. Omitiendo creación.")
+        
+    # Identificar el ejecutable de python dentro del venv recién creado
+    if os.name == 'nt':
+        venv_python = venv_dir / 'Scripts' / 'python.exe'
+    else:
+        venv_python = venv_dir / 'bin' / 'python'
+
+    # 2. Instalar requerimientos usando el python del venv
     if req_file.exists():
-        print(f"Instalando paquetes desde {req_file.name}...")
+        print(f"\nInstalando paquetes desde {req_file.name} dentro del venv...")
         try:
-            subprocess.run([sys.executable, "-m", "pip", "install", "-r", str(req_file)], check=True)
-            print("\n¡Dependencias de Python instaladas correctamente!")
+            subprocess.run([str(venv_python), "-m", "pip", "install", "-r", str(req_file)], check=True)
+            print("\n¡Dependencias de Python instaladas correctamente en el venv!")
+            
+            print(f"\nIMPORTANTE: Recuerda activar el entorno virtual antes de correr el script:")
+            if os.name == 'nt':
+                print("  .\\venv\\Scripts\\activate")
+            else:
+                print("  source venv/bin/activate")
+                
         except subprocess.CalledProcessError:
             print("\nError al instalar las dependencias de Python.")
     else:
@@ -509,7 +533,6 @@ def preparar_entorno():
         
     print("\nNota para R: Para instalar las dependencias de R, abre RStudio,")
     print("selecciona el proyecto y ejecuta el comando: renv::restore()")
-    print("Asegúrate primero de haber hecho renv::snapshot() si agregaste librerías nuevas.")
     print("\n" + "="*60 + "\n")
 
 
