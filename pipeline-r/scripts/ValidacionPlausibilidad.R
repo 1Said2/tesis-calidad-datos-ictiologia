@@ -654,3 +654,63 @@ tibble::tibble(regla = unique(REGLAS_EJECUTADAS)) %>%
 cat("reglas_ejecutadas.csv exportado:", length(unique(REGLAS_EJECUTADAS)), "reglas\n")
 
 cat("\nGuardado en", SALIDA, "\n")
+
+# ==========================================================
+# AUDITORIA DE LA EXTENSION multimedia.csv
+# El validador de GBIF reporta 0 incidencias en este archivo.
+# Este bloque documenta lo que ese cero no cubre.
+# ==========================================================
+library(dplyr); library(readr); library(stringr)
+
+core <- read_csv("datos/02_intermedios/ocurrences_con_identifications.csv",
+                 col_types = cols(.default = "c"), na = character())
+mm   <- read_csv("datos/01_crudos/multimedia.csv",
+                 col_types = cols(.default = "c"), na = character())
+
+cat("\n\nimagenes:", nrow(mm),
+    "| ejemplares con imagen:", n_distinct(mm$coreid),
+    sprintf("(%.1f%% de la coleccion)", 100 * n_distinct(mm$coreid) / nrow(core)), "\n\n")
+
+# 1. URLs no resolubles fuera del servidor del portal
+for (col in c("identifier", "accessURI", "thumbnailAccessURI",
+              "goodQualityAccessURI", "associatedSpecimenReference"))
+  cat(sprintf("%-30s localhost: %d de %d\n", col,
+              sum(str_detect(mm[[col]], "localhost")), nrow(mm)))
+
+# 2. Contradiccion entre campos de derechos
+cat("\nrights      :", unique(mm$rights),
+    "\nUsageTerms  :", unique(mm$UsageTerms),
+    "\nWebStatement:", unique(mm$WebStatement), "\n")
+
+# 3. Campos vacios en el 100% de las filas
+cat("\nvacios en las", nrow(mm), "filas:",
+    paste(names(mm)[sapply(mm, function(x) all(is.na(x) | x == ""))], collapse = ", "), "\n")
+
+# 4. caption como tercer testigo de la determinacion.
+# Se compara contra scientificName_verbatim, no contra el nombre corregido,
+# para no marcar como discordancia lo que corrigio el propio pipeline.
+cmp <- mm %>%
+  distinct(coreid, .keep_all = TRUE) %>%
+  select(coreid, caption) %>%
+  left_join(core %>% select(id, catalogNumber, scientificName,
+                            scientificName_verbatim, taxonRank),
+            by = c("coreid" = "id")) %>%
+  mutate(
+    cap   = str_squish(caption),
+    sci   = str_squish(if_else(is.na(scientificName_verbatim) | scientificName_verbatim == "",
+                               scientificName, scientificName_verbatim)),
+    g_cap = word(cap, 1),
+    g_sci = word(sci, 1),
+    clase = case_when(
+      cap == sci                             ~ "identico",
+      g_cap != g_sci                         ~ "genero discordante",
+      str_detect(cap, "\\bsp\\.?\\d*$")      ~ "caption menos preciso",
+      str_detect(cap, "\\b(cf|aff)\\.?\\b")  ~ "caption con reserva",
+      TRUE                                   ~ "epiteto distinto, mismo genero"))
+
+print(count(cmp, clase, name = "registros"))
+
+cmp %>%
+  filter(clase != "identico") %>%
+  select(coreid, catalogNumber, cap, sci, clase, taxonRank) %>%
+  write_csv("reportes_y_revisiones/multimedia_caption_vs_core.csv", na = "")
