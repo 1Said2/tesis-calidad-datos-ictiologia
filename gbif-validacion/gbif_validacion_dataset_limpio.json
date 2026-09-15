@@ -1,15 +1,20 @@
 {
-    "key": "c75d23a0-2d81-40a7-88ff-ca1131f4b80d",
-    "created": "2026-08-29T04:16:06.018+00:00",
-    "modified": "2026-08-29T04:17:28.933+00:00",
+    "key": "1409634b-1231-4bdb-bfae-99cf0b1a306d",
+    "created": "2026-09-15T02:05:07.048+00:00",
+    "modified": "2026-09-15T02:06:42.926+00:00",
     "username": "1said2",
-    "file": "dataset_dwca_20260828_230821.zip",
-    "fileSize": 576276,
+    "file": "dataset_dwca_20260914_210008.zip",
+    "fileSize": 576279,
     "fileFormat": "DWCA",
     "status": "FINISHED",
     "metrics": {
         "indexeable": true,
         "stepTypes": [
+            {
+                "stepType": "VALIDATOR_UPLOAD_ARCHIVE",
+                "status": "FINISHED",
+                "executionOrder": 1
+            },
             {
                 "stepType": "VALIDATOR_VALIDATE_ARCHIVE",
                 "status": "FINISHED",
@@ -34,11 +39,6 @@
                 "stepType": "VALIDATOR_COLLECT_METRICS",
                 "status": "FINISHED",
                 "executionOrder": 6
-            },
-            {
-                "stepType": "VALIDATOR_UPLOAD_ARCHIVE",
-                "status": "FINISHED",
-                "executionOrder": 1
             }
         ],
         "files": [
@@ -63,18 +63,26 @@
                 "terms": [
                     {
                         "term": "http://purl.org/dc/elements/1.1/rights",
+                        "termGroup": "DcElement",
+                        "termIndex": 10,
                         "rawIndexed": 6427
                     },
                     {
                         "term": "http://purl.org/dc/terms/accessRights",
+                        "termGroup": "DcTerm",
+                        "termIndex": 1,
                         "rawIndexed": 6427
                     },
                     {
                         "term": "http://purl.org/dc/terms/language",
+                        "termGroup": "DcTerm",
+                        "termIndex": 34,
                         "rawIndexed": 6423
                     },
                     {
                         "term": "http://purl.org/dc/terms/modified",
+                        "termGroup": "DcTerm",
+                        "termIndex": 38,
                         "rawIndexed": 6427,
                         "uniqueRawValues": 22,
                         "interpretedIndexed": 6427,
@@ -94,41 +102,53 @@
                     },
                     {
                         "term": "http://purl.org/dc/terms/references",
+                        "termGroup": "DcTerm",
+                        "termIndex": 41,
                         "rawIndexed": 6427,
                         "uniqueRawValues": 6427,
                         "interpretedIndexed": 6427,
                         "uniqueInterpretedValues": 6427,
                         "sampleInterpretedValuesMap": {
-                            "https://localhost/bndb/collections/individual/index.php?occid=677098": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=679535": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=680011": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=677324": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1841152": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=680995": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=678027": 1,
                             "https://localhost/bndb/collections/individual/index.php?occid=677642": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1841154": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=679982": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=677332": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1840862": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1839713": 1
+                            "https://localhost/bndb/collections/individual/index.php?occid=678773": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1840103": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=681339": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1841094": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=677804": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=679638": 1
                         }
                     },
                     {
                         "term": "http://purl.org/dc/terms/rightsHolder",
+                        "termGroup": "DcTerm",
+                        "termIndex": 46,
                         "rawIndexed": 6427
                     },
                     {
                         "term": "https://symbiota.org/terms/recordID",
+                        "termGroup": "UnknownTerm",
+                        "termIndex": -1,
                         "rawIndexed": 6427
                     },
                     {
                         "term": "https://symbiota.org/terms/recordEnteredBy",
+                        "termGroup": "UnknownTerm",
+                        "termIndex": -1,
                         "rawIndexed": 6423
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/eventID",
+                        "termGroup": "dwc_Event",
+                        "termIndex": 59,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/fieldNumber",
+                        "termGroup": "dwc_Event",
+                        "termIndex": 62,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -137,6 +157,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/eventDate",
+                        "termGroup": "dwc_Event",
+                        "termIndex": 63,
                         "rawIndexed": 5903,
                         "uniqueRawValues": 916,
                         "interpretedIndexed": 5903,
@@ -156,6 +178,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/startDayOfYear",
+                        "termGroup": "dwc_Event",
+                        "termIndex": 65,
                         "rawIndexed": 5669,
                         "uniqueRawValues": 337,
                         "interpretedIndexed": 5667,
@@ -175,6 +199,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/endDayOfYear",
+                        "termGroup": "dwc_Event",
+                        "termIndex": 66,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 5667,
@@ -194,6 +220,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/year",
+                        "termGroup": "dwc_Event",
+                        "termIndex": 67,
                         "rawIndexed": 5903,
                         "uniqueRawValues": 51,
                         "interpretedIndexed": 5901,
@@ -213,6 +241,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/month",
+                        "termGroup": "dwc_Event",
+                        "termIndex": 68,
                         "rawIndexed": 5900,
                         "uniqueRawValues": 12,
                         "interpretedIndexed": 5898,
@@ -232,6 +262,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/day",
+                        "termGroup": "dwc_Event",
+                        "termIndex": 69,
                         "rawIndexed": 5669,
                         "uniqueRawValues": 31,
                         "interpretedIndexed": 5667,
@@ -251,18 +283,26 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/verbatimEventDate",
+                        "termGroup": "dwc_Event",
+                        "termIndex": 70,
                         "rawIndexed": 5580
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/habitat",
+                        "termGroup": "dwc_Event",
+                        "termIndex": 71,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/identificationQualifier",
+                        "termGroup": "dwc_Identification",
+                        "termIndex": 146,
                         "rawIndexed": 1468
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/typeStatus",
+                        "termGroup": "dwc_Identification",
+                        "termIndex": 147,
                         "rawIndexed": 2,
                         "uniqueRawValues": 1,
                         "interpretedIndexed": 2,
@@ -273,6 +313,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/identifiedBy",
+                        "termGroup": "dwc_Identification",
+                        "termIndex": 148,
                         "rawIndexed": 6418,
                         "uniqueRawValues": 41,
                         "interpretedIndexed": 6427,
@@ -292,6 +334,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/dateIdentified",
+                        "termGroup": "dwc_Identification",
+                        "termIndex": 150,
                         "rawIndexed": 6243,
                         "uniqueRawValues": 201,
                         "interpretedIndexed": 6243,
@@ -311,14 +355,20 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/identificationReferences",
+                        "termGroup": "dwc_Identification",
+                        "termIndex": 151,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/identificationRemarks",
+                        "termGroup": "dwc_Identification",
+                        "termIndex": 153,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/locationID",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 82,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -327,6 +377,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/continent",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 85,
                         "rawIndexed": 6398,
                         "uniqueRawValues": 1,
                         "interpretedIndexed": 6410,
@@ -337,6 +389,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/waterBody",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 86,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -345,6 +399,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/islandGroup",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 87,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -353,6 +409,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/island",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 88,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -361,6 +419,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/country",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 89,
                         "rawIndexed": 6423,
                         "uniqueRawValues": 3,
                         "interpretedIndexed": 6423,
@@ -373,6 +433,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/countryCode",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 90,
                         "rawIndexed": 6423,
                         "uniqueRawValues": 3,
                         "interpretedIndexed": 6423,
@@ -385,6 +447,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/stateProvince",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 91,
                         "rawIndexed": 6417,
                         "uniqueRawValues": 27,
                         "interpretedIndexed": 6417,
@@ -404,14 +468,20 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/county",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 92,
                         "rawIndexed": 4629
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/municipality",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 93,
                         "rawIndexed": 4052
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/locality",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 94,
                         "rawIndexed": 5914,
                         "uniqueRawValues": 855,
                         "interpretedIndexed": 5914,
@@ -431,6 +501,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/minimumElevationInMeters",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 96,
                         "rawIndexed": 4521,
                         "uniqueRawValues": 506,
                         "interpretedIndexed": 4521,
@@ -450,6 +522,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/maximumElevationInMeters",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 97,
                         "rawIndexed": 193,
                         "uniqueRawValues": 40,
                         "interpretedIndexed": 193,
@@ -469,10 +543,14 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/verbatimElevation",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 98,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/minimumDepthInMeters",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 100,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -481,6 +559,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/maximumDepthInMeters",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 101,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -489,14 +569,20 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/verbatimDepth",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 102,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/locationRemarks",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 106,
                         "rawIndexed": 4952
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 107,
                         "rawIndexed": 6178,
                         "uniqueRawValues": 1173,
                         "interpretedIndexed": 6179,
@@ -516,6 +602,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/decimalLongitude",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 108,
                         "rawIndexed": 6178,
                         "uniqueRawValues": 1161,
                         "interpretedIndexed": 6179,
@@ -535,10 +623,14 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/geodeticDatum",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 109,
                         "rawIndexed": 5708
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 110,
                         "rawIndexed": 5911,
                         "uniqueRawValues": 3,
                         "interpretedIndexed": 5911,
@@ -551,10 +643,14 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/verbatimCoordinates",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 113,
                         "rawIndexed": 5240
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferencedBy",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 121,
                         "rawIndexed": 5107,
                         "uniqueRawValues": 2,
                         "interpretedIndexed": 6427,
@@ -566,18 +662,26 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceProtocol",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 123,
                         "rawIndexed": 1606
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceSources",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 124,
                         "rawIndexed": 6178
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceRemarks",
+                        "termGroup": "dwc_Location",
+                        "termIndex": 125,
                         "rawIndexed": 6244
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/preparations",
+                        "termGroup": "dwc_MaterialEntity",
+                        "termIndex": 40,
                         "rawIndexed": 6423,
                         "uniqueRawValues": 5,
                         "interpretedIndexed": 6427,
@@ -592,10 +696,14 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/disposition",
+                        "termGroup": "dwc_MaterialEntity",
+                        "termIndex": 41,
                         "rawIndexed": 6423
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/associatedSequences",
+                        "termGroup": "dwc_MaterialEntity",
+                        "termIndex": 45,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 6427,
@@ -604,29 +712,35 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/occurrenceID",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 21,
                         "rawIndexed": 6427
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/catalogNumber",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 22,
                         "rawIndexed": 6427,
                         "uniqueRawValues": 6427,
                         "interpretedIndexed": 6427,
                         "uniqueInterpretedValues": 6427,
                         "sampleInterpretedValuesMap": {
-                            "6240": 1,
+                            "4937": 1,
                             "3959": 1,
+                            "1159": 1,
                             "467": 1,
-                            "1572": 1,
+                            "3210": 1,
                             "5325": 1,
-                            "2088": 1,
                             "2904": 1,
-                            "691": 1,
-                            "3606": 1,
-                            "829": 1
+                            "5925": 1,
+                            "296": 1,
+                            "6194": 1
                         }
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/recordNumber",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 23,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -635,6 +749,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/recordedBy",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 24,
                         "rawIndexed": 6274,
                         "uniqueRawValues": 221,
                         "interpretedIndexed": 6427,
@@ -654,6 +770,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/individualCount",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 26,
                         "rawIndexed": 6422,
                         "uniqueRawValues": 109,
                         "interpretedIndexed": 6422,
@@ -673,6 +791,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/sex",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 29,
                         "rawIndexed": 6232,
                         "uniqueRawValues": 3,
                         "interpretedIndexed": 6232,
@@ -685,6 +805,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/lifeStage",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 30,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -693,10 +815,14 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/reproductiveCondition",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 31,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/establishmentMeans",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 35,
                         "rawIndexed": 6380,
                         "uniqueRawValues": 4,
                         "interpretedIndexed": 6232,
@@ -709,10 +835,14 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 38,
                         "rawIndexed": 6178
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/occurrenceStatus",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 39,
                         "rawIndexed": 6417,
                         "uniqueRawValues": 1,
                         "interpretedIndexed": 6427,
@@ -723,14 +853,20 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/associatedOccurrences",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 43,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/associatedTaxa",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 46,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/otherCatalogNumbers",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 47,
                         "rawIndexed": 636,
                         "uniqueRawValues": 626,
                         "interpretedIndexed": 6427,
@@ -750,10 +886,14 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/occurrenceRemarks",
+                        "termGroup": "dwc_Occurrence",
+                        "termIndex": 48,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/previousIdentifications",
+                        "termGroup": "dwc_Organism",
+                        "termIndex": 53,
                         "rawIndexed": 23,
                         "uniqueRawValues": 15,
                         "interpretedIndexed": 23,
@@ -773,10 +913,14 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/collectionID",
+                        "termGroup": "dwc_Record",
+                        "termIndex": 11,
                         "rawIndexed": 6427
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/institutionCode",
+                        "termGroup": "dwc_Record",
+                        "termIndex": 13,
                         "rawIndexed": 6427,
                         "uniqueRawValues": 1,
                         "interpretedIndexed": 6427,
@@ -787,6 +931,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/collectionCode",
+                        "termGroup": "dwc_Record",
+                        "termIndex": 14,
                         "rawIndexed": 6427,
                         "uniqueRawValues": 1,
                         "interpretedIndexed": 6427,
@@ -797,10 +943,14 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/ownerInstitutionCode",
+                        "termGroup": "dwc_Record",
+                        "termIndex": 16,
                         "rawIndexed": 6427
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/basisOfRecord",
+                        "termGroup": "dwc_Record",
+                        "termIndex": 17,
                         "rawIndexed": 6427,
                         "uniqueRawValues": 1,
                         "interpretedIndexed": 6427,
@@ -811,18 +961,26 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/informationWithheld",
+                        "termGroup": "dwc_Record",
+                        "termIndex": 18,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/dataGeneralizations",
+                        "termGroup": "dwc_Record",
+                        "termIndex": 19,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/dynamicProperties",
+                        "termGroup": "dwc_Record",
+                        "termIndex": 20,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/scientificName",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 162,
                         "rawIndexed": 6421,
                         "uniqueRawValues": 936,
                         "interpretedIndexed": 6421,
@@ -842,10 +1000,14 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/higherClassification",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 169,
                         "rawIndexed": 6421
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/kingdom",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 170,
                         "rawIndexed": 6421,
                         "uniqueRawValues": 1,
                         "interpretedIndexed": 6421,
@@ -856,6 +1018,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/phylum",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 171,
                         "rawIndexed": 6421,
                         "uniqueRawValues": 1,
                         "interpretedIndexed": 6421,
@@ -866,6 +1030,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/class",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 172,
                         "rawIndexed": 6421,
                         "uniqueRawValues": 2,
                         "interpretedIndexed": 6421,
@@ -877,6 +1043,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/order",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 173,
                         "rawIndexed": 6421,
                         "uniqueRawValues": 34,
                         "interpretedIndexed": 6421,
@@ -896,6 +1064,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/superfamily",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 174,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -904,6 +1074,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/family",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 175,
                         "rawIndexed": 6421,
                         "uniqueRawValues": 110,
                         "interpretedIndexed": 6371,
@@ -923,6 +1095,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/subfamily",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 176,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 4159,
@@ -942,6 +1116,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/genus",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 179,
                         "rawIndexed": 6396,
                         "uniqueRawValues": 403,
                         "interpretedIndexed": 6395,
@@ -961,6 +1137,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/subgenus",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 181,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 2,
@@ -971,6 +1149,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/specificEpithet",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 183,
                         "rawIndexed": 5160,
                         "uniqueRawValues": 641,
                         "interpretedIndexed": 5142,
@@ -990,6 +1170,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 184,
                         "rawIndexed": 0,
                         "uniqueRawValues": 0,
                         "interpretedIndexed": 0,
@@ -998,6 +1180,8 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/taxonRank",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 186,
                         "rawIndexed": 6416,
                         "uniqueRawValues": 4,
                         "interpretedIndexed": 6421,
@@ -1011,14 +1195,20 @@
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/verbatimTaxonRank",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 187,
                         "rawIndexed": 0
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 188,
                         "rawIndexed": 5855
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/taxonRemarks",
+                        "termGroup": "dwc_Taxon",
+                        "termIndex": 193,
                         "rawIndexed": 0
                     }
                 ],
@@ -1200,8 +1390,8 @@
                                     "dwc:decimalLongitude": "-76.777627",
                                     "dwc:verbatimCoordinates": "302930/9440090",
                                     "dwc:geodeticDatum": "WGS84",
-                                    "dwc:country": "Ecuador",
-                                    "dwc:countryCode": "EC"
+                                    "dwc:countryCode": "EC",
+                                    "dwc:country": "Ecuador"
                                 }
                             },
                             {
@@ -1211,8 +1401,8 @@
                                     "dwc:decimalLongitude": "-76.777627",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
-                                    "dwc:country": "Ecuador",
-                                    "dwc:countryCode": "EC"
+                                    "dwc:countryCode": "EC",
+                                    "dwc:country": "Ecuador"
                                 }
                             },
                             {
@@ -1222,8 +1412,8 @@
                                     "dwc:decimalLongitude": "-76.777627",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
-                                    "dwc:country": "Ecuador",
-                                    "dwc:countryCode": "EC"
+                                    "dwc:countryCode": "EC",
+                                    "dwc:country": "Ecuador"
                                 }
                             },
                             {
@@ -1233,8 +1423,8 @@
                                     "dwc:decimalLongitude": "-76.777627",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
-                                    "dwc:country": "Ecuador",
-                                    "dwc:countryCode": "EC"
+                                    "dwc:countryCode": "EC",
+                                    "dwc:country": "Ecuador"
                                 }
                             },
                             {
@@ -1244,8 +1434,8 @@
                                     "dwc:decimalLongitude": "-76.777627",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
-                                    "dwc:country": "Ecuador",
-                                    "dwc:countryCode": "EC"
+                                    "dwc:countryCode": "EC",
+                                    "dwc:country": "Ecuador"
                                 }
                             }
                         ]
@@ -1423,69 +1613,69 @@
                             {
                                 "recordId": "1839796",
                                 "relatedData": {
-                                    "dwc:class": "Actinopterygii",
                                     "dwc:genus": "Trichomycterus",
+                                    "dwc:class": "Actinopterygii",
                                     "dwc:phylum": "Chordata",
-                                    "dwc:kingdom": "Animalia",
                                     "dwc:family": "Trichomycteridae",
-                                    "dwc:specificEpithet": "taczonowskii",
+                                    "dwc:kingdom": "Animalia",
                                     "dwc:scientificName": "Trichomycterus taczonowskii",
+                                    "dwc:specificEpithet": "taczonowskii",
                                     "dwc:order": "Siluriformes"
                                 }
                             },
                             {
                                 "recordId": "1839912",
                                 "relatedData": {
-                                    "dwc:class": "Actinopterygii",
                                     "dwc:genus": "Sorubumichthys",
+                                    "dwc:class": "Actinopterygii",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "Spix & Agassiz, 1829",
-                                    "dwc:kingdom": "Animalia",
                                     "dwc:family": "Pimelodidae",
-                                    "dwc:specificEpithet": "planiceps",
+                                    "dwc:kingdom": "Animalia",
                                     "dwc:scientificName": "Sorubumichthys planiceps",
+                                    "dwc:specificEpithet": "planiceps",
                                     "dwc:order": "Siluriformes"
                                 }
                             },
                             {
                                 "recordId": "1839988",
                                 "relatedData": {
-                                    "dwc:class": "Actinopterygii",
                                     "dwc:genus": "Imparfinis",
+                                    "dwc:class": "Actinopterygii",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Boulenger, 1887)",
-                                    "dwc:kingdom": "Animalia",
                                     "dwc:family": "Heptapteridae",
-                                    "dwc:specificEpithet": "longicauda",
+                                    "dwc:kingdom": "Animalia",
                                     "dwc:scientificName": "Imparfinis longicauda",
+                                    "dwc:specificEpithet": "longicauda",
                                     "dwc:order": "Siluriformes"
                                 }
                             },
                             {
                                 "recordId": "1840158",
                                 "relatedData": {
-                                    "dwc:class": "Actinopterygii",
                                     "dwc:genus": "Farlowella",
+                                    "dwc:class": "Actinopterygii",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Kner, 1853)",
-                                    "dwc:kingdom": "Animalia",
                                     "dwc:family": "Loricariidae",
-                                    "dwc:specificEpithet": "oxyrhyncha",
+                                    "dwc:kingdom": "Animalia",
                                     "dwc:scientificName": "Farlowella oxyrhyncha",
+                                    "dwc:specificEpithet": "oxyrhyncha",
                                     "dwc:order": "Siluriformes"
                                 }
                             },
                             {
                                 "recordId": "1840250",
                                 "relatedData": {
-                                    "dwc:class": "Actinopterygii",
                                     "dwc:genus": "Cynoponthicus",
+                                    "dwc:class": "Actinopterygii",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Jordan & Gilbert, 1882)",
-                                    "dwc:kingdom": "Animalia",
                                     "dwc:family": "Muraenesocidae",
-                                    "dwc:specificEpithet": "coniceps",
+                                    "dwc:kingdom": "Animalia",
                                     "dwc:scientificName": "Cynoponthicus coniceps",
+                                    "dwc:specificEpithet": "coniceps",
                                     "dwc:order": "Anguilliformes"
                                 }
                             }
@@ -1499,69 +1689,69 @@
                             {
                                 "recordId": "1839654",
                                 "relatedData": {
-                                    "dwc:class": "Actinopterygii",
                                     "dwc:genus": "Eretmobrycon",
+                                    "dwc:class": "Actinopterygii",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
-                                    "dwc:kingdom": "Animalia",
                                     "dwc:family": "Characidae",
-                                    "dwc:specificEpithet": "dahli",
+                                    "dwc:kingdom": "Animalia",
                                     "dwc:scientificName": "Eretmobrycon dahli",
+                                    "dwc:specificEpithet": "dahli",
                                     "dwc:order": "Characiformes"
                                 }
                             },
                             {
                                 "recordId": "1839659",
                                 "relatedData": {
-                                    "dwc:class": "Actinopterygii",
                                     "dwc:genus": "Eretmobrycon",
+                                    "dwc:class": "Actinopterygii",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
-                                    "dwc:kingdom": "Animalia",
                                     "dwc:family": "Characidae",
-                                    "dwc:specificEpithet": "dahli",
+                                    "dwc:kingdom": "Animalia",
                                     "dwc:scientificName": "Eretmobrycon dahli",
+                                    "dwc:specificEpithet": "dahli",
                                     "dwc:order": "Characiformes"
                                 }
                             },
                             {
                                 "recordId": "1839673",
                                 "relatedData": {
-                                    "dwc:class": "Actinopterygii",
                                     "dwc:genus": "Eretmobrycon",
+                                    "dwc:class": "Actinopterygii",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
-                                    "dwc:kingdom": "Animalia",
                                     "dwc:family": "Characidae",
-                                    "dwc:specificEpithet": "dahli",
+                                    "dwc:kingdom": "Animalia",
                                     "dwc:scientificName": "Eretmobrycon dahli",
+                                    "dwc:specificEpithet": "dahli",
                                     "dwc:order": "Characiformes"
                                 }
                             },
                             {
                                 "recordId": "1839685",
                                 "relatedData": {
-                                    "dwc:class": "Actinopterygii",
                                     "dwc:genus": "Eretmobrycon",
+                                    "dwc:class": "Actinopterygii",
                                     "dwc:phylum": "Chordata",
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
-                                    "dwc:kingdom": "Animalia",
                                     "dwc:family": "Characidae",
-                                    "dwc:specificEpithet": "dahli",
+                                    "dwc:kingdom": "Animalia",
                                     "dwc:scientificName": "Eretmobrycon dahli",
+                                    "dwc:specificEpithet": "dahli",
                                     "dwc:order": "Characiformes"
                                 }
                             },
                             {
                                 "recordId": "1839782",
                                 "relatedData": {
-                                    "dwc:class": "Actinopterygii",
                                     "dwc:genus": "Eretmobrycon",
+                                    "dwc:class": "Actinopterygii",
                                     "dwc:phylum": "Chordata",
-                                    "dwc:kingdom": "Animalia",
                                     "dwc:family": "Characidae",
-                                    "dwc:specificEpithet": "dahli",
+                                    "dwc:kingdom": "Animalia",
                                     "dwc:scientificName": "Eretmobrycon dahli",
+                                    "dwc:specificEpithet": "dahli",
                                     "dwc:order": "Characiformes"
                                 }
                             }
