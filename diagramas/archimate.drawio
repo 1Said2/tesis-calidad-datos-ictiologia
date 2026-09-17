@@ -40,7 +40,7 @@
         <mxCell id="63hxDgpFFIozEw5d8SbR-12" parent="1" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="OpenRefine&#xa;limpieza estructural" vertex="1">
           <mxGeometry height="80" width="200" x="610" y="450" as="geometry" />
         </mxCell>
-        <mxCell id="63hxDgpFFIozEw5d8SbR-13" parent="1" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Pipeline R&#xa;coordenadas, taxonomia,&#xa;extension y plausibilidad" vertex="1">
+        <mxCell id="63hxDgpFFIozEw5d8SbR-13" parent="1" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Pipeline R&#xa;coordenadas, taxonomia,&#xa;extension, plausibilidad&#xa;y corrección final" vertex="1">
           <mxGeometry height="80" width="210" x="865" y="450" as="geometry" />
         </mxCell>
         <mxCell id="63hxDgpFFIozEw5d8SbR-14" parent="1" style="shape=mxgraph.archimate3.application;appType=comp;archiType=square;whiteSpace=wrap;html=1;fillColor=#99CCFF;strokeColor=#6699CC;fontSize=10;fontStyle=0;align=center;verticalAlign=middle;" value="Power Query&#xa;carga al modelo dimensional" vertex="1">

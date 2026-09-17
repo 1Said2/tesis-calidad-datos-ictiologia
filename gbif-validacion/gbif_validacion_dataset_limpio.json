@@ -1,10 +1,10 @@
 {
-    "key": "1409634b-1231-4bdb-bfae-99cf0b1a306d",
-    "created": "2026-09-15T02:05:07.048+00:00",
-    "modified": "2026-09-15T02:06:42.926+00:00",
+    "key": "259f5758-4f3a-4ebf-81b2-9fcf0215ef21",
+    "created": "2026-09-17T21:40:18.577+00:00",
+    "modified": "2026-09-17T21:42:17.110+00:00",
     "username": "1said2",
-    "file": "dataset_dwca_20260914_210008.zip",
-    "fileSize": 576279,
+    "file": "dataset_dwca_20260917_163606.zip",
+    "fileSize": 576338,
     "fileFormat": "DWCA",
     "status": "FINISHED",
     "metrics": {
@@ -109,16 +109,16 @@
                         "interpretedIndexed": 6427,
                         "uniqueInterpretedValues": 6427,
                         "sampleInterpretedValuesMap": {
-                            "https://localhost/bndb/collections/individual/index.php?occid=1841152": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=680995": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=678027": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=677642": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=678773": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1840103": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=681339": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1841094": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=677804": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=679638": 1
+                            "https://localhost/bndb/collections/individual/index.php?occid=1841450": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=679667": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=679535": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=677324": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=677332": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1840862": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1841049": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=677717": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=680888": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=680029": 1
                         }
                     },
                     {
@@ -482,12 +482,12 @@
                         "term": "http://rs.tdwg.org/dwc/terms/locality",
                         "termGroup": "dwc_Location",
                         "termIndex": 94,
-                        "rawIndexed": 5914,
-                        "uniqueRawValues": 855,
-                        "interpretedIndexed": 5914,
-                        "uniqueInterpretedValues": 855,
+                        "rawIndexed": 6203,
+                        "uniqueRawValues": 914,
+                        "interpretedIndexed": 6203,
+                        "uniqueInterpretedValues": 914,
                         "sampleInterpretedValuesMap": {
-                            "Tonchigüe": 77,
+                            "Tonchigüe": 80,
                             "Parque Nacional Yasuní": 84,
                             "Bocana Yaupi": 152,
                             "Tiputini-Tambococha": 76,
@@ -503,20 +503,20 @@
                         "term": "http://rs.tdwg.org/dwc/terms/minimumElevationInMeters",
                         "termGroup": "dwc_Location",
                         "termIndex": 96,
-                        "rawIndexed": 4521,
-                        "uniqueRawValues": 506,
-                        "interpretedIndexed": 4521,
-                        "uniqueInterpretedValues": 506,
+                        "rawIndexed": 4712,
+                        "uniqueRawValues": 521,
+                        "interpretedIndexed": 4712,
+                        "uniqueInterpretedValues": 521,
                         "sampleInterpretedValuesMap": {
-                            "237.0": 61,
+                            "237.0": 65,
                             "300.0": 59,
-                            "290.0": 59,
                             "1585.0": 65,
+                            "238.0": 59,
                             "200.0": 104,
                             "210.0": 63,
                             "260.0": 98,
-                            "240.0": 106,
-                            "230.0": 64,
+                            "240.0": 124,
+                            "230.0": 72,
                             "235.0": 149
                         }
                     },
@@ -524,28 +524,20 @@
                         "term": "http://rs.tdwg.org/dwc/terms/maximumElevationInMeters",
                         "termGroup": "dwc_Location",
                         "termIndex": 97,
-                        "rawIndexed": 193,
-                        "uniqueRawValues": 40,
-                        "interpretedIndexed": 193,
-                        "uniqueInterpretedValues": 40,
+                        "rawIndexed": 2,
+                        "uniqueRawValues": 2,
+                        "interpretedIndexed": 2,
+                        "uniqueInterpretedValues": 2,
                         "sampleInterpretedValuesMap": {
-                            "182.0": 12,
-                            "228.0": 9,
-                            "183.0": 8,
-                            "184.0": 8,
-                            "240.0": 18,
-                            "297.0": 10,
-                            "230.0": 8,
-                            "174.0": 9,
-                            "224.0": 16,
-                            "168.0": 14
+                            "361.0": 1,
+                            "224.0": 1
                         }
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/verbatimElevation",
                         "termGroup": "dwc_Location",
                         "termIndex": 98,
-                        "rawIndexed": 0
+                        "rawIndexed": 191
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/minimumDepthInMeters",
@@ -577,7 +569,7 @@
                         "term": "http://rs.tdwg.org/dwc/terms/locationRemarks",
                         "termGroup": "dwc_Location",
                         "termIndex": 106,
-                        "rawIndexed": 4952
+                        "rawIndexed": 4663
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/decimalLatitude",
@@ -727,14 +719,14 @@
                         "sampleInterpretedValuesMap": {
                             "4937": 1,
                             "3959": 1,
-                            "1159": 1,
-                            "467": 1,
-                            "3210": 1,
+                            "2136": 1,
                             "5325": 1,
+                            "5645": 1,
+                            "4821": 1,
                             "2904": 1,
-                            "5925": 1,
-                            "296": 1,
-                            "6194": 1
+                            "2294": 1,
+                            "3606": 1,
+                            "296": 1
                         }
                     },
                     {
@@ -1386,8 +1378,8 @@
                             {
                                 "recordId": "1840780",
                                 "relatedData": {
-                                    "dwc:decimalLatitude": "-5.063108",
                                     "dwc:decimalLongitude": "-76.777627",
+                                    "dwc:decimalLatitude": "-5.063108",
                                     "dwc:verbatimCoordinates": "302930/9440090",
                                     "dwc:geodeticDatum": "WGS84",
                                     "dwc:countryCode": "EC",
@@ -1397,8 +1389,8 @@
                             {
                                 "recordId": "680691",
                                 "relatedData": {
-                                    "dwc:decimalLatitude": "-5.063108",
                                     "dwc:decimalLongitude": "-76.777627",
+                                    "dwc:decimalLatitude": "-5.063108",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
                                     "dwc:countryCode": "EC",
@@ -1408,8 +1400,8 @@
                             {
                                 "recordId": "680692",
                                 "relatedData": {
-                                    "dwc:decimalLatitude": "-5.063108",
                                     "dwc:decimalLongitude": "-76.777627",
+                                    "dwc:decimalLatitude": "-5.063108",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
                                     "dwc:countryCode": "EC",
@@ -1419,8 +1411,8 @@
                             {
                                 "recordId": "680693",
                                 "relatedData": {
-                                    "dwc:decimalLatitude": "-5.063108",
                                     "dwc:decimalLongitude": "-76.777627",
+                                    "dwc:decimalLatitude": "-5.063108",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
                                     "dwc:countryCode": "EC",
@@ -1430,8 +1422,8 @@
                             {
                                 "recordId": "680694",
                                 "relatedData": {
-                                    "dwc:decimalLatitude": "-5.063108",
                                     "dwc:decimalLongitude": "-76.777627",
+                                    "dwc:decimalLatitude": "-5.063108",
                                     "dwc:verbatimCoordinates": "302930 / 9440090",
                                     "dwc:geodeticDatum": "WGS84",
                                     "dwc:countryCode": "EC",
@@ -1544,36 +1536,36 @@
                             {
                                 "recordId": "1840167",
                                 "relatedData": {
-                                    "dwc:decimalLatitude": "0.43938",
-                                    "dwc:decimalLongitude": "-76.629934"
+                                    "dwc:decimalLongitude": "-76.629934",
+                                    "dwc:decimalLatitude": "0.43938"
                                 }
                             },
                             {
                                 "recordId": "1840219",
                                 "relatedData": {
-                                    "dwc:decimalLatitude": "0.67541",
-                                    "dwc:decimalLongitude": "-76.42361"
+                                    "dwc:decimalLongitude": "-76.42361",
+                                    "dwc:decimalLatitude": "0.67541"
                                 }
                             },
                             {
                                 "recordId": "1840744",
                                 "relatedData": {
-                                    "dwc:decimalLatitude": "0.91139",
-                                    "dwc:decimalLongitude": "-77.92565"
+                                    "dwc:decimalLongitude": "-77.92565",
+                                    "dwc:decimalLatitude": "0.91139"
                                 }
                             },
                             {
                                 "recordId": "1840770",
                                 "relatedData": {
-                                    "dwc:decimalLatitude": "0.91139",
-                                    "dwc:decimalLongitude": "-77.92565"
+                                    "dwc:decimalLongitude": "-77.92565",
+                                    "dwc:decimalLatitude": "0.91139"
                                 }
                             },
                             {
                                 "recordId": "1840774",
                                 "relatedData": {
-                                    "dwc:decimalLatitude": "0.62119",
-                                    "dwc:decimalLongitude": "-75.82578"
+                                    "dwc:decimalLongitude": "-75.82578",
+                                    "dwc:decimalLatitude": "0.62119"
                                 }
                             }
                         ]
@@ -1618,8 +1610,8 @@
                                     "dwc:phylum": "Chordata",
                                     "dwc:family": "Trichomycteridae",
                                     "dwc:kingdom": "Animalia",
-                                    "dwc:scientificName": "Trichomycterus taczonowskii",
                                     "dwc:specificEpithet": "taczonowskii",
+                                    "dwc:scientificName": "Trichomycterus taczonowskii",
                                     "dwc:order": "Siluriformes"
                                 }
                             },
@@ -1632,8 +1624,8 @@
                                     "dwc:scientificNameAuthorship": "Spix & Agassiz, 1829",
                                     "dwc:family": "Pimelodidae",
                                     "dwc:kingdom": "Animalia",
-                                    "dwc:scientificName": "Sorubumichthys planiceps",
                                     "dwc:specificEpithet": "planiceps",
+                                    "dwc:scientificName": "Sorubumichthys planiceps",
                                     "dwc:order": "Siluriformes"
                                 }
                             },
@@ -1646,8 +1638,8 @@
                                     "dwc:scientificNameAuthorship": "(Boulenger, 1887)",
                                     "dwc:family": "Heptapteridae",
                                     "dwc:kingdom": "Animalia",
-                                    "dwc:scientificName": "Imparfinis longicauda",
                                     "dwc:specificEpithet": "longicauda",
+                                    "dwc:scientificName": "Imparfinis longicauda",
                                     "dwc:order": "Siluriformes"
                                 }
                             },
@@ -1660,8 +1652,8 @@
                                     "dwc:scientificNameAuthorship": "(Kner, 1853)",
                                     "dwc:family": "Loricariidae",
                                     "dwc:kingdom": "Animalia",
-                                    "dwc:scientificName": "Farlowella oxyrhyncha",
                                     "dwc:specificEpithet": "oxyrhyncha",
+                                    "dwc:scientificName": "Farlowella oxyrhyncha",
                                     "dwc:order": "Siluriformes"
                                 }
                             },
@@ -1674,8 +1666,8 @@
                                     "dwc:scientificNameAuthorship": "(Jordan & Gilbert, 1882)",
                                     "dwc:family": "Muraenesocidae",
                                     "dwc:kingdom": "Animalia",
-                                    "dwc:scientificName": "Cynoponthicus coniceps",
                                     "dwc:specificEpithet": "coniceps",
+                                    "dwc:scientificName": "Cynoponthicus coniceps",
                                     "dwc:order": "Anguilliformes"
                                 }
                             }
@@ -1695,8 +1687,8 @@
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
                                     "dwc:family": "Characidae",
                                     "dwc:kingdom": "Animalia",
-                                    "dwc:scientificName": "Eretmobrycon dahli",
                                     "dwc:specificEpithet": "dahli",
+                                    "dwc:scientificName": "Eretmobrycon dahli",
                                     "dwc:order": "Characiformes"
                                 }
                             },
@@ -1709,8 +1701,8 @@
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
                                     "dwc:family": "Characidae",
                                     "dwc:kingdom": "Animalia",
-                                    "dwc:scientificName": "Eretmobrycon dahli",
                                     "dwc:specificEpithet": "dahli",
+                                    "dwc:scientificName": "Eretmobrycon dahli",
                                     "dwc:order": "Characiformes"
                                 }
                             },
@@ -1723,8 +1715,8 @@
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
                                     "dwc:family": "Characidae",
                                     "dwc:kingdom": "Animalia",
-                                    "dwc:scientificName": "Eretmobrycon dahli",
                                     "dwc:specificEpithet": "dahli",
+                                    "dwc:scientificName": "Eretmobrycon dahli",
                                     "dwc:order": "Characiformes"
                                 }
                             },
@@ -1737,8 +1729,8 @@
                                     "dwc:scientificNameAuthorship": "(Román-Valencia, 2000)",
                                     "dwc:family": "Characidae",
                                     "dwc:kingdom": "Animalia",
-                                    "dwc:scientificName": "Eretmobrycon dahli",
                                     "dwc:specificEpithet": "dahli",
+                                    "dwc:scientificName": "Eretmobrycon dahli",
                                     "dwc:order": "Characiformes"
                                 }
                             },
@@ -1750,8 +1742,8 @@
                                     "dwc:phylum": "Chordata",
                                     "dwc:family": "Characidae",
                                     "dwc:kingdom": "Animalia",
-                                    "dwc:scientificName": "Eretmobrycon dahli",
                                     "dwc:specificEpithet": "dahli",
+                                    "dwc:scientificName": "Eretmobrycon dahli",
                                     "dwc:order": "Characiformes"
                                 }
                             }

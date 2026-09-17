@@ -130,7 +130,7 @@ def construir_dwca():
         'waterBody', 'islandGroup', 'island', 'previousIdentifications', 'countryCode'
     ]
 
-    input_csv = INTERMEDIOS_DIR / 'ocurrences_con_identifications.csv'
+    input_csv = INTERMEDIOS_DIR / 'ocurrences_corregido.csv'
     if not input_csv.exists():
         print(f"Error: No se encontró el dataset limpio en {input_csv}")
         print("Ejecuta todo el pipeline de R primero.")
@@ -574,7 +574,8 @@ def ejecutar_pipeline_completo():
         "Coordenadas.R",
         "Fishbase.R",
         "UnirIdentificationsOcurrences.R",
-        "ValidacionPlausibilidad.R"
+        "ValidacionPlausibilidad.R",
+        "AplicarCorrecciones.R"
     ]
     
     print("\n" + "="*60)

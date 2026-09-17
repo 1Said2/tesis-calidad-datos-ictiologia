@@ -65,7 +65,7 @@ Este proyecto ha sido completamente automatizado usando un script maestro en Pyt
 
 ## Orden de ejecucion
 
-El pipeline se ejecuto en seis etapas. Cada una lee la salida de la anterior.
+El pipeline se ejecuto en siete etapas. Cada una lee la salida de la anterior.
 
 | Etapa | Herramienta | Archivo que produce |
 |---|---|---|
@@ -74,9 +74,10 @@ El pipeline se ejecuto en seis etapas. Cada una lee la salida de la anterior.
 | 3 | `Fishbase.R` | `ocurrences_salida_taxonomia.csv` |
 | 4 | `UnirIdentificationsOcurrences.R` | `ocurrences_con_identifications.csv` |
 | 5 | `ValidacionPlausibilidad.R` | `reporte_plausibilidad.csv` |
-| 6 | `herramientas.py` | `dataset_dwca.zip` (Darwin Core Archive) |
+| 6 | `AplicarCorrecciones.R` | `ocurrences_corregido.csv` |
+| 7 | `herramientas.py` | `dataset_dwca.zip` (Darwin Core Archive) |
 
-La etapa 5 es de deteccion: mide la calidad del core y produce un reporte de hallazgos, pero no modifica ninguna celda del conjunto de datos. La etapa 6 empaqueta el Darwin Core Archive a partir de la salida de la etapa 4.
+La etapa 5 es de deteccion: mide la calidad del core y produce un reporte de hallazgos, pero no modifica ninguna celda del conjunto de datos. La etapa 6 aplica correcciones según lo hallado. La etapa 7 empaqueta el Darwin Core Archive a partir de la salida de la etapa 6.
 
 ## Que no esta en este repositorio y por que
 
