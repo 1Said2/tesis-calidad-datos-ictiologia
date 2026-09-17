@@ -6,7 +6,8 @@
 #
 # Principio: esta etapa es la UNICA que escribe correcciones sobre el core.
 # Toda celda modificada queda anotada. Ninguna celda vacia se rellena con un
-# valor estimado. El valor de origen se conserva siempre en una columna propia.
+# valor estimado. El valor de origen se conserva siempre, en el término verbatim
+# oficial de Darwin Core cuando existe, o en una columna propia de auditoría cuando no.
 #
 # Reglas aplicadas en esta version (3):
 #   R1  Altitud puntual escrita en el campo maximo            191 filas
@@ -33,9 +34,9 @@ cat("Filas cargadas:", n_inicial, "\n")
 
 # --- Columnas de anotacion ---------------------------------------------------
 # Se crean solo si no existen, para que el script sea reejecutable.
-nuevas <- c("locality_verbatim",
+nuevas <- c("verbatimLocality",
             "locationRemarks_verbatim",
-            "maximumElevationInMeters_verbatim",
+            "verbatimElevation",
             "metodo_correccion_etapa6",
             "regla_etapa6")
 for (col in nuevas) if (!col %in% names(df)) df[[col]] <- ""
@@ -82,7 +83,7 @@ cambios <- registrar(cambios, sub, "altitud puntual movida del maximo al minimo"
 cambios <- registrar(cambios, sub, "altitud puntual movida del maximo al minimo",
                      "maximumElevationInMeters", sub$maximumElevationInMeters, "")
 
-df$maximumElevationInMeters_verbatim[R1] <- df$maximumElevationInMeters[R1]
+df$verbatimElevation[R1] <- df$maximumElevationInMeters[R1]
 df$minimumElevationInMeters[R1]          <- df$maximumElevationInMeters[R1]
 df$maximumElevationInMeters[R1]          <- ""
 df <- anotar(df, R1, "altitud_movida_max_a_min",
@@ -135,7 +136,7 @@ recortado <- str_replace(sub$locality, regex(PATRON_UTM, ignore_case = TRUE), ""
 cambios <- registrar(cambios, sub, "coordenada y altitud recortadas del texto de locality",
                      "locality", sub$locality, recortado)
 
-df$locality_verbatim[R3] <- df$locality[R3]
+df$verbatimLocality[R3] <- df$locality[R3]
 df$locality[R3]          <- recortado
 df <- anotar(df, R3, "locality_recortada_coordenada_embebida",
              "coordenada o altitud embebida en el texto de localidad")
@@ -160,9 +161,9 @@ vaciadas <- sum(cambios$valor_nuevo == "" & cambios$valor_anterior != "")
 pobladas <- sum(cambios$valor_nuevo != "" & cambios$valor_anterior == "")
 cat("    celdas vaciadas:", vaciadas, " celdas pobladas desde otra celda:", pobladas, "\n")
 
-stopifnot(all(df$locality_verbatim[R3] != ""))
+stopifnot(all(df$verbatimLocality[R3] != ""))
 stopifnot(all(df$locationRemarks_verbatim[R2] != ""))
-stopifnot(all(df$maximumElevationInMeters_verbatim[R1] != ""))
+stopifnot(all(df$verbatimElevation[R1] != ""))
 cat("OK  el valor de origen quedo respaldado en las tres reglas\n")
 
 cat("\nValores distintos de locality en las 23 de Limoncocha:",
