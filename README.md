@@ -10,21 +10,22 @@ Trabajo de titulación — Ingeniería de Software.
 
 ```
 .
-├── docs/                   Documentación de la tesis
-│   ├── cuestionario-inabio.md   Preguntas pendientes para el curador
-│   └── bitacora-limpieza.md     Bitácora completa de 10 iteraciones
+├── cuestionario-inabio.md        Preguntas y decisiones pendientes para el curador
+├── herramientas.py               Orquestador del pipeline
+├── requirements.txt              Dependencias de Python
+├── LICENSE                       Licencia MIT del codigo
 │
-├── pipeline-r/             Proyecto RStudio (abrir pipeline-r.Rproj)
-│   ├── scripts/            Scripts R del pipeline
-│   ├── datos/
-│   │   ├── 01_crudos/      Dataset DwCA original (CSVs + XML)
-│   │   └── 02_intermedios/ Salidas de cada fase (gitignored)
-│   ├── reportes_y_revisiones/  CSVs de reporte para el curador
-│   └── renv.lock           Lockfile de dependencias R
+├── diagramas/                    ArchiMate, flujo de datos y ecosistema Power BI
+├── gbif-validacion/              Informes del validador de GBIF, original y limpio
+├── openrefine/Reglas.json        Receta de operaciones de OpenRefine
 │
-├── openrefine/             Recetas JSON de OpenRefine (reproducibilidad)
-├── dashboard/              Reporte HTML + reglas de validación
-└── diagramas/              Diagramas de arquitectura (.drawio)
+└── pipeline-r/                   Proyecto RStudio (abrir pipeline-r.Rproj)
+    ├── scripts/                  Los cuatro scripts de R
+    ├── renv.lock                 Lockfile de dependencias de R
+    ├── datos/                    No versionado. Se genera localmente
+    │   ├── 01_crudos/            Dataset DwC-A original (CSVs + XML)
+    │   └── 02_intermedios/       Salidas de cada fase del pipeline
+    └── reportes_y_revisiones/    No versionado. CSVs de reporte para el curador
 ```
 
 ## Cómo reproducir
@@ -46,7 +47,7 @@ Este proyecto ha sido completamente automatizado usando un script maestro en Pyt
    ```
    *(Nota: Este comando creará automáticamente un entorno virtual `venv` y restaurará los paquetes de R).*
 3. **Activa el entorno virtual** de Python:
-   - En Windows: `.\venv\Scripts\activate`
+   - En Windows: `.\\venv\\Scripts\\activate`
    - En Mac/Linux: `source venv/bin/activate`
 4. **¡Ejecuta el pipeline completo!**
    Asegúrate de que OpenRefine esté abierto y corre:
@@ -62,12 +63,30 @@ Este proyecto ha sido completamente automatizado usando un script maestro en Pyt
 
 *(Si lo prefieres, puedes ejecutar `python herramientas.py` sin argumentos para abrir un menú interactivo y correr cada paso individualmente).*
 
-## Datos
+## Orden de ejecucion
 
-Los datos originales provienen del portal Symbiota del INABIO (exportación DwC-A).
-Los CSVs intermedios no se versionan; se regeneran ejecutando el pipeline.
-Los shapefiles GADM se descargan automáticamente la primera vez.
+El pipeline se ejecuto en seis etapas. Cada una lee la salida de la anterior.
+
+| Etapa | Herramienta | Archivo que produce |
+|---|---|---|
+| 1 | OpenRefine, aplicando `openrefine/Reglas.json` | `ocurrences_openrefine.csv` |
+| 2 | `Coordenadas.R` | `ocurrences_salida_coordenadas.csv` |
+| 3 | `Fishbase.R` | `ocurrences_salida_taxonomia.csv` |
+| 4 | `UnirIdentificationsOcurrences.R` | `ocurrences_con_identifications.csv` |
+| 5 | `ValidacionPlausibilidad.R` | `reporte_plausibilidad.csv` |
+| 6 | `herramientas.py` | `dataset_dwca.zip` (Darwin Core Archive) |
+
+La etapa 5 es de deteccion: mide la calidad del core y produce un reporte de hallazgos, pero no modifica ninguna celda del conjunto de datos. La etapa 6 empaqueta el Darwin Core Archive a partir de la salida de la etapa 4.
+
+## Que no esta en este repositorio y por que
+
+- **Datos crudos e intermedios.** Los datos originales provienen del portal Symbiota del INABIO (exportacion DwC-A). Los CSVs intermedios se regeneran ejecutando el pipeline y ocupan megabytes que no aportan al historial de versiones.
+- **Reportes CSV para el curador.** Se publican congelados en el release.
+- **Shapefiles de GADM.** Se descargan automaticamente la primera vez que se ejecuta el pipeline.
+- **El archivo .pbix.** Es un avance de trabajo, no el entregable de la tesis.
+
+El paquete de evidencia fechado se publica como release del repositorio bajo el tag `v1.0-MECN-DP`.
 
 ## Licencia
 
-Pendiente de definición.
+El codigo de este repositorio, que comprende los scripts de R, la receta de OpenRefine y el orquestador en Python, se publica bajo licencia MIT. Los datos pertenecen al INABIO y se rigen por la licencia declarada en el `eml.xml` del Darwin Core Archive.

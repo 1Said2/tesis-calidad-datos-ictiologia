@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Proceso General" id="procesoGeneralBI">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="titulo" value="Flujo de Datos BI - Coleccion ictiologica MECN-DP" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1F4E79;" vertex="1" parent="1">
+          <mxGeometry x="140" y="20" width="820" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="linea" value="" style="line;strokeWidth=3;strokeColor=#C00000;" vertex="1" parent="1">
+          <mxGeometry x="60" y="62" width="980" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="origen" value="Portal Symbiota&#xa;BNDB - INABIO" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=15;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="130" width="140" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="marco" value="" style="rounded=0;html=1;fillColor=none;strokeColor=#C00000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="110" width="180" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="etl" value="ETL" style="shape=mxgraph.basic.rect;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#999999;fontSize=14;fontStyle=1;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="310" y="140" width="130" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="etlIco" value="&#8635;" style="text;html=1;align=center;verticalAlign=middle;fontSize=48;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="310" y="140" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dw" value="Data Warehouse&#xa;Data Mart" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=15;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="530" y="130" width="140" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="viz" value="" style="shape=mxgraph.basic.pie;html=1;fillColor=#F8CECC;strokeColor=#B85450;startAngle=0;endAngle=0.7;" vertex="1" parent="1">
+          <mxGeometry x="760" y="150" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="vizLbl" value="Tableros interactivos&#xa;Power BI Desktop" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="720" y="245" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="users" value="Investigadores&#xa;y curadores&#xa;INABIO" style="shape=mxgraph.archimate3.application;appType=actor;archiType=square;html=1;whiteSpace=wrap;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="940" y="150" width="110" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="b1" value="Fuente de datos" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70AD47;strokeColor=#507E32;fontColor=#FFFFFF;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="330" width="200" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="b2" value="Extraccion, transformacion&#xa;y carga de datos" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#A9D08E;strokeColor=#507E32;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="260" y="330" width="230" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="b3" value="Almacenamiento de datos" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#70AD47;strokeColor=#507E32;fontColor=#FFFFFF;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="330" width="230" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="b4" value="Reporteria de informacion" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=30;fillColor=#70AD47;strokeColor=#507E32;fontColor=#FFFFFF;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="330" width="330" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="origen" target="etl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="etl" target="dw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="dw" target="viz">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="viz" target="users">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

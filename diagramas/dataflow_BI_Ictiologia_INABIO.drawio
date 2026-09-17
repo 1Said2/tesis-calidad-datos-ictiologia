@@ -1,128 +1,197 @@
 <mxfile host="app.diagrams.net">
-  <diagram name="Data Flow - BI Ictiologia INABIO" id="dataflow2">
-    <mxGraphModel dx="792" dy="1266" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3400" pageHeight="760" math="0" shadow="0">
+  <diagram name="Data Flow - BI Ictiologia INABIO" id="37rSL-yDEDJIvkgEaSYi">
+    <mxGraphModel dx="1200" dy="1938" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="box1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Portal INABIO / BNDB&#xa;(bndb.sisbioecuador.bio)" vertex="1">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#D6B656;strokeWidth=2;dashed=1;fontSize=11;fontStyle=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" value="Bronce: datos crudos" vertex="1">
+          <mxGeometry height="810" width="1640" x="10" y="-150" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#6C8EBF;strokeWidth=2;dashed=1;fontSize=11;fontStyle=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" value="Plata: limpieza y deteccion" vertex="1">
+          <mxGeometry height="360" width="1440" x="1670" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B85450;strokeWidth=2;dashed=1;fontSize=11;fontStyle=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" value="Oro: modelo dimensional y visuales" vertex="1">
+          <mxGeometry height="670" width="560" x="2410" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Portal INABIO / BNDB&#xa;(bndb.sisbioecuador.bio)" vertex="1">
           <mxGeometry height="70" width="200" x="40" y="350" as="geometry" />
         </mxCell>
-        <mxCell id="box2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Seleccion de coleccion&#xa;(Ictiologia) + filtros opcionales&#xa;(taxon, localidad, geo, colector)" vertex="1">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Seleccion de coleccion&#xa;(Ictiologia) + filtros opcionales&#xa;(taxon, localidad, geo, colector)" vertex="1">
           <mxGeometry height="90" width="220" x="300" y="340" as="geometry" />
         </mxCell>
-        <mxCell id="box3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Configuracion de descarga&#xa;Structure: Darwin Core&#xa;CSV, UTF-8, extensiones activas" vertex="1">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Configuracion de descarga&#xa;Structure: Darwin Core&#xa;CSV, UTF-8, extensiones activas" vertex="1">
           <mxGeometry height="90" width="220" x="580" y="340" as="geometry" />
         </mxCell>
-        <mxCell id="box4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Descarga&#xa;(ZIP - Darwin Core Archive)" vertex="1">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Descarga&#xa;(ZIP - Darwin Core Archive)" vertex="1">
           <mxGeometry height="70" width="180" x="860" y="350" as="geometry" />
         </mxCell>
-        <mxCell id="zcore" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="occurrences.csv&lt;br&gt;CORE - tabla de hechos" vertex="1">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="occurrences.csv&lt;br&gt;CORE - tabla de hechos" vertex="1">
           <mxGeometry height="70" width="220" x="660" y="-110" as="geometry" />
         </mxCell>
-        <mxCell id="zmeta" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" value="meta.xml&#xa;descriptor DwC-A&#xa;(mapeo de estructura)" vertex="1">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" value="meta.xml&#xa;descriptor DwC-A&#xa;(mapeo de estructura)" vertex="1">
           <mxGeometry height="70" width="220" x="910" y="-40" as="geometry" />
         </mxCell>
-        <mxCell id="zeml" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" value="eml.xml&#xa;metadata del dataset" vertex="1">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" value="eml.xml&#xa;metadata del dataset" vertex="1">
           <mxGeometry height="60" width="220" x="1030" y="75" as="geometry" />
         </mxCell>
-        <mxCell id="zident" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="identifications.csv&#xa;EXT - historial determinacion&#xa;(join por coreid)" vertex="1">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="identifications.csv&#xa;EXT - historial determinacion&#xa;(join por coreid)" vertex="1">
           <mxGeometry height="70" width="220" x="670" y="550" as="geometry" />
         </mxCell>
-        <mxCell id="zmat" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="materialSample.csv&#xa;EXT - muestras de material&#xa;(join por coreid)" vertex="1">
-          <mxGeometry height="70" width="220" x="1020" y="500" as="geometry" />
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="materialSample.csv&#xa;EXT - muestras de material&#xa;0 filas, solo cabecera&#xa;(join por coreid)" vertex="1">
+          <mxGeometry height="80" width="220" x="1020" y="500" as="geometry" />
         </mxCell>
-        <mxCell id="zcite" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;dashed=1;fontColor=#999999;" value="CITEME.txt&#xa;solo cita bibliografica&#xa;(no se usa en ETL)" vertex="1">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;dashed=1;fontColor=#999999;" value="CITEME.txt&#xa;solo cita bibliografica&#xa;(no se usa en ETL)" vertex="1">
           <mxGeometry height="70" width="220" x="640" y="180" as="geometry" />
         </mxCell>
-        <mxCell id="box5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="Motor de consulta&#xa;Join core + extensiones (por coreid)&#xa;Extraccion y limpieza (Power Query / M)" vertex="1">
-          <mxGeometry height="100" width="240" x="1900" y="335" as="geometry" />
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="multimedia.csv&#xa;EXT - imagenes&#xa;430 imagenes en 346 ejemplares, 5,4 %&#xa;(join por coreid)" vertex="1">
+          <mxGeometry height="80" width="240" x="1400" y="345" as="geometry" />
         </mxCell>
-        <mxCell id="box6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="Segmentacion en tabla de hechos&#xa;y dimensiones (taxon, geografica,&#xa;fecha, multimedia)" vertex="1">
-          <mxGeometry height="100" width="220" x="2200" y="335" as="geometry" />
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="1. OpenRefine&#xa;&lt;font style=&quot;font-size:9px&quot;&gt;ocurrences_openrefine.csv&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="200" x="1680" y="350" as="geometry" />
         </mxCell>
-        <mxCell id="box7a" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" value="Data Vault&lt;br&gt;Hub Taxon + Satelites" vertex="1">
-          <mxGeometry height="90" width="220" x="2530" y="345" as="geometry" />
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="2. Coordenadas.R&#xa;&lt;font style=&quot;font-size:9px&quot;&gt;ocurrences_salida_coordenadas.csv&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="220" x="1920" y="350" as="geometry" />
         </mxCell>
-        <mxCell id="box7b" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" value="Kimball&lt;br&gt;Tabla de hechos + Dimensiones" vertex="1">
-          <mxGeometry height="80" width="220" x="2370" y="570" as="geometry" />
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="3. Fishbase.R&#xa;&lt;font style=&quot;font-size:9px&quot;&gt;ocurrences_salida_taxonomia.csv&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="220" x="2180" y="350" as="geometry" />
         </mxCell>
-        <mxCell id="box8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="Data Marts" vertex="1">
-          <mxGeometry height="70" width="160" x="2400" y="720" as="geometry" />
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="4. UnirIdentifications&#xa;Ocurrences.R&#xa;&lt;font style=&quot;font-size:9px&quot;&gt;ocurrences_con_identifications.csv&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="220" x="2440" y="345" as="geometry" />
         </mxCell>
-        <mxCell id="box9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="Dashboards Power BI&#xa;(Design Sprint + leyes UX)" vertex="1">
-          <mxGeometry height="70" width="200" x="2380" y="860" as="geometry" />
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;dashed=1;" value="5. ValidacionPlausibilidad.R&#xa;&lt;font style=&quot;font-size:9px&quot;&gt;reporte_plausibilidad.csv&lt;/font&gt;&#xa;&lt;font style=&quot;font-size:9px;font-style:italic&quot;&gt;capa de deteccion, no modifica el core&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="240" x="2700" y="345" as="geometry" />
         </mxCell>
-        <mxCell id="e1" edge="1" parent="1" source="box1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box2">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="Power Query / M&#xa;Carga al modelo dimensional" vertex="1">
+          <mxGeometry height="70" width="220" x="2570" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="Segmentacion en tabla de hechos&#xa;y dimensiones (taxon, geografica,&#xa;fecha, multimedia)" vertex="1">
+          <mxGeometry height="100" width="220" x="2440" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" value="Data Vault&lt;br&gt;Hub Taxon + Satelites" vertex="1">
+          <mxGeometry height="90" width="220" x="2750" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" value="Kimball&lt;br&gt;Tabla de hechos + Dimensiones" vertex="1">
+          <mxGeometry height="80" width="220" x="2600" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="Data Marts" vertex="1">
+          <mxGeometry height="70" width="160" x="2630" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="Dashboards Power BI&#xa;(Design Sprint + leyes UX)" vertex="1">
+          <mxGeometry height="70" width="200" x="2610" y="1040" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" value="herramientas.py&#xa;Darwin Core Archive" vertex="1">
+          <mxGeometry height="60" width="180" x="2460" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" value="Validador de GBIF" vertex="1">
+          <mxGeometry height="50" width="160" x="2700" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" value="Informe de incidencias" vertex="1">
+          <mxGeometry height="50" width="160" x="2920" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-29" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=9;fontStyle=2;" value="medicion externa, no alimenta el modelo" vertex="1">
+          <mxGeometry height="20" width="250" x="2600" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-30" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e2" edge="1" parent="1" source="box2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box3">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-31" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e3" edge="1" parent="1" source="box3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box4">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-32" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-7">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e4" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zcore" value="contiene">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-33" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-8" value="contiene">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e5" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zmeta" value="contiene">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-34" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-9" value="contiene">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e6" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zeml" value="contiene">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-35" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-10" value="contiene">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e7" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zident" value="contiene">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-36" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-11" value="contiene">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e8" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zmat" value="contiene">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-37" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-12" value="contiene">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e9" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zmulti" value="contiene">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-38" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-14" value="contiene">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e10" edge="1" parent="1" source="box4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;dashed=1;" target="zcite" value="contiene">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-39" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;dashed=1;" target="RlRtQTzorwa8Drpp0I5X-13" value="contiene">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e11" edge="1" parent="1" source="zcore" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box5">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-40" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-15">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e12" edge="1" parent="1" source="zmeta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=9;" target="box5" value="define mapeo">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-41" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-26" value="descriptor del DwCA">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e13" edge="1" parent="1" source="zeml" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=9;" target="box5" value="metadata">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-42" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-26" value="metadata del DwCA">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="60" />
+              <mxPoint x="2550" y="60" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-43" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-18" value="join coreid">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e14" edge="1" parent="1" source="zident" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box5" value="join coreid">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-44" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-19" value="auditoria, no se une al core">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1520" y="280" />
+              <mxPoint x="2820" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-45" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-16">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e15" edge="1" parent="1" source="zmulti" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box5" value="join coreid">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-46" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-17">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e16" edge="1" parent="1" source="zmulti" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box5" value="join coreid">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-47" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-18">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e17" edge="1" parent="1" source="box5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box6">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-48" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" target="RlRtQTzorwa8Drpp0I5X-19">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e18" edge="1" parent="1" source="box6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box7a" value="datos volatiles&#xa;(geo, fecha)">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-49" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2650" y="472.56" />
+              <mxPoint x="2700" y="472.56" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-50" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-21">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e19" edge="1" parent="1" source="box6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box7b" value="hechos + dim.&#xa;estables">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-51" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-22" value="datos volatiles&#xa;(geo, fecha)">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e20" edge="1" parent="1" source="box7a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="box7b" value="dimensiones&#xa;curadas">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-52" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-23" value="hechos + dim.&#xa;estables">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e21" edge="1" parent="1" source="box7b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box8">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-53" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-23" value="dimensiones&#xa;curadas">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e22" edge="1" parent="1" source="box8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="box9">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-54" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-24">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="-PGdkwpYDkz-s59saLI2-1" edge="1" parent="1" source="zmat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" target="zmulti" value="">
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-55" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="RlRtQTzorwa8Drpp0I5X-25">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="zmulti" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="multimedia.csv&#xa;EXT - imagenes&#xa;(join por coreid)" vertex="1">
-          <mxGeometry height="70" width="220" x="1410" y="350" as="geometry" />
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-56" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-57" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RlRtQTzorwa8Drpp0I5X-58" edge="1" parent="1" source="RlRtQTzorwa8Drpp0I5X-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;fontSize=9;" target="RlRtQTzorwa8Drpp0I5X-28">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
