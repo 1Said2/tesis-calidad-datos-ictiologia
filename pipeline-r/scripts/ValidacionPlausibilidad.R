@@ -14,9 +14,29 @@
 # ================================================================
 library(readr); library(dplyr); library(tidyr)
 
-ARCHIVO  <- "datos/02_intermedios/ocurrences_con_identifications.csv"
-SALIDA   <- "reportes_y_revisiones/reporte_plausibilidad.csv"
-RESUMEN  <- "reportes_y_revisiones/reporte_plausibilidad_resumen.csv"
+# Entrada y sufijo de salida parametrizables. Si corre en RStudio (interactivo)
+# mostrará un menú para elegir el modo.
+args    <- commandArgs(trailingOnly = TRUE)
+
+if (length(args) == 0 && interactive()) {
+  opcion <- menu(c("Validacion PRE (ocurrences_con_identifications.csv)",
+                   "Validacion POST (ocurrences_corregido.csv)",
+                   "Modo por defecto (sin sufijo)"),
+                 title = "¿Qué validación deseas ejecutar desde RStudio?")
+  if (opcion == 1) {
+    args <- c("datos/02_intermedios/ocurrences_con_identifications.csv", "pre")
+  } else if (opcion == 2) {
+    args <- c("datos/02_intermedios/ocurrences_corregido.csv", "post")
+  }
+}
+ARCHIVO <- if (length(args) >= 1 && nzchar(args[1])) args[1] else
+           "datos/02_intermedios/ocurrences_con_identifications.csv"
+SUFIJO  <- if (length(args) >= 2 && nzchar(args[2])) paste0("_", args[2]) else ""
+
+SALIDA      <- sprintf("reportes_y_revisiones/reporte_plausibilidad%s.csv", SUFIJO)
+RESUMEN     <- sprintf("reportes_y_revisiones/reporte_plausibilidad_resumen%s.csv", SUFIJO)
+VERIFICADAS <- sprintf("reportes_y_revisiones/reporte_plausibilidad_verificadas%s.csv", SUFIJO)
+REGLAS_CSV  <- sprintf("reportes_y_revisiones/reglas_ejecutadas%s.csv", SUFIJO)
 # Fecha de corte fija para reproducibilidad.
 HOY      <- as.Date("2026-08-23")
 ANIO_MIN <- 1900
@@ -595,9 +615,13 @@ for (col in c("genus", "family", "scientificName", "county", "municipality",
     raro <- if (v[[i]] <= v[[j]]) u[i] else u[j]
     comun <- if (v[[i]] <= v[[j]]) u[j] else u[i]
     idx <- which(df[[col]] == raro)
-    reg(idx, "ortografia", paste0("valor a una letra de otro valor de ", col),
-        col, paste0(raro, " (", v[[raro]], ") ~ ", comun, " (", v[[comun]], ")"),
-        "media", "INABIO")
+    reg(idx = idx,
+        bloque = "ortografia",
+        regla = paste0("valor a una letra de otro valor de ", col),
+        campos = col,
+        valores = paste0(raro, " (", v[[raro]], ") ~ ", comun, " (", v[[comun]], ")"),
+        severidad = "media",
+        destino = "INABIO")
   }
 }
 
@@ -615,7 +639,7 @@ reglas_verificadas <- c("canton homonimo de su provincia (verificado, no es erro
 rep_verificadas <- rep %>% filter(regla %in% reglas_verificadas)
 rep <- rep %>% filter(!(regla %in% reglas_verificadas))
 
-write_csv(rep_verificadas, "reportes_y_revisiones/reporte_plausibilidad_verificadas.csv", na = "")
+write_csv(rep_verificadas, VERIFICADAS, na = "")
 write_csv(rep, SALIDA, na = "")
 
 # Resumen por regla para el reporte de curación.
@@ -650,7 +674,7 @@ tibble::tibble(regla = unique(REGLAS_EJECUTADAS)) %>%
     regla %in% unique(rep$regla)    ~ "con_hallazgos",
     TRUE                            ~ "sin_hallazgos")) %>%
   dplyr::arrange(estado, regla) %>%
-  readr::write_csv("reportes_y_revisiones/reglas_ejecutadas.csv", na = "")
+  readr::write_csv(REGLAS_CSV, na = "")
 cat("reglas_ejecutadas.csv exportado:", length(unique(REGLAS_EJECUTADAS)), "reglas\n")
 
 cat("\nGuardado en", SALIDA, "\n")

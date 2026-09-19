@@ -570,12 +570,18 @@ def ejecutar_pipeline_completo():
     import time
     
     ROOT_DIR = Path(__file__).resolve().parent
+    # Cada entrada es (script, argumentos). ValidacionPlausibilidad.R se
+    # ejecuta dos veces, antes y despues de la etapa de correccion, para
+    # medir el efecto de la etapa 6 sobre el core.
     scripts_r = [
-        "Coordenadas.R",
-        "Fishbase.R",
-        "UnirIdentificationsOcurrences.R",
-        "ValidacionPlausibilidad.R",
-        "AplicarCorrecciones.R"
+        ("Coordenadas.R", []),
+        ("Fishbase.R", []),
+        ("UnirIdentificationsOcurrences.R", []),
+        ("ValidacionPlausibilidad.R",
+         ["datos/02_intermedios/ocurrences_con_identifications.csv", "pre"]),
+        ("AplicarCorrecciones.R", []),
+        ("ValidacionPlausibilidad.R",
+         ["datos/02_intermedios/ocurrences_corregido.csv", "post"]),
     ]
     
     print("\n" + "="*60)
@@ -612,14 +618,16 @@ def ejecutar_pipeline_completo():
         print("Asegúrate de tener R instalado (usualmente en C:\\Program Files\\R\\). Abortando.")
         return
 
-    for script in scripts_r:
+    for script, argumentos in scripts_r:
         script_path = ROOT_DIR / "pipeline-r" / "scripts" / script
-        print(f"\n--- Ejecutando {script} ---")
+        etiqueta = script if not argumentos else f"{script} ({argumentos[-1]})"
+        print(f"\n--- Ejecutando {etiqueta} ---")
         try:
             # Ejecuta Rscript y redirige la salida en tiempo real
-            subprocess.run([rscript_exe, str(script_path)], cwd=str(ROOT_DIR / "pipeline-r"), check=True)
+            subprocess.run([rscript_exe, str(script_path), *argumentos],
+                           cwd=str(ROOT_DIR / "pipeline-r"), check=True)
         except subprocess.CalledProcessError as e:
-            print(f"\n[ERROR] El script {script} falló. Abortando pipeline completo.")
+            print(f"\n[ERROR] El script {etiqueta} falló. Abortando pipeline completo.")
             return
     # 5. DWCA
     print("\n>>> PASO 5: Empaquetado final (Darwin Core Archive)...")
