@@ -1,0 +1,64 @@
+@startuml
+skinparam componentStyle uml2
+skinparam packageStyle rectangle
+skinparam linetype ortho
+left to right direction
+skinparam nodesep 100
+skinparam ranksep 150
+
+title Ecosistema - Capas Aplicación y Tecnología
+
+actor "Investigadores / Biólogos\ndel INABIO" as usuarios
+
+package "PROTOTIPO (Actual)" {
+    node "Servidor BNDB" <<execution environment>> {
+        artifact "Symbiota" as symbiota_actual
+    }
+    node "Estación de trabajo local" <<device>> as ws_actual {
+        artifact "Pipeline de curación\n(OpenRefine + R, 6 etapas)" as pipeline
+        artifact "ocurrences_curado.csv" as curado
+        artifact "Power BI Desktop (.pbix)" as pbix_actual
+    }
+    symbiota_actual ....> pipeline : <<HTTPS>>\ndescarga
+    pipeline ....> curado : produce
+    curado ....> pbix_actual : importa
+}
+
+package "ARQUITECTURA OBJETIVO" {
+    
+    node "Servidor INABIO" <<execution environment>> as servidor {
+        artifact "Modelo Dimensional" as datasource
+        artifact "PBI Gateway" as gateway
+    }
+
+    node "PBI Service (Nube)" <<execution environment>> as nube_pbi {
+        artifact "PBI Service" as service
+    }
+
+    node "Móvil" <<device>> as mobile_node {
+        artifact "PBI Mobile App" as mobile
+    }
+    
+    node "Navegador web (cliente)" <<execution environment>> as web_node {
+        artifact "Navegador web" as webapp
+    }
+}
+
+' Relaciones Arquitectura Objetivo
+' migracion, no flujo de datos
+ws_actual ....> servidor : ruta de escalamiento
+
+datasource ....> gateway : conecta
+gateway ....> service : <<HTTPS>>\nsincroniza (443)
+datasource ....> service : <<HTTPS>>\npublica el modelo
+
+' Relaciones de Consumo
+service ----> web_node : <<HTTPS>>\nconsume
+service ----> mobile_node : <<HTTPS>>\nconsume
+
+mobile_node ---- usuarios : " asignado a "
+web_node ---- usuarios : " asignado a "
+
+mobile_node -[hidden]- web_node
+
+@enduml

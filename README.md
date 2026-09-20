@@ -17,10 +17,9 @@ Trabajo de titulación — Ingeniería de Software.
 │
 ├── diagramas/                    ArchiMate, flujo de datos y ecosistema Power BI
 ├── gbif-validacion/              Informes del validador de GBIF, original y limpio
-├── openrefine/Reglas.json        Receta de operaciones de OpenRefine
 │
 └── pipeline-r/                   Proyecto RStudio (abrir pipeline-r.Rproj)
-    ├── scripts/                  Los cuatro scripts de R
+    ├── scripts/                  Scripts de R y receta de OpenRefine (Reglas.json)
     ├── renv.lock                 Lockfile de dependencias de R
     ├── datos/                    No versionado. Se genera localmente
     │   ├── 01_crudos/            Dataset DwC-A original (CSVs + XML)
@@ -69,12 +68,12 @@ El pipeline se ejecuto en siete etapas. Cada una lee la salida de la anterior.
 
 | Etapa | Herramienta | Archivo que produce |
 |---|---|---|
-| 1 | OpenRefine, aplicando `openrefine/Reglas.json` | `ocurrences_openrefine.csv` |
+| 1 | OpenRefine, aplicando `pipeline-r/scripts/Reglas.json` | `ocurrences_openrefine.csv` |
 | 2 | `Coordenadas.R` | `ocurrences_salida_coordenadas.csv` |
 | 3 | `Fishbase.R` | `ocurrences_salida_taxonomia.csv` |
 | 4 | `UnirIdentificationsOcurrences.R` | `ocurrences_con_identifications.csv` |
 | 5 | `ValidacionPlausibilidad.R` | `reporte_plausibilidad.csv` |
-| 6 | `AplicarCorrecciones.R` | `ocurrences_corregido.csv` |
+| 6 | `Curacion.R` | `ocurrences_curado.csv` |
 | 7 | `herramientas.py` | `dataset_dwca.zip` (Darwin Core Archive) |
 
 La etapa 5 es de deteccion: mide la calidad del core y produce un reporte de hallazgos, pero no modifica ninguna celda del conjunto de datos. La etapa 6 aplica correcciones según lo hallado. La etapa 7 empaqueta el Darwin Core Archive a partir de la salida de la etapa 6.

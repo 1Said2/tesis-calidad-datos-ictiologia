@@ -130,7 +130,7 @@ def construir_dwca():
         'waterBody', 'islandGroup', 'island', 'previousIdentifications', 'countryCode'
     ]
 
-    input_csv = INTERMEDIOS_DIR / 'ocurrences_corregido.csv'
+    input_csv = INTERMEDIOS_DIR / 'ocurrences_curado.csv'
     if not input_csv.exists():
         print(f"Error: No se encontró el dataset limpio en {input_csv}")
         print("Ejecuta todo el pipeline de R primero.")
@@ -365,7 +365,7 @@ def ejecutar_openrefine():
     URL = "http://localhost:3333"
     ROOT_DIR = Path(__file__).resolve().parent
     INPUT_CSV = ROOT_DIR / 'pipeline-r' / 'datos' / '01_crudos' / 'occurrences.csv'
-    REGLAS_JSON = ROOT_DIR / 'openrefine' / 'Reglas.json'
+    REGLAS_JSON = ROOT_DIR / 'pipeline-r' / 'scripts' / 'Reglas.json'
     OUTPUT_CSV = ROOT_DIR / 'pipeline-r' / 'datos' / '02_intermedios' / 'ocurrences_openrefine.csv'
     
     if not INPUT_CSV.exists():
@@ -579,9 +579,9 @@ def ejecutar_pipeline_completo():
         ("UnirIdentificationsOcurrences.R", []),
         ("ValidacionPlausibilidad.R",
          ["datos/02_intermedios/ocurrences_con_identifications.csv", "pre"]),
-        ("AplicarCorrecciones.R", []),
+        ("Curacion.R", []),
         ("ValidacionPlausibilidad.R",
-         ["datos/02_intermedios/ocurrences_corregido.csv", "post"]),
+         ["datos/02_intermedios/ocurrences_curado.csv", "post"]),
     ]
     
     print("\n" + "="*60)

@@ -20,13 +20,13 @@ args    <- commandArgs(trailingOnly = TRUE)
 
 if (length(args) == 0 && interactive()) {
   opcion <- menu(c("Validacion PRE (ocurrences_con_identifications.csv)",
-                   "Validacion POST (ocurrences_corregido.csv)",
+                   "Validacion POST (ocurrences_curado.csv)",
                    "Modo por defecto (sin sufijo)"),
                  title = "¿Qué validación deseas ejecutar desde RStudio?")
   if (opcion == 1) {
     args <- c("datos/02_intermedios/ocurrences_con_identifications.csv", "pre")
   } else if (opcion == 2) {
-    args <- c("datos/02_intermedios/ocurrences_corregido.csv", "post")
+    args <- c("datos/02_intermedios/ocurrences_curado.csv", "post")
   }
 }
 ARCHIVO <- if (length(args) >= 1 && nzchar(args[1])) args[1] else
