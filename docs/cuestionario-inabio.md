@@ -36,7 +36,7 @@ La severidad "alta" del reporte significa que el dato contradice una restricció
 |---|---|---|---|
 | `ocurrences_curado.csv` | 6.427 × 165 col | Conjunto final: 92 términos del portal, 4 términos Darwin Core que el portal no exportaba (`verbatimLatitude`, `verbatimLongitude`, `occurrenceStatus`, `previousIdentifications`) y 69 columnas de auditoría que no forman parte del estándar y no se publican | Todas |
 | `reporte_plausibilidad_post.csv` | 4.098 | Un hallazgo por fila, con regla, severidad y destino | Todas las que citan una `regla` |
-| `reporte_correcciones.csv` | 2.460 | Una celda modificada por fila, con la regla, el valor anterior y el valor nuevo. 1.621 registros afectados | Bloque "Cambios ya aplicados" |
+| `reporte_correcciones.csv` | 3.400 | Una celda modificada por fila, con la regla, el valor anterior y el valor nuevo. 1.621 registros afectados | Bloque "Cambios ya aplicados" |
 | `reglas_ejecutadas_post.csv` | 63 | Una fila por regla, con su estado (`con_hallazgos`, `sin_hallazgos`, `verificada_descartada`). Las que no encontraron nada también se registran | Vista general |
 | `reporte_plausibilidad_resumen_post.csv` | 44 | Una fila por regla con hallazgos: filas, registros y casos únicos, agrupados por severidad y destino | Vista general |
 | `reporte_plausibilidad_verificadas_post.csv` | 1.309 | Casos evaluados y descartados con justificación: 583 cantones homónimos de su provincia y 726 ejemplares del mismo lote de colecta | Ninguna. Es el registro de lo que no hay que preguntar |
@@ -48,35 +48,49 @@ La severidad "alta" del reporte significa que el dato contradice una restricció
 
 ## Cambios ya aplicados
 
-Estos cambios ya están hechos en el archivo. Si alguno no corresponde, indíquelo y se revierte.
+Los seis cambios de esta sección ya están aplicados sobre `ocurrences_curado.csv` y son verificables en el propio archivo. Cada uno se aplicó porque la evidencia que lo sustenta está dentro del mismo conjunto de datos y no requiere criterio biológico para comprobarse. El valor de origen se conserva en todos los casos, y la última columna indica el filtro exacto que revierte el cambio si el criterio curatorial no lo respalda.
 
-| Grupo | Filas | Sustento |
-|---|---|---|
-| 23 grafías que el backbone de GBIF resuelve como variante, con estado ACCEPTED, confianza 100 y una sola forma en el archivo | 34 | El sistema taxonómico de GBIF confirma automáticamente que estas grafías son sinónimos o variantes aceptadas con un 100% de confianza. Además, en el archivo proporcionado, estos nombres solo aparecen escritos de esta manera, por lo que no hay conflicto interno. |
-| *Durlanis perugiae* (cat. 6046) → *Duringlanis perugiae* | 1 | Se trata de un error tipográfico en un solo registro. En el mismo archivo existen otros 11 registros escritos correctamente como *Duringlanis perugiae*, compartiendo exactamente el mismo autor y año (Steindachner, 1882). |
-| Autorías que difieren solo en tilde, guion o una letra del apellido | 13 | Se estandarizó la escritura de los nombres de los autores basándose en cómo aparecen escritos la mayor parte de las veces dentro del mismo documento, corrigiendo así errores menores de tipeo (tildes, guiones o letras sueltas). |
-| Recortar el texto de locality a la descripcion del sitio en los registros de la Laguna Limoncocha | 23 | Se eliminaron datos redundantes del campo de localidad (como coordenadas UTM y altitud), ya que esa misma información está correctamente ubicada en sus columnas respectivas. Dejar esos datos duplicados en el texto provocaba que cuatro sitios aparecieran erróneamente como si fueran siete lugares distintos. |
-| Aplicar el tratamiento de Darwin Core a los cinco nombres con cualificador | 5 | Se adaptaron estos nombres para cumplir con el estándar Darwin Core. Las expresiones de duda como "cf.", "gr." o "complex" se movieron a su propia columna (`identificationQualifier`). Así, el nombre científico queda limpio y se ajusta al nivel taxonómico que sí es seguro (sea género o especie). |
-| Corregir la familia del catalogo 4201 de Pomacentridae a Pomacanthidae | 1 | Es una corrección de un error taxonómico evidente. El pez registrado pertenece al género *Holacanthus*, el cual está clasificado dentro de la familia Pomacanthidae, y no en Pomacentridae (que es otra familia de peces diferente). |
-| Corregir el grado de longitud del catalogo 4195, de 90 a 80 | 1 | Se corrigió una coordenada errónea (90 grados) por la que debe ser la correcta (80 grados). Este registro particular se tomó en el mismo lugar exacto que otros 5 especímenes en Manabí, lo que indica que fue un error al tipear el dígito inicial. |
-| Corregir el intercambio reciproco de identificacion entre los catalogos 3766 y 3767 | 2 | Se detectó que los datos de identificación de dos especímenes vecinos se cruzaron por accidente al ingresarlos. Las filas anteriores y posteriores están en perfecto orden, lo que confirma que fue un cruce puntual, y ya se ha devuelto cada identificación a su fila correcta. |
-| Aplicar el tratamiento de Darwin Core al catalogo 5092 (cf. pardalis) | 1 | Se extrajo cf. al campo identificationQualifier |
-| Vaciar el occurrenceStatus ausente a vacio | 2 | Los catalogos 5790 y 5791 declaraban absent. Se vaciaron porque el INABIO solo maneja especimenes preservados. |
-| Remover identificacion vacia de identificationRemarks | 1 | El catalogo 1037 declaraba genero vacio como identificacion. |
-| geodeticDatum declarado por supuesto | 470 | Las 5.708 filas que declaran datum declaran WGS84 sin excepción, y las coordenadas reconstruidas desde UTM se reproyectaron desde WGS84 por definición. El validador de GBIF ya lo asumía en silencio. Se declaró explícitamente y se marcó el supuesto en la columna datum_asumido y en georeferenceRemarks. |
-| Topónimo promovido de locationRemarks a locality | 289 | Había registros sin localidad, pero con un topónimo válido en observaciones. Se movió para que el registro no quede sin sitio descriptivo. |
-| Día fabricado por el portal retirado | 169 | El verbatimEventDate solo traía año y mes, y el portal completó el día con 01. Se vaciaron day y startDayOfYear para no inventar datos. |
-| locationRemarks espejo vaciado | 500 | El campo repetía literalmente el texto de locality. Al vaciarlo se elimina redundancia, ya que el texto sigue íntegro en locality. |
-| Altitud puntual movida del máximo al mínimo | 191 | Registros que traían altitud máxima pero no mínima. Se movió al mínimo por ser la convención estándar para altitudes puntuales. |
-_Las cifras son registros afectados. Un mismo registro puede haber recibido más de un cambio: 1.621 registros en total, 2.460 celdas modificadas, detalladas una por fila en `reporte_correcciones.csv`._
+| ID | Qué se cambió | Reg. | Campo(s) tocado(s) | Antes → Después | Original conservado en | Evidencia | Si no corresponde |
+|---|---|---|---|---|---|---|---|
+| C1 | Altitud puntual movida del máximo al mínimo | 191 | `minimumElevationInMeters`, `maximumElevationInMeters` | max=230, min=∅ → max=∅, min=230 | `verbatimElevation` | 4.519 registros declaran solo el mínimo; los 2 con ambos los tienen iguales; no existe ningún rango real | Filtrar `verbatimElevation` no vacío y devolver el valor a `maximumElevationInMeters` |
+| C2 | Topónimo promovido de locationRemarks a locality | 289 | `locality`, `locationRemarks` | locality=∅, remarks="Río Napo" → locality="Río Napo", remarks=∅ | `locationRemarks_verbatim` | 500 registros tienen ambos campos idénticos: `locationRemarks` funciona como campo espejo | Filtrar `regla_curacion` que contenga "locality vacia con locationRemarks poblada" y restaurar `locationRemarks_verbatim` sobre `locationRemarks`, vaciando `locality` |
+| C3 | Coordenada y altitud recortadas del texto de locality | 23 | `locality` | "Limoncocha 18N 331478/9866002 230 msnm" → "Limoncocha" | `verbatimLocality` | Los tres datos ya estaban en `decimalLatitude`, `verbatimCoordinates` y `minimumElevationInMeters` con el mismo valor | Restaurar `verbatimLocality` sobre `locality` |
+| C4 | locationRemarks espejo vaciado | 500 | `locationRemarks` | "Río Napo" → ∅ | `locationRemarks_verbatim` | El campo repetía literalmente `locality`; el texto sigue íntegro ahí | Restaurar desde el respaldo |
+| C5 | Día fabricado por el portal retirado | 169 | `eventDate`, `day`, `startDayOfYear` | 2003-08-01, day=1, sdy=213 → 2003-08, ∅, ∅ | `eventDate_portal` | `verbatimEventDate` dice 2003-8: el día no viene de la ficha | Restaurar `eventDate_portal` y recalcular `day` y `startDayOfYear` |
+| C6 | geodeticDatum declarado por supuesto | 470 | `geodeticDatum`, `datum_asumido`, `georeferenceRemarks` | ∅ → WGS84 + marca | — (el campo estaba vacío) | Las 5.708 filas que declaran datum declaran WGS84 sin excepción; las reproyecciones UTM partieron de WGS84 | Filtrar `datum_asumido = TRUE` y vaciar `geodeticDatum` |
 
+_Las cifras son registros afectados. Un mismo registro puede haber recibido más de un cambio: 1.621 registros en total, 3.400 celdas modificadas, detalladas una por fila en `reporte_correcciones.csv`._
 
+_Cada cambio está además registrado celda a celda en `reporte_correcciones.csv`, con el valor anterior y el nuevo, y marcado en el propio archivo en las columnas `regla_curacion`, `metodo_correccion_curacion` y `ronda_curacion`._
 
+## Correcciones propuestas, pendientes de aplicar
 
-Detalle del tratamiento de los cinco nombres con cualificador:
+Estas correcciones NO están aplicadas. El archivo conserva el valor original en todos los casos, lo cual puede comprobarse con los filtros de la tabla. Son casos puntuales donde el análisis identificó un error probable con evidencia interna, pero cuya corrección toca el contenido taxonómico o la determinación del ejemplar, y por tanto requiere autorización curatorial. Si el INABIO las autoriza, se aplicican como una ronda nueva del script de curación, con el mismo registro celda a celda y la misma reversibilidad que los cambios de la sección anterior.
+
+| ID | Corrección propuesta | Reg. | Campo(s) | Valor actual → Valor propuesto | Evidencia | Cómo verificarlo en el archivo | Pregunta relacionada |
+|---|---|---|---|---|---|---|---|
+| M1 | 23 grafías que el backbone de GBIF resuelve como variante, con estado ACCEPTED y sin observaciones. Veintidós con confianza 100; una, *Alphestes inmaculatus* → *immaculatus*, con confianza 86. | 34 | `scientificName` | Ej. *variante* → *nombre aceptado* | El sistema taxonómico de GBIF confirma la variante; no hay conflicto interno | En `gbif_nombres_difusos.csv`, filas con la columna `revisar` vacía; los nombres siguen presentes sin alterar en `scientificName` de `ocurrences_curado.csv` | F12 |
+| M2 | Error tipográfico en *Durlanis perugiae* (cat. 6046) | 1 | `scientificName` | "Durlanis perugiae" → "Duringlanis perugiae" | Existen otros 11 registros escritos correctamente con el mismo autor (Steindachner, 1882) frente a uno con la errata | `catalogNumber == 6046` | F12 |
+| M3 | Autorías que diferían en tilde, guion o letra (Aplicado en Fase 1, `Reglas.json`) | 13 | `scientificNameAuthorship` | Ej. "Cardenas" → "Cárdenas" | Se estandarizó basándose en la grafía mayoritaria dentro del mismo archivo para esa especie | (Ver nota al pie) | F11 |
+| M4 | Familia errónea de *Holacanthus* (cat. 4201) | 1 | `family` | "Pomacentridae" → "Pomacanthidae" | El pez pertenece al género *Holacanthus* (familia Pomacanthidae), no Pomacentridae. `flag_family_discrepa_backbone` está en TRUE | `catalogNumber == 4201` | F16 |
+| M5 | Grados de longitud y latitud invertidos en signo (cat. 4195) | 1 | `decimalLongitude`, `decimalLatitude` | lon -90.647778 / lat 0.901611 → lon -80.709092 / lat -0.950208 | Colectado en la misma provincia (Manabí) que los catálogos 4196, 4197 y 4198, que están correctamente ubicados en lon -80.709092 / lat -0.950208 | `catalogNumber == 4195` | D2 |
+| M6 | Intercambio recíproco de identificación (cat. 3766 y 3767) | 2 | `scientificName`, `family`, `scientificNameAuthorship` | Identidades cruzadas → Identidades correctas | Las filas anteriores y posteriores están en perfecto orden (fue un cruce accidental de 2 celdas) | `catalogNumber in (3766, 3767)` | J1 |
+| M7 | Estatus de ocurrencia irreal (cat. 5790, 5791) | 2 | `occurrenceStatus` | "absent" → ∅ | El INABIO solo maneja especímenes preservados ("present"), no observaciones de ausencia | `catalogNumber in (5790, 5791)` | G1 |
+| M8 | Identificación vacía (cat. 1037) | 1 | `identificationRemarks` | (texto indicando género vacío) → ∅ | No aportaba información taxonómica real | `catalogNumber == 1037` | G1 |
+| M9 | Completar el tratamiento Darwin Core de los cinco nombres con cualificador. El cualificador ya venía declarado en identificationQualifier desde el portal de origen, pero sigue duplicado dentro de scientificName, y taxonRank quedó sin declarar. | 5 | `scientificName`, `taxonRank` | "Lycengraulis cf. batesii" + rank ∅ → "Lycengraulis batesii" + rank "species" | El cualificador está duplicado en dos campos. Los cinco son los únicos registros con determinación entre los once que quedan sin taxonRank en el archivo; los otros seis no tienen nombre científico. El pipeline solo normalizó el espacio de 'cf.batesii'. | `catalogNumber in (5146, 6395, 6396, 4323, 4325)` | F5 |
+
+*Nota M3: Este grupo sí se aplicó durante la Fase 1 en OpenRefine (registrado en `Reglas.json`). El valor original puede consultarse en el `occurrences.csv` crudo.*
+
+Detalle de los cinco nombres con cualificador (M9):
 - 5146: scientificName = Lycengraulis batesii, identificationQualifier = "cf. batesii", taxonRank = species
 - 6395 y 6396: scientificName = Hypostomus, identificationQualifier = "gr. cochliodon", taxonRank = genus
 - 4323 y 4325: scientificName = Chaetostoma, identificationQualifier = "complex microps", taxonRank = genus
+
+_Los otros 7 nombres de `gbif_nombres_difusos.csv` (15 registros) no entran en esta propuesta porque tienen observación propia: cinco emparejan con un sinónimo, uno es de rango subfamiliar y uno propone la grafía contraria a la que el pipeline ya corrigió. Se tratan en F12, F13 y F14._
+
+_Ninguna de estas correcciones se aplicará sin respuesta del INABIO. El archivo actual conserva el valor original en todos los casos._
+
+**Nota de trazabilidad.** Una versión anterior de este documento incluía un décimo caso, descrito como "catálogo 5092 (cf. pardalis)". Al verificarlo se comprobó que el catálogo 5092 corresponde a *Gymnotus carapo*, sin cualificador y determinado a nivel de especie, y que la expresión "cf. pardalis" no aparece en ninguna versión del conjunto, incluido el archivo original descargado del portal. Los únicos seis registros con ese epíteto corresponden a *Pterygoplichthys pardalis* (catálogos 2290, 4427, 4980, 5080, 6069 y 6170), todos sin cualificador. El caso se retira por no ser verificable. Queda pendiente confirmar si la anotación provino de una consulta al portal en línea posterior a la descarga del 23 de agosto de 2026, extremo que se relaciona con la limitación declarada en el requisito de carga histórica.
 
 ---
 
@@ -1541,9 +1555,9 @@ Se verificó que las discrepancias no siguen un patrón de desplazamiento entre 
 
 ### K1. [ALTA] El campo `dcterms:modified` no se actualiza
 
-**El problema.** La marca de agua `dcterms:modified` no se actualiza al redeterminar un ejemplar. 4.124 filas conservan el sello `2020-01-08T16:10:25` a pesar de declarar determinaciones de 2023. El portal sí registra la modificación, pero lo hace en el timestamp de la extensión `identifications` (con un rango `2023-10-20` → `2025-11-03`, que es posterior al del core en 4.567 filas).
+**El problema.** El campo `dcterms:modified` de las 6.427 filas agrupa casi por completo cuatro episodios de carga masiva (2020-01-08, 2021-01-05, 2022-01-03 y 2025-11-03). Por ejemplo, 4.124 filas conservan el sello original de 2020, a pesar de que declaran redeterminaciones de 2023. Notamos que el portal sí registra la actividad reciente, pero lo hace en el timestamp de la extensión `identifications`, no en el `core`.
 
-**Pregunta.** ¿Es el comportamiento esperado del portal? Esto determina cuál debe ser la marca de agua a leer en la carga incremental del Data Warehouse.
+**Pregunta.** ¿El portal actualiza el `dcterms:modified` del `core` cuando un curador edita un registro individualmente, o el sello solo se escribe en las importaciones masivas? La respuesta determina si nuestra carga incremental del Data Warehouse debe basarse en el `core` o si debe leer también los sellos de las extensiones para no perderse las correcciones menores.
 
 ---
 
