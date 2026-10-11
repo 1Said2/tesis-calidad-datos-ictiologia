@@ -214,7 +214,16 @@ Los bloques son de catálogos consecutivos, lo que indica errores de carga por l
 
 **El problema.** El `verbatimEventDate` solo trae año y mes (por ejemplo `2003-8`), pero el `eventDate` del sistema completó el día con `01`. Ese `01` no viene de la ficha. Los 169 pertenecen a la carga masiva del 2020-01-08 (misma marca en `modified`), mientras que los 231 registros de la carga del 2025-11-03 con la misma situación conservaron año y mes sin día. La digitadora principal es la misma en ambas cargas, así que el `01` lo introdujo el proceso de carga de 2020, no la persona que digitó la ficha. El verbatim de esa carga además escribe el mes sin cero (`2003-8`), otra huella del mismo proceso. Hoy ese día fabricado está poblando la columna `day` y se propagaría a la dimensión Tiempo como si fuera un dato real.
 
-**Cambio aplicado.** Se truncó eventDate al grano probado por el verbatim (AAAA-MM) y se vaciaron `day` y `startDayOfYear`. El valor que fabricó el portal quedó en `eventDate_portal`.
+Dos registros de este bloque tienen además una discrepancia entre los meses declarados:
+
+| catalogNumber | `eventDate` antes de R5 | `verbatimEventDate` | `eventDate` después de R5 |
+|---|---|---|---|
+| 3819 | 2011-09-01 | `2011-11` | 2011-09 |
+| 3820 | 2011-09-01 | `2011-11` | 2011-09 |
+
+R5 retiró únicamente el día `01`: conservó septiembre, vació `day` y `startDayOfYear` y no intentó resolver la contradicción con noviembre. Esto prueba que los dos campos discrepan, no que noviembre sea necesariamente el mes correcto.
+
+**Cambio aplicado.** Se truncó `eventDate` al grano año-mes indicado por el verbatim (AAAA-MM) y se vaciaron `day` y `startDayOfYear`. El valor que fabricó el portal quedó en `eventDate_portal`. Como R5 conserva el año y el mes de `eventDate`, la discrepancia de los catálogos 3819 y 3820 queda pendiente de resolución curatorial.
 
 **Filas afectadas.** 169 registros.
 
@@ -227,6 +236,7 @@ Los bloques son de catálogos consecutivos, lo que indica errores de carga por l
 **Preguntas.**
 1. ¿Se confirma el truncamiento, o prefieren conservar el día 01 documentado como convención del portal? En ese caso se revierte.
 2. ¿Existe libro de campo que permita recuperar el día real de estas 169 colectas?
+3. Para los catálogos 3819 y 3820: ¿el mes de colecta correcto es septiembre, como indica `eventDate`, noviembre, como indica `verbatimEventDate`, u otro? Debe verificarse contra la fuente curatorial.
 
 ---
 
@@ -641,13 +651,25 @@ Además, `Distrito Torres Causana` (en `municipality`) lleva el nivel escrito de
 
 **El problema.** En 23 registros de la Reserva Biológica Limoncocha, `locality` terminaba con la coordenada UTM y la altitud, por ejemplo `Reserva Biológica Limoncocha. Laguna Limoncocha 18N 320868/9956786 234 msnm`. Eso partía cuatro sitios reales en siete valores distintos de `locality`.
 
-**Cambio aplicado.** Se recortó el sufijo: el ejemplo queda como `Reserva Biológica Limoncocha. Laguna Limoncocha`. El texto completo quedó en `verbatimLocality`. No se perdió información: la coordenada y la altitud ya estaban en `decimalLatitude`, `verbatimCoordinates` y `minimumElevationInMeters` con el mismo valor.
+**Cambio aplicado.** Se recortó el sufijo: el ejemplo queda como `Reserva Biológica Limoncocha. Laguna Limoncocha`. El texto completo quedó en `verbatimLocality`, por lo que no se perdió la UTM ni la altitud originales. Sin embargo, en nueve registros la UTM embebida no representa el mismo punto que `decimalLatitude`/`decimalLongitude` y `verbatimCoordinates`.
+
+Aunque el texto dice `18N`, la interpretación técnicamente justificable para reproducir el contraste es WGS 84 / UTM zona 18 Sur (EPSG:32718): los registros declaran `geodeticDatum = WGS84`, Limoncocha está al sur del ecuador y los northings cercanos a 9.950.000 corresponden al falso norte del hemisferio sur. Interpretarlos como EPSG:32618 produciría latitudes cercanas a 88° N, fuera de la zona de uso y geográficamente incompatibles. La transformación con `sf`/PROJ y la distancia geodésica respecto al core dan:
+
+| Catálogos | UTM en `verbatimLocality` | UTM transformada a WGS84 | Coordenada decimal del core | Distancia | `coordinateUncertaintyInMeters` |
+|---|---|---|---|---:|---:|
+| 2478–2483 | 318808 / 9959494 | -0.36632149, -76.62813920 | -0.365800, -76.629164 | 127,9 m | 30 m |
+| 2464–2465 | 321429 / 9953040 | -0.42469405, -76.60460510 | -0.388558, -76.604683 | 4,018 km | 30 m |
+| 2484 | 319811 / 9959906 | -0.36259714, -76.61912828 | -0.407828, -76.619142 | 5,029 km | 30 m |
+
+Las tres separaciones superan la incertidumbre publicada, pero eso no demuestra cuál representación es correcta. En los nueve casos `verbatimCoordinates` repite la coordenada decimal del core. Los registros relacionados ayudan a confirmar la contradicción: 2462–2463 tienen la misma coordenada decimal que 2464–2465, pero su UTM `321429/9957040` queda a 10,4 m; y 2473–2477 tienen una UTM casi idéntica a la de 2478–2483 (`318807/9959492`), aunque corresponden a Río Playayacu. Estos patrones justifican revisar las fuentes, pero no autorizan a corregir ninguna coordenada sin confirmación curatorial.
 
 **Cómo aislar los registros.** En `ocurrences_curado.csv`: `metodo_correccion_curacion` contiene `locality_recortada_coordenada_embebida` → 23 registros.
 
 **Si no corresponde.** Restaurar `verbatimLocality` sobre `locality` en esos 23.
 
-**Pregunta.** ¿Se confirma que los cuatro sitios resultantes (Laguna Limoncocha, Río Pishira cerca de la carretera, Río Playayacu y Entrada al muelle) son los que corresponden?
+**Preguntas.**
+1. ¿Se confirma que los cuatro sitios resultantes (Laguna Limoncocha, Río Pishira cerca de la carretera, Río Playayacu y Entrada al muelle) son los que corresponden?
+2. Para los catálogos 2464–2465, 2478–2483 y 2484: ¿pueden contrastar la etiqueta o el cuaderno de campo y confirmar si corresponde la UTM escrita en `locality`, la coordenada decimal de `verbatimCoordinates` y del core, u otra coordenada?
 
 ---
 
@@ -1617,4 +1639,3 @@ Se verificó que las discrepancias no siguen un patrón de desplazamiento entre 
 **El problema.** El validador de GBIF devuelve `COLLECTION_MATCH_NONE` en las 6.427 filas: el valor de `collectionID`, `b636a8df-9e83-45fe-a0ae-dacfbb36c300`, no corresponde a ninguna colección registrada en GRSciColl. Es un aviso distinto del `INSTITUTION_MATCH_FUZZY` que ya está documentado, y afecta a un registro institucional que solo el INABIO puede dar de alta o corregir.
 
 **Pregunta.** ¿La colección MECN-DP está registrada en GRSciColl? Si lo está, ¿cuál es su identificador; y si no, se tramita el registro antes de publicar?
-

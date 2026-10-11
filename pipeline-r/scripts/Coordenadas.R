@@ -861,6 +861,24 @@ df$georeferenceSources <- dplyr::case_when(
 )
 cat("  georeferenceSources declarado:", sum(!is.na(df$georeferenceSources)), "\n")
 
+# ---- 15f-bis. Corrección de metadatos para métodos aplicados sobre decimales ----
+desde_decimales <- !is.na(df$decimalLatitude_num) &
+  !is.na(df$decimalLongitude_num) &
+  !is.na(df$lat_final) &
+  df$metodo_correccion %in% c(
+    "swap", "neg_ambos",
+    "neg_lon", "neg_lon_ambiguo"
+  )
+
+df$georeferenceSources[desde_decimales] <-
+  "decimalLatitude/decimalLongitude del portal BNDB (MECN-DP)"
+
+df$georeferenceProtocol[desde_decimales] <- paste0(
+  "correccion programatica de ejes o signos ",
+  "desde coordenadas decimales del portal; metodo=",
+  df$metodo_correccion[desde_decimales]
+)
+
 # ---- 15g. GeoreferencedBy ----
 df$georeferencedBy <- ifelse(
   !is.na(df$lat_final) &

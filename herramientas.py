@@ -537,13 +537,8 @@ def preparar_entorno():
     print("-"*60 + "\n")
     
     import shutil
-    import glob
     
     rscript_exe = shutil.which("Rscript")
-    if not rscript_exe and os.name == 'nt':
-        posibles_rutas = glob.glob(r"C:\Program Files\R\R-*\bin\Rscript.exe")
-        if posibles_rutas:
-            rscript_exe = sorted(posibles_rutas)[-1]
             
     if rscript_exe:
         print("Restaurando paquetes de R con renv::restore()...")
@@ -604,14 +599,8 @@ def ejecutar_pipeline_completo():
     print("\n>>> PASO 4: Ejecución de scripts en R (Taxonomía, Coordenadas, Validación)...")
     
     import shutil
-    import glob
     
     rscript_exe = shutil.which("Rscript")
-    if not rscript_exe and os.name == 'nt':
-        # Buscar en las rutas comunes de Windows si no está en el PATH
-        posibles_rutas = glob.glob(r"C:\Program Files\R\R-*\bin\Rscript.exe")
-        if posibles_rutas:
-            rscript_exe = sorted(posibles_rutas)[-1] # Tomar la versión más reciente
             
     if not rscript_exe:
         print("\n[ERROR] No se encontró 'Rscript' en el sistema ni en el PATH.")
