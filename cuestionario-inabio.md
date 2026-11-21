@@ -1,6 +1,6 @@
 # CUESTIONARIO PARA INABIO
 
-### Colección ictiológica MECN-DP · pendientes de las tres fases de limpieza
+### Colección ictiológica MECN-DP · pendientes del conjunto final regenerado
 
 ### Estado del cuestionario
 
@@ -26,24 +26,31 @@ Las preguntas marcadas ALTA son las que condicionan la publicación del conjunto
 
 Cada duda trae un filtro reproducible sobre dos archivos, `ocurrences_curado.csv` y `reporte_plausibilidad_post.csv`. Esto permite aislar inmediatamente los registros afectados y revisar los datos en su contexto.
 
-Las columnas que empiezan por `flag_` son banderas booleanas producidas por el pipeline. El archivo tiene 165 columnas: 92 términos tal como los entrega el portal, 4 términos Darwin Core que el portal no exportaba (`verbatimLatitude`, `verbatimLongitude`, `occurrenceStatus`, `previousIdentifications`) y 69 columnas de auditoría que no forman parte del estándar y no se publican.
+Las cifras corresponden a la versión final regenerada por `Curacion.R`: 6.427 especímenes y 174 columnas. Se conservan las 168 columnas de entrada y se añaden seis; conservar las columnas no significa que sus valores estén intactos, pues las seis reglas modifican sus campos objetivo. La curación intervino 1.612 identificadores: R1 en 191, R2 en 289, R3 en 23, R4 en 500, R5 en 169 y R6 en 460; hay solapamientos entre reglas.
 
-La severidad "alta" del reporte significa que el dato contradice una restricción física o de calendario. La severidad "media" indica que es una inconsistencia de forma o de jerarquía. La categoría "informativa" señala un patrón verificado que no requiere acción.
+Las columnas que empiezan por `flag_` son banderas booleanas producidas por el pipeline. Según los URI de `meta.xml` y los cinco términos añadidos (`verbatimLatitude`, `verbatimLongitude`, `occurrenceStatus`, `previousIdentifications`, `verbatimLocality`), las 174 columnas se reparten en 88 del espacio de nombres Darwin Core, seis Dublin Core, dos de Symbiota (`recordEnteredBy`, `recordID`), el identificador estructural `id` y 77 auxiliares de procesamiento y auditoría. Los términos añadidos se contrastaron con la [referencia de Darwin Core](https://dwc.tdwg.org/terms/). Las seis columnas incorporadas por la curación son `verbatimLocality`, `locationRemarks_verbatim`, `eventDate_portal`, `metodo_correccion_curacion`, `regla_curacion` y `ronda_curacion`.
+
+PRE contiene 5.007 hallazgos sobre 3.398 especímenes; POST, 4.024 sobre 2.842: 491 alertas altas, 2.550 medias y 983 informativas. Las 491 alertas altas siguen pendientes: estos conteos no significan que hayan sido resueltas. El inventario registra 64 reglas, 43 con hallazgos, 19 sin hallazgos y dos verificadas/descartadas.
+
+La severidad "alta" señala una contradicción que requiere revisión prioritaria. La severidad "media" identifica inconsistencias que deben verificarse. La categoría "informativa" señala patrones y no constituye una aprobación curatorial; las dos reglas verificadas/descartadas se registran en su anexo separado.
 
 **Anexos que acompañan a este cuestionario.**
 
-| Archivo | Filas | Qué contiene | Dudas que sustenta |
+| Archivo | Filas × columnas | Qué contiene | Dudas que sustenta |
 |---|---|---|---|
-| `ocurrences_curado.csv` | 6.427 × 165 col | Conjunto final: 92 términos del portal, 4 términos Darwin Core que el portal no exportaba (`verbatimLatitude`, `verbatimLongitude`, `occurrenceStatus`, `previousIdentifications`) y 69 columnas de auditoría que no forman parte del estándar y no se publican | Todas |
-| `reporte_plausibilidad_post.csv` | 4.098 | Un hallazgo por fila, con regla, severidad y destino | Todas las que citan una `regla` |
-| `reporte_correcciones.csv` | 3.400 | Una celda modificada por fila, con la regla, el valor anterior y el valor nuevo. 1.621 registros afectados | B5, C36, C37, C38, D10, D11 |
-| `reglas_ejecutadas_post.csv` | 63 | Una fila por regla, con su estado (`con_hallazgos`, `sin_hallazgos`, `verificada_descartada`). Las que no encontraron nada también se registran | Vista general |
-| `reporte_plausibilidad_resumen_post.csv` | 44 | Una fila por regla con hallazgos: filas, registros y casos únicos, agrupados por severidad y destino | Vista general |
-| `reporte_plausibilidad_verificadas_post.csv` | 1.309 | Casos evaluados y descartados con justificación: 583 cantones homónimos de su provincia y 726 ejemplares del mismo lote de colecta | Ninguna. Es el registro de lo que no hay que preguntar |
-| `identifications_para_inabio.csv` | 71 | Discrepancias entre `identifications.csv` y el core, con el motivo y la autoría rechazada | J1, J2, G1 |
-| `gbif_contraste_completo.csv` | 936 | Contraste completo con el backbone de GBIF, con `matchType` por nombre. Los 19 que solo resuelven al rango superior salen filtrando `matchType = HIGHERRANK` | F12, F13 |
-| `gbif_nombres_difusos.csv` | 30 | Nombres cuya grafía el backbone de GBIF resuelve como variante de otra | F12, F14 |
-| _(sin archivo separado)_ | — | Géneros sin correspondencia en FishBase (15). Se obtienen filtrando `genero_fuera_de_backbone_fishbase = TRUE` | F8, F10 |
+| `ocurrences_curado.csv` | 6.427 × 174 | Conjunto final con términos estándar, metadatos del portal y auxiliares, según el desglose anterior | Todas |
+| `reporte_plausibilidad_pre.csv` | 5.007 × 8 | Validación antes de la curación; 3.398 especímenes con al menos un hallazgo | Comparaciones PRE/POST |
+| `reporte_plausibilidad_post.csv` | 4.024 × 8 | Un hallazgo por fila, con regla, severidad y destino; 2.842 especímenes | Todas las que citan una `regla` |
+| `reporte_correcciones.csv` | 3.370 × 6 | Asignaciones sobre campos objetivo, con `id`, `campo`, valor anterior y nuevo; 1.612 identificadores intervenidos. Los respaldos y las anotaciones se conservan en el core, aunque no todos generen filas adicionales en este reporte | B5, C36, C37, C38, D10, D11 |
+| `reglas_ejecutadas_post.csv` | 64 × 2 | Una fila por regla, con su estado (`con_hallazgos`, `sin_hallazgos`, `verificada_descartada`) | Vista general |
+| `reporte_plausibilidad_resumen_post.csv` | 43 × 7 | Una fila por regla con hallazgos: filas, registros y casos únicos, agrupados por severidad y destino | Vista general |
+| `reporte_plausibilidad_verificadas_post.csv` | 1.309 × 8 | Casos evaluados y descartados con justificación: 583 cantones homónimos de su provincia y 726 ejemplares del mismo lote de colecta | Registro de reglas verificadas |
+| `identifications_para_inabio.csv` | 71 × 11 | Discrepancias con el core, motivo y autoría rechazada | J1, J2, G1 |
+| `gbif_contraste_completo.csv` | 938 × 9 | Contraste por nombre; 19 resultados con `matchType = HIGHERRANK` y uno `NONE` | F8, F12, F13 |
+| `gbif_nombres_difusos.csv` | 30 × 8 | Treinta nombres variantes, presentes en 46 ocurrencias; las sugerencias no son correcciones aprobadas | F12, F14 |
+| `multimedia_caption_vs_core_post.csv` | 162 × 6 | Discrepancias de nombre por espécimen; mismo contenido que PRE | J3 |
+| `multimedia.csv` | 430 × 19 | Extensión original: imágenes de 346 especímenes, URL y derechos | J3 |
+| _(sin archivo separado)_ | — | Dieciséis géneros, presentes en 64 filas, con `genero_fuera_de_backbone_fishbase = TRUE` | F8 |
 ---
 
 ## BLOQUE A — Identificadores y alcance
@@ -167,12 +174,12 @@ Los catálogos 4048 y 4050 importan más allá de sí mismos: en B5 sostengo que
 
 | catalogNumber | `eventDate` | Situación |
 |---|---|---|
-| 5684 | 2027-10-18 | **En el futuro.** Además la localidad venía vacía en el archivo del portal (se recuperó de `locationRemarks` en la curación, ver C36) y la coordenada cae 412 km fuera de Orellana, en territorio peruano |
+| 5684 | 2027-10-18 | **En el futuro.** La localidad se recuperó de `locationRemarks` (C36), pero la coordenada está vacía como `irreparable`; su georreferencia sigue pendiente |
 | 5687 | 2027-10-16 | En el futuro, mismo colector y mismo lote que la anterior |
 | 5757 | 1897-06-05 | Anterior a la fundación de la colección; localidad vacía |
 | 5492 | 1905-06-27 | Su propio verbatim dice 2005 (ver B1) |
 
-Los catálogos 5684 y 5687 comparten fecha futura, colector y fecha de determinación, y ambos venían sin localidad en el archivo del portal; el 5684 tiene además la coordenada en Perú. No son errores sueltos: parece un lote mal digitado.
+Los catálogos 5684 y 5687 comparten fecha futura, colector y fecha de determinación, y ambos venían sin localidad en el archivo del portal; el 5684 tiene además su georreferencia pendiente. No son errores sueltos: parece un lote mal digitado.
 
 **Cómo aislar los registros.** En `ocurrences_curado.csv`: `catalogNumber` IN (5684, 5687, 5757, 5492) → 4 registros.
 
@@ -212,7 +219,7 @@ Los bloques son de catálogos consecutivos, lo que indica errores de carga por l
 
 ### B5. [MEDIA] Ciento sesenta y nueve fechas con el día inventado en origen
 
-**El problema.** El `verbatimEventDate` solo trae año y mes (por ejemplo `2003-8`), pero el `eventDate` del sistema completó el día con `01`. Ese `01` no viene de la ficha. Los 169 pertenecen a la carga masiva del 2020-01-08 (misma marca en `modified`), mientras que los 231 registros de la carga del 2025-11-03 con la misma situación conservaron año y mes sin día. La digitadora principal es la misma en ambas cargas, así que el `01` lo introdujo el proceso de carga de 2020, no la persona que digitó la ficha. El verbatim de esa carga además escribe el mes sin cero (`2003-8`), otra huella del mismo proceso. Hoy ese día fabricado está poblando la columna `day` y se propagaría a la dimensión Tiempo como si fuera un dato real.
+**El problema.** El `verbatimEventDate` solo trae año y mes (por ejemplo `2003-8`), pero el `eventDate` del sistema completó el día con `01`. Ese `01` no viene de la ficha. Los 169 pertenecen a la carga masiva del 2020-01-08 (misma marca en `modified`), mientras que los 231 registros de la carga del 2025-11-03 con la misma situación conservaron año y mes sin día. La digitadora principal es la misma en ambas cargas, así que el `01` lo introdujo el proceso de carga de 2020, no la persona que digitó la ficha. El verbatim de esa carga además escribe el mes sin cero (`2003-8`), otra huella del mismo proceso. Ese día poblaba `day` antes de R5; en el conjunto final se retiró y no debe tratarse como una fecha diaria observada.
 
 Dos registros de este bloque tienen además una discrepancia entre los meses declarados:
 
@@ -386,15 +393,15 @@ Además, `Distrito Torres Causana` (en `municipality`) lleva el nivel escrito de
 
 ### C8. [ALTA] ¿Quién georreferenció la colección?
 
-**El problema.** El campo `georeferencedBy` tiene un único valor en todo el dataset —`Mateo Andrés Vega Yánez`— en 3.501 registros, y está vacío en 2.926. De esos 2.926 sin georreferenciador, **1.285 ya tenían coordenada en el archivo del portal**, y la cifra sube a 2.677 una vez reconstruidas las coordenadas desde `verbatimCoordinates`: el punto existe pero no consta quién lo determinó. *(Nota: tras la intervención del pipeline, que atribuyó 1.606 conversiones, quedan 1.320 vacíos y 1.071 con coordenada sin georreferenciador; ver D15.)*
+**El problema.** En el conjunto final, `georeferencedBy` tiene un único valor no vacío —`Mateo Andrés Vega Yánez`— en 3.501 registros y está vacío en 2.926. De estos últimos, **2.629 tienen coordenadas** y 297 no las tienen. El pipeline no atribuye la autoría de una conversión a la persona que proporcionó o verificó la georreferencia original (ver D15).
 
 **Por qué importa.** Si el nombre corresponde a la persona que efectivamente georreferenció esos 3.501 registros, es un dato de procedencia valioso para la dimensión Persona. Si es un valor asignado en bloque durante una migración del portal, no significa nada y no debe modelarse como una autoría.
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `georeferencedBy = ""` y `decimalLatitude <> ""` → 1.285 en el archivo del portal, 2.677 tras la reconstrucción de coordenadas y 1.071 en el archivo curado (ver D15).
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `georeferencedBy = ""` → 2.926; añadir `decimalLatitude <> ""` → 2.629 registros.
 
 **Preguntas.**
 1. ¿Las 3.501 georreferenciaciones son efectivamente de esta persona, o es un valor por defecto del portal?
-2. Los 1.071 registros que en el archivo curado siguen con coordenada y sin georreferenciador, ¿fueron georreferenciados por otra persona, o la coordenada venía ya en la ficha de campo?
+2. Los 2.629 registros que en el archivo curado tienen coordenada y sin georreferenciador, ¿fueron georreferenciados por otra persona, o la coordenada venía ya en la ficha de campo?
 
 ---
 
@@ -705,29 +712,29 @@ Las tres separaciones superan la incertidumbre publicada, pero eso no demuestra 
 
 ---
 
-### D2. [ALTA] El ingreso QCAZ concentra el 72 % de las discordancias
+### D2. [ALTA] El ingreso QCAZ concentra el 83 % de las discordancias
 
-**El problema.** El ingreso QCAZ concentra la inmensa mayoría de los errores de contención. Los registros cuyo `recordedBy` contiene `QCAZ` (598 con coordenada) fallan la contención provincial en el 27,9 % de los casos; el resto de la colección, en el 1,2 %. Es decir, tienen unas veintitrés veces más discordancias.
+**El problema.** Los registros cuyo `recordedBy` contiene `QCAZ` (593 con coordenada) fallan la contención provincial en 162 casos, el 27,3 %. Entre los otros 5.537 registros con coordenada hay 34 discordancias, el 0,6 %: la proporción de QCAZ es unas 44 veces mayor.
 
-De las 232 discordancias geográficas totales, 168 están en los catálogos ~5100–5799. En el tramo 5600–5699, 42 de cada 100 filas son discordantes y 76 de cada 100 no tenían localidad en el archivo del portal (34 tras recuperar topónimos desde `locationRemarks`, ver C36).
+De las 196 discordancias actuales, 161 están en los catálogos 5100–5799. En el tramo 5600–5699, 37 de cada 100 filas son discordantes y 76 no tenían localidad en el archivo del portal (34 tras recuperar topónimos desde `locationRemarks`, ver C36).
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `recordedBy` contiene `QCAZ` y `decimalLatitude <> ""` → 598 registros; de ellos, `coherencia_provincia = "discordante"` → 167, que son el 72 % de las 232 discordancias del archivo.
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `recordedBy` contiene `QCAZ` y `decimalLatitude <> ""` → 593 registros; añadir `coherencia_provincia = "discordante"` → 162, el 82,7 % de las 196 discordancias. El reporte POST de contención provincial contiene los mismos 196 identificadores.
 
 **Pregunta.** ¿Cómo se cargaron esos registros? ¿Fueron una migración desde otro sistema, una carga masiva sin georreferenciación propia, o se asignaron puntos por defecto al lote completo?
 
 ---
 
-### D3. [BAJA] Doce coordenadas donde el hemisferio es genuinamente ambiguo
+### D3. [BAJA] Trece banderas de hemisferio ambiguo
 
-**El problema.** El registro original no trae letra de hemisferio (`N`/`S`) ni signo. Mi script prueba todas las lecturas posibles y, cuando más de una cae dentro de Ecuador, desempata comprobando cuál queda dentro de la provincia declarada. En estas 12 el polígono no resolvió: o ninguna lectura cae en la provincia o caen varias. El script **sí elige**: publica la primera lectura aritméticamente válida de la lista de candidatos cuando el polígono no desempata, y declara que esa elección no está respaldada por evidencia.
+**El problema.** En trece registros falta evidencia para confirmar los signos. Doce están sin coordenadas publicables; el catálogo 3944 conserva la coordenada decimal original, marcada para revisión. La provincia declarada no basta para resolver una interpretación única.
 
-**Filas afectadas.** 12, identificables en el anexo por la columna `signo_ambiguo = TRUE`. Incluyen los catálogos 3765, 3926, 3927, 4183, 4195, 4289, 4948, 4949, 5246, 5648, 5674 y 5678.
+**Filas afectadas.** 13: catálogos 3765, 3926, 3927, 3944, 4183, 4195, 4289, 4948, 4949, 5246, 5648, 5674 y 5678.
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `signo_ambiguo = TRUE` → 12 registros.
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `signo_ambiguo = TRUE` → 13 registros.
 
 **Corrección propuesta (no aplicada).** Catálogo 4195 (*Pareques viola*, especie marina): su verbatim es `00°54'5.8'' / 90°38'52''`, sin letra de hemisferio. Leído con 90° cae en el mar a 1.090 km de Manabí, la provincia declarada. Con un solo dígito cambiado, 80° en lugar de 90°, y hemisferio sur, queda en `-0.901611 / -80.647778`, frente a la costa de Manabí y a unos 9 km de los catálogos 4196–4198, que son del mismo equipo de colectores, de las mismas fechas (febrero y marzo de 2017) y están en `00°57'0.75''S / 80°42'32.73''W`. Se propone esa lectura; no se propone copiar la coordenada de los vecinos, porque los minutos del 4195 son distintos y apuntan a un sitio cercano, no al mismo. Se verifica con `catalogNumber = 4195`.
 
-**Pregunta.** ¿Puede el curador determinar el hemisferio de estas 12 desde la localidad descrita?
+**Pregunta.** ¿Puede el curador determinar el hemisferio de estos trece registros desde la localidad descrita?
 
 ---
 
@@ -735,64 +742,67 @@ De las 232 discordancias geográficas totales, 168 están en los catálogos ~510
 
 **El problema.** En notación sexagesimal, minutos y segundos van de 0 a 59. Estas doce declaran valores imposibles.
 
-Al analizar los patrones, el archivo resuelve tres de los cinco grupos:
+Los patrones sugieren hipótesis para tres de los cinco grupos, pendientes de confirmación documental:
 - Catálogo 4184: `0.75''` (los hermanos 4196–4198 traen la longitud idéntica).
 - Catálogo 4151: `07.3''` (sus hermanos 4149 y 4150 caen en el mismo minuto 34').
-- Bobonaza (7 filas): `01°92'` es en realidad `01°52'` (la serie de colecta va de 43' a 52', y los 5904–5906 están en 01°52'57.2'').
+- Bobonaza (7 filas): se plantea `01°52'` como hipótesis para `01°92'` (la serie de colecta va de 43' a 52', y los 5904–5906 están en 01°52'57.2'').
 
-Siguen abiertos solo los catálogos 4212/4213 (`3°55'64''S`) y el caso múltiple del 3765 (76 segundos, ver F10).
+Los doce casos requieren comprobar la fuente. En particular, 4212/4213 declaran `3°55'64''S` y 3765 declara 76,40 segundos (ver F10); no hay una representación independiente corroborada que resuelva esos valores.
 
 **Cómo aislar los registros.** En `ocurrences_curado.csv`: `dms_rango_invalido = TRUE` → 12 registros.
 
-**Pregunta.** Para 4212, 4213 y 3765: ¿Pueden verificar la coordenada en la libreta de campo?
+**Pregunta.** ¿Pueden verificar las doce coordenadas en etiquetas o libretas, especialmente 4212, 4213 y 3765, y confirmar o rechazar las hipótesis?
 
 ---
 
-### D5. [BAJA] Nueve registros en el mar, alrededor de Galápagos
+### D5. [BAJA] Siete registros en el mar, alrededor de Galápagos
 
-**El problema.** Caen entre 11,3 y 25,3 km de la costa. Para una colección ictiológica esto es esperable —son capturas marinas—, así que no los marqué como error sino con la categoría propia `fuera_de_tierra_firme`. Los revisé uno por uno y son plausibles: quedan cerca de Marchena, Pinta y Darwin.
+**El problema.** Siete registros tienen `coherencia_provincia = fuera_de_tierra_firme`, con distancias de 11,26 a 12 km al polígono terrestre. En una colección ictiológica pueden ser capturas marinas legítimas; la categoría por sí sola no demuestra un error ni confirma la procedencia.
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `coherencia_provincia = "fuera_de_tierra_firme"` → 9 registros.
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `coherencia_provincia = "fuera_de_tierra_firme"` → 7 registros.
 
 **Pregunta.** ¿Confirman que son capturas marinas legítimas? Solo necesito el visto bueno para dejar constancia de que se revisaron.
 
 ---
 
-### D6. [ALTA] Doscientos cuarenta y nueve registros sin coordenada, por tres causas distintas
+### D6. [ALTA] Doscientos noventa y siete registros sin coordenadas, por seis causas
 
-**El problema.** No son un solo caso; los separé porque la acción es distinta en cada uno:
+**El problema.** Los 297 registros sin coordenadas finales requieren acciones diferentes según la evidencia conservada:
 
 | Causa | n | Situación |
 |---|---|---|
 | `sin_dato_origen` | 183 | Nunca hubo coordenada, ni decimal ni verbatim |
-| `irreparable` | 65 | Hay `verbatimCoordinates` pero es ilegible o no reconstruible |
-| `descartada_fuera_de_rango` | 1 | Catálogo 5170: traía `−14,95103 / −77,9968`, que es el sur de Perú, declarado como Pastaza. Sin verbatim para reconstruir |
+| `irreparable` | 84 | Hay información de origen, pero no permite reconstruir un punto único con las reglas aprobadas |
+| `dms_invalido_pendiente` | 12 | Minutos o segundos fuera de rango; confirmar la fuente |
+| `signo_ambiguo` | 11 | Falta evidencia suficiente de hemisferio |
+| `utm_ambiguo` | 5 | No hay una interpretación UTM única respaldada |
+| `descartada_fuera_de_rango` | 2 | Catálogos 5170 y 5612; las posiciones decimales se descartaron y no hay verbatim suficiente para reconstruirlas |
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `metodo_correccion` en (`sin_dato_origen`, `irreparable`, `descartada_fuera_de_rango`) → 249 registros.
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `decimalLatitude = ""` y `decimalLongitude = ""` → 297. Agrupar por `metodo_correccion` reproduce los seis grupos; no basta con filtrar solo las tres categorías originales.
 
 **Preguntas.**
-1. Para las 66 irreparables: ¿existe la coordenada en el libro de campo?
+1. Para los 84 irreparables y los casos pendientes por DMS, signo o UTM: ¿existe la coordenada en el libro de campo?
 2. Para el catálogo 5170: ¿es un ejemplar peruano mal asignado a Pastaza, o la coordenada pertenece a otro registro?
 
 ---
 
-### D7. [MEDIA] Las 65 coordenadas irrecuperables son cinco problemas distintos
+### D7. [MEDIA] Ochenta y cuatro coordenadas irreparables con patrones que requieren revisar la fuente
 
-**El problema.** D6 las describe como un solo grupo ilegible. Al clasificarlas por patrón resulta que dos familias sí son reconstruibles y que una ni siquiera es una coordenada.
+**El problema.** D6 incluye 84 registros con `metodo_correccion = irreparable`. Los patrones siguientes ofrecen hipótesis de lectura, pero no autorizan una reconstrucción automática ni agotan los 84 casos.
 
 | Familia | Filas | Situación |
 |---|---|---|
 | Prefijo de zona UTM pegado al easting | 4033, 4035 | `17828629 / 9809829` es zona 17, E 828629, N 9809829, y cae en Pastaza. `18193103 / 9823038` es zona 18 y también cae en Pastaza |
 | Easting y northing invertidos | 5013 | `09993222/0746084` es N 9993222 / E 746084, par válido en zona 17S |
-| Punto decimal perdido | 4947–5013, 13 filas | El catálogo 5011 trae `0016647/7887937`, dígito por dígito el mismo valor que el 4948 `00.16647/78.87937`, que sí se leyó |
+| Punto decimal perdido | 4947–5013, 13 filas | El catálogo 5011 trae `0016647/7887937`, dígito por dígito el mismo valor que el 4948 `00.16647/78.87937`, cuya lectura también está pendiente por ambigüedad de signo |
 | Easting corto de un dígito | El Oro 3897–3917 (20) y Pastaza 3518–3526 (9) | `65536 / 9612584`: el northing es válido, al easting le falta un dígito. Admite dos lecturas y ambas caen en la provincia |
 | Rango en lugar de punto | 4222–4227, 6 filas | `78.28°W / 01.27°N / 00.01°S` son tres valores: una longitud y **dos latitudes** |
 
 El catálogo 4187 declara `01°40'45.55 / 71°54'53''`. La latitud coincide con la del 4201 (`01°40'45.551''`) hasta el centésimo de segundo, pero la longitud no comparte ni los minutos (54 frente a 59) ni los segundos (53 frente a 53.448). La hipótesis de sustitución de dígito se sostiene únicamente para el grado (71 frente a 91). El registro quedó clasificado como irrecuperable.
 
-Catorce de los 65 no encajan en ninguna de las familias descritas: 4037, 4176–4178, 4246, 4353–4357, 4702 y 6425–6427. (El catálogo 5292, que figuraba en una versión anterior de esta lista, se recuperó en la pasada de rescate por separador decimal corrupto.) Tres de esos huecos son resolubles con criterios ya aplicados en otras familias: 4353–4357 son punto decimal perdido, igual que 4947–5013; 4037 lleva la zona UTM pegada al easting, igual que 4033 y 4035; y en 4246 solo la latitud perdió el punto, mientras la longitud `-79.787979` ya existe en filas vecinas de El Oro.
+Otros casos pendientes son 4037, 4176–4178, 4246, 4353–4357, 4702, 5292 y 6425–6427. En 4353–4357 puede faltar el punto decimal; 4037 podría llevar la zona UTM pegada al easting; y en 4246 la latitud podría haber perdido el punto. El catálogo 5292 también permanece sin coordenada recuperada. Son hipótesis para contrastar con la fuente, no correcciones aplicadas.
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `metodo_correccion = "irreparable"` → 65 registros.
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `metodo_correccion = "irreparable"` → 84 registros.
 
 **Preguntas.**
 1. Para 4033 y 4035: ¿confirman que el `17` y el `18` iniciales son la zona UTM? Si sí, esas dos se recuperan sin supuestos.
@@ -802,17 +812,17 @@ Catorce de los 65 no encajan en ninguna de las familias descritas: 4037, 4176–
 
 ---
 
-### D8. [MEDIA] Sesenta y seis registros comparten coordenada con otra provincia y están en la minoría
+### D8. [MEDIA] Cincuenta y seis alertas de provincia minoritaria en coordenadas compartidas
 
-**El problema.** 525 registros comparten una misma coordenada exacta con registros de otra provincia. En 459 casos el registro pertenece a la provincia mayoritaria de esa coordenada; en 66 está en la minoría. No es necesariamente un error —puede ser un punto exactamente en un límite provincial— pero es el patrón típico de una coordenada copiada de un registro vecino.
+**El problema.** Hay 487 registros con `coordenada_compartida = TRUE`, usando la clave del país y la coordenada redondeada a cinco decimales. De ellos, 56 tienen `provincia_minoritaria = TRUE`. Puede tratarse de un límite provincial o de un punto de referencia compartido; el patrón no demuestra por sí solo una copia errónea.
 
-**Filas afectadas.** 66, marcadas en el anexo con `provincia_minoritaria = TRUE`.
+**Filas afectadas.** 56, marcadas en el anexo con `provincia_minoritaria = TRUE`.
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `provincia_minoritaria = TRUE` → 66 registros.
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `provincia_minoritaria = TRUE` → 56 registros.
 
-La cifra subió de 56 a 66 al añadir el desempate por contención en el polígono: siete coordenadas eran declaradas por dos provincias con una fila cada una, y el criterio de mayoría por conteo no decidía. En dos de esos siete pares el punto es discordante con las dos provincias declaradas.
+En los empates de frecuencia, la bandera utiliza la discordancia de contención provincial sin escoger una provincia mayoritaria arbitrariamente. El reporte POST contiene las mismas 56 alertas.
 
-**Pregunta.** ¿Estos 66 comparten evento de colecta con los demás de su coordenada, o se les asignó una coordenada de referencia por lote?
+**Pregunta.** ¿Estos 56 comparten evento de colecta con los demás de su coordenada, o se les asignó una coordenada de referencia por lote?
 
 ---
 
@@ -826,21 +836,21 @@ La cifra subió de 56 a 66 al añadir el desempate por contención en el polígo
 
 ---
 
-### D10. [ALTA] Cuatrocientas setenta coordenadas sin datum declarado
+### D10. [ALTA] Cuatrocientas sesenta imputaciones de datum y 952 banderas acumuladas
 
-**El problema.** 470 registros tenían coordenada y el campo geodeticDatum vacío. Las 5.708 filas que sí lo declaran, declaran WGS84 sin una sola excepción, y las coordenadas reconstruidas desde UTM se reproyectaron desde WGS84 por definición. El validador de GBIF ya asumía WGS84 en silencio (GEODETIC_DATUM_ASSUMED_WGS84, 471 avisos en el archivo crudo).
+**El problema.** La entrada de la última curación contiene 460 registros con coordenada y `geodeticDatum` vacío. Los valores declarados son WGS84 (4.758) o EPSG:4326 (998), pero eso no demuestra el datum histórico de los registros sin declaración. La salida final acumula 952 `datum_asumido = TRUE`: 492 heredadas de la Fase 2 y 460 añadidas por R6.
 
-**Cambio aplicado.** Se escribió WGS84, se marcó datum_asumido = TRUE y se anotó el supuesto en georeferenceRemarks.
+**Cambio aplicado.** R6 escribió WGS84 en sus 460 registros, conservó la marca `datum_asumido = TRUE` y anotó el supuesto en `georeferenceRemarks`. Las 492 marcas anteriores permanecen identificadas como evidencia de otra etapa.
 
 **Por qué importa.** Si la colección usó PSAD56 en los registros antiguos —datum común en cartografía ecuatoriana anterior al GPS— el desplazamiento respecto a WGS84 puede superar los 200 m, lo que invalidaría el radio de incertidumbre declarado.
 
-**Cómo aislar los registros.** `datum_asumido == TRUE`
+**Cómo aislar los registros.** En `ocurrences_curado.csv`, `metodo_correccion_curacion` contiene `datum_declarado_por_supuesto` → 460 imputaciones de R6. `datum_asumido = TRUE` → 952 marcas acumuladas; los filtros no son equivalentes.
 
-**Si no corresponde.** Filtrar `datum_asumido = TRUE`, vaciar `geodeticDatum` y retirar la nota añadida en `georeferenceRemarks`.
+**Si no corresponde.** Para revertir R6, usar sus 460 identificadores y los valores anteriores de `geodeticDatum`, `georeferenceRemarks` y `datum_asumido` en `reporte_correcciones.csv`. No vaciar indiscriminadamente los 952 registros, pues se alterarían también las decisiones de la Fase 2.
 
 **Preguntas.**
 1. ¿Toda la colección se georreferenció en WGS84, o los registros anteriores a determinada fecha usaron PSAD56 u otro datum?
-2. ¿Se confirma el supuesto o se revierten las 470 filas a campo vacío?
+2. ¿Se confirma el supuesto o se revierten las 460 imputaciones de R6 a campo vacío?
 
 ---
 
@@ -858,13 +868,13 @@ La cifra subió de 56 a 66 al añadir el desempate por contención en el polígo
 
 **Preguntas.**
 1. ¿Se confirma que son altitudes puntuales y no el techo de un rango?
-2. Para las 18 que quedaron marcadas como anómalas, ¿se revisa la etiqueta física?
+2. Para las 17 que quedaron marcadas como anómalas, ¿se revisa la etiqueta física?
 
 ---
 
 ### D12. [BAJA] Falta de atributos de masas de agua en capturas marinas
 
-**El problema.** Galápagos: 24 filas tienen `island`, `islandGroup` y `waterBody` vacíos al 100 %, incluidas las 9 capturas marinas. Con la coordenada ya reconstruida se pueden poblar esos campos derivados.
+**El problema.** Galápagos: 24 filas tienen `island`, `islandGroup` y `waterBody` vacíos al 100 %, incluidas las siete capturas clasificadas como marinas. Con la coordenada ya reconstruida se pueden poblar esos campos derivados.
 
 **Pregunta.** ¿Autorizan derivar `island` desde el polígono y declarar `waterBody`?
 
@@ -872,17 +882,17 @@ La cifra subió de 56 a 66 al añadir el desempate por contención en el polígo
 
 ### D13. [BAJA] Localidad "Varios Sitios" con falsa precisión
 
-**El problema.** Siete registros con `locality = "Varios Sitios"` declaran una incertidumbre de 100 m. Esa cifra no proviene del origen: es el piso tecnológico que se aplica a las colectas anteriores al año 2000. La precisión declarada en el origen de los siete es `decimal_6d`, que corresponde a 10 m. La pregunta al curador no es por qué declararon 100 m, sino qué radio real cubre un lote descrito como "Varios Sitios". Cuatro de los siete caen además fuera del polígono terrestre de Galápagos.
+**El problema.** Los siete registros con `locality = "Varios Sitios"` tienen `coordinateUncertaintyInMeters` vacío en el conjunto final. La columna auxiliar `incertidumbre_estimada_m` contiene 100 m como estimación, no como incertidumbre confirmada o publicada. Los siete tienen resolución numérica de seis decimales (`decimal_6d`); esto no demuestra exactitud de diez metros ni el radio de toda la localidad. Cuatro caen fuera del polígono terrestre de Galápagos.
 
 **Cómo aislar los registros.** En `ocurrences_curado.csv`: `catalogNumber` IN (61, 64, 65, 66, 67, 69, 71) → 7 registros.
 
-**Pregunta.** ¿Qué coordenada se digitó allí? ¿Se incrementa el radio de incertidumbre para reflejar la realidad del lote?
+**Pregunta.** ¿Qué representa la coordenada digitada y qué sitios abarca cada lote? ¿Existe documentación que permita determinar el radio de incertidumbre de toda la localidad?
 
 ---
 
-### D14. [MEDIA] Treinta y cuatro coordenadas minoritarias dentro de su propia localidad
+### D14. [MEDIA] Treinta y dos alertas de coordenada minoritaria dentro de su localidad
 
-**El problema.** La comprobación de coherencia mide contención en el polígono de la provincia, de modo que no ve el caso en que varias filas declaran la misma localidad y una cae a decenas de kilómetros de las demás dentro de la misma provincia. Comparando cada registro contra la coordenada mayoritaria de su propia localidad —en grupos de cinco filas o más y donde al menos el 80 % comparte un mismo punto— resultan 34 filas repartidas en 19 casos.
+**El problema.** La comprobación de coherencia mide contención en el polígono de la provincia, de modo que no ve el caso en que varias filas declaran la misma localidad y una cae a decenas de kilómetros de las demás dentro de la misma provincia. Comparando cada registro contra la coordenada mayoritaria de su propia localidad —en grupos de cinco filas o más y donde al menos el 80 % comparte un mismo punto— resultan 32 filas repartidas en 17 casos del reporte POST.
 
 | Cat. | Provincia | Localidad | Filas del grupo | Distancia a la mayoría |
 |---|---|---|---|---|
@@ -897,27 +907,27 @@ La cifra subió de 56 a 66 al añadir el desempate por contención en el polígo
 | 3891 | El Oro | Río Chaguana | 8 | 18,5 km |
 | 2408 | Pichincha | Camino a Palmira | 6 | 14,2 km |
 
-Las conversiones se verificaron una a una: ninguno de estos puntos lo produjo el proceso de limpieza. En los tres de Pastaza el punto pertenece a otro sitio del mismo lote 6228–6424.
+En los catálogos 6242, 6247 y 6290 el método de coordenadas registra `swap`: se corrigió una transposición de ejes. Por tanto, no corresponde atribuir todos los puntos exclusivamente al origen. La discrepancia entre localidad y coordenada sigue pendiente y no autoriza a copiar la posición mayoritaria.
 
 Dos filas más aparecen en la lista por el motivo contrario: en `Atacames` (catálogo 5180) y en `Súa` (catálogo 18) la mayoría del grupo es la que está mal —son las latitudes invertidas de D1— y el minoritario es el correcto. El catálogo 5180 declara `0.87127 / -79.85844` y sus 22 hermanos declaran `-0.87127` con la misma longitud.
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `flag_coord_minoritaria_en_localidad = TRUE` (34), columna `dist_a_mayoria_localidad_km`.
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `flag_coord_minoritaria_en_localidad = TRUE` (32), columna `dist_a_mayoria_localidad_km`.
 
-**Pregunta.** En los once registros que no son el caso inverso, ¿la coordenada pertenece a otro sitio del mismo lote o la localidad está mal escrita en esas filas?
+**Pregunta.** En los 30 registros restantes, además de los dos casos inversos descritos, ¿la coordenada pertenece a otro sitio del mismo lote o la localidad está mal escrita en esas filas?
 
 ---
 
 ### D15. [MEDIA] Autoría de la georreferencia
 
-**El problema.** El pipeline determinó la coordenada de 1.606 registros a partir de `verbatimCoordinates` y les asignó `georeferencedBy`. Quedan **1.071 registros con coordenada leída del portal y sin georreferenciador declarado**.
+**El problema.** El conjunto final no atribuye georreferencias al proceso de limpieza. Conserva 3.501 registros con `Mateo Andrés Vega Yánez` y 2.926 sin `georeferencedBy`; 2.629 de estos últimos tienen coordenadas. Transformar una representación de coordenadas no identifica a quien proporcionó ni verificó la georreferencia.
 
-**Pregunta.** ¿Quién georreferenció esos 1.071? ¿Se atribuyen a Mateo Andrés Vega Yánez como los otros 3.501, o consta otro responsable?
+**Preguntas.** ¿Quién proporcionó y quién verificó las georreferencias de los 2.629 registros con coordenada y sin autoría? ¿Existe evidencia para confirmar a Mateo Andrés Vega Yánez o a otro responsable, sin extender una autoría por defecto?
 
 ---
 
 ### D16. [BAJA] Contraste altitudinal contra modelo digital de elevación
 
-**El problema.** 73 registros declaran una altitud que discrepa del DEM en más de 300 m. La cifra subió de 59 a 73 tras la curación: catorce de las altitudes que pasaron del campo máximo al mínimo (ver D11) resultaron discordantes al evaluarse por primera vez. Es el único control altitudinal del pipeline que no usa la propia colección como referencia.
+**El problema.** 70 registros declaran una altitud que discrepa del DEM en más de 300 m. La cifra subió de 56 en PRE a 70 en POST tras la curación: catorce de las altitudes que pasaron del campo máximo al mínimo (ver D11) resultaron discordantes al evaluarse por primera vez. La referencia se conserva en `datos/00_referencia/dem_elevatr.rds`: AWS mediante elevatr, z = 10, EPSG:4326 y metros. La caché cubre las 953 coordenadas únicas de POST (924 necesarias en PRE), sin nuevas descargas. Es el único control altitudinal del pipeline que no usa la propia colección como referencia.
 
 **Pregunta.** ¿Se corrige la altitud declarada, se conserva la de la etiqueta física, o se declaran ambas?
 
@@ -1064,7 +1074,7 @@ Las tres primeras suman 207 registros, no es un caso marginal.
 | `J. Críollo` | ¿Criollo, sin tilde? | 7 |
 | `Santiago Villamarín Cortéz` | ¿Cortés o Cortez? | 131 |
 
-**Cómo aislar los registros.** En `reporte_plausibilidad_post.csv`: `regla = "valor a una letra de otro valor de recordedBy"` y `campos = "recordedBy"` → 5 registros (las reglas equivalentes para `locality` y `scientificName` suman 16 y 2 registros, y se tratan en C11 y F14).
+**Cómo aislar los registros.** En `reporte_plausibilidad_post.csv`: `regla = "valor a una letra de otro valor de recordedBy"` y `campos = "recordedBy"` → 9 alertas en 9 registros. Las reglas equivalentes de `locality` producen 19 alertas en 16 registros y las de `scientificName`, cinco en cinco. Los empates se expresan neutralmente, sin convertir la forma más frecuente en autoridad.
 
 **Pregunta.** ¿Pueden confirmar la grafía correcta de cada uno? El de Villamarín afecta a 131 registros.
 
@@ -1116,11 +1126,11 @@ Las tres primeras suman 207 registros, no es un caso marginal.
 
 ---
 
-### F3. [MEDIA] Dieciséis registros donde el nombre completo contradice a los campos atomizados, y en nueve hay tres testigos independientes
+### F3. [MEDIA] Dieciséis registros donde el nombre completo contradice a los campos atomizados, y en nueve hay tres indicios internos
 
-**El problema.** En dieciséis registros, `scientificName` describe una especie y `genus` más `specificEpithet` describen otra. La pregunta ya no es cuál de los dos manda: el archivo tiene dos testigos más que son independientes del nombre, el `taxonID` del portal y `scientificNameAuthorship`. En nueve de los dieciséis registros los tres coinciden contra `scientificName`.
+**El problema.** En dieciséis registros, `scientificName` describe una especie y `genus` más `specificEpithet` describen otra. Los campos atomizados, el nombre mayoritario asociado con `taxonID` y la autoría comparada dentro de la colección aportan tres indicios de inconsistencia interna. En nueve registros los tres coinciden contra `scientificName`, pero proceden del mismo conjunto y no constituyen fuentes taxonómicas independientes ni determinan qué nombre es correcto.
 
-| Cat. | `scientificName` publicado | `genus` + `specificEpithet` | El `taxonID` de la fila lo usan | La autoría de la fila corresponde a | Testigos |
+| Cat. | `scientificName` publicado | `genus` + `specificEpithet` | El `taxonID` de la fila lo usan | La autoría de la fila corresponde a | Indicios |
 |---|---|---|---|---|---|
 | 1244 | Creagrutus flavescens | Creagrutus beni | 10 filas de *Creagrutus beni* | Eigenmann, 1911 (*beni*) | 3 |
 | 1804 | Astyanax villwocki | Astyanax abramis | 59 filas de *Astyanax abramis* | (Jenyns, 1842) (*abramis*) | 3 |
@@ -1144,8 +1154,8 @@ Hay un efecto medible en la jerarquía: los catálogos 531 y 2075 publican el mi
 **Cómo aislar los registros.** En `ocurrences_curado.csv`: `flag_nombre_contradice_atomicos = TRUE` (16) y `testigos_contra_scientificName = 3` (9).
 
 **Preguntas.**
-1. En los nueve registros de tres testigos, ¿confirman que `scientificName` fue sobreescrito por una redeterminación que no se propagó al resto de los campos?
-2. Si la respuesta es la contraria —que la redeterminación es correcta y los otros cuatro campos quedaron viejos—, ¿se actualizan `genus`, `specificEpithet`, `taxonID` y `scientificNameAuthorship` a partir de `scientificName`?
+1. En los nueve registros con tres indicios internos, ¿cuál es la identificación respaldada por el ejemplar y su historial de determinaciones?
+2. Si `scientificName` corresponde a la redeterminación correcta y los otros cuatro campos quedaron viejos, ¿se actualizan `genus`, `specificEpithet`, `taxonID` y `scientificNameAuthorship` a partir de `scientificName`?
 3. ¿Cuál de los dos, 531 o 2075, es *Pimelodella lateristriga*?
 
 **Doce donde discrepa el epíteto** (marcadas con `flag_epiteto_no_coincide_con_nombre`):
@@ -1236,37 +1246,38 @@ Nota: `Loricariinae` (catálogo 4306) es una **subfamilia**, no una familia, y s
 | 36061 | Astyanax villwocki · Tetragonopterus argenteus |
 | *(y once más)* | |
 
-Algunos son sinonimias razonables (`Rivulus`/`Anablepsoides`); otros cruzan géneros distintos.
+Algunos son sinonimias razonables (`Rivulus`/`Anablepsoides`); otros cruzan géneros distintos. El nombre mayoritario asociado con `taxonID` es un indicio interno de la colección, no una autoridad independiente para sustituir `scientificName`.
 
 **Por qué importa.** Impide usar `taxonID` como clave natural de la dimensión Taxón: habría que generar una clave sustituta.
 
-**Cómo aislar los registros.** En `reporte_plausibilidad_post.csv`: `regla = "inconsistencia (cruce) entre taxonID y scientificName"` → 41 hallazgos (464 filas afectadas).
+**Cómo aislar los registros.** En `reporte_plausibilidad_post.csv`: `regla = "inconsistencia (cruce) entre taxonID y scientificName"` → 42 hallazgos. Los 464 registros del grupo completo de 19 `taxonID` ambiguos no equivalen al subconjunto señalado por el reporte. Se incluyen además ambos catálogos 6105 y 3624 de `Paratrygon aiereba`, con `taxonID` 35821 y 35822 y frecuencia uno cada uno, descritos como empate sin mayoría única; ninguno se corrige automáticamente.
 
 **Pregunta.** ¿El `taxonID` es un identificador estable del portal o se reasigna al redeterminar? Determina si sirve como clave o solo como referencia.
 
 ---
 
-### F8. [ALTA] Un solo género queda sin resolver tras contrastar FishBase con el backbone de GBIF
+### F8. [ALTA] Géneros sin correspondencia en FishBase y casos no concluyentes en GBIF
 
-**El problema.** Quince géneros no resuelven contra el backbone de FishBase y afectan a 64 registros. Al contrastar los mismos quince contra el backbone de GBIF, la lista se reparte y casi toda se cierra:
+**El problema.** Dieciséis géneros sin correspondencia en FishBase afectan a 64 registros del conjunto final. El contraste congelado de sus nombres científicos completos con GBIF se distribuye así; la tabla cuenta filas, no consultas nuevas de géneros aislados:
 
-| Resultado en GBIF | Géneros | Filas | Lectura |
-|---|---|---|---|
-| `EXACT` | 6 | 49 | `Lipopterichthys`, `Cochliodon`, `Piabucina`, `Peckoltichthys`, `Sciadeops`, `Parauchenipterus`: géneros válidos que GBIF lista y FishBase no. Dejan de ser duda |
-| `HIGHERRANK` | 1 | 2 | `Pseudocetopsis`: GBIF lo resuelve al rango superior |
-| `NONE` | 8 | 13 | Ocho quedaban abiertos |
+| Resultado GBIF del nombre publicado | Filas | Lectura |
+|---|---|---|
+| `EXACT` | 36 | Coincidencia de nombre documentada, sin verificar la identificación del ejemplar |
+| `VARIANT` | 12 | Sugerencias ortográficas o nomenclaturales que requieren revisión |
+| `HIGHERRANK` | 15 | Correspondencia solo a un rango superior |
+| `NONE` | 1 | Catálogo 6045, `Saxatalia lucius`, sin correspondencia |
 
-De los ocho `NONE`, seis quedan resueltos como errata al consultar el binomio completo con su jerarquía: `Cynoponthicus` → *Cynoponticus*, `Jurengranulis` → *Jurengraulis*, `Orthropristis` → *Orthopristis*, `Rhandinoloricaria` → *Rhadinoloricaria*, `Sorubumichthys` → *Sorubimichthys*, `Sternachella` → *Sternarchella*. Todos con confianza 100. Van en la duda F12.
+Las sugerencias de grafía incluyen `Cynoponthicus` → *Cynoponticus*, `Jurengranulis` → *Jurengraulis*, `Orthropristis` → *Orthopristis*, `Rhandinoloricaria` → *Rhadinoloricaria*, `Sorubumichthys` → *Sorubimichthys* y `Sternachella` → *Sternarchella*. Se mantienen como propuestas de F12, no como identificaciones confirmadas.
 
-El séptimo lo resuelve el propio archivo: `Durlanis perugiae` aparece en una sola fila (catálogo 6046) frente a `Duringlanis perugiae` en once, y las dos declaran la misma autoría `(Steindachner, 1882)`.
+El archivo ofrece también una hipótesis para `Durlanis perugiae` (catálogo 6046): once registros usan `Duringlanis perugiae` con la misma autoría. El contraste GBIF actual solo resuelve el primero a un rango superior; la frecuencia interna no basta para corregirlo.
 
-**Queda un solo género: `Saxatilia`, en 6 registros** (catálogos 5891, 6045, 5925, 5967, 6270, 6271). No está en FishBase ni en GBIF, y sus tres binomios (`Saxatilia lucius`, `Saxatilia anthurus`, `Saxatilia proteus`) solo resuelven hasta `Cichlidae`. Esto es compatible con un género erigido recientemente por segregación de *Crenicichla*, que los dos backbones aún no incorporan.
+**Siguen pendientes las grafías `Saxatilia` y `Saxatalia`.** Cinco registros publican `Saxatilia` (5891, 5925, 5967, 6270 y 6271), cuyos binomios solo resuelven a un rango superior; el 6045 conserva `Saxatalia lucius` y tiene `NONE`. Debe confirmarse la validez y referencia de esos nombres, sin asumir una segregación reciente solo por ausencia en los backbones.
 
 **Cómo aislar los registros.** En `ocurrences_curado.csv`: filtrar `genero_fuera_de_backbone_fishbase = TRUE`.
 
 **Corrección propuesta (no aplicada).** Catálogo 6046: `Durlanis perugiae` → `Duringlanis perugiae`. Once registros usan la grafía correcta con la misma autoría `(Steindachner, 1882)` frente a uno con la errata. Se verifica con `catalogNumber = 6046`.
 
-**Pregunta.** ¿`Saxatilia` es un género válido de descripción reciente todavía ausente de FishBase y de GBIF, o es una grafía que hay que sustituir? Si es válido, ¿cuál es la referencia de su descripción para citarla en el conjunto de datos?
+**Pregunta.** ¿`Saxatilia` es un género válido de descripción reciente todavía ausente de FishBase y de GBIF, o es una grafía que hay que sustituir? Si es válido, ¿cuál es la referencia de su descripción para citarla en el conjunto de datos? Para el catálogo 6045, ¿la grafía original `Saxatalia lucius` corresponde a `Saxatilia lucius`?
 
 ---
 
@@ -1285,12 +1296,12 @@ El séptimo lo resuelve el propio archivo: `Durlanis perugiae` aparece en una so
 **El problema.** Hay registros que presentan múltiples fallos de concepto o procedencia en simultáneo, afectando incluso a holotipos:
 
 - **Catálogo 4358 (Holotipo sin datos):** Declara `typeStatus = Holotype`, `stateProvince = Galápagos`, familia `Haemulidae`. Sin embargo, no tiene colector, fecha, localidad, número de ejemplares, ni identificador. Es uno de los dos únicos tipos de la colección. ¿Es un holotipo real o un typeStatus mal asignado?
-- **Catálogo 3944 (Holotipo en hemisferio equivocado):** Es el otro holotipo y tiene la latitud errónea. Sus seis números en el verbatim son idénticos a los 3762–3764 (que traen `N` explícita y salen a `+0,091267`). El portal guardó `-0,091267` (una diferencia de 20 km), y Quebrada Sune está en Pacto, Pichincha, en el hemisferio Norte.
+- **Catálogo 3944 (Holotipo con hemisferio pendiente de confirmación):** Es el otro holotipo y conserva una latitud cuya interpretación es ambigua. Sus seis números en el verbatim son idénticos a los 3762–3764 (que traen `N` explícita y salen a `+0,091267`). El portal guardó `-0,091267` (una diferencia de 20 km), y Quebrada Sune está en Pacto, Pichincha, en el hemisferio Norte.
 - **Catálogo 3765 (Contaminación doble):** `identifications` dice `Microglanis` y el core arrastra `Xyliphius melanopterus` de sus vecinos. Además, declara Orellana cuando sus cuatro hermanas sitúan Quebrada Sune en Pichincha/Pacto, y su coordenada sexagesimal trae 76 segundos. Está corrupto en los ejes taxonómico y geográfico.
 - **Catálogo 6294:** Única fila de `Parodon` con `family = Lebiasinidae` frente a cinco con `Parodontidae`.
 - **Veintinueve filas con `identificationQualifier = "sp."` sobre un binomio completo:** Vienen así del origen. "sp." significa especie indeterminada y contradice directamente la existencia del binomio completo.
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: filtrar `genero_fuera_de_backbone_fishbase = TRUE`, o ver `gbif_nombres_difusos.csv`.
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `catalogNumber` en (4358, 3944, 3765, 6294) para los casos singulares; para el grupo de cualificadores, `identificationQualifier = "sp."` y `taxonRank = "species"` → 29 registros. `genero_fuera_de_backbone_fishbase` no identifica todos estos casos.
 
 **Preguntas.**
 1. ¿Los catálogos 4358 y 3944 son verdaderamente holotipos? Si es así, se requiere completar la ficha del 4358 y confirmar la corrección de hemisferio del 3944.
@@ -1302,35 +1313,39 @@ El séptimo lo resuelve el propio archivo: `Durlanis perugiae` aparece en una so
 
 ### F11. [MEDIA] Sesenta y dos nombres científicos con más de una autoría
 
-**El problema.** `scientificNameAuthorship` no se había validado en ninguna etapa: solo se le normalizó el formato ICZN. Al comparar cada autoría contra la mayoritaria de su propio nombre, 62 nombres tienen más de una y 109 filas quedan en la minoría, repartidas en 78 casos distintos. La discrepancia se clasifica automáticamente:
+**El problema.** En el conjunto final regenerado, 62 nombres científicos tienen más de una autoría. En 37 nombres hay una autoría de frecuencia máxima única y 66 filas con autorías menos frecuentes. Los otros 25 nombres tienen empate en el máximo y reúnen 75 filas con autoría: no se elige una referencia ni se marca una minoría en esos grupos. La frecuencia dentro de la colección no demuestra cuál autoría es taxonómicamente correcta.
 
-| Tipo | Filas | Ejemplo |
+Las 66 minorías corresponden a 43 combinaciones distintas de nombre y autoría. La clasificación final es:
+
+| Tipo | Minorías en el conjunto final | Ejemplo pendiente |
 |---|---|---|
-| Autoría distinta | 51 | `Gymnotus coatesi`: Hoedeman 1962 (5), La Monte 1935 (5), Linnaeus 1758 (1) |
-| Solo el paréntesis | 38 | `Brycon dentex`: `Günther, 1860` (21) frente a `(Günther, 1860)` (3) |
-| Solo tildes, guion o espaciado | 10 | `Barriga Salazar` frente a `Barriga-Salazar` |
-| Solo el año | 7 | `Brachyhypopomus regani`: la misma autoría con cinco años distintos (2017 a 2021); los catálogos consecutivos 5818–5821 van de 2017 a 2020 |
-| Errata del apellido | 3 | `Carcharhinus porosus`: `Ranzanl, 1840` frente a `Ranzani, 1840` |
+| Autoría distinta | 31 | Autores distintos para un mismo nombre |
+| Solo el paréntesis | 29 | `Brycon dentex`: `Günther, 1860` frente a `(Günther, 1860)` |
+| Solo tildes, guion o espaciado | 6 | `Barriga Salazar` frente a `Barriga-Salazar` |
+| Solo el año | 0 | `Brachyhypopomus regani`: cinco años distintos, de 2017 a 2021, en grupos empatados |
+| Errata del apellido | 0 | `Carcharhinus porosus`: `Ranzanl, 1840` frente a `Ranzani, 1840`, en grupo empatado |
 
-El paréntesis tiene valor nomenclatural: declara que la especie cambió de combinación desde su descripción original, de modo que una de las dos formas es falsa en cada uno de los 38 casos.
+Los ceros no resuelven las discrepancias de año o apellido: esos casos están en grupos empatados y siguen pendientes. En `Gymnotus coatesi` empatan Hoedeman, 1962 y La Monte, 1935 (cinco filas cada una), y también existen otras autorías menos frecuentes. `Mugil curema` y `Chaetostoma bifurcum` tienen dos autorías con dos filas cada una. Todos requieren validación, sin escoger por orden de aparición.
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `flag_autoria_minoritaria_en_el_nombre = TRUE` (109), columna `tipo_discrepancia_autoria` para el reparto.
+El paréntesis tiene valor nomenclatural: declara un cambio de combinación desde la descripción original. La referencia nomenclatural y la combinación publicada deben comprobarse; la frecuencia del dataset no decide la forma correcta.
 
-**Corrección propuesta (no aplicada).** Las trece autorías de los tipos "solo tildes, guion o espaciado" (10) y "errata del apellido" (3). Ejemplos: `Ranzanl, 1840` → `Ranzani, 1840` (*Carcharhinus porosus*); `Provenzano & Barriga Salazar, 2018` → `Provenzano & Barriga-Salazar, 2018` (*Ancistrus shuar*, 2 frente a 9). La forma mayoritaria no siempre es la correcta: en *Arius seemanni* la mayoritaria es `Guinther, 1864`, errata de Günther, y el mismo autor aparece con guion en *Ancistrus shuar* y sin guion en *Chaetostoma bifurcum*. Por eso la dirección de cada corrección la decide el curador. Se verifica con `tipo_discrepancia_autoria` en (`solo_tildes_guion_o_espaciado`, `errata_ortografica_del_apellido`).
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `flag_autoria_minoritaria_en_el_nombre = TRUE` → 66 registros; `tipo_discrepancia_autoria = "empate_frecuencia_maxima_sin_referencia_unica"` → 75 filas de 25 nombres. Los 66 identificadores de minorías coinciden con los del reporte POST.
+
+**Corrección propuesta (no aplicada).** Revisar las diferencias de tildes, guion, espaciado y apellido, tanto entre las seis minorías de formato como en los grupos empatados; una ausencia de bandera de minoría no resuelve esas dudas. Ejemplos: `Ranzanl, 1840` / `Ranzani, 1840` (*Carcharhinus porosus*); `Provenzano & Barriga Salazar, 2018` / `Provenzano & Barriga-Salazar, 2018` (*Ancistrus shuar*). En *Arius seemanni* la forma más frecuente es `Guinther, 1864`, frente a Günther, y el mismo autor aparece con guion en *Ancistrus shuar* y sin guion en *Chaetostoma bifurcum*. La dirección de cada corrección debe validarla el curador contra las referencias nomenclaturales, sin tomar la frecuencia como autoridad.
 
 **Preguntas.**
 1. Los cinco años consecutivos de `Brachyhypopomus regani` en cinco catálogos consecutivos, ¿son un arrastre de la plantilla de carga?
-2. En los 38 casos de paréntesis, ¿se adopta la forma mayoritaria del archivo o la del backbone?
+2. Para las diferencias de paréntesis, ¿qué forma corresponde a la combinación publicada y qué referencia nomenclatural debe respaldarla?
 
 ---
 
-### F12. [MEDIA] Treinta nombres cuya grafía corrige el backbone de GBIF
+### F12. [MEDIA] Treinta nombres que el backbone de GBIF identifica como variantes
 
-**El problema.** Treinta nombres científicos que el backbone de GBIF resuelve como variante ortográfica de otro, presentes en 49 filas. De ellos, **23 nombres (34 filas)** tienen corrección limpia y aceptada; los 7 restantes (15 filas) quedan a criterio curatorial: cinco porque GBIF empareja con un sinónimo (ver F14), uno porque es un nombre de rango subfamiliar que GBIF resuelve a la familia (`Loricariinae` → `Loricariidae`), y uno (`Farlowella oxyrhyncha` → `oxyrryncha`) porque GBIF propone la grafía que el propio pipeline ya corrigió.
+**El problema.** Treinta nombres científicos del conjunto final tienen correspondencia variante en GBIF, en 46 ocurrencias. Son 24 nombres (35 filas) clasificados como posibles erratas de taxones aceptados, cinco nombres (10 filas) emparejados con sinónimos (F14) y un nombre de rango subfamiliar en una fila (`Loricariinae` → `Loricariidae`). Todas las sugerencias siguen pendientes de confirmación curatorial.
 
-La bandera `flag_grafia_variante_gbif` está en `TRUE` en las 34 filas aplicables. La columna `grafia_sugerida_gbif` está poblada en las 49, incluidas las 15 que no se aplican.
+La bandera `flag_grafia_variante_gbif` identifica toda correspondencia `FUZZY` o `VARIANT`, independientemente de su motivo de revisión. `grafia_sugerida_gbif` conserva la sugerencia; `revisar_gbif` distingue posibles erratas, sinónimos, variantes nomenclaturales o de rango y casos no concluyentes. La bandera no significa que la corrección esté aprobada ni aplicada.
 
-El caso del catálogo 5367 (`Orthropristis chalceus` → *Orthopristis chalceus*) confirma la grafía correcta, consistente con el resto del archivo. El caso del catálogo 3931 (`Chaetostoma marginatus` → *Chaetostoma marginatum*) resuelve un empate: el archivo tenía una fila de cada forma y la grafía de GBIF decide.
+El catálogo 5367 (`Orthropristis chalceus` → *Orthopristis chalceus*) tiene una sugerencia consistente con el resto del archivo. Para 3931 (`Chaetostoma marginatus` → *Chaetostoma marginatum*), el archivo tiene una fila de cada forma: GBIF aporta una referencia externa para consultar al curador, sin resolver automáticamente el empate.
 
 Seis más resuelven géneros de F8: `Cynoponthicus coniceps` (5177), `Jurengranulis` (5320), `Rhandinoloricaria stewarti` (4247), `Sorubumichthys planiceps` (4839), `Sternachella orthos` (6104) y el ya citado 5367.
 
@@ -1338,9 +1353,9 @@ En dos casos la grafía de GBIF coincide con la mayoría del propio archivo: `Pi
 
 **Cómo aislar los registros.** Ver `gbif_nombres_difusos.csv`.
 
-**Corrección propuesta (no aplicada).** Adoptar la grafía de GBIF en los 23 nombres sin observación (34 registros). Ejemplo: *Chaetostoma dermorhynchus* → *Chaetostoma dermorhynchum* (4 registros). Veintidós tienen confianza 100; uno, *Alphestes inmaculatus* → *immaculatus*, confianza 86. Se verifica en `gbif_nombres_difusos.csv`, filas con `revisar` vacío; los nombres siguen sin alterar en `scientificName` de `ocurrences_curado.csv`.
+**Corrección propuesta (no aplicada).** Validar con el curador las sugerencias de los 24 nombres clasificados como posibles erratas (35 ocurrencias). Ejemplo: *Chaetostoma dermorhynchus* → *Chaetostoma dermorhynchum* (4 registros). En el reporte congelado actual, los 24 tienen confianza 100; ese valor no sustituye la validación curatorial. Se consultan en `gbif_nombres_difusos.csv`, con `revisar` que empieza por `posible_errata_ortografica`. Incluyen `Farlowella oxyrhyncha` del catálogo 5085; los 209, 1591 y 3069 ya conservan `Farlowella oxyrryncha` con coincidencia exacta.
 
-**Pregunta.** Para `Farlowella oxyrhyncha` / `oxyrryncha`: ¿qué autoridad se sigue, FishBase (rh) o GBIF (rr)?
+**Pregunta.** ¿Confirman `Farlowella oxyrryncha` para los catálogos 209, 1591 y 3069 y para las otras ocurrencias con grafía divergente? FishBase, el Catálogo de Peces de Eschmeyer y GBIF respaldan `oxyrryncha`.
 
 ---
 
@@ -1352,7 +1367,7 @@ En dos casos la grafía de GBIF coincide con la mayoría del propio archivo: `Pi
 |---|---|---|
 | 5544 | `Parapsettus steindcher` | El epíteto está truncado. ¿`steindachneri`? |
 
-El catálogo 5633 (`Alphestes inmaculatus`), que figuraba en una versión anterior de esta tabla, no pertenece a este grupo: GBIF sí lo resuelve como variante de *immaculatus* (confianza 86) y se trata en F12.
+El catálogo 5633 (`Alphestes inmaculatus`), que figuraba en una versión anterior de esta tabla, no pertenece a este grupo: GBIF sí lo resuelve como variante de *immaculatus* (confianza 100 en el contraste congelado actual) y se trata en F12.
 
 **Cómo aislar los registros.** En `gbif_contraste_completo.csv`: `matchType = HIGHERRANK`.
 
@@ -1398,9 +1413,9 @@ El catálogo 5633 (`Alphestes inmaculatus`), que figuraba en una versión anteri
 
 ### F17. [MEDIA] Familia publicada cuando FishBase y el backbone de GBIF discrepan
 
-**El problema.** Para 1.729 registros (el 27 % de la colección) la familia del archivo no coincide con la que FishBase asigna a su género. El caso casi total es Characidae: FishBase adoptó revisiones recientes que separan varios géneros de Characidae en familias nuevas, mientras que el archivo del INABIO y el backbone de GBIF mantienen Characidae. No es un error del dato: son dos autoridades que discrepan.
+**El problema.** En 1.729 registros (el 27 % de la colección), la familia publicada no coincide con FishBase para el género. Esto no equivale a un error confirmado: GBIF respalda la familia del registro en 1.632 casos, ambas referencias discrepan de ella en 94 y en tres la correspondencia GBIF no es concluyente. Los posibles cambios históricos de clasificación requieren evaluación, no se presuponen.
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `flag_family_discrepa_backbone = TRUE` → 1.729 registros, de los cuales 1.655 son del grupo de Characidae.
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `flag_family_discrepa_backbone = TRUE` → 1.729 registros, de los cuales 1.655 son del grupo de Characidae. `clasificacion_discrepancia_family` permite separar los motivos de revisión.
 
 **Pregunta.** ¿La dimensión Taxón usa la familia del origen o la del backbone?
 
@@ -1436,21 +1451,21 @@ El catálogo 5633 (`Alphestes inmaculatus`), que figuraba en una versión anteri
 
 ### G1. [MEDIA] `identifications.csv` no es un historial, pero contiene información que el core no tiene
 
-**El problema.** Esperaba una tabla de redeterminaciones. No lo es: 6.427 filas y 6.427 `coreid` distintos, exactamente una determinación por ocurrencia. Como dimensión de historial taxonómico no aporta nada. Y en cobertura es peor que el core en todo: 4.299 géneros frente a 6.396, 3.229 epítetos frente a 5.160, y `taxonRank`, `infraspecificEpithet`, `identificationReferences` e `identificationRemarks` vacías al 100%. Sus 6.424 `dateIdentified` incluyen 271 con los placeholders `sin datos` y `s.d.` que en el core ya limpié.
+**El problema.** La extensión proporcionada tiene 6.427 filas y 6.427 `coreid` distintos: una fila por ocurrencia, sin `identificationID` ni múltiples actos por ejemplar. No constituye un historial completo de determinaciones; esto no demuestra que el portal carezca de otro historial. Sus cifras de cobertura frente al core final regenerado, son: 4.299 géneros frente a 6.396, 3.229 epítetos frente a 5.160, y `taxonRank`, `infraspecificEpithet`, `identificationReferences` e `identificationRemarks` vacías al 100%. Sus 6.424 `dateIdentified` incluyen 271 con los placeholders `sin datos` y `s.d.` que en el core ya limpié.
 
-Al comparar contra el core crudo, y tras descartar los falsos positivos por espacios duros, el archivo aporta:
+Al comparar con los nombres originales del core y descartar falsos positivos por espacios duros, la ejecución corregida de la Fase 4 verifica:
 - **782 autorías** (`scientificNameAuthorship`) que el core no trae. Otras 21 se descartaron por pertenecer a un nombre distinto al del core (ver J2).
 - **0 `identifiedBy`** útiles (los 7 que tiene son una fecha y seis `unknown`).
-- **23 redeterminaciones confirmadas** (van a `previousIdentifications`).
-- Las 63 diferencias dudosas (ver J1).
+- **23 posibles identificaciones anteriores**, reconstruidas a partir de nombres diferentes y fechas comparables anteriores; se conservan en `previousIdentifications`, sin considerarlas actos curatoriales confirmados.
+- **63 diferencias de nombre**, que incluyen esas 23 posibles identificaciones anteriores y los casos pendientes de revisión (ver J1); no son un grupo adicional que deba sumarse.
 
-**Mi propuesta.** No incorporar `identifications.csv` como tabla al modelo. Extraerle solo los aportes válidos (782 autorías y las 23 redeterminaciones comprobadas) y dejarla fuera del alcance con justificación numérica escrita. Incorporarla obligaría a limpiar 52 formas distintas de `identifiedBy` para reconstruir una dimensión que en el core ya está conformada.
+**Mi propuesta.** No incorporar esta extensión como un historial completo al modelo. Integrar las 782 autorías compatibles con el nombre del core y conservar las 23 posibles identificaciones anteriores como reconstrucciones pendientes de validación. Incorporarla obligaría a limpiar 52 formas distintas de `identifiedBy` para reconstruir una dimensión que en el core ya está conformada.
 
-**Cómo aislar los registros.** Ver `identifications_para_inabio.csv` → 71 registros.
+**Cómo aislar los registros.** Ver `identifications_para_inabio.csv` de la Fase 4 corregida → 71 registros; las 23 reconstrucciones se identifican por `previousIdentifications` no vacío en `ocurrences_curado.csv`.
 
 **Preguntas.**
 1. ¿Confirman que el portal no guarda historial completo de redeterminaciones, o existe en otro lado y esta exportación no lo trae?
-2. ¿Autorizan tomar las 782 autorías y las 23 redeterminaciones y dejarlas integradas al core?
+2. ¿Autorizan conservar las 782 autorías y las 23 posibles identificaciones anteriores reconstruidas integradas al core, con esa distinción de evidencia?
 
 ---
 
@@ -1470,14 +1485,14 @@ Esto indica que no es un error de digitación individual, sino una coordenada in
 
 ### H2. [MEDIA] Trece coordenadas anómalas por posible error de digitación en el *northing*
 
-**El problema.** La hipótesis de error en la zona UTM fue refutada por cálculo: ninguna de estas 13 coordenadas mejora cambiando de zona (y GBIF lo confirma con `COUNTRY_COORDINATE_MISMATCH` para puntos como `-5.063108`).
+**El problema.** Trece registros conservan representaciones UTM con posibles errores de dígito en el northing. Actualmente no tienen coordenada decimal publicada: ocho son `irreparable` y cinco `utm_ambiguo`. La ausencia de una zona única respaldada impide reconstruirlos automáticamente; las lecturas siguientes son hipótesis para comprobar en las fuentes.
 
 La pregunta pasa a ser un posible error en el *northing*, con hipótesis concretas:
 - `9440090` → ¿`9940090`? (Caería en Orellana, afecta a 5 filas: cat. 5684, 4022, 4023, 4024, 4025)
 - `9956191` → ¿`9656191`? (Caería en El Oro, afecta a 5 filas)
 - `9890000` → ¿`9800000`? (Caería en Pastaza, afecta a 3 filas)
 
-**Cómo aislar los registros.** En `ocurrences_curado.csv`: `hipotesis_northing <> ""` → 13 registros.
+**Cómo aislar los registros.** En `ocurrences_curado.csv`: `verbatimCoordinates` contiene `9440090`, `9956191` o `9890000` → 13 registros. `hipotesis_northing` está vacío en la versión final y no sirve como filtro de estos casos.
 
 **Pregunta.** ¿Pueden confirmar con el libro de campo si estos *northing* tienen un dígito mal digitado según estas hipótesis?
 
@@ -1540,15 +1555,25 @@ No afirmo que la altitud sea incorrecta: puede ser una población de altura real
 
 ### J1. [ALTA] Sesenta y tres casos donde `identifications.csv` y el core discrepan
 
-**El problema.** Comparando `identifications.csv` contra `scientificName_verbatim` resultan 83 diferencias brutas, que se reparten en 63 nombres distintos reales, 18 filas con el literal `undefined`, 1 diferencia de sola mayúscula y 1 aporte neto (el catálogo 4322). Los 63 nombres distintos se dividen por fecha en: 24 con fecha anterior probada, de los cuales 23 pasan a `previousIdentifications` y 1 se descarta por ser un truncamiento; 30 sin fecha comparable; y 9 con la misma fecha. El anexo `identifications_para_inabio.csv` recoge 71 filas: las que no se resolvieron automáticamente más las 21 cuyo campo de autoría se rechazó por pertenecer a otro nombre (ver J2).
+**El problema.** En la ejecución corregida de la Fase 4, comparar `identifications.csv` con `scientificName_verbatim` produce 83 diferencias brutas: 63 filas con nombres diferentes para clasificar, 18 con el literal `undefined`, una diferencia de sola mayúscula y un aporte neto (el catálogo 4322). Las 63 diferencias se reparten así; los truncamientos están incluidos en cada total, no son casos adicionales:
+
+| Relación entre las fechas comparables | Total | Sin truncamiento | Con truncamiento |
+|---|---|---|---|
+| Fecha de la extensión anterior | 24 | 23 | 1 |
+| Sin fechas comparables | 30 | 24 | 6 |
+| Fecha comparable coincidente | 9 | 6 | 3 |
+
+Las 23 diferencias sin truncamiento y con fecha anterior se conservan como posibles identificaciones anteriores, no como redeterminaciones verificadas. De ellas, 13 no están en el oficio y 10 sí: cinco por cualificadores y cinco por autorías rechazadas. Las otras 40 diferencias van al oficio: 30 sin fechas comparables, nueve coincidentes y el truncamiento con fecha anterior.
+
+El anexo `identifications_para_inabio.csv` contiene 71 identificadores distintos: esas 50 diferencias de nombre pendientes (40 más 10), 18 filas adicionales con `undefined` y tres filas adicionales pendientes únicamente por cualificadores (catálogos 1799, 4317 y 4559). Las 21 autorías rechazadas de J2 ya están incluidas en esos grupos, por lo que no se suman otra vez.
 
 Quedan varios casos dudosos o problemáticos:
 
-- **Veinticinco sin fecha comparable.** `identifications` dice `sin datos` donde el core sí tiene fecha (casi todos del lote de julio 2023). No se puede probar cuál determinación es anterior.
-- **Seis con la misma fecha.**
+- **Treinta sin fechas comparables**, seis de ellas con truncamiento del nombre. Los vacíos y placeholders como `sin datos` impiden establecer una secuencia, aunque el core tenga una fecha.
+- **Nueve con fecha comparable coincidente**, tres de ellas con truncamiento. En seis coinciden solo los años; en tres coincide la fecha completa. Ninguna de esas coincidencias demuestra un mismo acto de determinación ni establece una secuencia.
 - **Catálogos 3766 y 3767 (intercambio sin corregir):** el `tidInterpreted` está intercambiado exactamente igual que el nombre. No se ha aplicado ningún cambio: los datos no permiten decidir cuál de las dos fuentes corresponde a cada ejemplar. Ver la corrección propuesta al final de esta pregunta.
 - **Catálogo 4336:** `identifications` dice `Gymnotus` (2019) y el core `Gymnotus coatesi` (2023). Con fecha anterior parecería una redeterminación de género a especie, pero la tabla pierde el epíteto de forma sistemática en 1.918 filas.
-- **Catálogo 4322:** `identifications` trae `Characidae` donde el core no tiene ningún nombre. Es el único aporte taxonómico neto de toda la tabla.
+- **Catálogo 4322:** `identifications` trae `Characidae` donde el core no tiene ningún nombre. Es el único aporte taxonómico neto de toda la tabla. Se reutiliza la coincidencia exacta de ese nombre ya congelada en GBIF; esto no confirma la identificación del ejemplar, que sigue pendiente del INABIO.
 - **Dieciocho filas con el texto `undefined`**.
 
 *(Nota: el catálogo 3765, que también presentaba discrepancias, se trata integralmente en F10.)*
@@ -1556,7 +1581,7 @@ Quedan varios casos dudosos o problemáticos:
 **Corrección propuesta (no aplicada).** Catálogos 3766 y 3767: el core dice 3766 = *Brachyhypopomus*, 3767 = *Trichomycterus*, y `identifications.csv` al revés, con el mismo determinador (Jonathan Valdiviezo) y el mismo año (2017). La extensión es coherente internamente: cada nombre llega con su autoría correcta (Valenciennes, 1832 para *Trichomycterus*; Mago-Leccia, 1994 para *Brachyhypopomus*). Los datos no permiten decidir cuál fuente corresponde a cada ejemplar: se propone la asignación que confirme la etiqueta física de cada frasco, corrigiendo `scientificName` y `family`. Se verifica en `identifications_para_inabio.csv`, `catalogNumber` en (3766, 3767).
 
 **Preguntas.**
-1. Para los 30 sin fecha: ¿el lote de julio 2023 fue una redeterminación masiva?
+1. Para los 30 sin fechas comparables: ¿el lote de julio 2023 fue una redeterminación masiva?
 2. Para 4336: ¿Fue una determinación real a nivel de género en 2019 o es la misma pérdida de dato (truncamiento)?
 3. Para 4322: ¿Se acepta `Characidae` como determinación?
 4. ¿`undefined` significa "no determinado" o es un fallo de exportación?
@@ -1589,7 +1614,7 @@ Los catálogos 3766 y 3767 confirman el intercambio recíproco, todavía sin cor
 
 ### J3. [MEDIA] El pie de foto discrepa del nombre del core en 162 ejemplares
 
-**El problema.** El campo `caption` de multimedia.csv conserva el nombre con el que se identificó el ejemplar cuando se tomó la fotografía, de modo que funciona como un tercer testigo de la determinación, junto al core y a identifications.csv. De los 346 ejemplares con imagen, 184 tienen el pie de foto idéntico al nombre del core y 162 discrepan:
+**El problema.** `multimedia.csv` contiene 430 imágenes correspondientes a 346 ejemplares. El campo `caption` aporta evidencia documental del nombre asociado a la imagen en la exportación; no demuestra cuál era la identificación cuando se tomó la fotografía ni que hubiera una redeterminación posterior. En la validación POST, comparando con el nombre original conservado en el core final, 184 ejemplares tienen el pie de foto idéntico y 162 discrepan; la clasificación es idéntica a PRE:
 
 | Relación entre el pie de foto y el nombre del core | Ejemplares |
 |---|---|
@@ -1598,7 +1623,7 @@ Los catálogos 3766 y 3767 confirman el intercambio recíproco, todavía sin cor
 | Epíteto distinto dentro del mismo género | 20 |
 | Pie de foto con reserva, cf. o aff., que el core no declara | 16 |
 
-Los 28 de género discordante y los 20 de epíteto distinto son de la misma naturaleza que las discrepancias ya documentadas en J1 y J2, con la ventaja de que el curador puede abrir la imagen y decidir mirando el ejemplar. Algunos casos:
+Los 28 de género discordante y los 20 de epíteto distinto requieren cotejar la imagen, la etiqueta y los registros de identificación, como los casos de J1 y J2. La diferencia documental no establece por sí sola una secuencia histórica ni cuál nombre es correcto. Algunos casos:
 
 | Catálogo | Pie de foto | Nombre en el core |
 |---|---|---|
@@ -1610,9 +1635,13 @@ Los 28 de género discordante y los 20 de epíteto distinto son de la misma natu
 
 Se verificó que las discrepancias no siguen un patrón de desplazamiento entre números de catálogo contiguos, de modo que no se trata de un corrimiento sistemático en la asociación entre imagen y ejemplar.
 
-**Cómo aislar los registros.** Filtrar `multimedia_caption_vs_core.csv` por la columna `clase`.
+Las 430 imágenes tienen direcciones con `localhost` en los cinco campos principales de URL: `identifier`, `accessURI`, `thumbnailAccessURI`, `goodQualityAccessURI` y `associatedSpecimenReference`. Esas direcciones no identifican un acceso público desde otro equipo; el dominio y las rutas correctas debe proporcionarlos el INABIO.
 
-**Pregunta.** ¿Corresponden estas discrepancias a redeterminaciones posteriores a la toma de la fotografía, a pies de foto que quedaron obsoletos, o a un cruce entre ejemplares? El pipeline no aplica ninguna corrección sobre estos casos.
+También hay una diferencia de licencia en las 430 filas: `rights` apunta a CC BY-NC 4.0, mientras que `UsageTerms` declara CC BY-NC-SA. La obligación de compartir bajo la misma licencia no coincide entre ambos campos; no se puede decidir cuál corresponde sin confirmación institucional.
+
+**Cómo aislar los registros.** Filtrar `multimedia_caption_vs_core_post.csv` por `clase`. Su contenido coincide con `multimedia_caption_vs_core_pre.csv`; ambos reportes se conservan por separado. Las URL y licencias se consultan en la extensión original `multimedia.csv`.
+
+**Pregunta.** ¿De dónde proceden los nombres de los pies de foto y qué evidencia permite distinguir una identificación anterior, un texto obsoleto o un cruce entre ejemplares; cuáles son las URL públicas correctas y qué licencia debe aplicarse, CC BY-NC 4.0 o CC BY-NC-SA? El pipeline no cambia nombres, URL ni licencias por estas discrepancias.
 
 ---
 

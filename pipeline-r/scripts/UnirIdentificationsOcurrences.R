@@ -25,7 +25,17 @@ nrm <- function(x) {
 }
 vac <- function(x) nrm(x) == ""
 
-# Alinear identifications al core por clave primaria (coreid -> id).
+# La extensión actual es 1:1; múltiples actos necesitan otro modelo, no match() al primero.
+if (any(vac(df$id)) || any(vac(id$coreid)) ||
+    anyDuplicated(nrm(df$id)) || anyDuplicated(nrm(id$coreid))) {
+  stop("Claves id/coreid vacías o duplicadas; se requiere una determinación por ocurrencia.")
+}
+if (nrow(id) != nrow(df) || !setequal(df$id, id$coreid)) {
+  stop("La extensión debe cubrir exactamente las claves del core con cardinalidad 1:1.")
+}
+ids_core <- df$id
+columnas_core <- names(df)
+# Alinear solo después de comprobar cardinalidad y correspondencia completa.
 id <- id[match(df$id, id$coreid), ]
 stopifnot(identical(nrm(id$coreid), nrm(df$id)))
 motivo <- rep(NA_character_, nrow(df))
@@ -94,7 +104,8 @@ cat("scientificNameAuthorship tomados de identifications:", length(i_aut), "\n")
 
 # ---- 1b. Importar determinación a nivel familia si el core está vacío ----
 i_432 <- which(vac(df$scientificName) & copiable(id$scientificName) &
-               grepl("(idae|inae)$", nrm(id$scientificName)))
+               grepl("idae$", nrm(id$scientificName)))
+i_gbif_reutilizado <- integer(0)
 if (length(i_432)) {
   df$scientificName[i_432] <- nrm(id$scientificName[i_432])
   df$family[i_432]         <- nrm(id$scientificName[i_432])
@@ -122,16 +133,40 @@ if (length(i_432)) {
       paste(df$metodo_correccion_taxon[k],
             "jerarquia_derivada_de_la_familia_importada", sep = "|"))
   }
-  # Recalcular occurrenceStatus tras la importación.
-  df$occurrenceStatus <- ifelse(df$registro_incompleto == "TRUE" |
-                                df$flag_sin_taxonomia  == "TRUE", "", "present")
   cat("  jerarquia derivada para la determinacion importada:", length(i_432), "\n")
-  cat("  occurrenceStatus recalculado tras la importacion:",
-      sum(df$occurrenceStatus != ""), "\n")
+
+  # Reutilizar únicamente una coincidencia familiar exacta ya congelada en Fase 3.
+  contraste <- read_csv("reportes_y_revisiones/gbif_contraste_completo.csv",
+                       col_types = cols(.default = "c"))
+  stopifnot(all(c("verbatim_name", "matchType", "rank", "status", "canonicalName",
+                  "accepted_gbif", "family_gbif") %in% names(contraste)))
+  for (k in i_432) {
+    referencia <- contraste[which(contraste$verbatim_name == df$scientificName[k]), ]
+    if (nrow(referencia) != 1L || !isTRUE(referencia$matchType == "EXACT") ||
+        !isTRUE(referencia$rank == "FAMILY") || !isTRUE(referencia$status == "ACCEPTED") ||
+        !isTRUE(referencia$canonicalName == df$scientificName[k]) ||
+        !isTRUE(referencia$family_gbif == df$family[k])) {
+      warning(paste("Determinación familiar importada sin contraste GBIF exacto reutilizable:", df$catalogNumber[k]))
+      next
+    }
+    df$gbif_matchtype[k] <- referencia$matchType
+    df$gbif_estado[k] <- referencia$status
+    df$gbif_nombre_aceptado[k] <- if (vac(referencia$accepted_gbif))
+      referencia$canonicalName else referencia$accepted_gbif
+    i_gbif_reutilizado <- c(i_gbif_reutilizado, k)
+  }
 }
+
+# Preservar los estados de Fase 3; un vacío requiere evidencia de espécimen.
+derivar_presencia <- which(vac(df$occurrenceStatus) &
+  df$basisOfRecord %in% c("PreservedSpecimen", "FossilSpecimen", "LivingSpecimen") &
+  !vac(df$catalogNumber) & !vac(df$id))
+df$occurrenceStatus[derivar_presencia] <- "present"
 
 # ---- 2. previousIdentifications ----
 # Condición: nombre difiere Y fecha de identifications es estrictamente anterior.
+# Son posibles identificaciones anteriores reconstruidas entre exportaciones,
+# no actos verificados: no hay identificationID ni múltiples actos por ejemplar.
 gran <- function(x) ifelse(grepl("^\\d{4}-\\d{2}-\\d{2}$", x), 3L,
                            ifelse(grepl("^\\d{4}-\\d{2}$", x), 2L,
                                   ifelse(grepl("^\\d{4}$", x), 1L, 0L)))
@@ -157,7 +192,7 @@ cat("  descartadas por truncamiento pese a tener fecha anterior:",
     sum(nombre_difiere & fecha_anterior & truncamiento), "\n")
 if (!"previousIdentifications" %in% names(df)) df$previousIdentifications <- NA_character_
 df$previousIdentifications[i_prev] <- nrm(id$scientificName[i_prev])
-cat("previousIdentifications escritas (fecha anterior probada):", length(i_prev), "\n")
+cat("previousIdentifications reconstruidas (nombre distinto y fecha comparable anterior):", length(i_prev), "\n")
 
 # ---- 3. Exportación de discrepancias para revisión manual (oficio INABIO) ----
 add_motivo <- function(v, idx, txt) {
@@ -167,7 +202,7 @@ add_motivo <- function(v, idx, txt) {
 motivo <- add_motivo(motivo,
   which(nombre_difiere & !fecha_anterior & g_id > 0 & g_cor > 0 &
         substr(d_id, 1, L) == substr(d_cor, 1, L)),
-  "misma fecha: mismo acto con dos nombres")
+  "fecha comparable coincidente; secuencia de determinaciones no establecida")
 motivo <- add_motivo(motivo, which(nombre_difiere & (g_id == 0 | g_cor == 0)),
   "sin fecha comparable en identifications")
 motivo <- add_motivo(motivo,
@@ -234,17 +269,24 @@ df$metodo_correccion_taxon <- marcar(df$metodo_correccion_taxon, i_prev,
   "previousIdentifications_desde_identifications")
 if (exists("i_432")) df$metodo_correccion_taxon <- marcar(df$metodo_correccion_taxon, i_432,
   "determinacion_familia_tomada_de_identifications")
+df$metodo_correccion_taxon <- marcar(df$metodo_correccion_taxon, i_gbif_reutilizado,
+  "gbif_reutilizado_desde_gbif_contraste_completo_nombre_exacto")
+df$metodo_correccion_taxon <- marcar(df$metodo_correccion_taxon, derivar_presencia,
+  "occurrenceStatus_derivado_de_especimen")
 
 # Sello del lote de carga del portal Symbiota.
 df$modified_identifications <- id$modified
 
 # ---- 4. Detección de autoría minoritaria por nombre (post-importación) ----
-aut_may <- df %>%
+aut_max <- df %>%
   filter(nz(scientificName) != "", nz(scientificNameAuthorship) != "") %>%
   count(scientificName, scientificNameAuthorship, name = "n_filas") %>%
   group_by(scientificName) %>%
-  slice_max(n_filas, n = 1, with_ties = FALSE) %>%
-  ungroup() %>%
+  filter(n_filas == max(n_filas)) %>% ungroup()
+nombres_autoria_empatada <- aut_max %>% count(scientificName) %>%
+  filter(n > 1L) %>% pull(scientificName)
+# Solo una moda única permite comparar minorías; el join sigue siendo muchos-a-uno.
+aut_may <- aut_max %>% filter(!(scientificName %in% nombres_autoria_empatada)) %>%
   select(scientificName, autoria_mayoritaria_del_nombre = scientificNameAuthorship)
 
 df <- df %>% left_join(aut_may, by = "scientificName")
@@ -262,7 +304,9 @@ sin_guion  <- function(x) trimws(gsub("\\s+", " ", gsub("-", " ", x)))
 solo_letras<- function(x) tolower(gsub("[^A-Za-z]", "", sin_acento(x)))
 
 # Clasificar el tipo de discrepancia de autoría.
-df$tipo_discrepancia_autoria <- NA_character_
+df$tipo_discrepancia_autoria <- ifelse(
+  df$scientificName %in% nombres_autoria_empatada & !vac(df$scientificNameAuthorship),
+  "empate_frecuencia_maxima_sin_referencia_unica", NA_character_)
 k <- which(df$flag_autoria_minoritaria_en_el_nombre)
 A <- nz(df$scientificNameAuthorship[k]); B <- nz(df$autoria_mayoritaria_del_nombre[k])
 dlev <- mapply(function(x, y) adist(solo_letras(sin_anio(x)),
@@ -282,6 +326,7 @@ n_aut <- df %>% filter(nz(scientificName) != "", nz(scientificNameAuthorship) !=
 cat("nombres cientificos con mas de una autoria:", n_aut,
     "| filas en la autoria minoritaria:",
     sum(df$flag_autoria_minoritaria_en_el_nombre), "\n")
+cat("nombres con empate en la frecuencia maxima de autorias:", length(nombres_autoria_empatada), "\n")
 print(table(df$tipo_discrepancia_autoria, useNA = "no"))
 df <- df %>% select(-autoria_mayoritaria_del_nombre)
 
@@ -308,5 +353,7 @@ cat("  taxonID ambiguos en el core:", length(ambig_core),
 cat("  >> la ambiguedad se reproduce en las dos exportaciones: es del portal.\n")
 cat("  >> la dimension Taxon debe llevar clave sustituta sobre el nombre canonico.\n")
 
+stopifnot(nrow(df) == length(ids_core), identical(df$id, ids_core),
+          !anyDuplicated(df$id), all(columnas_core %in% names(df)))
 write_csv(df, SALIDA, na = "")
 cat("\nGuardado en", SALIDA, "\n")

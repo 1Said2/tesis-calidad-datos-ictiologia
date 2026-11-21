@@ -15,7 +15,7 @@
 #   R3  Coordenada y altitud embebidas en el texto de locality  23 filas
 #   R4  locationRemarks identico a locality (campo espejo)        500 filas
 #   R5  dia fabricado por el portal (01 sobre verbatim ano-mes)   169 filas
-#   R6  geodeticDatum ausente en filas con coordenada            470 filas
+#   R6  geodeticDatum ausente en filas con coordenada            460 filas
 #
 # Reglas NO aplicadas y su razon: ver bloque final del script.
 # =============================================================================
@@ -134,6 +134,7 @@ reglas_curacion <- tibble::tribble(
   "eventDate_portal", "dia_fabricado_retirado", "dia fabricado por el portal (01 sobre verbatim ano-mes)", 169,
   "El verbatimEventDate solo trae ano y mes (por ejemplo 2003-8) y el portal completo el dia con 01. Ese 01 no viene de la ficha. Se trunco eventDate al grano probado y se vaciaron day y startDayOfYear.",
 
+  # Diez casos con DMS inválido o signo ambiguo quedaron sin coordenadas en Fase 2.
   "R6", 1, "geodeticDatum",
   quote(decimalLatitude != "" & geodeticDatum == ""),
   function(df, cond) list(
@@ -143,8 +144,8 @@ reglas_curacion <- tibble::tribble(
                                  "datum no declarado en el origen: se asume WGS84 por ser el unico datum presente en la coleccion y el de la reproyeccion UTM", 
                                  paste(df$georeferenceRemarks[cond], "datum no declarado en el origen: se asume WGS84 por ser el unico datum presente en la coleccion y el de la reproyeccion UTM", sep = "; "))
   ),
-  "", "datum_declarado_por_supuesto", "GEODETIC_DATUM_ASSUMED_WGS84 (validador de GBIF)", 470,
-  "Las 5.708 filas que declaran datum declaran WGS84 sin excepcion, y las coordenadas reconstruidas desde UTM se reproyectaron desde WGS84 por definicion. El validador de GBIF ya lo asumia en silencio. Se declaro explicitamente y se marco el supuesto."
+  "", "datum_declarado_por_supuesto", "GEODETIC_DATUM_ASSUMED_WGS84 (validador de GBIF)", 460,
+  "La entrada corregida declara WGS84 o EPSG:4326, que utiliza WGS84. Las filas con coordenada y datum vacio se completan bajo el supuesto ya definido, identificado mediante datum_asumido y georeferenceRemarks. Los casos sin coordenadas utilizables no cumplen esta regla."
 )
 
 # =============================================================================
@@ -239,7 +240,7 @@ cat("OK  las 169 fechas quedaron al grano probado por el verbatim\n")
 cond_R6 <- str_detect(df$regla_curacion, "GEODETIC_DATUM_ASSUMED_WGS84")
 stopifnot(all(df$datum_asumido[cond_R6] == "TRUE"))
 stopifnot(all(str_detect(df$georeferenceRemarks[cond_R6], "se asume WGS84")))
-cat("OK  las 470 filas con datum asumido quedaron marcadas y anotadas\n")
+cat("OK ", sum(cond_R6), "filas con datum asumido quedaron marcadas y anotadas\n")
 
 cat("\nCoordenadas sin datum declarado:",
     sum(df$decimalLatitude != "" & df$geodeticDatum == ""), "(esperado 0)\n")

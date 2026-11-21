@@ -37,11 +37,15 @@ SALIDA      <- sprintf("reportes_y_revisiones/reporte_plausibilidad%s.csv", SUFI
 RESUMEN     <- sprintf("reportes_y_revisiones/reporte_plausibilidad_resumen%s.csv", SUFIJO)
 VERIFICADAS <- sprintf("reportes_y_revisiones/reporte_plausibilidad_verificadas%s.csv", SUFIJO)
 REGLAS_CSV  <- sprintf("reportes_y_revisiones/reglas_ejecutadas%s.csv", SUFIJO)
+SUFIJO_MULTIMEDIA <- if (nzchar(SUFIJO)) SUFIJO else
+  if (basename(ARCHIVO) == "ocurrences_curado.csv") "_post" else "_pre"
+MULTIMEDIA_CSV <- sprintf("reportes_y_revisiones/multimedia_caption_vs_core%s.csv", SUFIJO_MULTIMEDIA)
 # Fecha de corte fija para reproducibilidad.
 HOY      <- as.Date("2026-08-23")
 ANIO_MIN <- 1900
 
 df <- read_csv(ARCHIVO, col_types = cols(.default = "c"))
+stopifnot(!anyNA(df$id), !any(df$id == ""), !anyDuplicated(df$id))
 num <- function(x) suppressWarnings(as.numeric(x))
 vac <- function(x) is.na(x) | trimws(x) == ""
 nz  <- function(x) ifelse(is.na(x), "", x)
@@ -204,14 +208,17 @@ if (file.exists("datos/00_referencia/dpa_provincias.csv")) {
 }
 
 
-# Marcar solo filas minoritarias en discrepancias jerárquicas.
+# Comparar con una moda única; ante empate, conservar ambos lados del conflicto.
 min_fila <- function(clave, valor) {
   may <- df %>% filter(!vac(.data[[clave]]), !vac(.data[[valor]])) %>%
     count(.data[[clave]], .data[[valor]], name = "n") %>%
-    arrange(.data[[clave]], desc(n)) %>% group_by(.data[[clave]]) %>%
-    slice_head(n = 1) %>% ungroup() %>% setNames(c(clave, "may", "n"))
-  j <- left_join(df[c(clave, valor)], may[c(clave, "may")], by = clave)
-  which(!vac(j[[valor]]) & !is.na(j$may) & j[[valor]] != j$may)
+    group_by(.data[[clave]]) %>% filter(n == max(n)) %>%
+    summarise(may = if (n() == 1L) .data[[valor]][1] else NA_character_,
+              empate = n() > 1L, .groups = "drop")
+  j <- left_join(df[c(clave, valor)], may, by = clave)
+  stopifnot(nrow(j) == nrow(df))
+  which(!vac(j[[valor]]) & (j$empate %in% TRUE |
+        (!is.na(j$may) & j[[valor]] != j$may)))
 }
 
 # Excepciones por reasignación territorial histórica.
@@ -336,22 +343,27 @@ nm <- df %>% filter(!vac(taxonID), !vac(scientificName)) %>%
   distinct(taxonID, scientificName) %>% count(scientificName) %>% filter(n > 1) %>%
   pull(scientificName)
 
-# Marcar solo la fila minoritaria del cruce taxonID <-> scientificName.
+# Una moda única permite comparar minorías; un empate es conflicto sin mayoría.
 may_tid <- df %>% filter(!vac(taxonID), !vac(scientificName)) %>%
   count(taxonID, scientificName, name = "n") %>%
-  group_by(taxonID) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
-  ungroup() %>% select(taxonID, nombre_may = scientificName)
+  group_by(taxonID) %>% filter(n == max(n)) %>%
+  summarise(nombre_may = if (n() == 1L) scientificName[1] else NA_character_,
+            empate_tid = n() > 1L, .groups = "drop")
 may_nom <- df %>% filter(!vac(taxonID), !vac(scientificName)) %>%
   count(scientificName, taxonID, name = "n") %>%
-  group_by(scientificName) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
-  ungroup() %>% select(scientificName, taxonID_may = taxonID)
+  group_by(scientificName) %>% filter(n == max(n)) %>%
+  summarise(taxonID_may = if (n() == 1L) taxonID[1] else NA_character_,
+            empate_nombre = n() > 1L, .groups = "drop")
 j <- df %>% select(taxonID, scientificName) %>%
   left_join(may_tid, by = "taxonID") %>% left_join(may_nom, by = "scientificName")
+stopifnot(nrow(j) == nrow(df))
 
 idx_tm <- which(df$taxonID %in% tm & !vac(df$scientificName) &
-                !is.na(j$nombre_may)  & df$scientificName != j$nombre_may)
+                (j$empate_tid %in% TRUE |
+                 (!is.na(j$nombre_may) & df$scientificName != j$nombre_may)))
 idx_nm <- which(df$scientificName %in% nm & !vac(df$taxonID) &
-                !is.na(j$taxonID_may) & df$taxonID != j$taxonID_may)
+                (j$empate_nombre %in% TRUE |
+                 (!is.na(j$taxonID_may) & df$taxonID != j$taxonID_may)))
 idx_tax <- union(idx_tm, idx_nm)
 
 if (length(idx_tax)) {
@@ -359,6 +371,8 @@ if (length(idx_tax)) {
   sub_tax[idx_tax %in% idx_tm & idx_tax %in% idx_nm] <- "ambos (cruce multiple)"
   sub_tax[idx_tax %in% idx_tm & !(idx_tax %in% idx_nm)] <- "taxonID apunta a varios nombres"
   sub_tax[idx_tax %in% idx_nm & !(idx_tax %in% idx_tm)] <- "nombre con varios taxonID"
+  empatados <- which(j$empate_tid[idx_tax] %in% TRUE | j$empate_nombre[idx_tax] %in% TRUE)
+  sub_tax[empatados] <- paste0(sub_tax[empatados], "; empate de frecuencia, sin mayoria unica")
   
   reg(idx_tax, "taxonomia", "inconsistencia (cruce) entre taxonID y scientificName",
       "taxonID | scientificName | subtipo",
@@ -564,17 +578,57 @@ reg(idx, "coordenadas", "continent declarado sobre coordenada marina (aviso GBIF
 # ---------------------------------------------------------------
 USAR_DEM <- TRUE
 if (USAR_DEM) {
-  library(elevatr); library(sf)
   sub <- df %>% mutate(.i = row_number()) %>%
     filter(!vac(decimalLatitude), !vac(minimumElevationInMeters))
-  pts <- st_as_sf(sub, coords = c("decimalLongitude", "decimalLatitude"), crs = 4326)
-  pts <- get_elev_point(pts, src = "aws", z = 10)
-  d   <- abs(num(sub$minimumElevationInMeters) - pts$elevation)
+  archivo_dem <- "datos/00_referencia/dem_elevatr.rds"
+  parametros_dem <- list(src = "aws", z = 10L, crs = 4326L, units = "meters")
+  puntos_dem <- sub %>% transmute(longitud = num(decimalLongitude), latitud = num(decimalLatitude)) %>%
+    distinct() %>% arrange(longitud, latitud)
+  clave_dem <- function(x) paste(sprintf("%.17g", x$longitud), sprintf("%.17g", x$latitud), sep = "|")
+  if (file.exists(archivo_dem)) {
+    cache_dem <- readRDS(archivo_dem)
+    if (!identical(cache_dem$parametros, parametros_dem) ||
+        !all(c("longitud", "latitud", "elevation", "elev_units") %in% names(cache_dem$elevaciones)) ||
+        anyDuplicated(clave_dem(cache_dem$elevaciones))) stop("Cache DEM incompatible o duplicada.")
+  } else {
+    cache_dem <- list(parametros = parametros_dem, consultas = list(),
+      elevaciones = tibble(longitud = double(), latitud = double(), elevation = double(), elev_units = character()))
+  }
+  faltantes_dem <- puntos_dem[!(clave_dem(puntos_dem) %in% clave_dem(cache_dem$elevaciones)), ]
+  if (nrow(faltantes_dem)) {
+    if (!identical(Sys.getenv("VALIDACION_CONSULTAR_DEM"), "TRUE")) {
+      stop("Faltan elevaciones congeladas. Para consultarlas una vez, use VALIDACION_CONSULTAR_DEM=TRUE.")
+    }
+    library(elevatr); library(sf)
+    pts <- st_as_sf(faltantes_dem, coords = c("longitud", "latitud"), crs = parametros_dem$crs)
+    respuesta_dem <- get_elev_point(pts, src = parametros_dem$src, z = parametros_dem$z,
+                                   units = parametros_dem$units)
+    if (is.null(respuesta_dem) || nrow(respuesta_dem) != nrow(faltantes_dem) ||
+        any(!is.finite(respuesta_dem$elevation)) ||
+        !all(respuesta_dem$elev_units == "meters")) stop("Respuesta DEM incompleta; no se publican reportes parciales.")
+    coordenadas_dem <- sf::st_coordinates(respuesta_dem)
+    if (!isTRUE(all.equal(unname(coordenadas_dem), as.matrix(faltantes_dem), check.attributes = FALSE))) {
+      stop("La respuesta DEM no conserva la correspondencia de coordenadas.")
+    }
+    nuevas_elevaciones <- faltantes_dem %>% mutate(elevation = as.numeric(respuesta_dem$elevation),
+                                                   elev_units = as.character(respuesta_dem$elev_units))
+    cache_dem$elevaciones <- bind_rows(cache_dem$elevaciones, nuevas_elevaciones)
+    cache_dem$consultas[[length(cache_dem$consultas) + 1L]] <- list(
+      fecha = format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z"), proveedor = "AWS Terrain Tiles mediante elevatr",
+      elevatr = as.character(packageVersion("elevatr")), puntos = faltantes_dem)
+    saveRDS(cache_dem, archivo_dem)
+  }
+  posiciones_dem <- match(clave_dem(sub %>% transmute(longitud = num(decimalLongitude), latitud = num(decimalLatitude))),
+                          clave_dem(cache_dem$elevaciones))
+  elevacion_dem <- cache_dem$elevaciones$elevation[posiciones_dem]
+  if (anyNA(posiciones_dem) || any(!is.finite(elevacion_dem))) stop("La cache DEM no cubre las coordenadas solicitadas.")
+  cat("DEM local:", nrow(puntos_dem), "coordenadas unicas para", nrow(sub), "registros\n")
+  d <- abs(num(sub$minimumElevationInMeters) - elevacion_dem)
   reg(sub$.i[which(d > 300)], "ecologia",
       "altitud declarada discrepa del DEM en mas de 300 m",
       "minimumElevationInMeters | DEM",
       paste(sub$minimumElevationInMeters[which(d > 300)], "vs",
-            round(pts$elevation[which(d > 300)]), "m"), "media", "INABIO")
+            round(elevacion_dem[which(d > 300)]), "m"), "media", "INABIO")
 }
 
 # ---------------------------------------------------------------
@@ -612,14 +666,21 @@ for (col in c("genus", "family", "scientificName", "county", "municipality",
     if (par_verificado(u[i], u[j])) next
     if (solo_digito(u[i], u[j])) next
     if (!lev1(norm_txt(u[i]), norm_txt(u[j]))) next
-    raro <- if (v[[i]] <= v[[j]]) u[i] else u[j]
-    comun <- if (v[[i]] <= v[[j]]) u[j] else u[i]
-    idx <- which(df[[col]] == raro)
+    if (v[[i]] == v[[j]]) {
+      idx <- which(df[[col]] %in% c(u[i], u[j]))
+      comparacion <- paste0(u[i], " (", v[[i]], ") ~ ", u[j], " (", v[[j]],
+                            "); empate de frecuencia, sin mayoria unica")
+    } else {
+      raro <- if (v[[i]] < v[[j]]) u[i] else u[j]
+      comun <- if (v[[i]] < v[[j]]) u[j] else u[i]
+      idx <- which(df[[col]] == raro)
+      comparacion <- paste0(raro, " (", v[[raro]], ") ~ ", comun, " (", v[[comun]], ")")
+    }
     reg(idx = idx,
         bloque = "ortografia",
         regla = paste0("valor a una letra de otro valor de ", col),
         campos = col,
-        valores = paste0(raro, " (", v[[raro]], ") ~ ", comun, " (", v[[comun]], ")"),
+        valores = comparacion,
         severidad = "media",
         destino = "INABIO")
   }
@@ -686,7 +747,7 @@ cat("\nGuardado en", SALIDA, "\n")
 # ==========================================================
 library(dplyr); library(readr); library(stringr)
 
-core <- read_csv("datos/02_intermedios/ocurrences_con_identifications.csv",
+core <- read_csv(ARCHIVO,
                  col_types = cols(.default = "c"), na = character())
 mm   <- read_csv("datos/01_crudos/multimedia.csv",
                  col_types = cols(.default = "c"), na = character())
@@ -710,7 +771,7 @@ cat("\nrights      :", unique(mm$rights),
 cat("\nvacios en las", nrow(mm), "filas:",
     paste(names(mm)[sapply(mm, function(x) all(is.na(x) | x == ""))], collapse = ", "), "\n")
 
-# 4. caption como tercer testigo de la determinacion.
+# 4. caption como evidencia documental, sin inferir un historial de determinaciones.
 # Se compara contra scientificName_verbatim, no contra el nombre corregido,
 # para no marcar como discordancia lo que corrigio el propio pipeline.
 cmp <- mm %>%
@@ -737,4 +798,4 @@ print(count(cmp, clase, name = "registros"))
 cmp %>%
   filter(clase != "identico") %>%
   select(coreid, catalogNumber, cap, sci, clase, taxonRank) %>%
-  write_csv("reportes_y_revisiones/multimedia_caption_vs_core.csv", na = "")
+  write_csv(MULTIMEDIA_CSV, na = "")

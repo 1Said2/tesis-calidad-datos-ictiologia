@@ -1,0 +1,37 @@
+{
+  "fishbase": {
+    "version": "26.06",
+    "rfishbase": "5.0.3",
+    "fecha_consulta": "2026-11-20T15:22:49-0500",
+    "parametros": {
+      "server": "fishbase",
+      "version": "26.06",
+      "version_solicitada": "latest"
+    },
+    "archivo": "fishbase_taxa.rds",
+    "version_resuelta_mediante": "max(available_releases), mecanismo de fb_urls(version=latest)",
+    "releases_observadas": ["19.04", "21.06", "23.01", "23.05", "24.07", "25.04", "26.06"]
+  },
+  "gbif": {
+    "version_backbone": null,
+    "fecha_consulta": null,
+    "procedencia": "gbif_contraste_completo.csv existente; version y fecha originales no registradas",
+    "fecha_congelado": "2026-11-20T15:22:49-0500",
+    "rgbif": "3.8.5",
+    "archivo": "gbif_respuestas.rds",
+    "consultas_adicionales": {
+      "archivo": "gbif_consultas_adicionales.rds",
+      "fecha_consulta": "2026-11-20T15:23:37-0500",
+      "parametros": {
+        "kingdom": "Animalia",
+        "strict": true,
+        "verbose": false
+      }
+    }
+  },
+  "archivos_md5": {
+    "fishbase_taxa.rds": "2fa4b5dc837fedb858c8f1090f982fee",
+    "gbif_respuestas.rds": "eb10d2893276a9989d7a33fa1f36e011",
+    "gbif_consultas_adicionales.rds": "55bdc3c01c4ed27765f324451669b310"
+  }
+}

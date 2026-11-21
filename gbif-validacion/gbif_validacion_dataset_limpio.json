@@ -1,10 +1,10 @@
 {
-    "key": "52de80a1-cd55-4d14-bf51-425cc49d593c",
-    "created": "2026-11-20T16:13:47.792+00:00",
-    "modified": "2026-11-20T16:15:05.405+00:00",
+    "key": "19bc21c7-68e0-4f57-b234-216c32c177b4",
+    "created": "2026-11-21T01:43:01.536+00:00",
+    "modified": "2026-11-21T01:44:04.665+00:00",
     "username": "1said2",
-    "file": "dataset_dwca_20261120_111253.zip",
-    "fileSize": 577923,
+    "file": "dataset_dwca_20261120_204044.zip",
+    "fileSize": 564219,
     "fileFormat": "DWCA",
     "status": "FINISHED",
     "metrics": {
@@ -109,16 +109,16 @@
                         "interpretedIndexed": 6427,
                         "uniqueInterpretedValues": 6427,
                         "sampleInterpretedValuesMap": {
-                            "https://localhost/bndb/collections/individual/index.php?occid=1840193": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=677642": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=678773": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1840862": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1841049": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=681339": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=680602": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=1840092": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=677804": 1,
-                            "https://localhost/bndb/collections/individual/index.php?occid=680029": 1
+                            "https://localhost/bndb/collections/individual/index.php?occid=1841152": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=680995": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=679535": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=680011": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=678027": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1841154": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=1840103": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=680789": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=677717": 1,
+                            "https://localhost/bndb/collections/individual/index.php?occid=678739": 1
                         }
                     },
                     {
@@ -379,12 +379,12 @@
                         "term": "http://rs.tdwg.org/dwc/terms/continent",
                         "termGroup": "dwc_Location",
                         "termIndex": 85,
-                        "rawIndexed": 6398,
-                        "uniqueRawValues": 1,
-                        "interpretedIndexed": 6410,
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 6401,
                         "uniqueInterpretedValues": 1,
                         "sampleInterpretedValuesMap": {
-                            "SOUTH_AMERICA": 6410
+                            "SOUTH_AMERICA": 6401
                         }
                     },
                     {
@@ -575,10 +575,10 @@
                         "term": "http://rs.tdwg.org/dwc/terms/decimalLatitude",
                         "termGroup": "dwc_Location",
                         "termIndex": 107,
-                        "rawIndexed": 6178,
-                        "uniqueRawValues": 1173,
-                        "interpretedIndexed": 6179,
-                        "uniqueInterpretedValues": 1174,
+                        "rawIndexed": 6130,
+                        "uniqueRawValues": 1151,
+                        "interpretedIndexed": 6146,
+                        "uniqueInterpretedValues": 1161,
                         "sampleInterpretedValuesMap": {
                             "-3.000283": 152,
                             "-2.230592": 69,
@@ -596,10 +596,10 @@
                         "term": "http://rs.tdwg.org/dwc/terms/decimalLongitude",
                         "termGroup": "dwc_Location",
                         "termIndex": 108,
-                        "rawIndexed": 6178,
-                        "uniqueRawValues": 1161,
-                        "interpretedIndexed": 6179,
-                        "uniqueInterpretedValues": 1162,
+                        "rawIndexed": 6130,
+                        "uniqueRawValues": 1144,
+                        "interpretedIndexed": 6146,
+                        "uniqueInterpretedValues": 1154,
                         "sampleInterpretedValuesMap": {
                             "-76.625395": 89,
                             "-79.85844": 68,
@@ -617,21 +617,17 @@
                         "term": "http://rs.tdwg.org/dwc/terms/geodeticDatum",
                         "termGroup": "dwc_Location",
                         "termIndex": 109,
-                        "rawIndexed": 6178
+                        "rawIndexed": 6216
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters",
                         "termGroup": "dwc_Location",
                         "termIndex": 110,
-                        "rawIndexed": 5911,
-                        "uniqueRawValues": 3,
-                        "interpretedIndexed": 5911,
-                        "uniqueInterpretedValues": 3,
-                        "sampleInterpretedValuesMap": {
-                            "200.0": 1,
-                            "30.0": 4275,
-                            "100.0": 1635
-                        }
+                        "rawIndexed": 0,
+                        "uniqueRawValues": 0,
+                        "interpretedIndexed": 0,
+                        "uniqueInterpretedValues": 0,
+                        "sampleInterpretedValuesMap": {}
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/verbatimCoordinates",
@@ -643,12 +639,11 @@
                         "term": "http://rs.tdwg.org/dwc/terms/georeferencedBy",
                         "termGroup": "dwc_Location",
                         "termIndex": 121,
-                        "rawIndexed": 5107,
-                        "uniqueRawValues": 2,
+                        "rawIndexed": 3501,
+                        "uniqueRawValues": 1,
                         "interpretedIndexed": 6427,
-                        "uniqueInterpretedValues": 2,
+                        "uniqueInterpretedValues": 1,
                         "sampleInterpretedValuesMap": {
-                            "Said Cotacachi (pipeline de limpieza MECN-DP)": 1606,
                             "Mateo Andrés Vega Yánez": 3501
                         }
                     },
@@ -656,19 +651,19 @@
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceProtocol",
                         "termGroup": "dwc_Location",
                         "termIndex": 123,
-                        "rawIndexed": 1606
+                        "rawIndexed": 1672
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceSources",
                         "termGroup": "dwc_Location",
                         "termIndex": 124,
-                        "rawIndexed": 6178
+                        "rawIndexed": 6130
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceRemarks",
                         "termGroup": "dwc_Location",
                         "termIndex": 125,
-                        "rawIndexed": 6244
+                        "rawIndexed": 1275
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/preparations",
@@ -717,16 +712,16 @@
                         "interpretedIndexed": 6427,
                         "uniqueInterpretedValues": 6427,
                         "sampleInterpretedValuesMap": {
-                            "1090": 1,
-                            "4032": 1,
+                            "6240": 1,
+                            "4937": 1,
+                            "1436": 1,
+                            "3959": 1,
+                            "3414": 1,
                             "2069": 1,
                             "2088": 1,
-                            "5325": 1,
-                            "2904": 1,
-                            "2162": 1,
-                            "3606": 1,
-                            "296": 1,
-                            "829": 1
+                            "5645": 1,
+                            "4821": 1,
+                            "2294": 1
                         }
                     },
                     {
@@ -829,13 +824,13 @@
                         "term": "http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus",
                         "termGroup": "dwc_Occurrence",
                         "termIndex": 38,
-                        "rawIndexed": 6178
+                        "rawIndexed": 6244
                     },
                     {
                         "term": "http://rs.tdwg.org/dwc/terms/occurrenceStatus",
                         "termGroup": "dwc_Occurrence",
                         "termIndex": 39,
-                        "rawIndexed": 6417,
+                        "rawIndexed": 6427,
                         "uniqueRawValues": 1,
                         "interpretedIndexed": 6427,
                         "uniqueInterpretedValues": 1,
@@ -974,7 +969,7 @@
                         "termGroup": "dwc_Taxon",
                         "termIndex": 162,
                         "rawIndexed": 6421,
-                        "uniqueRawValues": 936,
+                        "uniqueRawValues": 938,
                         "interpretedIndexed": 6421,
                         "uniqueInterpretedValues": 890,
                         "sampleInterpretedValuesMap": {
@@ -1114,7 +1109,7 @@
                         "termGroup": "dwc_Taxon",
                         "termIndex": 179,
                         "rawIndexed": 6396,
-                        "uniqueRawValues": 403,
+                        "uniqueRawValues": 404,
                         "interpretedIndexed": 6395,
                         "uniqueInterpretedValues": 395,
                         "sampleInterpretedValuesMap": {
@@ -1147,7 +1142,7 @@
                         "termGroup": "dwc_Taxon",
                         "termIndex": 183,
                         "rawIndexed": 5160,
-                        "uniqueRawValues": 641,
+                        "uniqueRawValues": 642,
                         "interpretedIndexed": 5143,
                         "uniqueInterpretedValues": 630,
                         "sampleInterpretedValuesMap": {
@@ -1251,39 +1246,28 @@
                         ]
                     },
                     {
-                        "issue": "CONTINENT_COORDINATE_MISMATCH",
-                        "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 1,
-                        "samples": [
-                            {
-                                "recordId": "680986",
-                                "relatedData": {}
-                            }
-                        ]
-                    },
-                    {
                         "issue": "CONTINENT_DERIVED_FROM_COORDINATES",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 12,
+                        "count": 6124,
                         "samples": [
                             {
-                                "recordId": "680864",
+                                "recordId": "1839641",
                                 "relatedData": {}
                             },
                             {
-                                "recordId": "680871",
+                                "recordId": "1839642",
                                 "relatedData": {}
                             },
                             {
-                                "recordId": "680872",
+                                "recordId": "1839643",
                                 "relatedData": {}
                             },
                             {
-                                "recordId": "680874",
+                                "recordId": "1839644",
                                 "relatedData": {}
                             },
                             {
-                                "recordId": "680879",
+                                "recordId": "1839645",
                                 "relatedData": {}
                             }
                         ]
@@ -1291,10 +1275,26 @@
                     {
                         "issue": "CONTINENT_DERIVED_FROM_COUNTRY",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 1,
+                        "count": 277,
                         "samples": [
                             {
-                                "recordId": "681063",
+                                "recordId": "1839775",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "1839989",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "1839996",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "1839997",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "1839998",
                                 "relatedData": {}
                             }
                         ]
@@ -1302,36 +1302,36 @@
                     {
                         "issue": "COORDINATE_INVALID",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 10,
+                        "count": 23,
                         "samples": [
                             {
-                                "recordId": "680913",
+                                "recordId": "1840365",
                                 "relatedData": {
-                                    "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
+                                    "dwc:verbatimCoordinates": "-0.072489 -78,213,042"
                                 }
                             },
                             {
-                                "recordId": "680914",
+                                "recordId": "1840995",
                                 "relatedData": {
-                                    "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
+                                    "dwc:verbatimCoordinates": "01°92´44´´S 77° 32´18´´W"
                                 }
                             },
                             {
-                                "recordId": "680915",
+                                "recordId": "1841013",
                                 "relatedData": {
-                                    "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
+                                    "dwc:verbatimCoordinates": "01°92´44´´S 77°32´18´´W"
                                 }
                             },
                             {
-                                "recordId": "680916",
+                                "recordId": "1841019",
                                 "relatedData": {
-                                    "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
+                                    "dwc:verbatimCoordinates": "01°92´44´´S 77°32´18´´W"
                                 }
                             },
                             {
-                                "recordId": "680917",
+                                "recordId": "1841020",
                                 "relatedData": {
-                                    "dwc:verbatimCoordinates": "78.28°W / 01.27°N / 00.01°S"
+                                    "dwc:verbatimCoordinates": "01°92´44´´S 77°32´18´´W"
                                 }
                             }
                         ]
@@ -1339,7 +1339,7 @@
                     {
                         "issue": "COORDINATE_OUT_OF_RANGE",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 54,
+                        "count": 69,
                         "samples": [
                             {
                                 "recordId": "1839775",
@@ -1376,58 +1376,12 @@
                     {
                         "issue": "COUNTRY_COORDINATE_MISMATCH",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 6,
+                        "count": 1,
                         "samples": [
                             {
-                                "recordId": "1840780",
+                                "recordId": "680873",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-76.777627",
-                                    "dwc:decimalLatitude": "-5.063108",
-                                    "dwc:verbatimCoordinates": "302930/9440090",
-                                    "dwc:geodeticDatum": "WGS84",
-                                    "dwc:countryCode": "EC",
-                                    "dwc:country": "Ecuador"
-                                }
-                            },
-                            {
-                                "recordId": "680691",
-                                "relatedData": {
-                                    "dwc:decimalLongitude": "-76.777627",
-                                    "dwc:decimalLatitude": "-5.063108",
-                                    "dwc:verbatimCoordinates": "302930 / 9440090",
-                                    "dwc:geodeticDatum": "WGS84",
-                                    "dwc:countryCode": "EC",
-                                    "dwc:country": "Ecuador"
-                                }
-                            },
-                            {
-                                "recordId": "680692",
-                                "relatedData": {
-                                    "dwc:decimalLongitude": "-76.777627",
-                                    "dwc:decimalLatitude": "-5.063108",
-                                    "dwc:verbatimCoordinates": "302930 / 9440090",
-                                    "dwc:geodeticDatum": "WGS84",
-                                    "dwc:countryCode": "EC",
-                                    "dwc:country": "Ecuador"
-                                }
-                            },
-                            {
-                                "recordId": "680693",
-                                "relatedData": {
-                                    "dwc:decimalLongitude": "-76.777627",
-                                    "dwc:decimalLatitude": "-5.063108",
-                                    "dwc:verbatimCoordinates": "302930 / 9440090",
-                                    "dwc:geodeticDatum": "WGS84",
-                                    "dwc:countryCode": "EC",
-                                    "dwc:country": "Ecuador"
-                                }
-                            },
-                            {
-                                "recordId": "680694",
-                                "relatedData": {
-                                    "dwc:decimalLongitude": "-76.777627",
-                                    "dwc:decimalLatitude": "-5.063108",
-                                    "dwc:verbatimCoordinates": "302930 / 9440090",
+                                    "dwc:verbatimCoordinates": "01°40'45.55 / 71°54'53''",
                                     "dwc:geodeticDatum": "WGS84",
                                     "dwc:countryCode": "EC",
                                     "dwc:country": "Ecuador"
@@ -1438,10 +1392,14 @@
                     {
                         "issue": "GEODETIC_DATUM_ASSUMED_WGS84",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 1,
+                        "count": 2,
                         "samples": [
                             {
-                                "recordId": "680873",
+                                "recordId": "1840021",
+                                "relatedData": {}
+                            },
+                            {
+                                "recordId": "1840022",
                                 "relatedData": {}
                             }
                         ]
@@ -1489,33 +1447,6 @@
                         ]
                     },
                     {
-                        "issue": "OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT",
-                        "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 6,
-                        "samples": [
-                            {
-                                "recordId": "677607",
-                                "relatedData": {}
-                            },
-                            {
-                                "recordId": "677645",
-                                "relatedData": {}
-                            },
-                            {
-                                "recordId": "677769",
-                                "relatedData": {}
-                            },
-                            {
-                                "recordId": "678101",
-                                "relatedData": {}
-                            },
-                            {
-                                "recordId": "678112",
-                                "relatedData": {}
-                            }
-                        ]
-                    },
-                    {
                         "issue": "RECORDED_DATE_UNLIKELY",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
                         "count": 2,
@@ -1545,7 +1476,7 @@
                     {
                         "issue": "SUSPECTED_NEGATED_LATITUDE",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 6,
+                        "count": 3,
                         "samples": [
                             {
                                 "recordId": "1840167",
@@ -1562,24 +1493,46 @@
                                 }
                             },
                             {
-                                "recordId": "1840744",
+                                "recordId": "680517",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-77.92565",
-                                    "dwc:decimalLatitude": "0.91139"
+                                    "dwc:verbatimCoordinates": "1°35´ / 79°52´"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "issue": "SUSPECTED_NEGATED_LONGITUDE",
+                        "issueCategory": "OCC_INTERPRETATION_BASED",
+                        "count": 13,
+                        "samples": [
+                            {
+                                "recordId": "1840021",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "00.16647/78.87937"
                                 }
                             },
                             {
-                                "recordId": "1840770",
+                                "recordId": "1840022",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-77.92565",
-                                    "dwc:decimalLatitude": "0.91139"
+                                    "dwc:verbatimCoordinates": "00.06992/078.57935"
                                 }
                             },
                             {
-                                "recordId": "1840774",
+                                "recordId": "680517",
                                 "relatedData": {
-                                    "dwc:decimalLongitude": "-75.82578",
-                                    "dwc:decimalLatitude": "0.62119"
+                                    "dwc:verbatimCoordinates": "1°35´ / 79°52´"
+                                }
+                            },
+                            {
+                                "recordId": "680869",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "00°43'40.2'' / 90°39'54.32''"
+                                }
+                            },
+                            {
+                                "recordId": "680875",
+                                "relatedData": {
+                                    "dwc:verbatimCoordinates": "01°49'12.194'' / 91°49'12.149''"
                                 }
                             }
                         ]
@@ -1587,7 +1540,7 @@
                     {
                         "issue": "TAXON_MATCH_FUZZY",
                         "issueCategory": "OCC_INTERPRETATION_BASED",
-                        "count": 40,
+                        "count": 38,
                         "samples": [
                             {
                                 "recordId": "1839796",

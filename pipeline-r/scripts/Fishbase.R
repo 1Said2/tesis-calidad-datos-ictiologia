@@ -7,15 +7,60 @@
 #           gbif_contraste_completo.csv       -> tablero
 #
 # Corrección de errores objetivos (rangos, ortografía, jerarquía).
-# No realiza reclasificaciones taxonómicas de especies.
+# Conserva las reclasificaciones previas como propuestas pendientes del curador.
 # ================================================================
 
 library(readr); library(dplyr); library(rfishbase)
 
-ARCHIVO_ENTRADA <- "datos/02_intermedios/ocurrences_salida_coordenadas.csv"
-ARCHIVO_SALIDA  <- "datos/02_intermedios/ocurrences_salida_taxonomia.csv"
+ARCHIVO_ENTRADA <- Sys.getenv("FISHBASE_ENTRADA", "datos/02_intermedios/ocurrences_salida_coordenadas.csv")
+ARCHIVO_SALIDA <- Sys.getenv("FISHBASE_SALIDA", "datos/02_intermedios/ocurrences_salida_taxonomia.csv")
+DIR_REPORTES <- Sys.getenv("FISHBASE_REPORTES", "reportes_y_revisiones")
+DIR_REFERENCIAS <- Sys.getenv("FISHBASE_SNAPSHOT", "datos/00_referencia/taxonomia")
+ACTUALIZAR_REFERENCIAS <- identical(Sys.getenv("FISHBASE_ACTUALIZAR"), "TRUE")
+archivo_taxa <- file.path(DIR_REFERENCIAS, "fishbase_taxa.rds")
+archivo_gbif <- file.path(DIR_REFERENCIAS, "gbif_respuestas.rds")
+archivo_manifest <- file.path(DIR_REFERENCIAS, "manifest.json")
+nz <- function(x) ifelse(is.na(x), "", x)
+
+# La actualización es explícita, requiere versión concreta y un directorio nuevo.
+if (ACTUALIZAR_REFERENCIAS) {
+  version_fb <- Sys.getenv("FISHBASE_VERSION")
+  if (!nzchar(version_fb) || version_fb == "latest") stop("Indique FISHBASE_VERSION concreta.")
+  if (any(file.exists(c(archivo_taxa, archivo_gbif, archivo_manifest)))) {
+    stop("Use FISHBASE_SNAPSHOT con un directorio nuevo para actualizar referencias.")
+  }
+  taxa_snapshot <- rfishbase::load_taxa(version = version_fb)
+  gbif_snapshot <- NULL
+  manifest <- list(fishbase = list(version = version_fb,
+    rfishbase = as.character(packageVersion("rfishbase")),
+    fecha_consulta = format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z"),
+    parametros = list(server = "fishbase", version = version_fb)))
+} else {
+  if (!all(file.exists(c(archivo_taxa, archivo_gbif, archivo_manifest)))) {
+    stop("Snapshot incompleto. No se consultan referencias nuevas automáticamente.")
+  }
+  manifest <- jsonlite::read_json(archivo_manifest, simplifyVector = TRUE)
+  hashes <- unlist(manifest$archivos_md5, use.names = TRUE)
+  for (f in c(archivo_taxa, archivo_gbif)) {
+    esperado <- hashes[basename(f)]
+    if (length(esperado) != 1L || is.na(esperado) ||
+        unname(tools::md5sum(f)) != esperado) stop(paste("Snapshot alterado:", f))
+  }
+  taxa_snapshot <- readRDS(archivo_taxa)
+  gbif_snapshot <- readRDS(archivo_gbif)
+}
+if (!is.data.frame(taxa_snapshot) || nrow(taxa_snapshot) == 0L ||
+    !all(c("Genus", "Family", "Order", "Class") %in% names(taxa_snapshot))) {
+  stop("FishBase devolvió una referencia vacía o sin los campos necesarios.")
+}
+jerarquias <- taxa_snapshot %>% select(Genus, Family, Order, Class) %>% distinct()
+# Si un género tiene varias jerarquías, ninguna se elige por posición.
+backbone <- jerarquias %>% group_by(Genus) %>% filter(n() == 1L) %>% ungroup()
+generos_ambiguos <- setdiff(jerarquias$Genus, backbone$Genus)
 
 df <- read_csv(ARCHIVO_ENTRADA, col_types = cols(.default = "c"))
+if (anyDuplicated(df$id) || anyNA(df$id) || any(df$id == "")) stop("Identificadores id no únicos o vacíos.")
+entrada_original <- df
 cat("Filas:", nrow(df), "\n")
 
 if (!"metodo_correccion_taxon" %in% names(df)) df$metodo_correccion_taxon <- ""
@@ -24,13 +69,13 @@ anotar <- function(i, txt) {
                                     paste(df$metodo_correccion_taxon[i], txt, sep = "|"))
 }
 # Preservar el valor de origen antes de cualquier modificación.
-for (col in c("kingdom","phylum","class","order","family","scientificName","higherClassification")) {
+for (col in c("kingdom","phylum","class","order","family","scientificName","higherClassification",
+              "genus","specificEpithet","taxonRank")) {
   vb <- paste0(col, "_verbatim")
   if (!vb %in% names(df)) df[[vb]] <- df[[col]]
 }
 
-backbone <- load_taxa() %>% select(Genus, Family, Order, Class) %>%
-  distinct(Genus, .keep_all = TRUE)
+
 
 # Homologación de clases (Teleostei -> Actinopterygii).
 clase_dwc <- function(x) dplyr::case_when(
@@ -64,11 +109,12 @@ for (mal in names(rango_erroneo)) {
   idx <- which(df$family == mal)
   if (!length(idx)) next
   df$family[idx] <- rango_erroneo[[mal]]
-  for (i in idx) anotar(i, "family_rango_incorrecto_corregido")
+  for (i in idx) anotar(i, if (mal == "Clupeiformes")
+    "family_nivel_orden_corregido_por_regla_fija" else "family_rango_incorrecto_corregido")
   cat("  ", mal, "->", rango_erroneo[[mal]], ":", length(idx), "fila(s)\n")
 }
 
-# ---- 3. Grafía incorrecta de familia ----
+# ---- 3. Grafías de familia y cambio de clasificación pendiente ----
 grafia_familia <- c(
   "Archiridae"    = "Achiridae",
   "Scorpanidae"   = "Scorpaenidae",
@@ -81,7 +127,8 @@ for (mal in names(grafia_familia)) {
   idx <- which(df$family == mal)
   if (!length(idx)) next
   df$family[idx] <- grafia_familia[[mal]]
-  for (i in idx) anotar(i, "family_grafia_corregida")
+  for (i in idx) anotar(i, if (mal == "Characidiidae")
+    "family_cambio_clasificacion_Crenuchidae_pendiente_curador" else "family_grafia_corregida")
   cat("  ", mal, "->", grafia_familia[[mal]], ":", length(idx), "fila(s)\n")
 }
 
@@ -155,14 +202,9 @@ for (mal in names(grafia_genero)) {
 }
 cat("grafía de género corregida:", n_gg, "fila(s)\n")
 
-# ---- 4a-bis. Inferencia por mayoría interna (géneros no resueltos en FishBase) ----
+# ---- 4a-bis. Grafía no corroborada: no decidir por mayoría interna ----
 idx <- which(df$genus == "Saxatalia" | grepl("^Saxatalia\\b", df$scientificName))
-if (length(idx)) {
-  df$genus[idx] <- ifelse(df$genus[idx] == "Saxatalia", "Saxatilia", df$genus[idx])
-  df$scientificName[idx] <- sub("^Saxatalia\\b", "Saxatilia", df$scientificName[idx])
-  for (i in idx) anotar(i, "genus_grafia_unificada_por_mayoria_interna")
-  cat("Saxatalia -> Saxatilia (inferencia por mayoria interna):", length(idx), "fila(s)\n")
-}
+for (i in idx) anotar(i, "genero_grafia_pendiente_sin_respaldo_externo")
 
 # ---- 4a-ter. Grafía incorrecta de epíteto específico ----
 grafia_epiteto <- c(
@@ -179,8 +221,8 @@ grafia_epiteto <- c(
   "Loricaria clavipina"         = "Loricaria clavipinna",
   "Paratrygon ajereba"          = "Paratrygon aiereba",
   "Selene orstedii"             = "Selene oerstedii",
-  "Hemigrammus bellotii"        = "Hemigrammus bellottii",
-  "Farlowella oxyrryncha"       = "Farlowella oxyrhyncha"
+  "Hemigrammus bellotii"        = "Hemigrammus bellottii"
+  # Farlowella oxyrryncha se conserva: FishBase y Catalog of Fishes respaldan el original.
 )
 n_ge <- 0
 for (mal in names(grafia_epiteto)) {
@@ -289,20 +331,21 @@ cat("ATENCION - specificEpithet no coincide con el nombre:",
 print(df[df$flag_epiteto_no_coincide_con_nombre,
          c("catalogNumber","scientificName","genus","specificEpithet")], n = 20)
 
-# ---- 4e. Testigos independientes contra el scientificName ----
-# NO corrige: cuenta testigos (genus+epíteto, taxonID, autoría) y los escribe.
+# ---- 4e. Indicios de inconsistencia interna ----
+# Estos indicios proceden de la misma colección, no de autoridades independientes.
+# Se conserva testigos_contra_scientificName por compatibilidad; no autoriza correcciones.
 df$nombre_reconstruido_de_atomicos <- ifelse(
   df$genus != "" & df$specificEpithet != "",
   paste(df$genus, df$specificEpithet), NA_character_)
 
 tid_nombre <- df %>% filter(taxonID != "", scientificName != "") %>%
   count(taxonID, scientificName, name = "n") %>%
-  group_by(taxonID) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
+  group_by(taxonID) %>% filter(n == max(n)) %>% filter(n() == 1L) %>%
   ungroup() %>% select(taxonID, nombre_mayoritario_del_taxonID = scientificName)
 
 aut_ref <- df %>% filter(scientificName != "", scientificNameAuthorship != "") %>%
   count(scientificName, scientificNameAuthorship, name = "n") %>%
-  group_by(scientificName) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
+  group_by(scientificName) %>% filter(n == max(n)) %>% filter(n() == 1L) %>%
   ungroup() %>% select(scientificName, autoria_ref = scientificNameAuthorship)
 
 df <- df %>% left_join(tid_nombre, by = "taxonID") %>%
@@ -325,9 +368,9 @@ df$testigos_contra_scientificName <-
 
 cat("scientificName contradicho por los campos atomizados:",
     sum(df$flag_nombre_contradice_atomicos), "fila(s)\n")
-cat("  con 3 testigos (atomicos + taxonID + autoria):",
+cat("  con 3 indicios internos (atomicos + taxonID + autoria):",
     sum(df$testigos_contra_scientificName == 3), "\n")
-cat("  con 2 testigos:", sum(df$testigos_contra_scientificName == 2), "\n")
+cat("  con 2 indicios internos:", sum(df$testigos_contra_scientificName == 2), "\n")
 print(df %>% filter(flag_nombre_contradice_atomicos) %>%
         select(catalogNumber, scientificName, nombre_reconstruido_de_atomicos,
                taxonID, nombre_mayoritario_del_taxonID,
@@ -370,7 +413,7 @@ fam_en_archivo <- df %>%
   filter(genus != "", family != "") %>%
   count(genus, family, name = "n") %>%
   arrange(genus, desc(n), family) %>%
-  group_by(genus) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
+  group_by(genus) %>% filter(n == max(n)) %>% filter(n() == 1L) %>%
   ungroup() %>% select(genus, family_en_archivo = family)
 
 idx <- which((is.na(df$family) | df$family == "") & !is.na(df$genus) & df$genus != "")
@@ -379,7 +422,7 @@ for (i in idx) {
   fa <- fam_en_archivo$family_en_archivo[fam_en_archivo$genus == df$genus[i]]
   if (length(fa) == 1) {
     df$family[i] <- fa; n_f <- n_f + 1
-    anotar(i, "family_derivada_de_genus_en_archivo")
+    anotar(i, "family_inferida_mayoria_interna_no_verificada")
   } else {
     fb <- backbone %>% filter(Genus == df$genus[i]); if (nrow(fb) != 1) next
     df$family[i] <- fb$Family[1]; n_fb <- n_fb + 1
@@ -418,14 +461,14 @@ for (g in gen_multi) {
   for (i in idx) anotar(i, "order_unificado_por_genero_desde_backbone")
 }
 
-# ---- 5c-bis. Autoridad única para order (FishBase) ----
+# ---- 5c-bis. Orden propuesto por el snapshot FishBase (provisional) ----
 idx <- which(df$genus != "")
 n_ord <- 0
 for (i in idx) {
   fb <- backbone %>% filter(Genus == df$genus[i]); if (nrow(fb) != 1) next
   if (!is.na(df$order[i]) && df$order[i] == fb$Order[1]) next
   df$order[i] <- fb$Order[1]; n_ord <- n_ord + 1
-  anotar(i, "order_desde_backbone_autoridad_unica")
+  anotar(i, "order_desde_snapshot_FishBase_provisional")
 }
 cat("order alineado al backbone (provisional, antes de revertir clados):",
     n_ord, "fila(s)\n")
@@ -447,10 +490,10 @@ if (length(idx)) {
 }
 
 # ---- 5c-quinquies. Retirar anotación de autoridad única si la celda quedó igual al verbatim ----
-idx_rev <- which(grepl("order_desde_backbone_autoridad_unica", df$metodo_correccion_taxon,
+idx_rev <- which(grepl("order_desde_snapshot_FishBase_provisional", df$metodo_correccion_taxon,
                    fixed = TRUE) & df$order == df$order_verbatim)
 df$metodo_correccion_taxon[idx_rev] <- gsub(
-  "\\|?order_desde_backbone_autoridad_unica", "", df$metodo_correccion_taxon[idx_rev])
+  "\\|?order_desde_snapshot_FishBase_provisional", "", df$metodo_correccion_taxon[idx_rev])
 df$metodo_correccion_taxon[idx_rev] <- sub("^\\|", "", df$metodo_correccion_taxon[idx_rev])
 cat("  anotaciones de autoridad unica retiradas por reversion:", length(idx_rev), "\n")
 
@@ -458,11 +501,12 @@ df$metodo_correccion_taxon <- vapply(strsplit(df$metodo_correccion_taxon, "|", f
   function(v) paste(unique(v), collapse = "|"), character(1))
 
 cat("  order alineado al backbone (NETO tras reversiones):",
-    sum(grepl("order_desde_backbone_autoridad_unica",
+    sum(grepl("order_desde_snapshot_FishBase_provisional",
               df$metodo_correccion_taxon, fixed = TRUE)), "fila(s)\n")
 
 # ---- 5c-ter. Respaldo familia -> orden para géneros sin backbone ----
-fam_ord <- load_taxa() %>% select(Family, Order) %>% distinct(Family, .keep_all = TRUE)
+fam_ord <- taxa_snapshot %>% select(Family, Order) %>% distinct() %>%
+  group_by(Family) %>% filter(n() == 1L) %>% ungroup()
 gen_fam_unico <- df %>% filter(genus != "", family != "") %>%
   distinct(genus, family) %>% count(genus) %>% filter(n == 1) %>% pull(genus)
 
@@ -499,19 +543,32 @@ for (i in idx) {
 }
 cat("order derivado para determinaciones a nivel de familia:", n_q, "fila(s)\n")
 
+# El orden previo siempre permanece en order_verbatim; no equivale a aprobación curatorial.
+df$order_fishbase <- backbone$Order[match(df$genus, backbone$Genus)]
+for (i in which(!is.na(df$order_verbatim) & df$order_verbatim != "" &
+                  !is.na(df$order) & df$order != df$order_verbatim)) {
+  anotar(i, "order_reclasificacion_provisional_requiere_aprobacion")
+}
+for (i in which((is.na(df$order_verbatim) | df$order_verbatim == "") &
+                  !is.na(df$order) & df$order != "")) {
+  anotar(i, "order_completado_desde_referencia_no_verificado")
+}
+
 # ---- 5d. taxonRank derivado de la forma del nombre ----
 vacio <- is.na(df$taxonRank) | df$taxonRank == ""
 sn <- trimws(df$scientificName)
-es_familia <- grepl("^[A-Z][a-z]+(idae|inae)$", sn)
+es_familia <- grepl("^[A-Z][a-z]+idae$", sn)
+es_subfamilia <- grepl("^[A-Z][a-z]+inae$", sn)
 es_binomio <- grepl("^[A-Z][a-z]+ [a-z][a-z-]+$", sn)
-es_genero  <- grepl("^[A-Z][a-z]+( sp\\.?[0-9]*)?$", sn) & !es_familia
+es_genero  <- grepl("^[A-Z][a-z]+( sp\\.?[0-9]*)?$", sn) & !es_familia & !es_subfamilia
 
 df$taxonRank[vacio & es_binomio] <- "species"
 df$taxonRank[vacio & es_genero]  <- "genus"
 df$taxonRank[vacio & es_familia] <- "family"
-for (i in which(vacio & (es_binomio | es_familia | es_genero)))
+df$taxonRank[vacio & es_subfamilia] <- "subfamily"
+for (i in which(vacio & (es_binomio | es_familia | es_subfamilia | es_genero)))
   anotar(i, "taxonRank_derivado_de_scientificName")
-cat("taxonRank derivado:", sum(vacio & (es_binomio | es_familia | es_genero)),
+cat("taxonRank derivado:", sum(vacio & (es_binomio | es_familia | es_subfamilia | es_genero)),
     "| sin resolver:", sum(is.na(df$taxonRank) | df$taxonRank == ""), "\n")
 
 # ---- 5d-bis. Corregir taxonRank erróneo preexistente ----
@@ -592,7 +649,7 @@ if (length(n_emp))
   cat("géneros con empate en la familia mayoritaria (desempatados por backbone):",
       paste(n_emp, collapse = ", "), "\n")
 ord_fam <- sub %>% filter(order != "") %>% count(family, order) %>%
-  group_by(family) %>% slice_max(n, n = 1, with_ties = FALSE) %>% ungroup() %>%
+  group_by(family) %>% filter(n == max(n)) %>% filter(n() == 1L) %>% ungroup() %>%
   select(family, orden_de_la_familia = order)
 
 df <- df %>%
@@ -644,7 +701,7 @@ cat("nombres cientificos con mas de una familia:", n_nom,
 ord_may_fam <- df %>% filter(family != "", order != "") %>%
   count(family, order, name = "n") %>%
   arrange(family, desc(n), order) %>%
-  group_by(family) %>% slice_max(n, n = 1, with_ties = FALSE) %>%
+  group_by(family) %>% filter(n == max(n)) %>% filter(n() == 1L) %>%
   ungroup() %>% select(family, orden_mayoritario_familia = order)
 
 df <- df %>% left_join(ord_may_fam, by = "family")
@@ -674,128 +731,148 @@ cat("family distinta a la del backbone para el mismo genero:",
 print(df %>% filter(flag_family_discrepa_backbone & !flag_family_minoritaria) %>%
         count(genus, family, family_backbone, name = "filas") %>% arrange(desc(filas)),
       n = 50)
-df <- df %>% select(-family_backbone)
 
-# ---- 8e. Cierre Darwin Core: continent y occurrenceStatus ----
-tiene_anclaje <- (df$country != "" & !is.na(df$country)) |
-                 (df$decimalLatitude != "" & !is.na(df$decimalLatitude))
-# Omitir continent en registros insulares (Galápagos) para evitar CONTINENT_COORDINATE_MISMATCH.
-la_ <- suppressWarnings(as.numeric(df$decimalLatitude))
-lo_ <- suppressWarnings(as.numeric(df$decimalLongitude))
-insular <- df$stateProvince %in% "Galápagos" |
-           (!is.na(la_) & !is.na(lo_) &
-            la_ >= -1.5 & la_ <= 1.9 & lo_ >= -92.5 & lo_ <= -89)
-df$continent <- ifelse(tiene_anclaje & !insular, "South America", "")
-cat("continent escrito:", sum(tiene_anclaje & !insular),
-    "| omitido por falta de anclaje:", sum(!tiene_anclaje),
-    "| omitido por insularidad:", sum(insular), "\n")
+# ---- 8e. occurrenceStatus: evidencia biológica, separada de la calidad ----
+# Los campos geográficos, incluido continent, pertenecen a la Fase 2 y se preservan.
 
-df$occurrenceStatus <- ifelse(df$registro_incompleto | df$flag_sin_taxonomia,
-                              "", "present")
-cat("occurrenceStatus escrito:", sum(df$occurrenceStatus != ""),
-    "| omitido por registro incompleto o falta de taxonomia:", sum(df$occurrenceStatus == ""), "\n")
+# Presencia se deriva de la evidencia del espécimen, no de la completitud taxonómica.
+if (!"occurrenceStatus" %in% names(df)) df$occurrenceStatus <- NA_character_
+sin_estado <- is.na(df$occurrenceStatus) | trimws(df$occurrenceStatus) == ""
+evidencia_especimen <- df$basisOfRecord %in% c("PreservedSpecimen", "FossilSpecimen", "LivingSpecimen") &
+  nz(df$catalogNumber) != "" & nz(df$id) != ""
+derivar_presencia <- sin_estado & evidencia_especimen
+df$occurrenceStatus[derivar_presencia] <- "present"
+cat("occurrenceStatus derivado de evidencia de especimen:", sum(derivar_presencia), "\n")
 
-# Anotar cierre Darwin Core.
-for (i in which(df$continent != ""))         anotar(i, "continent_derivado_de_pais_o_coordenada")
-for (i in which(df$occurrenceStatus != ""))  anotar(i, "occurrenceStatus_derivado_present")
-cat("  anotaciones del cierre Darwin Core:",
-    sum(grepl("continent_derivado|occurrenceStatus_derivado",
+# Anotar únicamente la presencia derivada en esta fase.
+for (i in which(derivar_presencia)) anotar(i, "occurrenceStatus_derivado_de_especimen")
+cat("  anotaciones de presencia derivada:",
+    sum(grepl("occurrenceStatus_derivado",
               df$metodo_correccion_taxon)), "\n")
 
-# ---- Contraste contra el backbone de GBIF ----
-USAR_API_GBIF <- TRUE
-if (USAR_API_GBIF) {
-  library(rgbif); library(dplyr); library(readr)
-
-  nombres <- df %>% filter(scientificName != "") %>%
-    distinct(scientificName, .keep_all = TRUE) %>%
-    select(name = scientificName, scientificNameAuthorship,
-           kingdom, phylum, class, order, family, genus)
-  stopifnot(!any(duplicated(nombres$name)))
-
-  # Enviar en bloques más pequeños (50) y mayor pausa para evitar timeout de la API.
-  mb_list <- list()
-  for (i in seq(1, nrow(nombres), by = 50)) {
-    cat(sprintf("  GBIF: procesando %d a %d de %d...\n", i, min(i+49, nrow(nombres)), nrow(nombres)))
-    mb_list[[length(mb_list) + 1]] <- name_backbone_checklist(nombres[i:min(i+49, nrow(nombres)), ])
-    Sys.sleep(3)
+# ---- Contraste contra GBIF: snapshot por defecto; actualización sólo explícita ----
+nombres <- df %>% filter(!is.na(scientificName), scientificName != "") %>%
+  select(name = scientificName, scientificNameAuthorship, kingdom, phylum, class, order, family, genus) %>%
+  distinct()
+# No seleccionar silenciosamente una jerarquía de consulta entre registros contradictorios.
+# El snapshot normalizado se enlaza por nombre; las contradicciones permanecen en el core.
+nombres_consulta <- nombres %>% select(name) %>% distinct()
+if (ACTUALIZAR_REFERENCIAS) {
+  respuesta_gbif <- rgbif::name_backbone_checklist(nombres_consulta, kingdom = "Animalia",
+                                                 strict = TRUE, verbose = FALSE)
+  requeridos <- c("verbatim_name", "matchType")
+  if (!all(requeridos %in% names(respuesta_gbif))) stop("Respuesta GBIF incompleta.")
+  if ("processingFlags" %in% names(respuesta_gbif) &&
+      grepl("ERROR|TIMEOUT", jsonlite::toJSON(respuesta_gbif$processingFlags), ignore.case = TRUE)) {
+    stop("GBIF comunicó errores de procesamiento; no se publica una salida parcial.")
   }
-  
-  nz <- function(x) ifelse(is.na(x), "", x)
-  mb <- bind_rows(mb_list) %>%
-    select(verbatim_name, matchType, confidence, rank, status,
-           canonicalName,
-           accepted_gbif = any_of(c("accepted", "acceptedScientificName",
-                                    "acceptedCanonicalName")),
-           family_gbif = family, genus_gbif = genus)
-  stopifnot("accepted_gbif" %in% names(mb))
-
-  cat("\n=== CONTRASTE CON EL BACKBONE DE GBIF ===\n")
-  print(table(mb$matchType))
-
-  # Clasificar variantes y fuzzy matches.
-  erratas <- mb %>% filter(matchType %in% c("FUZZY", "VARIANT")) %>%
-    transmute(nombre_archivo = verbatim_name, nombre_gbif = canonicalName,
-              nombre_aceptado_gbif = accepted_gbif,
-              tipo = matchType, confianza = confidence, estado_gbif = status,
-              revisar = dplyr::case_when(
-                status != "ACCEPTED"
-                  ~ "GBIF emparejo con un sinonimo; falta confirmar el nombre aceptado",
-                grepl("inae$", verbatim_name)
-                  ~ "nombre de rango subfamiliar: GBIF lo resuelve a la familia",
-                canonicalName %in% names(grafia_epiteto) |
-                sub("^([A-Z][a-z]+ [a-z-]+).*$", "\\1", nz(accepted_gbif)) %in% names(grafia_epiteto)
-                  ~ "GBIF propone la grafia que el bloque 4a-ter ya corrigio",
-                TRUE ~ "")) %>%
-    left_join(df %>% count(scientificName, name = "filas"),
-              by = c("nombre_archivo" = "scientificName")) %>%
-    arrange(desc(filas))
-    
-  if (!dir.exists("reportes_y_revisiones")) dir.create("reportes_y_revisiones")
-  write_csv(erratas, "reportes_y_revisiones/gbif_nombres_difusos.csv", na = "")
-
-  altos <- mb %>% filter(matchType == "HIGHERRANK") %>%
-    transmute(nombre_archivo = verbatim_name, resuelve_a = canonicalName, rango = rank)
-  
-  cat("nombres con grafia variante:", nrow(erratas),
-      "| nombres que solo resuelven al rango superior:", nrow(altos), "\n")
-
-  # Incorporar contraste al archivo de salida.
-  df <- df %>%
-    left_join(erratas %>%
-                select(scientificName = nombre_archivo,
-                       grafia_sugerida_gbif = nombre_gbif,
-                       revisar_gbif = revisar),
-              by = "scientificName")
-  df$flag_grafia_variante_gbif <- !is.na(df$grafia_sugerida_gbif) &
-                                  nz(df$revisar_gbif) == ""
-  df$grafia_sugerida_gbif <- nz(df$grafia_sugerida_gbif)
-  
-  cat("  filas marcadas con grafia variante segun GBIF:",
-      sum(df$flag_grafia_variante_gbif), "\n")
-
-  df <- df %>%
-    left_join(mb %>% transmute(scientificName = verbatim_name,
-                               gbif_matchtype      = matchType,
-                               gbif_estado         = status,
-                               gbif_nombre_aceptado = accepted_gbif),
-              by = "scientificName")
-  df$gbif_matchtype[is.na(df$gbif_matchtype)]           <- ""
-  df$gbif_estado[is.na(df$gbif_estado)]                 <- ""
-  df$gbif_nombre_aceptado[is.na(df$gbif_nombre_aceptado)] <- ""
-  df$genero_fuera_de_backbone_fishbase <-
-    !is.na(df$genus) & df$genus != "" & !(df$genus %in% backbone$Genus)
-
-  cat("  contraste GBIF incorporado al archivo:",
-      sum(df$gbif_matchtype != ""), "filas |",
-      "generos fuera del backbone de FishBase:",
-      sum(df$genero_fuera_de_backbone_fishbase), "filas\n")
-
-  write_csv(mb, "reportes_y_revisiones/gbif_contraste_completo.csv", na = "")
-  cat("contraste completo exportado:", nrow(mb), "nombres |",
-      paste(names(table(mb$matchType)), table(mb$matchType), sep = ": ",
-            collapse = " | "), "\n")
+  campo <- function(nombre) if (nombre %in% names(respuesta_gbif)) as.character(respuesta_gbif[[nombre]]) else rep(NA_character_, nrow(respuesta_gbif))
+  campo_aceptado <- intersect(c("accepted", "acceptedScientificName", "acceptedCanonicalName"),
+                             names(respuesta_gbif))
+  aceptado <- if (length(campo_aceptado)) campo(campo_aceptado[1]) else rep(NA_character_, nrow(respuesta_gbif))
+  mb <- tibble(verbatim_name = campo("verbatim_name"), matchType = campo("matchType"),
+    confidence = campo("confidence"), rank = campo("rank"), status = campo("status"),
+    canonicalName = campo("canonicalName"), accepted_gbif = aceptado,
+    family_gbif = campo("family"), genus_gbif = campo("genus"))
+} else {
+  mb <- gbif_snapshot
 }
+columnas_gbif <- c("verbatim_name", "matchType", "confidence", "rank", "status",
+                  "canonicalName", "accepted_gbif", "family_gbif", "genus_gbif")
+if (!all(columnas_gbif %in% names(mb)) || anyDuplicated(mb$verbatim_name)) {
+  stop("Snapshot GBIF sin estructura o identidad de nombres válidas.")
+}
+faltantes <- setdiff(nombres_consulta$name, mb$verbatim_name)
+if (length(faltantes)) stop(paste("Faltan respuestas GBIF; no se publica una salida parcial:", paste(faltantes, collapse = ", ")))
+mb <- mb[match(nombres_consulta$name, mb$verbatim_name), ]
+if (anyNA(mb$matchType) || any(mb$matchType == "")) stop("GBIF devolvió respuestas incompletas.")
+con_match <- mb$matchType != "NONE"
+if (any(con_match & (nz(mb$canonicalName) == "" | nz(mb$rank) == "" | nz(mb$status) == ""))) {
+  stop("GBIF informó una correspondencia sin los campos taxonómicos necesarios.")
+}
+# Un taxón aceptado no necesita puntero a otro: su canónico es el aceptado.
+aceptado_sin_puntero <- mb$status %in% "ACCEPTED" & nz(mb$accepted_gbif) == ""
+mb$accepted_gbif[aceptado_sin_puntero] <- mb$canonicalName[aceptado_sin_puntero]
+if (any(mb$status %in% "SYNONYM" & nz(mb$accepted_gbif) == "")) {
+  stop("GBIF informó sinónimos sin nombre aceptado; respuesta incompleta.")
+}
+erratas <- mb %>% filter(matchType %in% c("FUZZY", "VARIANT")) %>%
+  transmute(nombre_archivo = verbatim_name, nombre_gbif = canonicalName,
+    nombre_aceptado_gbif = accepted_gbif, tipo = matchType, confianza = confidence,
+    estado_gbif = status, revisar = case_when(
+      status %in% "SYNONYM" ~ "sinonimo; confirmar combinacion aceptada con el curador",
+      rank %in% c("FAMILY", "SUBFAMILY") | grepl("inae$", verbatim_name) ~
+        "variante_nomenclatural_o_rango; no concluir errata",
+      status %in% "ACCEPTED" & rank %in% c("SPECIES", "GENUS") ~
+        "posible_errata_ortografica; sugerencia no aplicada",
+      TRUE ~ "no_concluyente; revisar correspondencia")) %>%
+  left_join(df %>% count(scientificName, name = "filas"),
+            by = c("nombre_archivo" = "scientificName")) %>% arrange(desc(filas))
+df <- df %>% left_join(erratas %>% select(scientificName = nombre_archivo,
+  grafia_sugerida_gbif = nombre_gbif, revisar_gbif = revisar), by = "scientificName") %>%
+  left_join(mb %>% transmute(scientificName = verbatim_name, gbif_matchtype = matchType,
+    gbif_estado = status, gbif_nombre_aceptado = accepted_gbif), by = "scientificName")
+df$flag_grafia_variante_gbif <- df$gbif_matchtype %in% c("FUZZY", "VARIANT")
+for (col in c("grafia_sugerida_gbif", "revisar_gbif", "gbif_matchtype", "gbif_estado", "gbif_nombre_aceptado")) {
+  df[[col]] <- nz(df[[col]])
+}
+df$genero_fuera_de_backbone_fishbase <- nz(df$genus) != "" & !(df$genus %in% backbone$Genus)
+
+# flag_family_discrepa_backbone sólo compara con FishBase; no declara un error.
+familia_gbif <- mb$family_gbif[match(df$scientificName, mb$verbatim_name)]
+tipo_gbif <- mb$matchType[match(df$scientificName, mb$verbatim_name)]
+concluyente <- tipo_gbif %in% c("EXACT", "FUZZY", "VARIANT") & nz(familia_gbif) != ""
+fb_discrepa <- df$flag_family_discrepa_backbone %in% TRUE
+gbif_respalda <- concluyente & nz(familia_gbif) == nz(df$family)
+ambas_discrepan <- fb_discrepa & concluyente & !gbif_respalda
+fuentes_contradicen <- concluyente & nz(df$family_backbone) != "" &
+  nz(familia_gbif) != nz(df$family_backbone)
+df$clasificacion_discrepancia_family <- case_when(
+  fb_discrepa & gbif_respalda ~ "familia_registro_respaldada_por_GBIF",
+  ambas_discrepan ~ "familia_discrepante_ambas_referencias",
+  !concluyente | nz(df$family_backbone) == "" | nz(df$family) == "" ~ "sin_correspondencia_concluyente",
+  gbif_respalda ~ "familia_concordante",
+  TRUE ~ "familia_registro_respaldada_por_FishBase")
+df$clasificacion_discrepancia_family[fuentes_contradicen] <- paste0(
+  df$clasificacion_discrepancia_family[fuentes_contradicen], ";fuentes_externas_contradictorias")
+historica <- fb_discrepa & gbif_respalda
+df$clasificacion_discrepancia_family[historica] <- paste0(
+  df$clasificacion_discrepancia_family[historica], ";evaluar_clasificacion_historica")
+for (i in which(df$catalogNumber %in% c("209", "1591", "3069"))) {
+  anotar(i, "Farlowella_grafia_original_respaldada_FishBase_Catalogo_GBIF")
+}
+for (i in which(df$genus %in% generos_ambiguos)) anotar(i, "genero_con_jerarquias_externas_ambiguas")
+
+if (ACTUALIZAR_REFERENCIAS) {
+  dir.create(DIR_REFERENCIAS, recursive = TRUE, showWarnings = FALSE)
+  saveRDS(taxa_snapshot, archivo_taxa)
+  saveRDS(mb, archivo_gbif)
+  saveRDS(list(parametros = list(kingdom = "Animalia", strict = TRUE, verbose = FALSE),
+               nombres = nombres_consulta, respuesta = respuesta_gbif),
+          file.path(DIR_REFERENCIAS, "gbif_respuesta_completa.rds"))
+  manifest$gbif <- list(version_backbone = NA_character_,
+    fecha_consulta = format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z"),
+    parametros = list(kingdom = "Animalia", strict = TRUE, verbose = FALSE),
+    advertencia_version = "La respuesta no identifica una version del backbone; se fija por snapshot y hash.")
+  manifest$archivos_md5 <- as.list(setNames(unname(tools::md5sum(c(archivo_taxa, archivo_gbif))),
+                                           basename(c(archivo_taxa, archivo_gbif))))
+  jsonlite::write_json(manifest, archivo_manifest, auto_unbox = TRUE, pretty = TRUE, na = "null")
+}
+# Metadatos de ejecución fuera del core: no repetir versiones en miles de filas.
+dir.create(DIR_REPORTES, recursive = TRUE, showWarnings = FALSE)
+manifest$ejecucion <- list(fecha = format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z"),
+  entrada = ARCHIVO_ENTRADA, entrada_md5 = unname(tools::md5sum(ARCHIVO_ENTRADA)),
+  snapshot = DIR_REFERENCIAS, Fishbase_R_md5 = unname(tools::md5sum("scripts/Fishbase.R")),
+  rfishbase = as.character(packageVersion("rfishbase")), rgbif = as.character(packageVersion("rgbif")))
+stopifnot(nrow(df) == nrow(entrada_original), identical(df$id, entrada_original$id), !anyDuplicated(df$id))
+write_csv(erratas, file.path(DIR_REPORTES, "gbif_nombres_difusos.csv"), na = "")
+write_csv(mb, file.path(DIR_REPORTES, "gbif_contraste_completo.csv"), na = "")
+# jsonlite convierte NULL/listas vacías en {}; NA conserva el desconocido como null.
+for (campo in c("version_backbone", "fecha_consulta")) {
+  if (length(manifest$gbif[[campo]]) == 0L) manifest$gbif[[campo]] <- NA_character_
+}
+jsonlite::write_json(manifest, file.path(DIR_REPORTES, "referencias_taxonomicas.json"),
+                     auto_unbox = TRUE, pretty = TRUE, na = "null")
 
 write_csv(df, ARCHIVO_SALIDA, na = "")
 cat("\nGuardado en", ARCHIVO_SALIDA, "— el archivo de entrada no se modificó.\n")
